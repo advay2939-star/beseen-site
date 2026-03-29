@@ -921,8 +921,9 @@ const supabaseClient = window.supabase.createClient(
   "https://rkhlfmfubwszgslxiloh.supabase.co",
   "sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f"
 );
+
 async function addToWaitlist(name, email, phone) {
-  console.log("HELLO TEST"); // 👈 ADD THIS LINE RIGHT HERE
+  console.log("HELLO TEST");
 
   const { data, error } = await supabaseClient
     .from('waitlist')
@@ -939,10 +940,8 @@ async function addToWaitlist(name, email, phone) {
     alert('Something went wrong');
   } else {
     console.log('Success:', data);
-    goToSuccessPage();
-  }
-}
-    // 🔥 EMAIL CALL
+
+    // 🔥 EMAIL CALL (NOW INSIDE FUNCTION)
     try {
       const res = await fetch('/api/send-email', {
         method: 'POST',
@@ -963,6 +962,7 @@ async function addToWaitlist(name, email, phone) {
     goToSuccessPage();
   }
 }
+
 function joinWaitlist() {
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
@@ -975,11 +975,12 @@ function joinWaitlist() {
 
   addToWaitlist(name, email, phone);
 }
+
 function goToSuccessPage() {
   showPage("page-success");
 }
 </script>
-<script>
+<script> 
 /* ═══════════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════════ */
