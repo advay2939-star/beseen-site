@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeSeen. — Personalised Skincare From Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#0a0a0a;--white:#fafafa;--g50:#f8f8f6;--g100:#f2f2f0;
+  --g200:#e4e4e0;--g300:#c8c8c4;--g500:#8a8a85;--g700:#3a3a38;
+  --accent:#3d6b5e;--accent-l:#e6efec;
+  --shadow-s:0 1px 4px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-c:0 4px 20px rgba(0,0,0,.07);
+  --shadow-l:0 12px 48px rgba(0,0,0,.10);
+  --r:10px;--rl:16px;--pill:100px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;font-size:15px;line-height:1.6}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+#page-waitlist{display:none;align-items:center;justify-content:center}
+#page-waitlist.active{display:flex}
+#page-success{display:none;align-items:center;justify-content:center}
+#page-success.active{display:flex}
+
+/* ── PAGE FADE TRANSITION ── */
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.page-fade{animation:pageFadeIn .45s cubic-bezier(.25,.1,.25,1) both}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;background:rgba(250,250,250,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);animation:navIn .4s ease both}
+@keyframes navIn{from{transform:translateY(-60px);opacity:0}to{transform:none;opacity:1}}
+.nav-inner{display:flex;align-items:center;width:100%;max-width:1200px;margin:0 auto;padding:0 32px;position:relative}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:-.03em;color:var(--black);text-decoration:none;cursor:pointer}
+.logo span{color:var(--accent)}
+.nav-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:32px;list-style:none}
+.nav-center a{font-size:13px;font-weight:400;color:var(--g700);text-decoration:none;transition:color .2s}
+.nav-center a:hover{color:var(--black)}
+.nav-right{margin-left:auto}
+.btn-google{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:500;color:var(--black);cursor:pointer;transition:box-shadow .2s,border-color .2s;text-decoration:none;font-family:'DM Sans',sans-serif}
+.btn-google:hover{box-shadow:var(--shadow-c);border-color:var(--g300)}
+.btn-google svg{width:16px;height:16px;flex-shrink:0}
+
+/* ── LAYOUT ── */
+.container{max-width:1120px;margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:9px;padding:13px 26px;cursor:pointer;transition:all .2s;text-decoration:none;border:none}
+.btn-primary{background:var(--black);color:var(--white)}
+.btn-primary:hover{opacity:.85;transform:translateY(-2px);box-shadow:var(--shadow-l)}
+.btn-secondary{background:transparent;border:1px solid var(--g200);color:var(--black)}
+.btn-secondary:hover{background:var(--g100);border-color:var(--g300)}
+.btn-accent{background:var(--accent);color:var(--white)}
+.btn-accent:hover{opacity:.88;transform:translateY(-1px)}
+.section-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;letter-spacing:-.04em;line-height:1.08}
+.section-title em{font-style:italic;color:var(--accent)}
+
+/* ── FADE UP ── */
+.fu{opacity:0;transform:translateY(32px);transition:opacity .65s cubic-bezier(.25,.1,.25,1),transform .65s cubic-bezier(.25,.1,.25,1)}
+.fu.vis{opacity:1;transform:none}
+.fu.d1{transition-delay:.08s}.fu.d2{transition-delay:.16s}.fu.d3{transition-delay:.24s}.fu.d4{transition-delay:.32s}
+
+/* ── HERO ── */
+#page-home{padding-top:60px}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 32px 60px;position:relative;overflow:hidden;background:radial-gradient(ellipse 75% 55% at 50% 25%,#dceae5 0%,var(--white) 70%)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:blobDrift 14s ease-in-out infinite alternate}
+.blob-a{width:500px;height:400px;top:-100px;left:-80px;background:#c4d9d2;opacity:.22}
+.blob-b{width:360px;height:360px;bottom:-80px;right:-60px;background:#c4d9d2;opacity:.18;animation-delay:-7s}
+@keyframes blobDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.05)}}
+.hero-content{position:relative;z-index:1;max-width:720px;width:100%}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 8px;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:36px;box-shadow:var(--shadow-s)}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,76px);font-weight:600;letter-spacing:-.045em;line-height:1.06;color:var(--black);margin-bottom:22px}
+.hero-h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:16px;font-weight:300;color:var(--g700);max-width:520px;margin:0 auto 40px;line-height:1.75}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:52px}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g500)}
+.trust-item svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
+
+/* ── TICKER ── */
+.ticker{height:50px;background:var(--g50);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);overflow:hidden;display:flex;align-items:center}
+.ticker-track{display:flex;white-space:nowrap;animation:tickerScroll 30s linear infinite}
+.ticker-item{font-size:13px;font-weight:300;color:var(--g700);padding:0 48px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── HOW IT WORKS ── */
+.how{padding:96px 0}
+.how-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.steps{display:flex;flex-direction:column;gap:32px}
+.step{display:flex;gap:20px;align-items:flex-start}
+.step-num{width:36px;height:36px;border-radius:50%;border:1px solid var(--g200);background:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--g700);flex-shrink:0;box-shadow:var(--shadow-s)}
+.step-body h4{font-size:15px;font-weight:500;margin-bottom:5px;color:var(--black)}
+.step-body p{font-size:13px;color:var(--g500);line-height:1.65;font-weight:300}
+.float-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);box-shadow:var(--shadow-l);padding:28px;animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:4px}
+.float-card-sub{font-size:10.5px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--g500);margin-bottom:20px}
+.routine-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--g100)}
+.routine-row:last-child{border:none}
+.r-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.r-name{font-size:13.5px;font-weight:500;color:var(--black)}
+.r-usage{font-size:11.5px;color:var(--g500)}
+
+/* ── DEMO WINDOW ── */
+.demo-section{padding:80px 0;background:var(--g100);border-top:1px solid var(--g200)}
+.demo-header{text-align:center;margin-bottom:52px}
+.mac-window{max-width:880px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.14),0 0 0 1px var(--g200)}
+.mac-bar{background:#e0e0dc;padding:0 16px;height:44px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #c8c8c4}
+.mac-dots{display:flex;gap:6px}
+.mac-dot{width:12px;height:12px;border-radius:50%}
+.mac-url{flex:1;background:var(--white);border:1px solid var(--g300);border-radius:6px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--g500)}
+.mac-body{height:500px;overflow-y:scroll;background:var(--white);position:relative}
+.mac-body::-webkit-scrollbar{width:4px}
+.mac-body::-webkit-scrollbar-thumb{background:var(--g200);border-radius:4px}
+.mac-progress-bar{position:sticky;top:0;height:3px;background:var(--g200);z-index:10}
+.mac-progress-fill{height:3px;background:var(--accent);width:0%;transition:width .1s}
+.mac-content{padding:44px 52px}
+.mac-content h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:6px}
+.mac-sub{font-size:13px;color:var(--g500);margin-bottom:28px}
+.q-block{margin-bottom:24px}
+.q-label{font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 14px;border:1px solid var(--g200);border-radius:8px;font-size:12.5px;color:var(--g700);background:var(--white);cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif}
+.chip:hover,.chip.on{border-color:var(--accent);background:var(--accent-l);color:var(--accent)}
+.mac-divider{border:none;border-top:1px solid var(--g200);margin:32px 0}
+.upload-zone-demo{border:1.5px dashed var(--g300);border-radius:10px;padding:32px;text-align:center;color:var(--g500);margin-bottom:20px;font-size:13px}
+.upload-zone-demo svg{display:block;margin:0 auto 10px;width:28px;height:28px;opacity:.4}
+.mac-analysis{margin-bottom:32px}
+.mac-analysis-row{display:flex;justify-content:space-between;font-size:13px;font-weight:500;margin-bottom:8px}
+.mac-bar-bg{background:var(--g200);height:6px;border-radius:4px;overflow:hidden}
+.mac-bar-fill{height:6px;border-radius:4px;background:var(--accent);width:0%;transition:width 1.5s ease}
+.sample-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.s-col-head{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--g500);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.s-card{background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.s-card strong{display:block;font-size:13px;font-weight:500;color:var(--black)}
+.s-card span{font-size:11.5px;color:var(--g500)}
+.unlock-banner{background:var(--accent-l);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--accent);font-weight:500;margin-top:16px}
+
+/* ── PRICING ── */
+.pricing{padding:96px 0;background:var(--white)}
+.pricing-header{text-align:center;margin-bottom:52px}
+.price-card{background:var(--white);border:1.5px solid var(--accent);border-radius:var(--rl);padding:44px 40px;max-width:400px;margin:0 auto;box-shadow:var(--shadow-c);position:relative}
+.price-badge{position:absolute;top:18px;right:18px;background:var(--accent);color:var(--white);font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:var(--pill)}
+.price-region{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--g500);margin-bottom:8px}
+.price-orig{font-size:18px;color:var(--g300);text-decoration:line-through;font-weight:300;display:block;margin-bottom:2px}
+.price-main{font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:600;line-height:1;letter-spacing:-3px;color:var(--black)}
+.price-note{font-size:12px;color:var(--g500);margin-bottom:28px;margin-top:4px}
+.timer-box{background:var(--g100);border:1px solid var(--g200);border-radius:8px;padding:12px 16px;margin-bottom:24px;display:none;align-items:center;gap:10px}
+.timer-box.show{display:flex}
+.timer-label{font-size:11px;color:var(--g500)}
+.timer-digits{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--black);letter-spacing:1px}
+.perks{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:14px}
+.perks li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--g700)}
+.perk-icon{color:var(--accent);flex-shrink:0;margin-top:1px}
+.btn-buy{width:100%;padding:15px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;font-family:'DM Sans',sans-serif}
+.btn-buy:hover{opacity:.88;transform:translateY(-1px)}
+
+/* ── TRUST STRIP ── */
+.trust-strip{background:var(--g100);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);padding:36px 0}
+.trust-items{display:flex;gap:48px;justify-content:center;align-items:center;flex-wrap:wrap}
+.trust-badge{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--g700)}
+.trust-badge svg{color:var(--accent);width:17px;height:17px;flex-shrink:0}
+
+/* ── FOOTER ── */
+footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:1120px;margin:0 auto;padding:0 32px}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--white)}
+.footer-logo span{color:var(--accent)}
+.footer-links{display:flex;gap:24px;list-style:none}
+.footer-links a{font-size:12px;color:var(--g500);text-decoration:none;transition:color .18s}
+.footer-links a:hover{color:var(--g300)}
+.footer-copy{font-size:11.5px;color:#444;text-align:center;padding:20px 32px 0;border-top:1px solid #1e1e1e;max-width:1120px;margin:20px auto 0}
+
+/* ── CHAT FAB ── */
+.chat-fab{position:fixed;bottom:28px;right:28px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--black);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-l);transition:transform .2s}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab svg{width:22px;height:22px}
+.chat-tip{position:fixed;bottom:90px;right:28px;z-index:500;background:var(--black);color:var(--white);font-size:12px;padding:8px 14px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.chat-fab:hover+.chat-tip{opacity:1}
+
+/* ── QUIZ ── */
+#page-quiz{padding-top:60px;background:var(--white);min-height:100vh}
+.quiz-wrap{max-width:640px;margin:0 auto;padding:60px 32px 80px}
+.quiz-progress-bar-wrap{margin-bottom:32px}
+.quiz-bar-bg{background:var(--g200);height:3px;border-radius:4px;overflow:hidden}
+.quiz-bar-fill{height:3px;background:var(--accent);border-radius:4px;transition:width .4s ease}
+.quiz-step-label{font-size:11px;color:var(--g500);margin-top:8px}
+.quiz-step{display:none}
+.quiz-step.active{display:block;animation:slideIn .3s ease both}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.quiz-step.going-back{animation:slideInBack .3s ease both}
+@keyframes slideInBack{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+.quiz-q-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,36px);font-weight:600;letter-spacing:-.03em;margin-bottom:8px;line-height:1.15}
+.quiz-q-sub{font-size:14px;font-weight:300;color:var(--g500);margin-bottom:32px;line-height:1.65}
+.quiz-options{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
+.q-opt{padding:10px 20px;border:1px solid var(--g200);border-radius:9px;font-size:13.5px;font-family:'DM Sans',sans-serif;color:var(--g700);background:var(--white);cursor:pointer;transition:all .18s}
+.q-opt:hover{border-color:var(--g300);background:var(--g50)}
+.q-opt.sel{border-color:var(--accent);background:var(--accent-l);color:var(--accent)}
+/* Multi-select concern counter */
+.concern-hint{font-size:12px;color:var(--g500);margin-bottom:16px;margin-top:-20px;font-weight:300}
+.concern-hint span{color:var(--accent);font-weight:500}
+.name-input{width:100%;border:none;border-bottom:2px solid var(--g200);padding:14px 0;font-size:28px;font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--black);background:transparent;margin-bottom:40px;transition:border-color .2s;outline:none}
+.name-input::placeholder{color:var(--g300)}
+.name-input:focus{border-color:var(--accent)}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center}
+.btn-ghost{background:transparent;border:none;font-size:13px;color:var(--g500);cursor:pointer;font-family:'DM Sans',sans-serif;padding:8px 0;transition:color .2s}
+.btn-ghost:hover{color:var(--black)}
+.btn-quiz-next{padding:13px 32px;border-radius:9px;background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;opacity:.35;pointer-events:none}
+.btn-quiz-next.ready{opacity:1;pointer-events:auto}
+.btn-quiz-next.ready:hover{opacity:.85;transform:translateY(-1px)}
+
+/* ── PHOTO UPLOAD ── */
+/* 5-slot grid: 2 col top row + 3 col bottom row via auto-fit */
+.photo-slots{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.photo-slot{
+  border:1.5px dashed var(--g300);border-radius:10px;
+  padding:14px 8px;text-align:center;cursor:pointer;
+  transition:all .2s;position:relative;overflow:hidden;
+  min-height:100px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;
+  background:var(--white);
+}
+.photo-slot:hover{border-color:var(--accent);background:var(--accent-l)}
+.photo-slot.has-preview{border-style:solid;border-color:var(--accent);padding:0}
+.photo-slot svg{width:22px;height:22px;color:var(--g500);opacity:.5;flex-shrink:0}
+.photo-slot p{font-size:11.5px;font-weight:500;color:var(--g700);line-height:1.3}
+.photo-slot small{font-size:10px;color:var(--g500)}
+/* In-slot image preview */
+.slot-preview{
+  width:100%;height:100%;min-height:100px;
+  object-fit:cover;border-radius:8px;display:block;
+}
+.slot-clear{
+  position:absolute;top:4px;right:4px;
+  width:18px;height:18px;border-radius:50%;
+  background:rgba(10,10,10,.75);color:var(--white);
+  border:none;cursor:pointer;font-size:11px;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;z-index:2;
+}
+/* Hidden file inputs per slot */
+.slot-file-input{display:none}
+/* Bottom upload hint + global thumb row */
+.upload-area{border:2px dashed var(--g300);border-radius:12px;padding:36px 32px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:16px}
+.upload-area:hover{border-color:var(--accent);background:var(--accent-l)}
+.upload-area svg{width:28px;height:28px;margin:0 auto 10px;display:block;opacity:.4;color:var(--g500)}
+.upload-area p{font-size:14px;font-weight:500;color:var(--g700);margin-bottom:3px}
+.upload-area small{font-size:12px;color:var(--g500)}
+#file-input-global{display:none}
+
+/* ── OVERLAY ── */
+#overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.96);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;gap:20px}
+#overlay-analysing.show{display:flex;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.spin-ring{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--g200);border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.overlay-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--black)}
+.overlay-sub{font-size:13px;color:var(--g500)}
+
+/* ── CHECKOUT MODAL ── */
+#modal-checkout{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#modal-checkout.show{display:flex;animation:fadeIn .2s ease}
+.modal-box{background:var(--white);border-radius:18px;padding:44px 40px;width:520px;max-width:95vw;box-shadow:var(--shadow-l);animation:modalIn .28s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--g500);margin-bottom:28px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:11.5px;font-weight:500;color:var(--g700)}
+.form-group input{border:1px solid var(--g200);border-radius:8px;padding:11px 13px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);transition:border-color .18s;outline:none}
+.form-group input:focus{border-color:var(--accent)}
+.form-error{font-size:11px;color:#c0392b;margin-top:4px;min-height:16px}
+.modal-footer{margin-top:24px;display:flex;gap:12px}
+.btn-cancel{flex:1;padding:13px;border-radius:var(--r);background:transparent;border:1px solid var(--g200);font-size:14px;color:var(--g700);cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .18s}
+.btn-cancel:hover{background:var(--g100)}
+.btn-pay{flex:2;padding:13px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
+.btn-pay:hover{opacity:.85}
+
+/* ── DASHBOARD (kept for completeness, not reachable in new flow) ── */
+#page-dashboard{padding-top:60px;background:var(--white)}
+.dash-hero{background:var(--g50);border-bottom:1px solid var(--g200);padding:48px 0 40px}
+.dash-profile{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.dash-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#c4d9d2,#a0c0b8);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--accent);flex-shrink:0}
+.dash-info h2{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,30px);font-weight:600;margin-bottom:4px;letter-spacing:-.03em}
+.dash-meta{font-size:13px;color:var(--g500);margin-bottom:6px}
+.dash-tagline{font-size:14px;font-weight:300;color:var(--g700);font-style:italic;margin-bottom:12px;line-height:1.55}
+.dash-tags{display:flex;gap:8px;flex-wrap:wrap}
+.dash-tag{background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:4px 12px;font-size:11.5px;font-weight:500;color:var(--g700)}
+.dash-photos-row{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto}
+.dash-photo{width:76px;height:76px;border-radius:10px;object-fit:cover;border:2px solid var(--white);box-shadow:var(--shadow-s)}
+.routine-section{padding:72px 0}
+.routine-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.r-col-head{display:flex;align-items:center;gap:7px;margin-bottom:14px}
+.r-col-label{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--g500)}
+.rcard{background:var(--white);border:1px solid var(--g200);border-radius:10px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow-s);transition:box-shadow .2s}
+.rcard:hover{box-shadow:var(--shadow-c)}
+.rcard-name{font-size:13.5px;font-weight:500;color:var(--black);margin-bottom:4px}
+.rcard-amount{font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:6px}
+.skeleton{background:var(--g100);border-radius:10px;animation:pulse 1.5s ease-in-out infinite;margin-bottom:12px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.progress-section{padding:0 0 72px}
+.prog-days{display:flex;gap:10px;flex-wrap:wrap}
+.prog-day{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:10px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.prog-day.done{border-color:var(--accent);background:var(--accent-l)}
+.prog-day input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
+.prog-day label{font-size:12.5px;font-weight:500;cursor:pointer}
+.own-section{padding:0 0 72px}
+.own-card{background:linear-gradient(118deg,var(--g100) 0%,var(--accent-l) 100%);border:1px solid var(--g200);border-radius:var(--rl);padding:32px 36px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.own-text h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:6px}
+.own-text p{font-size:13px;color:var(--g700);max-width:380px;line-height:1.6}
+.own-savings{background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:10px 18px;font-size:13px;font-weight:500;color:var(--accent);margin-top:14px;display:inline-block}
+
+/* ── WAITLIST PAGE ── */
+#page-waitlist{padding-top:60px;background:var(--g50);min-height:100vh}
+.wl-outer{width:100%;max-width:1080px;margin:0 auto;padding:64px 32px 80px;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:start}
+.wl-left{padding-top:8px}
+.wl-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 10px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--g500);margin-bottom:28px;box-shadow:var(--shadow-s)}
+.wl-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:wlPulse 2s ease-in-out infinite}
+@keyframes wlPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.wl-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,58px);font-weight:600;letter-spacing:-.045em;line-height:1.08;color:var(--black);margin-bottom:20px}
+.wl-headline em{font-style:italic;color:var(--accent)}
+.wl-sub{font-size:15px;font-weight:300;color:var(--g700);line-height:1.75;max-width:440px;margin-bottom:36px}
+/* Uploaded photo previews on waitlist left */
+.wl-uploaded-photos{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.wl-uploaded-photo{width:68px;height:68px;border-radius:10px;object-fit:cover;border:2px solid var(--white);box-shadow:var(--shadow-s)}
+.wl-preview{display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
+.wl-preview-row{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;box-shadow:var(--shadow-s)}
+.wl-preview-icon{font-size:18px;flex-shrink:0;width:32px;text-align:center}
+.wl-preview-text strong{display:block;font-size:13px;font-weight:500;color:var(--black);margin-bottom:2px}
+.wl-preview-text span{font-size:12px;color:var(--g500)}
+.wl-preview-lock{margin-left:auto;font-size:11px;font-weight:500;color:var(--accent);letter-spacing:.06em;background:var(--accent-l);border-radius:20px;padding:3px 10px;white-space:nowrap;flex-shrink:0}
+.wl-preview-lock.free{color:var(--g500);background:var(--g100)}
+.wl-social{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--g500)}
+.wl-avatars{display:flex}
+.wl-av{width:28px;height:28px;border-radius:50%;border:2px solid var(--g50);margin-right:-8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--white);background:linear-gradient(135deg,#a0c0b8,#3d6b5e);flex-shrink:0}
+.wl-av:nth-child(2){background:linear-gradient(135deg,#c4a882,#8a6a4e)}
+.wl-av:nth-child(3){background:linear-gradient(135deg,#b8a8d0,#7a6a9e)}
+.wl-count{margin-left:16px;font-size:13px;color:var(--g700)}
+.wl-count strong{color:var(--black);font-weight:600}
+/* Form card */
+.wl-card{background:var(--white);border:1px solid var(--g200);border-radius:20px;padding:36px 32px 40px;box-shadow:0 8px 40px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);position:sticky;top:80px}
+.wl-card-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.025em;margin-bottom:6px;color:var(--black)}
+.wl-card-sub{font-size:13px;color:var(--g500);margin-bottom:28px;line-height:1.6}
+.wl-field{margin-bottom:16px}
+.wl-label{display:block;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:6px;letter-spacing:.02em}
+.wl-input{width:100%;border:1.5px solid var(--g200);border-radius:10px;padding:13px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--black);background:var(--white);transition:border-color .2s,box-shadow .2s;outline:none}
+.wl-input::placeholder{color:var(--g300)}
+.wl-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,107,94,.08)}
+.wl-input.err{border-color:#e05252}
+.wl-field-err{font-size:11px;color:#c0392b;margin-top:4px;min-height:16px;display:block}
+.wl-btn{width:100%;padding:15px;border-radius:11px;background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s,transform .2s,box-shadow .2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+.wl-btn:hover{opacity:.88;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.wl-btn svg{width:16px;height:16px;flex-shrink:0;transition:transform .2s}
+.wl-btn:hover svg{transform:translateX(3px)}
+.wl-micro{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--g500);margin-top:14px}
+.wl-micro svg{width:13px;height:13px;color:var(--accent);flex-shrink:0}
+
+/* ── SUCCESS PAGE ── */
+#page-success{padding-top:60px;background:var(--g50);min-height:100vh}
+.success-outer{width:100%;max-width:560px;margin:0 auto;padding:80px 32px 80px;text-align:center}
+/* Tick animation */
+.tick-wrap{width:72px;height:72px;margin:0 auto 32px;position:relative}
+.tick-circle{width:72px;height:72px;border-radius:50%;background:var(--accent-l);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;animation:tickPop .5s cubic-bezier(.34,1.56,.64,1) .1s both}
+@keyframes tickPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.tick-svg{width:34px;height:34px;overflow:visible}
+.tick-path{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:tickDraw .5s ease .55s forwards}
+@keyframes tickDraw{to{stroke-dashoffset:0}}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,52px);font-weight:600;letter-spacing:-.04em;line-height:1.1;color:var(--black);margin-bottom:16px;animation:pageFadeIn .5s ease .3s both}
+.success-sub{font-size:15px;font-weight:300;color:var(--g700);line-height:1.75;margin-bottom:40px;max-width:400px;margin-left:auto;margin-right:auto;animation:pageFadeIn .5s ease .4s both}
+/* Photo thumbnails on success page */
+.success-photos{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;animation:pageFadeIn .5s ease .5s both}
+.success-photo{width:72px;height:72px;border-radius:10px;object-fit:cover;box-shadow:var(--shadow-s);border:2px solid var(--white)}
+.success-count{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--g500);background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px;margin-bottom:32px;box-shadow:var(--shadow-s);animation:pageFadeIn .5s ease .6s both}
+.success-count-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.success-back{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--g500);background:transparent;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0;animation:pageFadeIn .5s ease .7s both}
+.success-back:hover{color:var(--black)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .how-inner{grid-template-columns:1fr;gap:40px}
+  .routine-grid{grid-template-columns:repeat(2,1fr)}
+  .photo-slots{grid-template-columns:repeat(3,1fr)}
+  .wl-outer{grid-template-columns:1fr;gap:40px;padding:48px 32px 64px}
+  .wl-card{position:static}
+}
+@media(max-width:768px){
+  .nav-center{display:none}
+  .sample-cols{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .dash-photos-row{margin-left:0}
+  .own-card{flex-direction:column}
+  .routine-grid{grid-template-columns:1fr}
+  .photo-slots{grid-template-columns:repeat(2,1fr)}
+  .wl-outer{padding:40px 20px 60px;gap:32px}
+  .wl-card{padding:28px 20px 32px}
+  .success-outer{padding:60px 24px 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" onclick="goHome()">BeSeen<span>.</span></a>
+    <ul class="nav-center">
+      <li><a href="#" onclick="goHome();return false">Home</a></li>
+      <li><a href="#how" onclick="goHome();setTimeout(()=>{document.getElementById('how').scrollIntoView({behavior:'smooth'})},200);return false">How It Works</a></li>
+      <li><a href="#pricing" onclick="goHome();setTimeout(()=>{document.getElementById('pricing').scrollIntoView({behavior:'smooth'})},200);return false">Pricing</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="btn-google">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Sign in with Google
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE 1: HOME ══════════ -->
+<div id="page-home" class="page active">
+
+<section class="hero">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="hero-content">
+    <div class="hero-pill fu vis"><span class="pill-dot"></span>Science-backed · Expert-guided · Clinically designed</div>
+    <h1 class="hero-h1 fu vis" style="transition-delay:.1s">Get a <em>personalised</em> skincare<br>routine from home in minutes.</h1>
+    <p class="hero-sub fu vis" style="transition-delay:.2s">Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.</p>
+    <div class="hero-btns fu vis" style="transition-delay:.3s">
+      <button class="btn btn-primary" onclick="startQuiz()">Start Free →</button>
+      <a href="#how" class="btn btn-secondary">How It Works</a>
+    </div>
+    <div class="hero-trust fu vis" style="transition-delay:.4s">
+      <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Doctor-Designed Protocols</div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2zm3-9v2m0 0a1 1 0 100 2 1 1 0 000-2z"/></svg>Photos Never Sold or Shared</div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2.5 2.5"/></svg>Ready in Under 5 Minutes</div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>4.8 / 5 Average Rating</div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
+    <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
+    <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
+    <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
+    <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
+    <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
+    <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
+    <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
+    <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
+    <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
+  </div>
+</div>
+
+<section class="how" id="how">
+  <div class="container">
+    <div class="how-inner">
+      <div>
+        <p class="section-label fu">The Process</p>
+        <h2 class="section-title fu d1" style="margin-bottom:20px">Four steps to your <em>custom-crafted routine.</em></h2>
+        <p class="fu d2" style="font-size:14px;color:var(--g700);font-weight:300;max-width:440px;line-height:1.7;margin-bottom:36px">No dermatologist appointment. No guesswork. Just science-backed guidance, delivered to you in minutes.</p>
+        <div class="steps">
+          <div class="step fu d1"><div class="step-num">1</div><div class="step-body"><h4>Answer a short questionnaire</h4><p>Tell us about your skin type, lifestyle, concerns, and goals. 7 targeted questions. Under 90 seconds.</p></div></div>
+          <div class="step fu d2"><div class="step-num">2</div><div class="step-body"><h4>Upload your skin photos</h4><p>Natural light, no filter. Front, left, right, and affected area. Our analysis reads texture, pores, pigmentation, and oiliness.</p></div></div>
+          <div class="step fu d3"><div class="step-num">3</div><div class="step-body"><h4>Join the early access list</h4><p>Your personalised plan is generated instantly. Be among the first to receive it the moment we launch.</p></div></div>
+          <div class="step fu d4"><div class="step-num">4</div><div class="step-body"><h4>Receive your complete plan</h4><p>Morning, afternoon, night, and pre-sleep routines — ingredient-matched and ready for you.</p></div></div>
+        </div>
+      </div>
+      <div class="fu d2">
+        <div class="float-card">
+          <h3>Your Morning Routine Preview</h3>
+          <p class="float-card-sub">Combination-Acne Profile · Generated for you</p>
+          <div class="routine-row"><div class="r-dot" style="background:#3d6b5e"></div><div><div class="r-name">Gentle Gel Cleanser</div><div class="r-usage">2 pumps · 30 sec</div></div></div>
+          <div class="routine-row"><div class="r-dot" style="background:#5a9e8f"></div><div><div class="r-name">Niacinamide 10% Serum</div><div class="r-usage">3 drops · pat in</div></div></div>
+          <div class="routine-row"><div class="r-dot" style="background:#87c1b5"></div><div><div class="r-name">Oil-Free Moisturiser</div><div class="r-usage">pea size · blend outward</div></div></div>
+          <div class="routine-row"><div class="r-dot" style="background:#b8d9d3"></div><div><div class="r-name">SPF 50+ Sunscreen</div><div class="r-usage">last step · always</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demo-section">
+  <div class="container">
+    <div class="demo-header">
+      <p class="section-label fu">Live Preview</p>
+      <h2 class="section-title fu d1">See the <em>experience</em> for yourself.</h2>
+    </div>
+    <div class="mac-window fu d2">
+      <div class="mac-bar">
+        <div class="mac-dots"><div class="mac-dot" style="background:#ff5f56"></div><div class="mac-dot" style="background:#febc2e"></div><div class="mac-dot" style="background:#28c840"></div></div>
+        <div class="mac-url">app.beseen.co · Skin Analysis</div>
+      </div>
+      <div class="mac-body" id="mac-scroll" onscroll="updateMacProgress()">
+        <div class="mac-progress-bar"><div class="mac-progress-fill" id="mac-fill"></div></div>
+        <div class="mac-content">
+          <h2>Let's understand your skin.</h2>
+          <p class="mac-sub">7 questions. 90 seconds. Your answers shape every recommendation.</p>
+          <div class="q-block"><p class="q-label">Primary concern?</p><div class="chips"><span class="chip on" onclick="toggleChip(this)">Acne &amp; Breakouts</span><span class="chip" onclick="toggleChip(this)">Hyperpigmentation</span><span class="chip" onclick="toggleChip(this)">Dryness</span><span class="chip" onclick="toggleChip(this)">Anti-Ageing</span></div></div>
+          <div class="q-block"><p class="q-label">Skin type?</p><div class="chips"><span class="chip" onclick="toggleChip(this)">Oily</span><span class="chip on" onclick="toggleChip(this)">Combination</span><span class="chip" onclick="toggleChip(this)">Dry</span><span class="chip" onclick="toggleChip(this)">Sensitive</span></div></div>
+          <div class="q-block"><p class="q-label">Age range?</p><div class="chips"><span class="chip" onclick="toggleChip(this)">Under 20</span><span class="chip on" onclick="toggleChip(this)">20–30</span><span class="chip" onclick="toggleChip(this)">31–40</span><span class="chip" onclick="toggleChip(this)">40+</span></div></div>
+          <hr class="mac-divider">
+          <h2 style="font-size:22px;margin-bottom:6px">Upload your skin photos</h2>
+          <p class="mac-sub">Natural light, no filter. Front, left, right, and affected area.</p>
+          <div class="upload-zone-demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>Drag &amp; drop or tap to upload</div>
+          <div class="mac-analysis"><div class="mac-analysis-row"><span>Analysing your skin…</span><span id="mac-pct">0%</span></div><div class="mac-bar-bg"><div class="mac-bar-fill" id="mac-bar-fill"></div></div></div>
+          <hr class="mac-divider">
+          <h2 style="font-size:22px;margin-bottom:4px">Your Sample Routine</h2>
+          <p class="mac-sub" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500">Based on Combination-Acne Profile · Full plan ready at launch</p>
+          <div class="sample-cols">
+            <div><div class="s-col-head">🌅 Morning</div><div class="s-card"><strong>Gel Cleanser</strong><span>2 pumps · 30 sec</span></div><div class="s-card"><strong>Niacinamide Serum</strong><span>3 drops · pat in</span></div><div class="s-card"><strong>SPF 50+</strong><span>last step · always</span></div></div>
+            <div><div class="s-col-head">🌙 Night</div><div class="s-card"><strong>Balm Cleanser</strong><span>massage 60 sec</span></div><div class="s-card"><strong>Retinol 0.2%</strong><span>2 drops · avoid eyes</span></div><div class="s-card"><strong>Ceramide Cream</strong><span>generous layer</span></div></div>
+          </div>
+          <div class="unlock-banner">🔒 Afternoon, night &amp; pre-sleep routines unlock at launch</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header">
+      <p class="section-label fu">Simple Pricing</p>
+      <h2 class="section-title fu d1">One payment. <em>A lifetime of clarity.</em></h2>
+      <p class="fu d2" style="font-size:14px;color:var(--g500);margin-top:12px;font-weight:300">Early access members lock in the introductory price — less than a single premium serum.</p>
+    </div>
+    <div class="fu d2">
+      <div class="price-card">
+        <div class="price-badge">Early Access</div>
+        <div class="price-region">🇮🇳 India</div>
+        <span class="price-orig">₹999</span>
+        <div class="price-main">₹699</div>
+        <p class="price-note" id="price-note">One-time · Instant access · No subscription</p>
+        <div class="timer-box" id="timer-box"><div><div class="timer-label">⚡ Flash deal active — expires in</div><div class="timer-digits" id="countdown">01:00</div></div></div>
+        <ul class="perks">
+          <li><span class="perk-icon">✓</span> Full 7-day personalised plan</li>
+          <li><span class="perk-icon">✓</span> Morning, afternoon, night &amp; pre-sleep routines</li>
+          <li><span class="perk-icon">✓</span> Expert ingredient explanations</li>
+          <li><span class="perk-icon">✓</span> Day-by-day progress tracker</li>
+          <li><span class="perk-icon">✓</span> Use What You Own product matching</li>
+          <li><span class="perk-icon">✓</span> 24/7 AI support chat</li>
+          <li><span class="perk-icon">✓</span> Lifetime access to your plan</li>
+        </ul>
+        <button class="btn-buy" onclick="handleBuyClick()">Join Early Access — ₹699</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-items">
+      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Doctor-Designed Protocols</div>
+      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2zm3-9v2m0 0a1 1 0 100 2 1 1 0 000-2z"/></svg>Photos Never Sold or Shared</div>
+      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4M7.835 4.697A3.42 3.42 0 0010 4c.56 0 1.11.074 1.63.21"/></svg>Trusted Ingredients Only</div>
+      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>24/7 AI Support Included</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">BeSeen<span>.</span></div>
+    <ul class="footer-links"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Contact</a></li><li><a href="#">Refund Policy</a></li></ul>
+  </div>
+  <div class="footer-copy">© 2025 BeSeen. All rights reserved. Not a substitute for professional medical advice.</div>
+</footer>
+</div><!-- /page-home -->
+
+
+<!-- ══════════ PAGE 2: QUIZ ══════════ -->
+<div id="page-quiz" class="page">
+  <div class="quiz-wrap">
+    <div class="quiz-progress-bar-wrap">
+      <div class="quiz-bar-bg"><div class="quiz-bar-fill" id="quiz-bar"></div></div>
+      <div class="quiz-step-label" id="quiz-step-label">Step 1 of 8</div>
+    </div>
+
+    <!-- Step 1: Name -->
+    <div class="quiz-step active" data-step="1">
+      <h2 class="quiz-q-title">Before we begin, what's your name?</h2>
+      <p class="quiz-q-sub">We use this to personalise your plan.</p>
+      <input class="name-input" type="text" id="input-name" placeholder="Your first name…" autocomplete="given-name">
+      <div class="quiz-nav">
+        <span style="opacity:0">← Back</span>
+        <button class="btn-quiz-next" id="next-1" onclick="nextStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Age -->
+    <div class="quiz-step" data-step="2">
+      <h2 class="quiz-q-title">How old are you?</h2>
+      <p class="quiz-q-sub">Your age helps us calibrate ingredient strengths appropriately.</p>
+      <div class="quiz-options">
+        <button class="q-opt" onclick="selectOpt(this,'age','Under 18')">Under 18</button>
+        <button class="q-opt" onclick="selectOpt(this,'age','18–24')">18–24</button>
+        <button class="q-opt" onclick="selectOpt(this,'age','25–34')">25–34</button>
+        <button class="q-opt" onclick="selectOpt(this,'age','35–44')">35–44</button>
+        <button class="q-opt" onclick="selectOpt(this,'age','45+')">45+</button>
+      </div>
+      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(1)">← Back</button><button class="btn-quiz-next" id="next-2" onclick="nextStep(3)">Continue →</button></div>
+    </div>
+
+    <!-- Step 3: Gender -->
+    <div class="quiz-step" data-step="3">
+      <h2 class="quiz-q-title">What is your gender?</h2>
+      <p class="quiz-q-sub">Hormonal factors influence skin behaviour differently.</p>
+      <div class="quiz-options">
+        <button class="q-opt" onclick="selectOpt(this,'gender','Female')">Female</button>
+        <button class="q-opt" onclick="selectOpt(this,'gender','Male')">Male</button>
+        <button class="q-opt" onclick="selectOpt(this,'gender','Non-binary')">Non-binary</button>
+        <button class="q-opt" onclick="selectOpt(this,'gender','Prefer not to say')">Prefer not to say</button>
+      </div>
+      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(2)">← Back</button><button class="btn-quiz-next" id="next-3" onclick="nextStep(4)">Continue →</button></div>
+    </div>
+
+    <!-- Step 4: Skin Type -->
+    <div class="quiz-step" data-step="4">
+      <h2 class="quiz-q-title">How would you describe your skin type?</h2>
+      <p class="quiz-q-sub">Think about how your skin feels by mid-afternoon on an average day.</p>
+      <div class="quiz-options">
+        <button class="q-opt" onclick="selectOpt(this,'skintype','Oily')">Oily (shiny all over)</button>
+        <button class="q-opt" onclick="selectOpt(this,'skintype','Combination')">Combination (oily T-zone)</button>
+        <button class="q-opt" onclick="selectOpt(this,'skintype','Dry')">Dry (tight, flaky)</button>
+        <button class="q-opt" onclick="selectOpt(this,'skintype','Normal')">Normal (balanced)</button>
+        <button class="q-opt" onclick="selectOpt(this,'skintype','Sensitive')">Sensitive (reacts easily)</button>
+      </div>
+      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(3)">← Back</button><button class="btn-quiz-next" id="next-4" onclick="nextStep(5)">Continue →</button></div>
+    </div>
+
+    <!-- Step 5: Concerns — MULTI-SELECT (max 3) -->
+    <div class="quiz-step" data-step="5">
+      <h2 class="quiz-q-title">What are your main skin concerns?</h2>
+      <p class="quiz-q-sub">Select up to 3. We'll target all of them in your plan.</p>
+      <p class="concern-hint" id="concern-hint">Select up to <span id="concern-remaining">3</span> more</p>
+      <div class="quiz-options" id="opts-concern">
+        <button class="q-opt" onclick="toggleConcern(this,'Acne &amp; Breakouts')">Acne &amp; Breakouts</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Hyperpigmentation &amp; Dark Spots')">Hyperpigmentation &amp; Dark Spots</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Dryness &amp; Dehydration')">Dryness &amp; Dehydration</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Ageing &amp; Fine Lines')">Ageing &amp; Fine Lines</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Uneven Texture &amp; Dullness')">Uneven Texture &amp; Dullness</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Sensitivity &amp; Redness')">Sensitivity &amp; Redness</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Dark Circles')">Dark Circles</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Pores &amp; Texture')">Pores &amp; Texture</button>
+      </div>
+      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(4)">← Back</button><button class="btn-quiz-next" id="next-5" onclick="nextStep(6)">Continue →</button></div>
+    </div>
+
+    <!-- Step 6: Lifestyle -->
+    <div class="quiz-step" data-step="6">
+      <h2 class="quiz-q-title">A couple of quick lifestyle questions.</h2>
+      <p class="quiz-q-sub">These shape your routine's pacing and ingredient intensity.</p>
+      <p style="font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px">Daily water intake?</p>
+      <div class="quiz-options" id="opts-water" style="margin-bottom:28px">
+        <button class="q-opt" onclick="selectMulti(this,'water','Less than 1L')">Less than 1L</button>
+        <button class="q-opt" onclick="selectMulti(this,'water','1–2L')">1–2L</button>
+        <button class="q-opt" onclick="selectMulti(this,'water','More than 2L')">More than 2L</button>
+      </div>
+      <p style="font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px">Average sleep quality?</p>
+      <div class="quiz-options" id="opts-sleep" style="margin-bottom:40px">
+        <button class="q-opt" onclick="selectMulti(this,'sleep','Poor')">Poor</button>
+        <button class="q-opt" onclick="selectMulti(this,'sleep','Average')">Average</button>
+        <button class="q-opt" onclick="selectMulti(this,'sleep','Good')">Good</button>
+        <button class="q-opt" onclick="selectMulti(this,'sleep','Excellent')">Excellent</button>
+      </div>
+      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(5)">← Back</button><button class="btn-quiz-next" id="next-6" onclick="nextStep(7)">Continue →</button></div>
+    </div>
+
+    <!-- Step 7: Current Routine -->
+    <div class="quiz-step" data-step="7">
+      <h2 class="quiz-q-title">Do you currently have a skincare routine?</h2>
+      <p class="quiz-q-sub">Knowing where you start helps us pitch the plan at the right level.</p>
+      <div class="quiz-options">
+        <button class="q-opt" onclick="selectOpt(this,'routine','None at all')">None at all</button>
+        <button class="q-opt" onclick="selectOpt(this,'routine','Just a basic cleanser')">Just a basic cleanser</button>
+        <button class="q-opt" onclick="selectOpt(this,'routine','A few products (2–3 steps)')">A few products (2–3 steps)</button>
+        <button class="q-opt" onclick="selectOpt(this,'routine','A full routine (4+ steps)')">A full routine (4+ steps)</button>
+      </div>
+      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(6)">← Back</button><button class="btn-quiz-next" id="next-7" onclick="nextStep(8)">Continue →</button></div>
+    </div>
+
+    <!-- Step 8: Photo Upload — 5 individual slots -->
+    <div class="quiz-step" data-step="8">
+      <h2 class="quiz-q-title">Upload your skin photos.</h2>
+      <p class="quiz-q-sub">Natural light, no filter. The more angles you share, the more precise your routine.</p>
+
+      <!-- 5 individual named slots -->
+      <div class="photo-slots" id="photo-slots">
+        <div class="photo-slot" id="slot-0" onclick="triggerSlot(0)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <p>Front Face</p><small>Required</small>
+        </div>
+        <div class="photo-slot" id="slot-1" onclick="triggerSlot(1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <p>Left Profile</p><small>Recommended</small>
+        </div>
+        <div class="photo-slot" id="slot-2" onclick="triggerSlot(2)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <p>Right Profile</p><small>Recommended</small>
+        </div>
+        <div class="photo-slot" id="slot-3" onclick="triggerSlot(3)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="16" r="4"/><path d="M18 14v2l1 1"/></svg>
+          <p>Affected Area</p><small>Required</small>
+        </div>
+        <div class="photo-slot" id="slot-4" onclick="triggerSlot(4)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+          <p>Video</p><small>Optional · 30s</small>
+        </div>
+      </div>
+      <!-- Hidden file inputs, one per slot -->
+      <input type="file" class="slot-file-input" id="slot-input-0" accept="image/*" onchange="handleSlotFile(this,0)">
+      <input type="file" class="slot-file-input" id="slot-input-1" accept="image/*" onchange="handleSlotFile(this,1)">
+      <input type="file" class="slot-file-input" id="slot-input-2" accept="image/*" onchange="handleSlotFile(this,2)">
+      <input type="file" class="slot-file-input" id="slot-input-3" accept="image/*" onchange="handleSlotFile(this,3)">
+      <input type="file" class="slot-file-input" id="slot-input-4" accept="video/*" onchange="handleSlotFile(this,4)">
+
+      <div class="upload-area" onclick="document.getElementById('slot-input-0').click()" style="margin-top:12px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+        <p>Or tap here to upload front face photo</p>
+        <small>JPG · PNG · HEIC · Max 10MB each</small>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(7)">← Back</button>
+        <button class="btn-quiz-next" id="next-8" onclick="analyseAndGo()">Analyse My Skin →</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /page-quiz -->
+
+
+<!-- ══════════ PAGE 3: WAITLIST ══════════ -->
+<div id="page-waitlist" class="page">
+  <div class="wl-outer">
+
+    <!-- LEFT -->
+    <div class="wl-left page-fade">
+      <div class="wl-eyebrow">
+        <span class="wl-eyebrow-dot"></span>
+        Analysis Complete
+      </div>
+      <h1 class="wl-headline">Your personalised plan<br>is <em>ready.</em></h1>
+      <p class="wl-sub">We've analysed your skin profile and built a complete recovery plan — ingredient-matched, step-by-step, made only for you.</p>
+
+      <!-- Uploaded image previews -->
+      <div class="wl-uploaded-photos" id="wl-photos"></div>
+
+      <!-- Routine teaser rows -->
+      <div class="wl-preview">
+        <div class="wl-preview-row">
+          <div class="wl-preview-icon">🌅</div>
+          <div class="wl-preview-text"><strong>Morning Routine</strong><span>3–4 steps · Cleanser, Serum, SPF</span></div>
+          <span class="wl-preview-lock free">Included</span>
+        </div>
+        <div class="wl-preview-row">
+          <div class="wl-preview-icon">☀️</div>
+          <div class="wl-preview-text"><strong>Afternoon Routine</strong><span>2 steps · SPF reapply, Hydration</span></div>
+          <span class="wl-preview-lock">🔒 Unlock</span>
+        </div>
+        <div class="wl-preview-row">
+          <div class="wl-preview-icon">🌙</div>
+          <div class="wl-preview-text"><strong>Night Routine</strong><span>3–5 steps · Active ingredients, repair</span></div>
+          <span class="wl-preview-lock">🔒 Unlock</span>
+        </div>
+        <div class="wl-preview-row">
+          <div class="wl-preview-icon">💤</div>
+          <div class="wl-preview-text"><strong>Pre-Sleep Routine</strong><span>Spot treatment, barrier support</span></div>
+          <span class="wl-preview-lock">🔒 Unlock</span>
+        </div>
+      </div>
+
+      <!-- Social proof -->
+      <div class="wl-social">
+        <div class="wl-avatars">
+          <div class="wl-av">P</div>
+          <div class="wl-av">A</div>
+          <div class="wl-av">K</div>
+        </div>
+        <span class="wl-count"><strong>224 people</strong> already joined this week</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form card -->
+    <div class="wl-card page-fade" style="animation-delay:.12s">
+      <div id="wl-form-wrap">
+        <div class="wl-card-title">Unlock your full plan.</div>
+        <p class="wl-card-sub">Enter your details to be first in line when your personalised 7-day routine is ready.</p>
+
+        <div class="wl-field">
+          <label class="wl-label" for="wl-name">Full Name</label>
+          <input class="wl-input" type="text" id="wl-name" placeholder="Your name" autocomplete="name">
+          <span class="wl-field-err" id="wl-err-name"></span>
+        </div>
+        <div class="wl-field">
+          <label class="wl-label" for="wl-email">Email Address</label>
+          <input class="wl-input" type="email" id="wl-email" placeholder="you@email.com" autocomplete="email">
+          <span class="wl-field-err" id="wl-err-email"></span>
+        </div>
+        <div class="wl-field">
+          <label class="wl-label" for="wl-phone">Phone Number</label>
+          <input class="wl-input" type="tel" id="wl-phone" placeholder="+91 98765 43210" autocomplete="tel">
+          <span class="wl-field-err" id="wl-err-phone"></span>
+        </div>
+
+        <button class="wl-btn" onclick="submitWaitlist()">
+          Join the Waitlist
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M10 4l6 6-6 6"/></svg>
+        </button>
+
+        <div class="wl-micro">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Your data is private. We never share or sell it.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /page-waitlist -->
+
+
+<!-- ══════════ PAGE 4: SUCCESS ══════════ -->
+<div id="page-success" class="page">
+  <div class="success-outer">
+    <!-- Animated tick -->
+    <div class="tick-wrap page-fade">
+      <div class="tick-circle">
+        <svg class="tick-svg" viewBox="0 0 34 34">
+          <polyline class="tick-path" points="6,17 14,25 28,9"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1 class="success-title">You're on the list.</h1>
+    <p class="success-sub">We'll notify you as soon as your personalised skin recovery plan is ready. You'll be among the first to know.</p>
+
+    <!-- Uploaded photo thumbnails -->
+    <div class="success-photos" id="success-photos"></div>
+
+    <!-- Count pill -->
+    <div class="success-count">
+      <span class="success-count-dot"></span>
+      224 people already joined
+    </div>
+
+    <!-- Soft back link -->
+    <div>
+      <button class="success-back" onclick="goHome()">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 10H5M10 4l-6 6 6 6"/></svg>
+        Back to home
+      </button>
+    </div>
+  </div>
+</div><!-- /page-success -->
+
+
+<!-- CHECKOUT MODAL (kept for pricing CTA path) -->
+<div id="modal-checkout">
+  <div class="modal-box">
+    <div class="modal-title">Almost there.</div>
+    <p class="modal-sub">Enter your details to complete your early access registration.</p>
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" id="f-name" placeholder="Priya"><div class="form-error" id="err-name"></div></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="f-email" placeholder="you@email.com"><div class="form-error" id="err-email"></div></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="f-phone" placeholder="+91 9876543210"><div class="form-error" id="err-phone"></div></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-pay" onclick="processPayment()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSING OVERLAY -->
+<div id="overlay-analysing">
+  <div class="spin-ring"></div>
+  <div class="overlay-title">Analysing your skin…</div>
+  <div class="overlay-sub">Building your personalised routine. Just a moment.</div>
+</div>
+
+<!-- CHAT FAB -->
+<button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
+<div class="chat-tip">24/7 AI Support</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script>
+const supabaseClient = window.supabase.createClient(
+  "https://rkhlfmfubwszgslxiloh.supabase.co",
+  "sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f"
+);
+</script>
+async function addToWaitlist(name, email, phone) {
+  const { data, error } = await supabaseClient
+    .from('waitlist')
+    .insert([
+      {
+        name: name,
+        email: email,
+        phone: phone
+      }
+    ]);
+
+  if (error) {
+    console.error('Error:', error);
+    alert('Something went wrong');
+  } else {
+    console.log('Success:', data);
+    goToSuccessPage(); // we’ll define this next
+  }
+}
+function joinWaitlist() {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+
+  if (!name || !email || !phone) {
+    alert('Fill all fields');
+    return;
+  }
+
+  addToWaitlist(name, email, phone);
+}
+function goToSuccessPage() {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      font-family:serif;
+      background:#f8f8f6;
+    ">
+      <div style="
+        font-size:80px;
+        color:#3a7d5c;
+        animation: pop 0.5s ease;
+      ">✓</div>
+
+      <h1 style="margin-top:20px;">You're on the waitlist</h1>
+      <p style="color:#666;">We'll notify you when we launch.</p>
+    </div>
+  `;
+}
+<script>
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+const quiz = {
+  name:'', age:'', gender:'', skintype:'',
+  concerns:[], /* multi-select array */
+  water:'', sleep:'', routine:''
+};
+/* Per-slot file storage: index 0–4, value = File|null */
+const slotFiles = [null, null, null, null, null];
+let currentStep = 1;
+const TOTAL_STEPS = 8;
+let timerInterval = null;
+let timerActive = false;
+
+/* ═══════════════════════════════════════════════════════
+   PAGE SWITCHING
+═══════════════════════════════════════════════════════ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function goHome() { showPage('page-home'); }
+function startQuiz() {
+  showPage('page-quiz');
+  currentStep = 1;
+  showStep(1, false);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+/* ═══════════════════════════════════════════════════════
+   MAC DEMO WINDOW
+═══════════════════════════════════════════════════════ */
+function updateMacProgress() {
+  const el = document.getElementById('mac-scroll');
+  if (!el) return;
+
+  const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) * 100;
+  document.getElementById('mac-fill').style.width = pct + '%';
+
+  const p = Math.round(pct);
+  document.getElementById('mac-pct').textContent = p + '%';
+  document.getElementById('mac-bar-fill').style.width = p + '%';
+}
+const macIo = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    document.getElementById('mac-bar-fill').style.width = '100%';
+    macIo.disconnect();
+  }
+}, { threshold: 0.3 });
+const macSection = document.querySelector('.demo-section');
+if (macSection) macIo.observe(macSection);
+
+function toggleChip(el) {
+  el.closest('.chips').querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+/* ═══════════════════════════════════════════════════════
+   PRICING TIMER
+═══════════════════════════════════════════════════════ */
+function handleBuyClick() {
+  if (!timerActive) {
+    timerActive = true;
+    document.getElementById('price-note').textContent = '🎉 Flash deal — 1 minute only!';
+    document.getElementById('timer-box').classList.add('show');
+    let secs = 60;
+    timerInterval = setInterval(() => {
+      secs--;
+      document.getElementById('countdown').textContent = '00:' + String(secs).padStart(2,'0');
+      if (secs <= 0) {
+        clearInterval(timerInterval);
+        timerActive = false;
+        document.getElementById('timer-box').classList.remove('show');
+        document.getElementById('price-note').textContent = 'One-time · Instant access · No subscription';
+      }
+    }, 1000);
+  }
+  openModal();
+}
+
+/* ═══════════════════════════════════════════════════════
+   CHECKOUT MODAL
+═══════════════════════════════════════════════════════ */
+function openModal() { document.getElementById('modal-checkout').classList.add('show'); }
+function closeModal() { document.getElementById('modal-checkout').classList.remove('show'); }
+document.getElementById('modal-checkout').addEventListener('click', e => {
+  if (e.target.id === 'modal-checkout') closeModal();
+});
+function processPayment() {
+  const name  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  let valid = true;
+  ['name','email','phone'].forEach(k => document.getElementById('err-' + k).textContent = '');
+  if (!name)  { document.getElementById('err-name').textContent  = 'Required'; valid = false; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('err-email').textContent = 'Valid email required'; valid = false; }
+  if (!phone || phone.replace(/\D/g,'').length < 10) { document.getElementById('err-phone').textContent = 'Valid phone required'; valid = false; }
+  if (!valid) return;
+  closeModal();
+  startQuiz();
+}
+
+/* ═══════════════════════════════════════════════════════
+   QUIZ NAVIGATION
+═══════════════════════════════════════════════════════ */
+function updateQuizBar() {
+  const pct = (currentStep / TOTAL_STEPS) * 100;
+  document.getElementById('quiz-bar').style.width = pct + '%';
+  document.getElementById('quiz-step-label').textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+}
+function showStep(n, goingBack) {
+  document.querySelectorAll('.quiz-step').forEach(s => {
+    s.classList.remove('active','going-back');
+    s.style.display = 'none';
+  });
+  const target = document.querySelector('[data-step="' + n + '"]');
+  if (!target) return;
+  target.style.display = 'block';
+  void target.offsetWidth;
+  target.classList.add(goingBack ? 'going-back' : 'active');
+  currentStep = n;
+  updateQuizBar();
+}
+function nextStep(n) { showStep(n, false); }
+function prevStep(n) { showStep(n, true); }
+
+/* Name validation */
+document.getElementById('input-name').addEventListener('input', function() {
+  const ok = this.value.trim().length >= 2;
+  document.getElementById('next-1').classList.toggle('ready', ok);
+  if (ok) quiz.name = this.value.trim();
+});
+
+/* Single-select options (age, gender, skintype, routine) */
+function selectOpt(el, key, val) {
+  el.closest('.quiz-options').querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  quiz[key] = val;
+  const stepMap = { age:2, gender:3, skintype:4, routine:7 };
+  const btn = document.getElementById('next-' + stepMap[key]);
+  if (btn) btn.classList.add('ready');
+}
+
+/* Multi-select: concerns (max 3) */
+function toggleConcern(el, val) {
+  /* Decode HTML entities in val for clean comparison */
+  const cleanVal = val.replace(/&amp;/g, '&');
+  const idx = quiz.concerns.indexOf(cleanVal);
+
+  if (idx > -1) {
+    /* Already selected — deselect */
+    quiz.concerns.splice(idx, 1);
+    el.classList.remove('sel');
+  } else {
+    if (quiz.concerns.length >= 3) return; /* cap at 3, silent block */
+    quiz.concerns.push(cleanVal);
+    el.classList.add('sel');
+  }
+
+  /* Update counter hint */
+  const remaining = 3 - quiz.concerns.length;
+  const hint = document.getElementById('concern-hint');
+  const remEl = document.getElementById('concern-remaining');
+  if (quiz.concerns.length === 0) {
+    hint.innerHTML = 'Select up to <span id="concern-remaining">3</span> more';
+  } else if (quiz.concerns.length >= 3) {
+    hint.innerHTML = '<span id="concern-remaining" style="color:var(--accent)">Max selected</span>';
+  } else {
+    hint.innerHTML = '<span id="concern-remaining">' + remaining + '</span> more to go';
+  }
+
+  /* Enable next when at least 1 selected */
+  document.getElementById('next-5').classList.toggle('ready', quiz.concerns.length >= 1);
+}
+
+/* Lifestyle dual-group (water & sleep) */
+function selectMulti(el, key, val) {
+  el.closest('.quiz-options').querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  quiz[key] = val;
+  if (quiz.water && quiz.sleep) document.getElementById('next-6').classList.add('ready');
+}
+
+/* ═══════════════════════════════════════════════════════
+   PHOTO UPLOAD — individual slots
+═══════════════════════════════════════════════════════ */
+function triggerSlot(idx) {
+  document.getElementById('slot-input-' + idx).click();
+}
+
+function handleSlotFile(input, idx) {
+  const file = input.files[0];
+  if (!file) return;
+
+  slotFiles[idx] = file;
+  const slot = document.getElementById('slot-' + idx);
+
+  /* Video slot (4): just mark as done, no image preview */
+  if (idx === 4) {
+    slot.classList.add('has-preview');
+    slot.innerHTML =
+      '<div style="padding:14px 8px;text-align:center;">' +
+      '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
+      '<small style="font-size:10px;color:var(--g500)">' + escHtml(file.name.substring(0,18)) + '</small>' +
+      '</div>' +
+      '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
+    checkUploadReady();
+    input.value = '';
+    return;
+  }
+
+  /* Image slots: show preview */
+  const url = URL.createObjectURL(file);
+  slot.classList.add('has-preview');
+  slot.innerHTML =
+    '<img class="slot-preview" src="' + url + '" alt="Preview">' +
+    '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
+
+  checkUploadReady();
+  input.value = '';
+}
+
+function clearSlot(e, idx) {
+  e.stopPropagation();
+  slotFiles[idx] = null;
+  const slot = document.getElementById('slot-' + idx);
+  slot.classList.remove('has-preview');
+  /* Restore original slot content */
+  const labels = [
+    ['Front Face','Required'],
+    ['Left Profile','Recommended'],
+    ['Right Profile','Recommended'],
+    ['Affected Area','Required'],
+    ['Video','Optional · 30s']
+  ];
+  const icons = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="16" r="4"/><path d="M18 14v2l1 1"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
+  ];
+  slot.innerHTML =
+    icons[idx] +
+    '<p>' + labels[idx][0] + '</p>' +
+    '<small>' + labels[idx][1] + '</small>';
+  slot.onclick = function(){ triggerSlot(idx); };
+  checkUploadReady();
+}
+
+function getUploadedImageFiles() {
+  /* Return only image slots (0–3) that have files */
+  return slotFiles.slice(0, 4).filter(f => f !== null);
+}
+
+function checkUploadReady() {
+  /* Require at least 1 of: slot-0 (front face) OR slot-3 (affected area) */
+  const hasRequired = slotFiles[0] !== null || slotFiles[3] !== null;
+  document.getElementById('next-8').classList.toggle('ready', hasRequired);
+}
+
+/* ═══════════════════════════════════════════════════════
+   ANALYSE → skip backend, go straight to waitlist
+═══════════════════════════════════════════════════════ */
+function analyseAndGo() {
+  const hasRequired = slotFiles[0] !== null || slotFiles[3] !== null;
+  if (!hasRequired) return;
+
+  const overlay = document.getElementById('overlay-analysing');
+  overlay.classList.add('show');
+
+  /* Simulate analysis — fixed 2.2s for premium feel */
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    prefillWaitlistName();
+    populateWaitlistPhotos();
+    showPage('page-waitlist');
+  }, 2200);
+}
+
+/* ═══════════════════════════════════════════════════════
+   WAITLIST PAGE — populate photo previews
+═══════════════════════════════════════════════════════ */
+function populateWaitlistPhotos() {
+  const container = document.getElementById('wl-photos');
+  container.innerHTML = '';
+  getUploadedImageFiles().slice(0, 4).forEach(file => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.className = 'wl-uploaded-photo';
+    img.alt = 'Your skin photo';
+    container.appendChild(img);
+  });
+}
+
+function prefillWaitlistName() {
+  if (quiz.name) {
+    const el = document.getElementById('wl-name');
+    if (el && !el.value) el.value = quiz.name;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   WAITLIST SUBMIT → go to SUCCESS page
+═══════════════════════════════════════════════════════ */
+function submitWaitlist() {
+  const nameEl  = document.getElementById('wl-name');
+  const emailEl = document.getElementById('wl-email');
+  const phoneEl = document.getElementById('wl-phone');
+
+  /* Clear errors */
+  ['name','email','phone'].forEach(k => {
+    document.getElementById('wl-err-' + k).textContent = '';
+    document.getElementById('wl-' + k).classList.remove('err');
+  });
+
+  const name  = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const phone = phoneEl.value.trim();
+  let valid = true;
+
+  if (!name || name.length < 2) {
+    document.getElementById('wl-err-name').textContent = 'Please enter your full name.';
+    nameEl.classList.add('err'); valid = false;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('wl-err-email').textContent = 'Please enter a valid email address.';
+    emailEl.classList.add('err'); valid = false;
+  }
+  if (!phone || phone.replace(/\D/g,'').length < 10) {
+    document.getElementById('wl-err-phone').textContent = 'Please enter a valid phone number.';
+    phoneEl.classList.add('err'); valid = false;
+  }
+  if (!valid) return;
+
+  /* Transition to success */
+  supabaseClient
+  .from('waitlist')
+  .insert([
+    {
+      name: name,
+      email: email,
+      phone: phone
+    }
+  ])
+  .then(({ data, error }) => {
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error) {
+    alert(error.message);
+  } else {
+    populateSuccessPhotos();
+    showPage('page-success');
+  }
+});
+}
+
+/* ═══════════════════════════════════════════════════════
+   SUCCESS PAGE — populate photo thumbnails
+═══════════════════════════════════════════════════════ */
+function populateSuccessPhotos() {
+  const container = document.getElementById('success-photos');
+  container.innerHTML = '';
+  getUploadedImageFiles().slice(0, 4).forEach(file => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.className = 'success-photo';
+    img.alt = 'Uploaded skin photo';
+    container.appendChild(img);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════ */
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ═══════════════════════════════════════════════════════
+   SMOOTH SCROLL (landing page anchors)
+═══════════════════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
