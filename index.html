@@ -939,11 +939,12 @@ async function addToWaitlist(name, email, phone) {
     console.error('Error:', error);
     alert('Something went wrong');
   } else {
-    console.log('Success:', data);
+  console.log('Success:', data);
 
-    // 🔥 EMAIL CALL (NOW INSIDE FUNCTION)
-    try {
-      const res = await fetch('/api/send-email', {
+  console.log("ABOUT TO CALL FETCH"); // 👈 ADD THIS
+
+  try {
+    const res = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
