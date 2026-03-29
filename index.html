@@ -937,7 +937,21 @@ async function addToWaitlist(name, email, phone) {
     alert('Something went wrong');
   } else {
     console.log('Success:', data);
-    goToSuccessPage(); // we’ll define this next
+
+    // 🔥 SEND EMAIL
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        name: name
+      })
+    });
+
+    // ✅ THEN GO TO SUCCESS PAGE
+    goToSuccessPage();
   }
 }
 function joinWaitlist() {
