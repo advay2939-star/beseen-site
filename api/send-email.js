@@ -12,12 +12,14 @@ export default async function handler(req, res) {
   const { email, name } = req.body;
 
   try {
-    await resend.emails.send({
-      from: 'BeSeen <onboarding@resend.dev>',
-      to: email,
-      subject: 'You’re on the BeSeen waitlist',
-      html: `<p>Hey ${name}, you're on the waitlist 🚀</p>`
-    });
+    const response = await resend.emails.send({
+  from: 'BeSeen <onboarding@resend.dev>',
+  to: email,
+  subject: 'You’re on the BeSeen waitlist',
+  html: `<p>Hey ${name}, you're on the waitlist 🚀</p>`
+});
+
+console.log("RESEND RESPONSE:", response);
 
     return res.status(200).json({ success: true });
 
