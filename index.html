@@ -938,21 +938,24 @@ async function addToWaitlist(name, email, phone) {
   } else {
     console.log('Success:', data);
 
-    // 🔥 SEND EMAIL
-    const res = await fetch('/api/send-email', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    email: email,
-    name: name
-  })
-});
+    // 🔥 EMAIL CALL
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          name: name
+        })
+      });
 
-console.log("FETCH RESPONSE:", res);
+      console.log("FETCH RESPONSE:", res);
+    } catch (err) {
+      console.error("FETCH ERROR:", err);
+    }
 
-    // ✅ THEN GO TO SUCCESS PAGE
     goToSuccessPage();
   }
 }
