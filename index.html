@@ -939,16 +939,18 @@ async function addToWaitlist(name, email, phone) {
     console.log('Success:', data);
 
     // 🔥 SEND EMAIL
-    await fetch('/api/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        name: name
-      })
-    });
+    const res = await fetch('/api/send-email', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    email: email,
+    name: name
+  })
+});
+
+console.log("FETCH RESPONSE:", res);
 
     // ✅ THEN GO TO SUCCESS PAGE
     goToSuccessPage();
