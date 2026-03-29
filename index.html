@@ -896,14 +896,31 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 <!-- CHAT FAB -->
 <button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
 <div class="chat-tip">24/7 AI Support</div>
+<div id="page-success" style="
+  display:none;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  flex-direction:column;
+  background:#f8f8f6;
+  font-family:serif;
+">
 
+  <div style="
+    font-size:80px;
+    color:#3a7d5c;
+  ">✓</div>
+
+  <h1 style="margin-top:20px;">You're on the waitlist</h1>
+  <p style="color:#666;">We'll notify you when we launch.</p>
+
+</div>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script>
 const supabaseClient = window.supabase.createClient(
   "https://rkhlfmfubwszgslxiloh.supabase.co",
   "sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f"
 );
-</script>
 async function addToWaitlist(name, email, phone) {
   const { data, error } = await supabaseClient
     .from('waitlist')
@@ -936,27 +953,9 @@ function joinWaitlist() {
   addToWaitlist(name, email, phone);
 }
 function goToSuccessPage() {
-  document.body.innerHTML = `
-    <div style="
-      height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      font-family:serif;
-      background:#f8f8f6;
-    ">
-      <div style="
-        font-size:80px;
-        color:#3a7d5c;
-        animation: pop 0.5s ease;
-      ">✓</div>
-
-      <h1 style="margin-top:20px;">You're on the waitlist</h1>
-      <p style="color:#666;">We'll notify you when we launch.</p>
-    </div>
-  `;
+  showPage("page-success");
 }
+</script>
 <script>
 /* ═══════════════════════════════════════════════════════
    STATE
