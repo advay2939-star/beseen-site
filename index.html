@@ -922,6 +922,8 @@ const supabaseClient = window.supabase.createClient(
   "sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f"
 );
 async function addToWaitlist(name, email, phone) {
+  console.log("HELLO TEST"); // 👈 ADD THIS LINE RIGHT HERE
+
   const { data, error } = await supabaseClient
     .from('waitlist')
     .insert([
@@ -937,7 +939,9 @@ async function addToWaitlist(name, email, phone) {
     alert('Something went wrong');
   } else {
     console.log('Success:', data);
-
+    goToSuccessPage();
+  }
+}
     // 🔥 EMAIL CALL
     try {
       const res = await fetch('/api/send-email', {
