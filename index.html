@@ -1135,51 +1135,45 @@ async function submitWaitlist() {
       console.log('[waitlist] Supabase insert OK');
     }
 
-/* ── STEP 2: Confirmation email via /api/send-email ── */
-console.log('[waitlist] Calling /api/send-email for:', email);
+    /* ── STEP 2: Confirmation email via /api/send-email ── */
+    console.log('[waitlist] Calling /api/send-email for:', email);
+    try {
+      const emailRes = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email }),
+      });
+      const emailData = await emailRes.json();
+      if (!emailRes.ok) {
+        console.error('[waitlist] /api/send-email failed:', emailRes.status, emailData);
+        btn.disabled = false;
+        btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+        alert('Something went wrong sending your confirmation email. Please try again.');
+        return;
+      }
+      console.log('[waitlist] Confirmation email sent, Resend ID:', emailData.id);
+    } catch (emailErr) {
+      console.error('[waitlist] /api/send-email network error:', emailErr);
+      btn.disabled = false;
+      btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+      alert('Network error. Please check your connection and try again.');
+      return;
+    }
 
-try {
-  const emailRes = await fetch('/api/send-email', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email }),
-  });
-
-  const emailData = await emailRes.json();
-
-  if (!emailRes.ok) {
-    console.error('[waitlist] Email failed:', emailRes.status, emailData);
-
-    alert("Something went wrong while sending confirmation email. Please try again.");
-    btn.disabled = false;
-    return;
-  }
-
-  console.log('[waitlist] Email sent:', emailData);
-
-} catch (emailErr) {
-  console.error('[waitlist] Email fetch error:', emailErr);
-
-  alert("Network error. Please try again.");
-  btn.disabled = false;
-  return;
-}
-
-/* ── STEP 3: Populate success page photos and navigate ── */
-const successPhotos = document.getElementById('success-photos');
-successPhotos.innerHTML = '';
-
-getUploadedImageFiles().slice(0, 4).forEach(file => {
-  const img = document.createElement('img');
-  img.src = URL.createObjectURL(file);
-  img.className = 'success-photo';
-  img.alt = 'Uploaded skin photo';
-  successPhotos.appendChild(img);
-});
-
-showPage('page-success');
+    /* ── STEP 3: Populate success page photos and navigate ── */
+    const successPhotos = document.getElementById('success-photos');
+    successPhotos.innerHTML = '';
+    getUploadedImageFiles().slice(0, 4).forEach(file => {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.className = 'success-photo';
+      img.alt = 'Uploaded skin photo';
+      successPhotos.appendChild(img);
+    });
+    showPage('page-success');
 
   } catch (err) {
+    /* ── Database error — show inline message and re-enable button ── */
     console.error('[waitlist] Fatal error in submitWaitlist:', err);
     document.getElementById('wl-err-name').textContent = 'Something went wrong. Please try again.';
     btn.disabled = false;
@@ -1205,6 +1199,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const target = document.getElementById(id);
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
   });
+});
 </script>
 </body>
 </html>
