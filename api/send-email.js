@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const { email, name } = req.body;
 
     const data = await resend.emails.send({
-      from: 'onboarding@resend.dev', // works for testing
+     from: 'BeSeen <hello@beseen.skin>'
       to: email,
       subject: 'You’re on the waitlist 🚀',
       html: `
