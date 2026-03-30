@@ -1135,7 +1135,7 @@ async function submitWaitlist() {
       console.log('[waitlist] Supabase insert OK');
     }
 
-   /* ── STEP 2: Confirmation email via /api/send-email ── */
+/* ── STEP 2: Confirmation email via /api/send-email ── */
 console.log('[waitlist] Calling /api/send-email for:', email);
 
 try {
@@ -1151,6 +1151,7 @@ try {
     console.error('[waitlist] Email failed:', emailRes.status, emailData);
 
     alert("Something went wrong while sending confirmation email. Please try again.");
+    btn.disabled = false;
     return;
   }
 
@@ -1160,6 +1161,7 @@ try {
   console.error('[waitlist] Email fetch error:', emailErr);
 
   alert("Network error. Please try again.");
+  btn.disabled = false;
   return;
 }
 
@@ -1175,7 +1177,15 @@ getUploadedImageFiles().slice(0, 4).forEach(file => {
   successPhotos.appendChild(img);
 });
 
-showPage('page-success'); // ✅ ONLY ONE SUCCESS CALL
+showPage('page-success');
+
+  } catch (err) {
+    console.error('[waitlist] Fatal error in submitWaitlist:', err);
+    document.getElementById('wl-err-name').textContent = 'Something went wrong. Please try again.';
+    btn.disabled = false;
+    btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+  }
+}
 
 /* ═══════════════════════════════════════════════════════
    HELPERS
@@ -1195,7 +1205,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const target = document.getElementById(id);
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
   });
-});
 </script>
 </body>
 </html>
