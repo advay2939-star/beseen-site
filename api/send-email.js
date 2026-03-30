@@ -10,7 +10,17 @@ export default async function handler(req, res) {
       from: 'onboarding@resend.dev', // works for testing
       to: email,
       subject: 'You’re on the waitlist 🚀',
-      html: `<p>Hey ${name}, you’re officially on the BeSeen waitlist.</p>`
+      html: `
+  <div style="font-family: Arial; padding: 20px;">
+    <h2>You're in 🚀</h2>
+    <p>Hey ${name},</p>
+    <p>You’re officially on the <strong>BeSeen</strong> waitlist.</p>
+    <p>We’re building something that will genuinely upgrade your skin game.</p>
+    <br/>
+    <p>Stay tuned.</p>
+    <p><strong>– Team BeSeen</strong></p>
+  </div>
+`
     });
 
     return res.status(200).json({ success: true, data });
