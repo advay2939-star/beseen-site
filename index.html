@@ -215,6 +215,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-quiz-next.ready{opacity:1;pointer-events:auto}
 .btn-quiz-next.ready:hover{opacity:.85;transform:translateY(-1px)}
 
+/* ── QUIZ SECTION LABELS ── */
+.quiz-group-label{font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px}
+.quiz-group-hint{font-size:12px;color:var(--g500);margin-bottom:12px;font-weight:300;line-height:1.5}
+
 /* ── PHOTO UPLOAD ── */
 .photo-slots{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
 .photo-slot{border:1.5px dashed var(--g300);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--white)}
@@ -231,6 +235,20 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .upload-area svg{width:28px;height:28px;margin:0 auto 10px;display:block;opacity:.4;color:var(--g500)}
 .upload-area p{font-size:14px;font-weight:500;color:var(--g700);margin-bottom:3px}
 .upload-area small{font-size:12px;color:var(--g500)}
+
+/* ── UPLOAD INSTRUCTION BOX (NEW) ── */
+.upload-instruction-box{background:var(--accent-l);border:1px solid #b5d0c9;border-radius:12px;padding:18px 20px;margin-bottom:24px}
+.upload-instruction-title{font-size:13px;font-weight:500;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.upload-instruction-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.upload-instruction-list li{font-size:12.5px;color:var(--g700);padding-left:16px;position:relative;line-height:1.5}
+.upload-instruction-list li::before{content:'·';position:absolute;left:4px;color:var(--accent);font-weight:700;font-size:16px;line-height:1.2}
+
+/* ── QUIZ TRUST BADGE (NEW) ── */
+.quiz-trust-badge{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1.5px solid var(--accent);border-radius:var(--pill);padding:7px 16px;font-size:12px;font-weight:500;color:var(--accent);margin-bottom:20px;box-shadow:var(--shadow-s)}
+.quiz-trust-badge svg{width:15px;height:15px;flex-shrink:0}
+
+/* ── PHOTO REQUIRED ERROR (NEW) ── */
+.photo-req-error{display:none;font-size:12px;color:#c0392b;background:#fdf0ef;border:1px solid #e9c4c2;border-radius:8px;padding:10px 14px;margin:8px 0 16px}
 
 /* ── OVERLAY ── */
 #overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.96);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;gap:20px}
@@ -352,8 +370,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <li><a href="#pricing" onclick="goHome();setTimeout(()=>{document.getElementById('pricing').scrollIntoView({behavior:'smooth'})},200);return false">Pricing</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
-    <div class="nav-right">
-    </div>
+    <div class="nav-right"></div>
   </div>
 </nav>
 
@@ -372,7 +389,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <a href="#how" class="btn btn-secondary">How It Works</a>
     </div>
     <div class="hero-trust fu vis" style="transition-delay:.4s">
-      <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Doctor-Designed Protocols</div>
+      <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Dermatologist Reviewed</div>
       <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2zm3-9v2m0 0a1 1 0 100 2 1 1 0 000-2z"/></svg>Photos Never Sold or Shared</div>
       <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2.5 2.5"/></svg>Ready in Under 5 Minutes</div>
       <div class="trust-item"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>4.8 / 5 Average Rating</div>
@@ -403,8 +420,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <h2 class="section-title fu d1" style="margin-bottom:20px">Four steps to your <em>custom-crafted routine.</em></h2>
         <p class="fu d2" style="font-size:14px;color:var(--g700);font-weight:300;max-width:440px;line-height:1.7;margin-bottom:36px">No dermatologist appointment. No guesswork. Just science-backed guidance, delivered to you in minutes.</p>
         <div class="steps">
-          <div class="step fu d1"><div class="step-num">1</div><div class="step-body"><h4>Answer a short questionnaire</h4><p>Tell us about your skin type, lifestyle, concerns, and goals. 7 targeted questions. Under 90 seconds.</p></div></div>
-          <div class="step fu d2"><div class="step-num">2</div><div class="step-body"><h4>Upload your skin photos</h4><p>Natural light, no filter. Front, left, right, and affected area. Our analysis reads texture, pores, pigmentation, and oiliness.</p></div></div>
+          <div class="step fu d1"><div class="step-num">1</div><div class="step-body"><h4>Answer a short questionnaire</h4><p>Tell us about your skin type, lifestyle, concerns, and goals. 9 targeted questions. Under 90 seconds.</p></div></div>
+          <div class="step fu d2"><div class="step-num">2</div><div class="step-body"><h4>Upload your skin photos</h4><p>Natural light, no filter. Front, left, right, and close-up. Our analysis reads texture, pores, pigmentation, and oiliness.</p></div></div>
           <div class="step fu d3"><div class="step-num">3</div><div class="step-body"><h4>Join the early access list</h4><p>Your personalised plan is generated instantly. Be among the first to receive it the moment we launch.</p></div></div>
           <div class="step fu d4"><div class="step-num">4</div><div class="step-body"><h4>Receive your complete plan</h4><p>Morning, afternoon, night, and pre-sleep routines — ingredient-matched and ready for you.</p></div></div>
         </div>
@@ -438,13 +455,13 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <div class="mac-progress-bar"><div class="mac-progress-fill" id="mac-fill"></div></div>
         <div class="mac-content">
           <h2>Let's understand your skin.</h2>
-          <p class="mac-sub">7 questions. 90 seconds. Your answers shape every recommendation.</p>
-          <div class="q-block"><p class="q-label">Primary concern?</p><div class="chips"><span class="chip on" onclick="toggleChip(this)">Acne &amp; Breakouts</span><span class="chip" onclick="toggleChip(this)">Hyperpigmentation</span><span class="chip" onclick="toggleChip(this)">Dryness</span><span class="chip" onclick="toggleChip(this)">Anti-Ageing</span></div></div>
+          <p class="mac-sub">9 questions. 90 seconds. Your answers shape every recommendation.</p>
+          <div class="q-block"><p class="q-label">Primary concern?</p><div class="chips"><span class="chip on" onclick="toggleChip(this)">Acne &amp; Breakouts</span><span class="chip" onclick="toggleChip(this)">Pigmentation</span><span class="chip" onclick="toggleChip(this)">Dryness</span><span class="chip" onclick="toggleChip(this)">Fine Lines</span></div></div>
           <div class="q-block"><p class="q-label">Skin type?</p><div class="chips"><span class="chip" onclick="toggleChip(this)">Oily</span><span class="chip on" onclick="toggleChip(this)">Combination</span><span class="chip" onclick="toggleChip(this)">Dry</span><span class="chip" onclick="toggleChip(this)">Sensitive</span></div></div>
           <div class="q-block"><p class="q-label">Age range?</p><div class="chips"><span class="chip" onclick="toggleChip(this)">Under 20</span><span class="chip on" onclick="toggleChip(this)">20–30</span><span class="chip" onclick="toggleChip(this)">31–40</span><span class="chip" onclick="toggleChip(this)">40+</span></div></div>
           <hr class="mac-divider">
           <h2 style="font-size:22px;margin-bottom:6px">Upload your skin photos</h2>
-          <p class="mac-sub">Natural light, no filter. Front, left, right, and affected area.</p>
+          <p class="mac-sub">Natural light, no filter. Front, left, right, and close-up.</p>
           <div class="upload-zone-demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>Drag &amp; drop or tap to upload</div>
           <div class="mac-analysis"><div class="mac-analysis-row"><span>Analysing your skin…</span><span id="mac-pct">0%</span></div><div class="mac-bar-bg"><div class="mac-bar-fill" id="mac-bar-fill"></div></div></div>
           <hr class="mac-divider">
@@ -494,7 +511,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 <div class="trust-strip">
   <div class="container">
     <div class="trust-items">
-      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Doctor-Designed Protocols</div>
+      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Dermatologist Reviewed</div>
       <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2zm3-9v2m0 0a1 1 0 100 2 1 1 0 000-2z"/></svg>Photos Never Sold or Shared</div>
       <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4M7.835 4.697A3.42 3.42 0 0010 4c.56 0 1.11.074 1.63.21"/></svg>Trusted Ingredients Only</div>
       <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>24/7 AI Support Included</div>
@@ -512,18 +529,18 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </div><!-- /page-home -->
 
 
-<!-- ══════════ PAGE 2: QUIZ ══════════ -->
+<!-- ══════════ PAGE 2: QUIZ (9 STEPS) ══════════ -->
 <div id="page-quiz" class="page">
   <div class="quiz-wrap">
     <div class="quiz-progress-bar-wrap">
       <div class="quiz-bar-bg"><div class="quiz-bar-fill" id="quiz-bar"></div></div>
-      <div class="quiz-step-label" id="quiz-step-label">Step 1 of 8</div>
+      <div class="quiz-step-label" id="quiz-step-label">Step 1 of 9</div>
     </div>
 
-    <!-- Step 1: Name -->
+    <!-- ─── Step 1: Full Name ─── -->
     <div class="quiz-step active" data-step="1">
       <h2 class="quiz-q-title">Before we begin, what's your name?</h2>
-      <p class="quiz-q-sub">We use this to personalise your plan.</p>
+      <p class="quiz-q-sub">We use this to personalise your plan and address you properly.</p>
       <input class="name-input" type="text" id="input-name" placeholder="Your first name…" autocomplete="given-name">
       <div class="quiz-nav">
         <span style="opacity:0">← Back</span>
@@ -531,102 +548,194 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
     </div>
 
-    <!-- Step 2: Age -->
+    <!-- ─── Step 2: Age + Gender ─── -->
     <div class="quiz-step" data-step="2">
-      <h2 class="quiz-q-title">How old are you?</h2>
-      <p class="quiz-q-sub">Your age helps us calibrate ingredient strengths appropriately.</p>
-      <div class="quiz-options">
-        <button class="q-opt" onclick="selectOpt(this,'age','Under 18')">Under 18</button>
-        <button class="q-opt" onclick="selectOpt(this,'age','18–24')">18–24</button>
-        <button class="q-opt" onclick="selectOpt(this,'age','25–34')">25–34</button>
-        <button class="q-opt" onclick="selectOpt(this,'age','35–44')">35–44</button>
-        <button class="q-opt" onclick="selectOpt(this,'age','45+')">45+</button>
+      <h2 class="quiz-q-title">How old are you, and what's your gender?</h2>
+      <p class="quiz-q-sub">These help us calibrate ingredient strengths and account for hormonal skin factors.</p>
+      <p class="quiz-group-label">Age range</p>
+      <div class="quiz-options" id="opts-age" style="margin-bottom:28px">
+        <button class="q-opt" onclick="selectGroup(this,'age','Under 18',2)">Under 18</button>
+        <button class="q-opt" onclick="selectGroup(this,'age','18–24',2)">18–24</button>
+        <button class="q-opt" onclick="selectGroup(this,'age','25–34',2)">25–34</button>
+        <button class="q-opt" onclick="selectGroup(this,'age','35–44',2)">35–44</button>
+        <button class="q-opt" onclick="selectGroup(this,'age','45+',2)">45+</button>
       </div>
-      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(1)">← Back</button><button class="btn-quiz-next" id="next-2" onclick="nextStep(3)">Continue →</button></div>
+      <p class="quiz-group-label">Gender</p>
+      <div class="quiz-options" id="opts-gender" style="margin-bottom:40px">
+        <button class="q-opt" onclick="selectGroup(this,'gender','Female',2)">Female</button>
+        <button class="q-opt" onclick="selectGroup(this,'gender','Male',2)">Male</button>
+        <button class="q-opt" onclick="selectGroup(this,'gender','Non-binary',2)">Non-binary</button>
+        <button class="q-opt" onclick="selectGroup(this,'gender','Prefer not to say',2)">Prefer not to say</button>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(1)">← Back</button>
+        <button class="btn-quiz-next" id="next-2" onclick="nextStep(3)">Continue →</button>
+      </div>
     </div>
 
-    <!-- Step 3: Gender -->
+    <!-- ─── Step 3: City ─── -->
     <div class="quiz-step" data-step="3">
-      <h2 class="quiz-q-title">What is your gender?</h2>
-      <p class="quiz-q-sub">Hormonal factors influence skin behaviour differently.</p>
-      <div class="quiz-options">
-        <button class="q-opt" onclick="selectOpt(this,'gender','Female')">Female</button>
-        <button class="q-opt" onclick="selectOpt(this,'gender','Male')">Male</button>
-        <button class="q-opt" onclick="selectOpt(this,'gender','Non-binary')">Non-binary</button>
-        <button class="q-opt" onclick="selectOpt(this,'gender','Prefer not to say')">Prefer not to say</button>
+      <h2 class="quiz-q-title">Which city are you based in?</h2>
+      <p class="quiz-q-sub">Climate and pollution levels directly affect your skin — we factor this into every recommendation.</p>
+      <input class="name-input" type="text" id="input-city" placeholder="Your city…" autocomplete="address-level2">
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(2)">← Back</button>
+        <button class="btn-quiz-next" id="next-3" onclick="nextStep(4)">Continue →</button>
       </div>
-      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(2)">← Back</button><button class="btn-quiz-next" id="next-3" onclick="nextStep(4)">Continue →</button></div>
     </div>
 
-    <!-- Step 4: Skin Type -->
+    <!-- ─── Step 4: Skin Type ─── -->
     <div class="quiz-step" data-step="4">
       <h2 class="quiz-q-title">How would you describe your skin type?</h2>
-      <p class="quiz-q-sub">Think about how your skin feels by mid-afternoon on an average day.</p>
+      <p class="quiz-q-sub">Think about how your skin feels by mid-afternoon on a typical day — not right after washing.</p>
       <div class="quiz-options">
-        <button class="q-opt" onclick="selectOpt(this,'skintype','Oily')">Oily (shiny all over)</button>
-        <button class="q-opt" onclick="selectOpt(this,'skintype','Combination')">Combination (oily T-zone)</button>
-        <button class="q-opt" onclick="selectOpt(this,'skintype','Dry')">Dry (tight, flaky)</button>
-        <button class="q-opt" onclick="selectOpt(this,'skintype','Normal')">Normal (balanced)</button>
-        <button class="q-opt" onclick="selectOpt(this,'skintype','Sensitive')">Sensitive (reacts easily)</button>
+        <button class="q-opt" onclick="selectOpt(this,'skinType','Oily',4)">Oily</button>
+        <button class="q-opt" onclick="selectOpt(this,'skinType','Combination',4)">Combination</button>
+        <button class="q-opt" onclick="selectOpt(this,'skinType','Dry',4)">Dry</button>
+        <button class="q-opt" onclick="selectOpt(this,'skinType','Normal',4)">Normal</button>
+        <button class="q-opt" onclick="selectOpt(this,'skinType','Sensitive',4)">Sensitive</button>
+        <button class="q-opt" onclick="selectOpt(this,'skinType','Not sure',4)">Not sure</button>
       </div>
-      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(3)">← Back</button><button class="btn-quiz-next" id="next-4" onclick="nextStep(5)">Continue →</button></div>
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(3)">← Back</button>
+        <button class="btn-quiz-next" id="next-4" onclick="nextStep(5)">Continue →</button>
+      </div>
     </div>
 
-    <!-- Step 5: Concerns — MULTI-SELECT max 3 -->
+    <!-- ─── Step 5: Concerns (multi-select, max 3) ─── -->
     <div class="quiz-step" data-step="5">
       <h2 class="quiz-q-title">What are your main skin concerns?</h2>
-      <p class="quiz-q-sub">Select up to 3. We'll target all of them in your plan.</p>
-      <p class="concern-hint" id="concern-hint">Select up to <span id="concern-remaining">3</span> more</p>
+      <p class="quiz-q-sub">Select up to 3. We'll target all of them in your personalised plan.</p>
+      <p class="concern-hint" id="concern-hint">Select up to <span>3</span> more</p>
       <div class="quiz-options" id="opts-concern">
         <button class="q-opt" onclick="toggleConcern(this,'Acne &amp; Breakouts')">Acne &amp; Breakouts</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Hyperpigmentation &amp; Dark Spots')">Hyperpigmentation &amp; Dark Spots</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Dryness &amp; Dehydration')">Dryness &amp; Dehydration</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Ageing &amp; Fine Lines')">Ageing &amp; Fine Lines</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Uneven Texture &amp; Dullness')">Uneven Texture &amp; Dullness</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Sensitivity &amp; Redness')">Sensitivity &amp; Redness</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Pigmentation / Dark Spots')">Pigmentation / Dark Spots</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Dryness / Dehydration')">Dryness / Dehydration</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Oiliness')">Oiliness</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Uneven Texture')">Uneven Texture</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Sensitivity / Redness')">Sensitivity / Redness</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Large Pores')">Large Pores</button>
         <button class="q-opt" onclick="toggleConcern(this,'Dark Circles')">Dark Circles</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Pores &amp; Texture')">Pores &amp; Texture</button>
+        <button class="q-opt" onclick="toggleConcern(this,'Fine Lines')">Fine Lines</button>
       </div>
-      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(4)">← Back</button><button class="btn-quiz-next" id="next-5" onclick="nextStep(6)">Continue →</button></div>
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(4)">← Back</button>
+        <button class="btn-quiz-next" id="next-5" onclick="nextStep(6)">Continue →</button>
+      </div>
     </div>
 
-    <!-- Step 6: Lifestyle -->
+    <!-- ─── Step 6: Skin Behaviour ─── -->
     <div class="quiz-step" data-step="6">
-      <h2 class="quiz-q-title">A couple of quick lifestyle questions.</h2>
-      <p class="quiz-q-sub">These shape your routine's pacing and ingredient intensity.</p>
-      <p style="font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px">Daily water intake?</p>
-      <div class="quiz-options" id="opts-water" style="margin-bottom:28px">
-        <button class="q-opt" onclick="selectMulti(this,'water','Less than 1L')">Less than 1L</button>
-        <button class="q-opt" onclick="selectMulti(this,'water','1–2L')">1–2L</button>
-        <button class="q-opt" onclick="selectMulti(this,'water','More than 2L')">More than 2L</button>
-      </div>
-      <p style="font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px">Average sleep quality?</p>
-      <div class="quiz-options" id="opts-sleep" style="margin-bottom:40px">
-        <button class="q-opt" onclick="selectMulti(this,'sleep','Poor')">Poor</button>
-        <button class="q-opt" onclick="selectMulti(this,'sleep','Average')">Average</button>
-        <button class="q-opt" onclick="selectMulti(this,'sleep','Good')">Good</button>
-        <button class="q-opt" onclick="selectMulti(this,'sleep','Excellent')">Excellent</button>
-      </div>
-      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(5)">← Back</button><button class="btn-quiz-next" id="next-6" onclick="nextStep(7)">Continue →</button></div>
-    </div>
-
-    <!-- Step 7: Current Routine -->
-    <div class="quiz-step" data-step="7">
-      <h2 class="quiz-q-title">Do you currently have a skincare routine?</h2>
-      <p class="quiz-q-sub">Knowing where you start helps us pitch the plan at the right level.</p>
+      <h2 class="quiz-q-title">How does your skin usually behave?</h2>
+      <p class="quiz-q-sub">Pick the description that best matches your skin's most common pattern throughout the day.</p>
       <div class="quiz-options">
-        <button class="q-opt" onclick="selectOpt(this,'routine','None at all')">None at all</button>
-        <button class="q-opt" onclick="selectOpt(this,'routine','Just a basic cleanser')">Just a basic cleanser</button>
-        <button class="q-opt" onclick="selectOpt(this,'routine','A few products (2–3 steps)')">A few products (2–3 steps)</button>
-        <button class="q-opt" onclick="selectOpt(this,'routine','A full routine (4+ steps)')">A full routine (4+ steps)</button>
+        <button class="q-opt" onclick="selectOpt(this,'behavior','After waking up — dry or tight',6)">After waking up — dry or tight</button>
+        <button class="q-opt" onclick="selectOpt(this,'behavior','Midday — oily or shiny',6)">Midday — oily or shiny</button>
+        <button class="q-opt" onclick="selectOpt(this,'behavior','After outdoors — irritated or red',6)">After outdoors — irritated or red</button>
+        <button class="q-opt" onclick="selectOpt(this,'behavior','After using products — reactive',6)">After using products — reactive</button>
+        <button class="q-opt" onclick="selectOpt(this,'behavior','Always inconsistent',6)">Always inconsistent</button>
       </div>
-      <div class="quiz-nav"><button class="btn-ghost" onclick="prevStep(6)">← Back</button><button class="btn-quiz-next" id="next-7" onclick="nextStep(8)">Continue →</button></div>
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(5)">← Back</button>
+        <button class="btn-quiz-next" id="next-6" onclick="nextStep(7)">Continue →</button>
+      </div>
     </div>
 
-    <!-- Step 8: Photo Upload -->
+    <!-- ─── Step 7: Lifestyle ─── -->
+    <div class="quiz-step" data-step="7">
+      <h2 class="quiz-q-title">A few quick lifestyle questions.</h2>
+      <p class="quiz-q-sub">These shape your routine's pacing and ingredient intensity. Answer all four to continue.</p>
+
+      <p class="quiz-group-label">Sleep quality?</p>
+      <div class="quiz-options" id="opts-sleep" style="margin-bottom:24px">
+        <button class="q-opt" onclick="selectGroup(this,'sleep','Poor',7)">Poor</button>
+        <button class="q-opt" onclick="selectGroup(this,'sleep','Average',7)">Average</button>
+        <button class="q-opt" onclick="selectGroup(this,'sleep','Good',7)">Good</button>
+        <button class="q-opt" onclick="selectGroup(this,'sleep','Excellent',7)">Excellent</button>
+      </div>
+
+      <p class="quiz-group-label">Daily water intake?</p>
+      <div class="quiz-options" id="opts-water" style="margin-bottom:24px">
+        <button class="q-opt" onclick="selectGroup(this,'water','Low',7)">Low</button>
+        <button class="q-opt" onclick="selectGroup(this,'water','Moderate',7)">Moderate</button>
+        <button class="q-opt" onclick="selectGroup(this,'water','High',7)">High</button>
+      </div>
+
+      <p class="quiz-group-label">Diet quality?</p>
+      <div class="quiz-options" id="opts-diet" style="margin-bottom:24px">
+        <button class="q-opt" onclick="selectGroup(this,'diet','Junk',7)">Junk</button>
+        <button class="q-opt" onclick="selectGroup(this,'diet','Balanced',7)">Balanced</button>
+        <button class="q-opt" onclick="selectGroup(this,'diet','Clean',7)">Clean</button>
+      </div>
+
+      <p class="quiz-group-label">Stress level?</p>
+      <div class="quiz-options" id="opts-stress" style="margin-bottom:40px">
+        <button class="q-opt" onclick="selectGroup(this,'stress','Low',7)">Low</button>
+        <button class="q-opt" onclick="selectGroup(this,'stress','Moderate',7)">Moderate</button>
+        <button class="q-opt" onclick="selectGroup(this,'stress','High',7)">High</button>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(6)">← Back</button>
+        <button class="btn-quiz-next" id="next-7" onclick="nextStep(8)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ─── Step 8: Routine + Product History ─── -->
     <div class="quiz-step" data-step="8">
+      <h2 class="quiz-q-title">Tell us about your current routine.</h2>
+      <p class="quiz-q-sub">Knowing where you start helps us pitch the plan at the right level and avoid overloading you.</p>
+
+      <p class="quiz-group-label">Current skincare routine?</p>
+      <div class="quiz-options" id="opts-routine" style="margin-bottom:32px">
+        <button class="q-opt" onclick="selectGroup(this,'routine','None',8)">None</button>
+        <button class="q-opt" onclick="selectGroup(this,'routine','Cleanser only',8)">Cleanser only</button>
+        <button class="q-opt" onclick="selectGroup(this,'routine','Basic (2–3 steps)',8)">Basic (2–3 steps)</button>
+        <button class="q-opt" onclick="selectGroup(this,'routine','Full routine (4+ steps)',8)">Full routine (4+ steps)</button>
+      </div>
+
+      <p class="quiz-group-label">Ingredients you've used before?</p>
+      <p class="quiz-group-hint">Select all that apply — helps us avoid reintroducing sensitivities. Optional but recommended.</p>
+      <div class="quiz-options" id="opts-history" style="margin-bottom:40px">
+        <button class="q-opt" onclick="toggleHistory(this,'Salicylic Acid')">Salicylic Acid</button>
+        <button class="q-opt" onclick="toggleHistory(this,'Niacinamide')">Niacinamide</button>
+        <button class="q-opt" onclick="toggleHistory(this,'Retinol')">Retinol</button>
+        <button class="q-opt" onclick="toggleHistory(this,'Vitamin C')">Vitamin C</button>
+        <button class="q-opt" onclick="toggleHistory(this,'Benzoyl Peroxide')">Benzoyl Peroxide</button>
+        <button class="q-opt" onclick="toggleHistory(this,'Not sure')">Not sure</button>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-ghost" onclick="prevStep(7)">← Back</button>
+        <button class="btn-quiz-next" id="next-8" onclick="nextStep(9)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ─── Step 9: Photo Upload ─── -->
+    <div class="quiz-step" data-step="9">
       <h2 class="quiz-q-title">Upload your skin photos.</h2>
-      <p class="quiz-q-sub">Natural light, no filter. The more angles you share, the more precise your routine.</p>
+      <p class="quiz-q-sub">The more angles you share, the more precise your routine. Front face is required.</p>
+
+      <!-- Instruction box -->
+      <div class="upload-instruction-box">
+        <p class="upload-instruction-title">
+          <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 7v3m0 3h.01"/></svg>
+          For the most accurate analysis:
+        </p>
+        <ul class="upload-instruction-list">
+          <li>Use natural light — avoid flash or harsh overhead lighting</li>
+          <li>No filters or makeup for accurate skin reading</li>
+          <li>Keep images clear and sharply in focus</li>
+          <li>Neutral expression and relaxed face</li>
+        </ul>
+      </div>
+
+      <!-- Dermatologist Reviewed trust badge -->
+      <div class="quiz-trust-badge">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Dermatologist Reviewed
+      </div>
+
       <div class="photo-slots" id="photo-slots">
         <div class="photo-slot" id="slot-0" onclick="triggerSlot(0)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
@@ -641,29 +750,37 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <p>Right Profile</p><small>Recommended</small>
         </div>
         <div class="photo-slot" id="slot-3" onclick="triggerSlot(3)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="16" r="4"/><path d="M18 14v2l1 1"/></svg>
-          <p>Affected Area</p><small>Required</small>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>
+          <p>Close-up</p><small>Recommended</small>
         </div>
         <div class="photo-slot" id="slot-4" onclick="triggerSlot(4)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
           <p>Video</p><small>Optional · 30s</small>
         </div>
       </div>
+
       <input type="file" class="slot-file-input" id="slot-input-0" accept="image/*" onchange="handleSlotFile(this,0)">
       <input type="file" class="slot-file-input" id="slot-input-1" accept="image/*" onchange="handleSlotFile(this,1)">
       <input type="file" class="slot-file-input" id="slot-input-2" accept="image/*" onchange="handleSlotFile(this,2)">
       <input type="file" class="slot-file-input" id="slot-input-3" accept="image/*" onchange="handleSlotFile(this,3)">
       <input type="file" class="slot-file-input" id="slot-input-4" accept="video/*" onchange="handleSlotFile(this,4)">
+
       <div class="upload-area" onclick="document.getElementById('slot-input-0').click()" style="margin-top:12px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
         <p>Or tap here to upload front face photo</p>
         <small>JPG · PNG · HEIC · Max 10MB each</small>
       </div>
+
+      <div class="photo-req-error" id="photo-req-error">
+        ⚠ Please upload at least your front face photo to continue.
+      </div>
+
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(7)">← Back</button>
-        <button class="btn-quiz-next" id="next-8" onclick="analyseAndGo()">Analyse My Skin →</button>
+        <button class="btn-ghost" onclick="prevStep(8)">← Back</button>
+        <button class="btn-quiz-next" id="next-9" onclick="analyseAndGo()">Get My Skin Report →</button>
       </div>
     </div>
+
   </div>
 </div><!-- /page-quiz -->
 
@@ -797,8 +914,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script>
+try {
+
 /* ═══════════════════════════════════════════════════════
-   SUPABASE CLIENT — single instance, top of script
+   SUPABASE CLIENT
 ═══════════════════════════════════════════════════════ */
 const supabaseClient = window.supabase.createClient(
   'https://rkhlfmfubwszgslxiloh.supabase.co',
@@ -806,29 +925,93 @@ const supabaseClient = window.supabase.createClient(
 );
 
 /* ═══════════════════════════════════════════════════════
-   STATE
+   FORM STATE — single object, all fields with safe defaults
 ═══════════════════════════════════════════════════════ */
-const quiz = {
-  name:'', age:'', gender:'', skintype:'',
-  concerns:[], /* multi-select array, max 3 */
-  water:'', sleep:'', routine:''
+const formData = {
+  name:     '',
+  age:      '',
+  gender:   '',
+  city:     '',
+  skinType: '',
+  concerns: [],   // multi-select, max 3
+  behavior: '',
+  sleep:    '',
+  water:    '',
+  diet:     '',
+  stress:   '',
+  routine:  '',
+  history:  [],   // multi-select, no limit
+  images:   {}
 };
-const slotFiles = [null, null, null, null, null]; /* index 0–4 */
-let currentStep  = 1;
-const TOTAL_STEPS = 8;
-let timerInterval = null;
-let timerActive   = false;
+
+const slotFiles    = [null, null, null, null, null]; // indices 0–4
+let currentStep    = 1;
+const TOTAL_STEPS  = 9;
+let timerInterval  = null;
+let timerActive    = false;
+
+/* ═══════════════════════════════════════════════════════
+   STEP READINESS — centralised, no scattered checks
+═══════════════════════════════════════════════════════ */
+function checkStepReady(step) {
+  try {
+    let ready = false;
+    switch (step) {
+      case 1: ready = (formData.name || '').length >= 2; break;
+      case 2: ready = formData.age !== '' && formData.gender !== ''; break;
+      case 3: ready = (formData.city || '').length >= 2; break;
+      case 4: ready = formData.skinType !== ''; break;
+      case 5: ready = formData.concerns.length >= 1; break;
+      case 6: ready = formData.behavior !== ''; break;
+      case 7: ready = formData.sleep !== '' && formData.water !== '' &&
+                      formData.diet !== '' && formData.stress !== ''; break;
+      case 8: ready = formData.routine !== ''; break;
+      case 9: ready = slotFiles[0] !== null; break;
+      default: ready = false;
+    }
+    const btn = document.getElementById('next-' + step);
+    if (btn) btn.classList.toggle('ready', ready);
+  } catch (e) {
+    console.error('[checkStepReady] step=' + step, e);
+  }
+}
 
 /* ═══════════════════════════════════════════════════════
    PAGE SWITCHING
 ═══════════════════════════════════════════════════════ */
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+  try {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    window.scrollTo(0, 0);
+  } catch (e) {
+    console.error('[showPage]', e);
+  }
 }
 function goHome()    { showPage('page-home'); }
-function startQuiz() { showPage('page-quiz'); currentStep = 1; showStep(1, false); }
+function startQuiz() {
+  // Reset all form state
+  formData.name     = '';
+  formData.age      = '';
+  formData.gender   = '';
+  formData.city     = '';
+  formData.skinType = '';
+  formData.concerns = [];
+  formData.behavior = '';
+  formData.sleep    = '';
+  formData.water    = '';
+  formData.diet     = '';
+  formData.stress   = '';
+  formData.routine  = '';
+  formData.history  = [];
+  formData.images   = {};
+  for (let i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
+
+  showPage('page-quiz');
+  currentStep = 1;
+  showStep(1, false);
+}
 
 /* ═══════════════════════════════════════════════════════
    SCROLL ANIMATIONS
@@ -842,17 +1025,22 @@ document.querySelectorAll('.fu').forEach(el => io.observe(el));
    MAC DEMO WINDOW
 ═══════════════════════════════════════════════════════ */
 function updateMacProgress() {
-  const el = document.getElementById('mac-scroll');
-  if (!el) return;
-  const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) * 100;
-  document.getElementById('mac-fill').style.width = pct + '%';
-  const p = Math.round(pct);
-  document.getElementById('mac-pct').textContent = p + '%';
-  document.getElementById('mac-bar-fill').style.width = p + '%';
+  try {
+    const el = document.getElementById('mac-scroll');
+    if (!el) return;
+    const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) * 100;
+    const fill = document.getElementById('mac-fill');
+    const pctEl = document.getElementById('mac-pct');
+    const barFill = document.getElementById('mac-bar-fill');
+    if (fill)    fill.style.width = pct + '%';
+    if (pctEl)   pctEl.textContent = Math.round(pct) + '%';
+    if (barFill) barFill.style.width = Math.round(pct) + '%';
+  } catch (e) { /* silent */ }
 }
 const macIo = new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) {
-    document.getElementById('mac-bar-fill').style.width = '100%';
+    const bf = document.getElementById('mac-bar-fill');
+    if (bf) bf.style.width = '100%';
     macIo.disconnect();
   }
 }, { threshold: 0.3 });
@@ -860,8 +1048,11 @@ const macSection = document.querySelector('.demo-section');
 if (macSection) macIo.observe(macSection);
 
 function toggleChip(el) {
-  el.closest('.chips').querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
+  try {
+    const parent = el.closest('.chips');
+    if (parent) parent.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  } catch (e) { /* silent */ }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -870,17 +1061,20 @@ function toggleChip(el) {
 function handleBuyClick() {
   if (!timerActive) {
     timerActive = true;
-    document.getElementById('price-note').textContent = '🎉 Flash deal — 1 minute only!';
-    document.getElementById('timer-box').classList.add('show');
+    const noteEl = document.getElementById('price-note');
+    const timerBox = document.getElementById('timer-box');
+    if (noteEl)   noteEl.textContent = '🎉 Flash deal — 1 minute only!';
+    if (timerBox) timerBox.classList.add('show');
     let secs = 60;
     timerInterval = setInterval(() => {
       secs--;
-      document.getElementById('countdown').textContent = '00:' + String(secs).padStart(2, '0');
+      const cd = document.getElementById('countdown');
+      if (cd) cd.textContent = '00:' + String(secs).padStart(2, '0');
       if (secs <= 0) {
         clearInterval(timerInterval);
         timerActive = false;
-        document.getElementById('timer-box').classList.remove('show');
-        document.getElementById('price-note').textContent = 'One-time · Instant access · No subscription';
+        if (timerBox) timerBox.classList.remove('show');
+        if (noteEl)   noteEl.textContent = 'One-time · Instant access · No subscription';
       }
     }, 1000);
   }
@@ -890,189 +1084,355 @@ function handleBuyClick() {
 /* ═══════════════════════════════════════════════════════
    CHECKOUT MODAL
 ═══════════════════════════════════════════════════════ */
-function openModal()  { document.getElementById('modal-checkout').classList.add('show'); }
-function closeModal() { document.getElementById('modal-checkout').classList.remove('show'); }
-document.getElementById('modal-checkout').addEventListener('click', e => {
-  if (e.target.id === 'modal-checkout') closeModal();
-});
+function openModal()  {
+  const m = document.getElementById('modal-checkout');
+  if (m) m.classList.add('show');
+}
+function closeModal() {
+  const m = document.getElementById('modal-checkout');
+  if (m) m.classList.remove('show');
+}
+const modalEl = document.getElementById('modal-checkout');
+if (modalEl) {
+  modalEl.addEventListener('click', e => {
+    if (e.target.id === 'modal-checkout') closeModal();
+  });
+}
 function processPayment() {
-  const name  = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-  let valid = true;
-  ['name','email','phone'].forEach(k => document.getElementById('err-' + k).textContent = '');
-  if (!name)  { document.getElementById('err-name').textContent  = 'Required'; valid = false; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('err-email').textContent = 'Valid email required'; valid = false; }
-  if (!phone || phone.replace(/\D/g,'').length < 10) { document.getElementById('err-phone').textContent = 'Valid phone required'; valid = false; }
-  if (!valid) return;
-  closeModal();
-  startQuiz();
+  try {
+    const name  = (document.getElementById('f-name')  || {}).value || '';
+    const email = (document.getElementById('f-email') || {}).value || '';
+    const phone = (document.getElementById('f-phone') || {}).value || '';
+    let valid = true;
+    ['name','email','phone'].forEach(k => {
+      const el = document.getElementById('err-' + k);
+      if (el) el.textContent = '';
+    });
+    if (!name.trim())  { const e = document.getElementById('err-name');  if (e) e.textContent = 'Required'; valid = false; }
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      const e = document.getElementById('err-email'); if (e) e.textContent = 'Valid email required'; valid = false;
+    }
+    if (!phone.trim() || phone.replace(/\D/g,'').length < 10) {
+      const e = document.getElementById('err-phone'); if (e) e.textContent = 'Valid phone required'; valid = false;
+    }
+    if (!valid) return;
+    closeModal();
+    startQuiz();
+  } catch (e) {
+    console.error('[processPayment]', e);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
    QUIZ NAVIGATION
 ═══════════════════════════════════════════════════════ */
 function updateQuizBar() {
-  const pct = (currentStep / TOTAL_STEPS) * 100;
-  document.getElementById('quiz-bar').style.width = pct + '%';
-  document.getElementById('quiz-step-label').textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+  try {
+    const pct = (currentStep / TOTAL_STEPS) * 100;
+    const bar = document.getElementById('quiz-bar');
+    const lbl = document.getElementById('quiz-step-label');
+    if (bar) bar.style.width = pct + '%';
+    if (lbl) lbl.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+  } catch (e) { /* silent */ }
 }
 function showStep(n, goingBack) {
-  document.querySelectorAll('.quiz-step').forEach(s => {
-    s.classList.remove('active','going-back');
-    s.style.display = 'none';
-  });
-  const target = document.querySelector('[data-step="' + n + '"]');
-  if (!target) return;
-  target.style.display = 'block';
-  void target.offsetWidth;
-  target.classList.add(goingBack ? 'going-back' : 'active');
-  currentStep = n;
-  updateQuizBar();
+  try {
+    document.querySelectorAll('.quiz-step').forEach(s => {
+      s.classList.remove('active', 'going-back');
+      s.style.display = 'none';
+    });
+    const target = document.querySelector('[data-step="' + n + '"]');
+    if (!target) return;
+    target.style.display = 'block';
+    void target.offsetWidth; // trigger reflow for animation
+    target.classList.add(goingBack ? 'going-back' : 'active');
+    currentStep = n;
+    updateQuizBar();
+  } catch (e) {
+    console.error('[showStep]', e);
+  }
 }
 function nextStep(n) { showStep(n, false); }
-function prevStep(n) { showStep(n, true); }
+function prevStep(n) { showStep(n, true);  }
 
-/* Name step */
-document.getElementById('input-name').addEventListener('input', function() {
-  const ok = this.value.trim().length >= 2;
-  document.getElementById('next-1').classList.toggle('ready', ok);
-  if (ok) quiz.name = this.value.trim();
-});
-
-/* Single-select (age, gender, skintype, routine) */
-function selectOpt(el, key, val) {
-  el.closest('.quiz-options').querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
-  el.classList.add('sel');
-  quiz[key] = val;
-  const stepMap = { age:2, gender:3, skintype:4, routine:7 };
-  const btn = document.getElementById('next-' + stepMap[key]);
-  if (btn) btn.classList.add('ready');
+/* ─── Step 1: Name input ─── */
+const nameInputEl = document.getElementById('input-name');
+if (nameInputEl) {
+  nameInputEl.addEventListener('input', function () {
+    formData.name = (this.value || '').trim();
+    checkStepReady(1);
+  });
 }
 
-/* Multi-select concerns (max 3) */
-function toggleConcern(el, val) {
-  const cleanVal = val.replace(/&amp;/g, '&');
-  const idx = quiz.concerns.indexOf(cleanVal);
-  if (idx > -1) {
-    quiz.concerns.splice(idx, 1);
-    el.classList.remove('sel');
-  } else {
-    if (quiz.concerns.length >= 3) return;
-    quiz.concerns.push(cleanVal);
+/* ─── Step 3: City input ─── */
+const cityInputEl = document.getElementById('input-city');
+if (cityInputEl) {
+  cityInputEl.addEventListener('input', function () {
+    formData.city = (this.value || '').trim();
+    checkStepReady(3);
+  });
+}
+
+/* ─── selectOpt: single-select within a group, pass step number ─── */
+function selectOpt(el, key, val, stepNum) {
+  try {
+    const parent = el.closest('.quiz-options');
+    if (parent) parent.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
     el.classList.add('sel');
+    if (key in formData) formData[key] = val;
+    checkStepReady(stepNum !== undefined ? stepNum : currentStep);
+  } catch (e) {
+    console.error('[selectOpt]', e);
   }
-  const remaining = 3 - quiz.concerns.length;
-  const hint = document.getElementById('concern-hint');
-  if (quiz.concerns.length === 0) {
-    hint.innerHTML = 'Select up to <span id="concern-remaining">3</span> more';
-  } else if (quiz.concerns.length >= 3) {
-    hint.innerHTML = '<span id="concern-remaining" style="color:var(--accent)">Max selected</span>';
-  } else {
-    hint.innerHTML = '<span id="concern-remaining">' + remaining + '</span> more to go';
-  }
-  document.getElementById('next-5').classList.toggle('ready', quiz.concerns.length >= 1);
 }
 
-/* Lifestyle dual-group */
-function selectMulti(el, key, val) {
-  el.closest('.quiz-options').querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
-  el.classList.add('sel');
-  quiz[key] = val;
-  if (quiz.water && quiz.sleep) document.getElementById('next-6').classList.add('ready');
+/* ─── selectGroup: single-select within a named group, used for multi-group steps ─── */
+function selectGroup(el, key, val, stepNum) {
+  try {
+    const parent = el.closest('.quiz-options');
+    if (parent) parent.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    if (key in formData) formData[key] = val;
+    checkStepReady(stepNum !== undefined ? stepNum : currentStep);
+  } catch (e) {
+    console.error('[selectGroup]', e);
+  }
+}
+
+/* ─── toggleConcern: multi-select, max 3 ─── */
+function toggleConcern(el, val) {
+  try {
+    // Decode HTML entities for comparison
+    const cleanVal = val.replace(/&amp;/g, '&');
+    const idx = formData.concerns.indexOf(cleanVal);
+    if (idx > -1) {
+      formData.concerns.splice(idx, 1);
+      el.classList.remove('sel');
+    } else {
+      if (formData.concerns.length >= 3) return; // cap at 3
+      formData.concerns.push(cleanVal);
+      el.classList.add('sel');
+    }
+    const remaining = 3 - formData.concerns.length;
+    const hint = document.getElementById('concern-hint');
+    if (hint) {
+      if (formData.concerns.length === 0) {
+        hint.innerHTML = 'Select up to <span>3</span> more';
+      } else if (formData.concerns.length >= 3) {
+        hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
+      } else {
+        hint.innerHTML = '<span>' + remaining + '</span> more to go';
+      }
+    }
+    checkStepReady(5);
+  } catch (e) {
+    console.error('[toggleConcern]', e);
+  }
+}
+
+/* ─── toggleHistory: multi-select, no limit; "Not sure" clears others ─── */
+function toggleHistory(el, val) {
+  try {
+    if (val === 'Not sure') {
+      formData.history = ['Not sure'];
+      document.querySelectorAll('#opts-history .q-opt').forEach(o => o.classList.remove('sel'));
+      el.classList.add('sel');
+    } else {
+      // Deselect "Not sure" if active
+      const nsIdx = formData.history.indexOf('Not sure');
+      if (nsIdx > -1) {
+        formData.history.splice(nsIdx, 1);
+        document.querySelectorAll('#opts-history .q-opt').forEach(o => {
+          if ((o.textContent || '').trim() === 'Not sure') o.classList.remove('sel');
+        });
+      }
+      const idx = formData.history.indexOf(val);
+      if (idx > -1) {
+        formData.history.splice(idx, 1);
+        el.classList.remove('sel');
+      } else {
+        formData.history.push(val);
+        el.classList.add('sel');
+      }
+    }
+    // History is optional — step 8 readiness driven by routine only
+    checkStepReady(8);
+  } catch (e) {
+    console.error('[toggleHistory]', e);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
-   PHOTO UPLOAD — individual slots
+   PHOTO UPLOAD
 ═══════════════════════════════════════════════════════ */
 function triggerSlot(idx) {
-  document.getElementById('slot-input-' + idx).click();
+  try {
+    const input = document.getElementById('slot-input-' + idx);
+    if (input) input.click();
+  } catch (e) { console.error('[triggerSlot]', e); }
 }
 
 function handleSlotFile(input, idx) {
-  const file = input.files[0];
-  if (!file) return;
-  slotFiles[idx] = file;
-  const slot = document.getElementById('slot-' + idx);
-  if (idx === 4) {
-    /* Video — text confirmation, no preview */
-    slot.classList.add('has-preview');
-    slot.innerHTML =
-      '<div style="padding:14px 8px;text-align:center;">' +
-      '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
-      '<small style="font-size:10px;color:var(--g500)">' + escHtml(file.name.substring(0, 18)) + '</small>' +
-      '</div>' +
-      '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
-  } else {
-    /* Image — thumbnail preview */
-    const url = URL.createObjectURL(file);
-    slot.classList.add('has-preview');
-    slot.innerHTML =
-      '<img class="slot-preview" src="' + url + '" alt="Preview">' +
-      '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
+  try {
+    const file = (input.files || [])[0];
+    if (!file) return;
+    slotFiles[idx] = file;
+    const slot = document.getElementById('slot-' + idx);
+    if (!slot) return;
+
+    if (idx === 4) {
+      // Video — text confirmation only
+      slot.classList.add('has-preview');
+      slot.innerHTML =
+        '<div style="padding:14px 8px;text-align:center;">' +
+        '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
+        '<small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small>' +
+        '</div>' +
+        '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
+    } else {
+      // Image — thumbnail preview
+      const url = URL.createObjectURL(file);
+      slot.classList.add('has-preview');
+      slot.innerHTML =
+        '<img class="slot-preview" src="' + url + '" alt="Preview">' +
+        '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
+    }
+    checkUploadReady();
+    input.value = '';
+  } catch (e) {
+    console.error('[handleSlotFile]', e);
   }
-  checkUploadReady();
-  input.value = '';
 }
 
 function clearSlot(e, idx) {
-  e.stopPropagation();
-  slotFiles[idx] = null;
-  const slot = document.getElementById('slot-' + idx);
-  slot.classList.remove('has-preview');
-  const labels = [['Front Face','Required'],['Left Profile','Recommended'],['Right Profile','Recommended'],['Affected Area','Required'],['Video','Optional · 30s']];
-  const icons = [
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="16" r="4"/><path d="M18 14v2l1 1"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
-  ];
-  slot.innerHTML = icons[idx] + '<p>' + labels[idx][0] + '</p><small>' + labels[idx][1] + '</small>';
-  slot.onclick = function() { triggerSlot(idx); };
-  checkUploadReady();
+  try {
+    if (e && e.stopPropagation) e.stopPropagation();
+    slotFiles[idx] = null;
+    const slot = document.getElementById('slot-' + idx);
+    if (!slot) return;
+    slot.classList.remove('has-preview');
+
+    const labels = [
+      ['Front Face', 'Required'],
+      ['Left Profile', 'Recommended'],
+      ['Right Profile', 'Recommended'],
+      ['Close-up', 'Recommended'],
+      ['Video', 'Optional · 30s']
+    ];
+    const icons = [
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
+    ];
+    const pair   = labels[idx] || ['Photo', ''];
+    const icon   = icons[idx]  || '';
+    slot.innerHTML = icon + '<p>' + pair[0] + '</p><small>' + pair[1] + '</small>';
+    slot.onclick = function () { triggerSlot(idx); };
+    checkUploadReady();
+  } catch (e) {
+    console.error('[clearSlot]', e);
+  }
 }
 
 function getUploadedImageFiles() {
-  return slotFiles.slice(0, 4).filter(f => f !== null);
+  return (slotFiles || []).slice(0, 4).filter(f => f !== null);
 }
 
 function checkUploadReady() {
-  const hasRequired = slotFiles[0] !== null || slotFiles[3] !== null;
-  document.getElementById('next-8').classList.toggle('ready', hasRequired);
+  checkStepReady(9);
+  // Hide error message when front face is uploaded
+  if (slotFiles[0] !== null) {
+    const errEl = document.getElementById('photo-req-error');
+    if (errEl) errEl.style.display = 'none';
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
-   ANALYSE → loading overlay (2.2s) → waitlist page
+   ANALYSE → loading overlay (2.2 s) → waitlist page
+   Saves complete formData to localStorage before transitioning
 ═══════════════════════════════════════════════════════ */
 function analyseAndGo() {
-  if (slotFiles[0] === null && slotFiles[3] === null) return;
-  const overlay = document.getElementById('overlay-analysing');
-  overlay.classList.add('show');
-  setTimeout(() => {
-    overlay.classList.remove('show');
-    /* Pre-fill name and populate uploaded photo previews */
-    const nameEl = document.getElementById('wl-name');
-    if (quiz.name && nameEl && !nameEl.value) nameEl.value = quiz.name;
-    const wlPhotos = document.getElementById('wl-photos');
-    wlPhotos.innerHTML = '';
-    getUploadedImageFiles().slice(0, 4).forEach(file => {
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      img.className = 'wl-uploaded-photo';
-      img.alt = 'Your skin photo';
-      wlPhotos.appendChild(img);
-    });
-    showPage('page-waitlist');
-  }, 2200);
+  try {
+    // Front-face validation
+    if (slotFiles[0] === null) {
+      const errEl = document.getElementById('photo-req-error');
+      if (errEl) errEl.style.display = 'block';
+      return;
+    }
+    const errEl = document.getElementById('photo-req-error');
+    if (errEl) errEl.style.display = 'none';
+
+    // Sync text inputs into formData one last time
+    const ni = document.getElementById('input-name');
+    const ci = document.getElementById('input-city');
+    if (ni && ni.value.trim()) formData.name = ni.value.trim();
+    if (ci && ci.value.trim()) formData.city = ci.value.trim();
+
+    // Persist to localStorage (best-effort — don't block if unavailable)
+    try {
+      const snapshot = {
+        name:     formData.name,
+        age:      formData.age,
+        gender:   formData.gender,
+        city:     formData.city,
+        skinType: formData.skinType,
+        concerns: formData.concerns,
+        behavior: formData.behavior,
+        sleep:    formData.sleep,
+        water:    formData.water,
+        diet:     formData.diet,
+        stress:   formData.stress,
+        routine:  formData.routine,
+        history:  formData.history
+        // images are File objects — cannot stringify, omit intentionally
+      };
+      localStorage.setItem('skinData', JSON.stringify(snapshot));
+    } catch (storageErr) {
+      console.warn('[analyseAndGo] localStorage unavailable:', storageErr);
+    }
+
+    // Show overlay
+    const overlay = document.getElementById('overlay-analysing');
+    if (overlay) overlay.classList.add('show');
+
+    setTimeout(function () {
+      try {
+        if (overlay) overlay.classList.remove('show');
+
+        // Pre-fill waitlist name from formData
+        const nameEl = document.getElementById('wl-name');
+        if (nameEl && formData.name && !nameEl.value) nameEl.value = formData.name;
+
+        // Populate uploaded photo thumbnails on waitlist page
+        const wlPhotos = document.getElementById('wl-photos');
+        if (wlPhotos) {
+          wlPhotos.innerHTML = '';
+          getUploadedImageFiles().slice(0, 4).forEach(function (file) {
+            const img = document.createElement('img');
+            img.src       = URL.createObjectURL(file);
+            img.className = 'wl-uploaded-photo';
+            img.alt       = 'Your skin photo';
+            wlPhotos.appendChild(img);
+          });
+        }
+
+        showPage('page-waitlist');
+      } catch (innerErr) {
+        console.error('[analyseAndGo timeout]', innerErr);
+        showPage('page-waitlist'); // always navigate, never hang
+      }
+    }, 2200);
+
+  } catch (err) {
+    console.error('[analyseAndGo]', err);
+    showPage('page-waitlist'); // failsafe — never leave user stranded
+  }
 }
 
 /* ═══════════════════════════════════════════════════════
    WAITLIST SUBMIT
-   Order: validate → disable btn → Supabase insert
-          → /api/send-email → success page
-   The email call is non-blocking: if it fails, the user
-   still reaches the success page (data is already saved).
 ═══════════════════════════════════════════════════════ */
 async function submitWaitlist() {
   const nameEl  = document.getElementById('wl-name');
@@ -1080,37 +1440,45 @@ async function submitWaitlist() {
   const phoneEl = document.getElementById('wl-phone');
   const btn     = document.getElementById('wl-submit-btn');
 
-  /* ── Clear previous field errors ── */
+  // Clear previous errors
   ['name','email','phone'].forEach(k => {
-    document.getElementById('wl-err-' + k).textContent = '';
-    document.getElementById('wl-' + k).classList.remove('err');
+    const errEl   = document.getElementById('wl-err-' + k);
+    const inputEl = document.getElementById('wl-' + k);
+    if (errEl)   errEl.textContent = '';
+    if (inputEl) inputEl.classList.remove('err');
   });
 
-  const name  = nameEl.value.trim();
-  const email = emailEl.value.trim();
-  const phone = phoneEl.value.trim();
+  const name  = nameEl  ? nameEl.value.trim()  : '';
+  const email = emailEl ? emailEl.value.trim()  : '';
+  const phone = phoneEl ? phoneEl.value.trim()  : '';
   let valid = true;
 
   if (!name || name.length < 2) {
-    document.getElementById('wl-err-name').textContent = 'Please enter your full name.';
-    nameEl.classList.add('err'); valid = false;
+    const e = document.getElementById('wl-err-name');
+    if (e) e.textContent = 'Please enter your full name.';
+    if (nameEl) nameEl.classList.add('err');
+    valid = false;
   }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    document.getElementById('wl-err-email').textContent = 'Please enter a valid email address.';
-    emailEl.classList.add('err'); valid = false;
+    const e = document.getElementById('wl-err-email');
+    if (e) e.textContent = 'Please enter a valid email address.';
+    if (emailEl) emailEl.classList.add('err');
+    valid = false;
   }
   if (!phone || phone.replace(/\D/g,'').length < 10) {
-    document.getElementById('wl-err-phone').textContent = 'Please enter a valid phone number.';
-    phoneEl.classList.add('err'); valid = false;
+    const e = document.getElementById('wl-err-phone');
+    if (e) e.textContent = 'Please enter a valid phone number.';
+    if (phoneEl) phoneEl.classList.add('err');
+    valid = false;
   }
   if (!valid) return;
 
-  /* ── Lock button to prevent double-submit ── */
-  btn.disabled = true;
-  btn.innerHTML = 'Saving… <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = 'Saving… <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+  }
 
   try {
-    /* ── STEP 1: Insert into Supabase ── */
     console.log('[waitlist] Inserting into Supabase:', { name, email, phone });
     const { error: dbError } = await supabaseClient
       .from('waitlist')
@@ -1118,8 +1486,7 @@ async function submitWaitlist() {
 
     if (dbError) {
       if (dbError.code === '23505') {
-        /* Duplicate email — already on the list, still proceed to success */
-        console.warn('[waitlist] Duplicate entry, already registered:', email);
+        console.warn('[waitlist] Duplicate entry:', email);
       } else {
         console.error('[waitlist] Supabase error:', dbError);
         throw new Error(dbError.message);
@@ -1128,10 +1495,10 @@ async function submitWaitlist() {
       console.log('[waitlist] Supabase insert OK');
     }
 
-    /* ── STEP 2: Confirmation email via /api/send-email ── */
+    // Confirmation email
     console.log('[waitlist] Calling /api/send-email for:', email);
     try {
-      const emailRes = await fetch('/api/send-email', {
+      const emailRes  = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email }),
@@ -1139,38 +1506,46 @@ async function submitWaitlist() {
       const emailData = await emailRes.json();
       if (!emailRes.ok) {
         console.error('[waitlist] /api/send-email failed:', emailRes.status, emailData);
-        btn.disabled = false;
-        btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+        }
         alert('Something went wrong sending your confirmation email. Please try again.');
         return;
       }
-      console.log('[waitlist] Confirmation email sent, Resend ID:', emailData.id);
+      console.log('[waitlist] Confirmation email sent, ID:', emailData.id);
     } catch (emailErr) {
       console.error('[waitlist] /api/send-email network error:', emailErr);
-      btn.disabled = false;
-      btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+      }
       alert('Network error. Please check your connection and try again.');
       return;
     }
 
-    /* ── STEP 3: Populate success page photos and navigate ── */
+    // Populate success page photos
     const successPhotos = document.getElementById('success-photos');
-    successPhotos.innerHTML = '';
-    getUploadedImageFiles().slice(0, 4).forEach(file => {
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      img.className = 'success-photo';
-      img.alt = 'Uploaded skin photo';
-      successPhotos.appendChild(img);
-    });
+    if (successPhotos) {
+      successPhotos.innerHTML = '';
+      getUploadedImageFiles().slice(0, 4).forEach(function (file) {
+        const img = document.createElement('img');
+        img.src       = URL.createObjectURL(file);
+        img.className = 'success-photo';
+        img.alt       = 'Uploaded skin photo';
+        successPhotos.appendChild(img);
+      });
+    }
     showPage('page-success');
 
   } catch (err) {
-    /* ── Database error — show inline message and re-enable button ── */
-    console.error('[waitlist] Fatal error in submitWaitlist:', err);
-    document.getElementById('wl-err-name').textContent = 'Something went wrong. Please try again.';
-    btn.disabled = false;
-    btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+    console.error('[submitWaitlist] Fatal error:', err);
+    const e = document.getElementById('wl-err-name');
+    if (e) e.textContent = 'Something went wrong. Please try again.';
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
+    }
   }
 }
 
@@ -1178,7 +1553,7 @@ async function submitWaitlist() {
    HELPERS
 ═══════════════════════════════════════════════════════ */
 function escHtml(str) {
-  return String(str)
+  return String(str || '')
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -1188,11 +1563,16 @@ function escHtml(str) {
 ═══════════════════════════════════════════════════════ */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1);
+    const id     = (a.getAttribute('href') || '').slice(1);
     const target = document.getElementById(id);
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
   });
 });
+
+} catch (globalErr) {
+  // Top-level safety net — log but never crash the page
+  console.error('[BeSeen global error]', globalErr);
+}
 </script>
 </body>
 </html>
