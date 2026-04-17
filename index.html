@@ -7,7 +7,7 @@
 <link rel="icon" href="/favicon4.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -21,20 +21,14 @@ html{scroll-behavior:smooth}
   --r:10px;--rl:16px;--pill:100px;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;font-size:15px;line-height:1.6}
-
-/* ── PAGE SYSTEM ── */
 .page{display:none;min-height:100vh}
 .page.active{display:block}
 #page-waitlist{display:none;align-items:center;justify-content:center}
 #page-waitlist.active{display:flex}
 #page-success{display:none;align-items:center;justify-content:center}
 #page-success.active{display:flex}
-
-/* ── PAGE FADE TRANSITION ── */
 @keyframes pageFadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .page-fade{animation:pageFadeIn .45s cubic-bezier(.25,.1,.25,1) both}
-
-/* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;background:rgba(250,250,250,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);animation:navIn .4s ease both}
 @keyframes navIn{from{transform:translateY(-60px);opacity:0}to{transform:none;opacity:1}}
 .nav-inner{display:flex;align-items:center;width:100%;max-width:1200px;margin:0 auto;padding:0 32px;position:relative}
@@ -47,8 +41,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .btn-google{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:500;color:var(--black);cursor:pointer;transition:box-shadow .2s,border-color .2s;text-decoration:none;font-family:'DM Sans',sans-serif}
 .btn-google:hover{box-shadow:var(--shadow-c);border-color:var(--g300)}
 .btn-google svg{width:16px;height:16px;flex-shrink:0}
-
-/* ── LAYOUT ── */
 .container{max-width:1120px;margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:9px;padding:13px 26px;cursor:pointer;transition:all .2s;text-decoration:none;border:none}
 .btn-primary{background:var(--black);color:var(--white)}
@@ -60,13 +52,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .section-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;letter-spacing:-.04em;line-height:1.08}
 .section-title em{font-style:italic;color:var(--accent)}
-
-/* ── FADE UP ── */
 .fu{opacity:0;transform:translateY(32px);transition:opacity .65s cubic-bezier(.25,.1,.25,1),transform .65s cubic-bezier(.25,.1,.25,1)}
 .fu.vis{opacity:1;transform:none}
 .fu.d1{transition-delay:.08s}.fu.d2{transition-delay:.16s}.fu.d3{transition-delay:.24s}.fu.d4{transition-delay:.32s}
-
-/* ── HERO ── */
 #page-home{padding-top:60px}
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 32px 60px;position:relative;overflow:hidden;background:radial-gradient(ellipse 75% 55% at 50% 25%,#dceae5 0%,var(--white) 70%)}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:blobDrift 14s ease-in-out infinite alternate}
@@ -83,14 +71,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .hero-trust{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:52px}
 .trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g500)}
 .trust-item svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
-
-/* ── TICKER ── */
 .ticker{height:50px;background:var(--g50);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);overflow:hidden;display:flex;align-items:center}
 .ticker-track{display:flex;white-space:nowrap;animation:tickerScroll 30s linear infinite}
 .ticker-item{font-size:13px;font-weight:300;color:var(--g700);padding:0 48px}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ── HOW IT WORKS ── */
 .how{padding:96px 0}
 .how-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .steps{display:flex;flex-direction:column;gap:32px}
@@ -107,8 +91,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .r-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
 .r-name{font-size:13.5px;font-weight:500;color:var(--black)}
 .r-usage{font-size:11.5px;color:var(--g500)}
-
-/* ── DEMO WINDOW ── */
 .demo-section{padding:80px 0;background:var(--g100);border-top:1px solid var(--g200)}
 .demo-header{text-align:center;margin-bottom:52px}
 .mac-window{max-width:880px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.14),0 0 0 1px var(--g200)}
@@ -142,8 +124,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .s-card strong{display:block;font-size:13px;font-weight:500;color:var(--black)}
 .s-card span{font-size:11.5px;color:var(--g500)}
 .unlock-banner{background:var(--accent-l);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--accent);font-weight:500;margin-top:16px}
-
-/* ── PRICING ── */
 .pricing{padding:96px 0;background:var(--white)}
 .pricing-header{text-align:center;margin-bottom:52px}
 .price-card{background:var(--white);border:1.5px solid var(--accent);border-radius:var(--rl);padding:44px 40px;max-width:400px;margin:0 auto;box-shadow:var(--shadow-c);position:relative}
@@ -161,14 +141,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .perk-icon{color:var(--accent);flex-shrink:0;margin-top:1px}
 .btn-buy{width:100%;padding:15px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;font-family:'DM Sans',sans-serif}
 .btn-buy:hover{opacity:.88;transform:translateY(-1px)}
-
-/* ── TRUST STRIP ── */
 .trust-strip{background:var(--g100);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);padding:36px 0}
 .trust-items{display:flex;gap:48px;justify-content:center;align-items:center;flex-wrap:wrap}
 .trust-badge{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--g700)}
 .trust-badge svg{color:var(--accent);width:17px;height:17px;flex-shrink:0}
-
-/* ── FOOTER ── */
 footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:1120px;margin:0 auto;padding:0 32px}
 .footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--white)}
@@ -177,15 +153,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .footer-links a{font-size:12px;color:var(--g500);text-decoration:none;transition:color .18s}
 .footer-links a:hover{color:var(--g300)}
 .footer-copy{font-size:11.5px;color:#444;text-align:center;padding:20px 32px 0;border-top:1px solid #1e1e1e;max-width:1120px;margin:20px auto 0}
-
-/* ── CHAT FAB ── */
 .chat-fab{position:fixed;bottom:28px;right:28px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--black);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-l);transition:transform .2s}
 .chat-fab:hover{transform:scale(1.08)}
 .chat-fab svg{width:22px;height:22px}
 .chat-tip{position:fixed;bottom:90px;right:28px;z-index:500;background:var(--black);color:var(--white);font-size:12px;padding:8px 14px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
 .chat-fab:hover+.chat-tip{opacity:1}
-
-/* ── QUIZ ── */
 #page-quiz{padding-top:60px;background:var(--white);min-height:100vh}
 .quiz-wrap{max-width:640px;margin:0 auto;padding:60px 32px 80px}
 .quiz-progress-bar-wrap{margin-bottom:32px}
@@ -214,12 +186,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-quiz-next{padding:13px 32px;border-radius:9px;background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;opacity:.35;pointer-events:none}
 .btn-quiz-next.ready{opacity:1;pointer-events:auto}
 .btn-quiz-next.ready:hover{opacity:.85;transform:translateY(-1px)}
-
-/* ── QUIZ SECTION LABELS ── */
 .quiz-group-label{font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px}
 .quiz-group-hint{font-size:12px;color:var(--g500);margin-bottom:12px;font-weight:300;line-height:1.5}
-
-/* ── PHOTO UPLOAD ── */
 .photo-slots{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
 .photo-slot{border:1.5px dashed var(--g300);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--white)}
 .photo-slot:hover{border-color:var(--accent);background:var(--accent-l)}
@@ -235,22 +203,14 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .upload-area svg{width:28px;height:28px;margin:0 auto 10px;display:block;opacity:.4;color:var(--g500)}
 .upload-area p{font-size:14px;font-weight:500;color:var(--g700);margin-bottom:3px}
 .upload-area small{font-size:12px;color:var(--g500)}
-
-/* ── UPLOAD INSTRUCTION BOX (NEW) ── */
 .upload-instruction-box{background:var(--accent-l);border:1px solid #b5d0c9;border-radius:12px;padding:18px 20px;margin-bottom:24px}
 .upload-instruction-title{font-size:13px;font-weight:500;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
 .upload-instruction-list{list-style:none;display:flex;flex-direction:column;gap:6px}
 .upload-instruction-list li{font-size:12.5px;color:var(--g700);padding-left:16px;position:relative;line-height:1.5}
 .upload-instruction-list li::before{content:'·';position:absolute;left:4px;color:var(--accent);font-weight:700;font-size:16px;line-height:1.2}
-
-/* ── QUIZ TRUST BADGE (NEW) ── */
 .quiz-trust-badge{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1.5px solid var(--accent);border-radius:var(--pill);padding:7px 16px;font-size:12px;font-weight:500;color:var(--accent);margin-bottom:20px;box-shadow:var(--shadow-s)}
 .quiz-trust-badge svg{width:15px;height:15px;flex-shrink:0}
-
-/* ── PHOTO REQUIRED ERROR (NEW) ── */
 .photo-req-error{display:none;font-size:12px;color:#c0392b;background:#fdf0ef;border:1px solid #e9c4c2;border-radius:8px;padding:10px 14px;margin:8px 0 16px}
-
-/* ── OVERLAY ── */
 #overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.96);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;gap:20px}
 #overlay-analysing.show{display:flex;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -258,8 +218,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .overlay-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--black)}
 .overlay-sub{font-size:13px;color:var(--g500)}
-
-/* ── CHECKOUT MODAL ── */
 #modal-checkout{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);align-items:center;justify-content:center}
 #modal-checkout.show{display:flex;animation:fadeIn .2s ease}
 .modal-box{background:var(--white);border-radius:18px;padding:44px 40px;width:520px;max-width:95vw;box-shadow:var(--shadow-l);animation:modalIn .28s ease;overflow:hidden}
@@ -277,8 +235,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-cancel:hover{background:var(--g100)}
 .btn-pay{flex:2;padding:13px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
 .btn-pay:hover{opacity:.85}
-
-/* ── WAITLIST PAGE ── */
 #page-waitlist{padding-top:60px;background:var(--g50);min-height:100vh}
 .wl-outer{width:100%;max-width:1080px;margin:0 auto;padding:64px 32px 80px;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:start}
 .wl-left{padding-top:8px}
@@ -321,8 +277,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .wl-btn:hover:not(:disabled) svg{transform:translateX(3px)}
 .wl-micro{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--g500);margin-top:14px}
 .wl-micro svg{width:13px;height:13px;color:var(--accent);flex-shrink:0}
-
-/* ── SUCCESS PAGE ── */
 #page-success{padding-top:60px;background:var(--g50);min-height:100vh}
 .success-outer{width:100%;max-width:560px;margin:0 auto;padding:80px 32px 80px;text-align:center}
 .tick-wrap{width:72px;height:72px;margin:0 auto 32px;position:relative}
@@ -339,8 +293,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .success-count-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
 .success-back{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--g500);background:transparent;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0;animation:pageFadeIn .5s ease .7s both}
 .success-back:hover{color:var(--black)}
-
-/* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .how-inner{grid-template-columns:1fr;gap:40px}
   .photo-slots{grid-template-columns:repeat(3,1fr)}
@@ -359,24 +311,20 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a class="logo" onclick="goHome()">BeSeen<span>.</span></a>
+    <a class="logo" href="#">BeSeen<span>.</span></a>
     <ul class="nav-center">
-      <li><a href="#" onclick="goHome();return false">Home</a></li>
-      <li><a href="#how" onclick="goHome();setTimeout(()=>{document.getElementById('how').scrollIntoView({behavior:'smooth'})},200);return false">How It Works</a></li>
-      <li><a href="#pricing" onclick="goHome();setTimeout(()=>{document.getElementById('pricing').scrollIntoView({behavior:'smooth'})},200);return false">Pricing</a></li>
+      <li><a href="#" data-nav-home>Home</a></li>
+      <li><a href="#how" data-nav-how>How It Works</a></li>
+      <li><a href="#pricing" data-nav-pricing>Pricing</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
     <div class="nav-right"></div>
   </div>
 </nav>
 
-<!-- ══════════ PAGE 1: HOME ══════════ -->
 <div id="page-home" class="page active">
-
 <section class="hero">
   <div class="blob blob-a"></div>
   <div class="blob blob-b"></div>
@@ -385,7 +333,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     <h1 class="hero-h1 fu vis" style="transition-delay:.1s">Get a <em>personalised</em> skincare<br>routine from home in minutes.</h1>
     <p class="hero-sub fu vis" style="transition-delay:.2s">Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.</p>
     <div class="hero-btns fu vis" style="transition-delay:.3s">
-      <button class="btn btn-primary" onclick="startQuiz()">Start Free →</button>
+      <button class="btn btn-primary" id="hero-start-btn">Start Free →</button>
       <a href="#how" class="btn btn-secondary">How It Works</a>
     </div>
     <div class="hero-trust fu vis" style="transition-delay:.4s">
@@ -451,14 +399,14 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <div class="mac-dots"><div class="mac-dot" style="background:#ff5f56"></div><div class="mac-dot" style="background:#febc2e"></div><div class="mac-dot" style="background:#28c840"></div></div>
         <div class="mac-url">app.beseen.co · Skin Analysis</div>
       </div>
-      <div class="mac-body" id="mac-scroll" onscroll="updateMacProgress()">
+      <div class="mac-body" id="mac-scroll">
         <div class="mac-progress-bar"><div class="mac-progress-fill" id="mac-fill"></div></div>
         <div class="mac-content">
           <h2>Let's understand your skin.</h2>
           <p class="mac-sub">9 questions. 90 seconds. Your answers shape every recommendation.</p>
-          <div class="q-block"><p class="q-label">Primary concern?</p><div class="chips"><span class="chip on" onclick="toggleChip(this)">Acne &amp; Breakouts</span><span class="chip" onclick="toggleChip(this)">Pigmentation</span><span class="chip" onclick="toggleChip(this)">Dryness</span><span class="chip" onclick="toggleChip(this)">Fine Lines</span></div></div>
-          <div class="q-block"><p class="q-label">Skin type?</p><div class="chips"><span class="chip" onclick="toggleChip(this)">Oily</span><span class="chip on" onclick="toggleChip(this)">Combination</span><span class="chip" onclick="toggleChip(this)">Dry</span><span class="chip" onclick="toggleChip(this)">Sensitive</span></div></div>
-          <div class="q-block"><p class="q-label">Age range?</p><div class="chips"><span class="chip" onclick="toggleChip(this)">Under 20</span><span class="chip on" onclick="toggleChip(this)">20–30</span><span class="chip" onclick="toggleChip(this)">31–40</span><span class="chip" onclick="toggleChip(this)">40+</span></div></div>
+          <div class="q-block"><p class="q-label">Primary concern?</p><div class="chips"><span class="chip on">Acne &amp; Breakouts</span><span class="chip">Pigmentation</span><span class="chip">Dryness</span><span class="chip">Fine Lines</span></div></div>
+          <div class="q-block"><p class="q-label">Skin type?</p><div class="chips"><span class="chip">Oily</span><span class="chip on">Combination</span><span class="chip">Dry</span><span class="chip">Sensitive</span></div></div>
+          <div class="q-block"><p class="q-label">Age range?</p><div class="chips"><span class="chip">Under 20</span><span class="chip on">20–30</span><span class="chip">31–40</span><span class="chip">40+</span></div></div>
           <hr class="mac-divider">
           <h2 style="font-size:22px;margin-bottom:6px">Upload your skin photos</h2>
           <p class="mac-sub">Natural light, no filter. Front, left, right, and close-up.</p>
@@ -502,7 +450,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <li><span class="perk-icon">✓</span> 24/7 AI support chat</li>
           <li><span class="perk-icon">✓</span> Lifetime access to your plan</li>
         </ul>
-        <button class="btn-buy" onclick="handleBuyClick()">Join Early Access — ₹699</button>
+        <button class="btn-buy" id="buy-btn">Join Early Access — ₹699</button>
       </div>
     </div>
   </div>
@@ -526,10 +474,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
   <div class="footer-copy">© 2025 BeSeen. All rights reserved. Not a substitute for professional medical advice.</div>
 </footer>
-</div><!-- /page-home -->
+</div>
 
-
-<!-- ══════════ PAGE 2: QUIZ (9 STEPS) ══════════ -->
 <div id="page-quiz" class="page">
   <div class="quiz-wrap">
     <div class="quiz-progress-bar-wrap">
@@ -537,186 +483,167 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="quiz-step-label" id="quiz-step-label">Step 1 of 9</div>
     </div>
 
-    <!-- ─── Step 1: Full Name ─── -->
     <div class="quiz-step active" data-step="1">
       <h2 class="quiz-q-title">Before we begin, what's your name?</h2>
       <p class="quiz-q-sub">We use this to personalise your plan and address you properly.</p>
       <input class="name-input" type="text" id="input-name" placeholder="Your first name…" autocomplete="given-name">
       <div class="quiz-nav">
         <span style="opacity:0">← Back</span>
-        <button class="btn-quiz-next" id="next-1" onclick="nextStep(2)">Continue →</button>
+        <button class="btn-quiz-next" id="next-1">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 2: Age + Gender ─── -->
     <div class="quiz-step" data-step="2">
       <h2 class="quiz-q-title">How old are you, and what's your gender?</h2>
       <p class="quiz-q-sub">These help us calibrate ingredient strengths and account for hormonal skin factors.</p>
       <p class="quiz-group-label">Age range</p>
       <div class="quiz-options" id="opts-age" style="margin-bottom:28px">
-        <button class="q-opt" onclick="selectGroup(this,'age','Under 18',2)">Under 18</button>
-        <button class="q-opt" onclick="selectGroup(this,'age','18–24',2)">18–24</button>
-        <button class="q-opt" onclick="selectGroup(this,'age','25–34',2)">25–34</button>
-        <button class="q-opt" onclick="selectGroup(this,'age','35–44',2)">35–44</button>
-        <button class="q-opt" onclick="selectGroup(this,'age','45+',2)">45+</button>
+        <button class="q-opt" data-group="age" data-value="Under 18">Under 18</button>
+        <button class="q-opt" data-group="age" data-value="18–24">18–24</button>
+        <button class="q-opt" data-group="age" data-value="25–34">25–34</button>
+        <button class="q-opt" data-group="age" data-value="35–44">35–44</button>
+        <button class="q-opt" data-group="age" data-value="45+">45+</button>
       </div>
       <p class="quiz-group-label">Gender</p>
       <div class="quiz-options" id="opts-gender" style="margin-bottom:40px">
-        <button class="q-opt" onclick="selectGroup(this,'gender','Female',2)">Female</button>
-        <button class="q-opt" onclick="selectGroup(this,'gender','Male',2)">Male</button>
-        <button class="q-opt" onclick="selectGroup(this,'gender','Non-binary',2)">Non-binary</button>
-        <button class="q-opt" onclick="selectGroup(this,'gender','Prefer not to say',2)">Prefer not to say</button>
+        <button class="q-opt" data-group="gender" data-value="Female">Female</button>
+        <button class="q-opt" data-group="gender" data-value="Male">Male</button>
+        <button class="q-opt" data-group="gender" data-value="Non-binary">Non-binary</button>
+        <button class="q-opt" data-group="gender" data-value="Prefer not to say">Prefer not to say</button>
       </div>
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(1)">← Back</button>
-        <button class="btn-quiz-next" id="next-2" onclick="nextStep(3)">Continue →</button>
+        <button class="btn-ghost" id="back-2">← Back</button>
+        <button class="btn-quiz-next" id="next-2">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 3: City ─── -->
     <div class="quiz-step" data-step="3">
       <h2 class="quiz-q-title">Which city are you based in?</h2>
       <p class="quiz-q-sub">Climate and pollution levels directly affect your skin — we factor this into every recommendation.</p>
       <input class="name-input" type="text" id="input-city" placeholder="Your city…" autocomplete="address-level2">
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(2)">← Back</button>
-        <button class="btn-quiz-next" id="next-3" onclick="nextStep(4)">Continue →</button>
+        <button class="btn-ghost" id="back-3">← Back</button>
+        <button class="btn-quiz-next" id="next-3">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 4: Skin Type ─── -->
     <div class="quiz-step" data-step="4">
       <h2 class="quiz-q-title">How would you describe your skin type?</h2>
       <p class="quiz-q-sub">Think about how your skin feels by mid-afternoon on a typical day — not right after washing.</p>
       <div class="quiz-options">
-        <button class="q-opt" onclick="selectOpt(this,'skinType','Oily',4)">Oily</button>
-        <button class="q-opt" onclick="selectOpt(this,'skinType','Combination',4)">Combination</button>
-        <button class="q-opt" onclick="selectOpt(this,'skinType','Dry',4)">Dry</button>
-        <button class="q-opt" onclick="selectOpt(this,'skinType','Normal',4)">Normal</button>
-        <button class="q-opt" onclick="selectOpt(this,'skinType','Sensitive',4)">Sensitive</button>
-        <button class="q-opt" onclick="selectOpt(this,'skinType','Not sure',4)">Not sure</button>
+        <button class="q-opt" data-single="skinType" data-value="Oily">Oily</button>
+        <button class="q-opt" data-single="skinType" data-value="Combination">Combination</button>
+        <button class="q-opt" data-single="skinType" data-value="Dry">Dry</button>
+        <button class="q-opt" data-single="skinType" data-value="Normal">Normal</button>
+        <button class="q-opt" data-single="skinType" data-value="Sensitive">Sensitive</button>
+        <button class="q-opt" data-single="skinType" data-value="Not sure">Not sure</button>
       </div>
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(3)">← Back</button>
-        <button class="btn-quiz-next" id="next-4" onclick="nextStep(5)">Continue →</button>
+        <button class="btn-ghost" id="back-4">← Back</button>
+        <button class="btn-quiz-next" id="next-4">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 5: Concerns (multi-select, max 3) ─── -->
     <div class="quiz-step" data-step="5">
       <h2 class="quiz-q-title">What are your main skin concerns?</h2>
       <p class="quiz-q-sub">Select up to 3. We'll target all of them in your personalised plan.</p>
       <p class="concern-hint" id="concern-hint">Select up to <span>3</span> more</p>
       <div class="quiz-options" id="opts-concern">
-        <button class="q-opt" onclick="toggleConcern(this,'Acne &amp; Breakouts')">Acne &amp; Breakouts</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Pigmentation / Dark Spots')">Pigmentation / Dark Spots</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Dryness / Dehydration')">Dryness / Dehydration</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Oiliness')">Oiliness</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Uneven Texture')">Uneven Texture</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Sensitivity / Redness')">Sensitivity / Redness</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Large Pores')">Large Pores</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Dark Circles')">Dark Circles</button>
-        <button class="q-opt" onclick="toggleConcern(this,'Fine Lines')">Fine Lines</button>
+        <button class="q-opt" data-concern="Acne & Breakouts">Acne &amp; Breakouts</button>
+        <button class="q-opt" data-concern="Pigmentation / Dark Spots">Pigmentation / Dark Spots</button>
+        <button class="q-opt" data-concern="Dryness / Dehydration">Dryness / Dehydration</button>
+        <button class="q-opt" data-concern="Oiliness">Oiliness</button>
+        <button class="q-opt" data-concern="Uneven Texture">Uneven Texture</button>
+        <button class="q-opt" data-concern="Sensitivity / Redness">Sensitivity / Redness</button>
+        <button class="q-opt" data-concern="Large Pores">Large Pores</button>
+        <button class="q-opt" data-concern="Dark Circles">Dark Circles</button>
+        <button class="q-opt" data-concern="Fine Lines">Fine Lines</button>
       </div>
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(4)">← Back</button>
-        <button class="btn-quiz-next" id="next-5" onclick="nextStep(6)">Continue →</button>
+        <button class="btn-ghost" id="back-5">← Back</button>
+        <button class="btn-quiz-next" id="next-5">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 6: Skin Behaviour ─── -->
     <div class="quiz-step" data-step="6">
       <h2 class="quiz-q-title">How does your skin usually behave?</h2>
       <p class="quiz-q-sub">Pick the description that best matches your skin's most common pattern throughout the day.</p>
       <div class="quiz-options">
-        <button class="q-opt" onclick="selectOpt(this,'behavior','After waking up — dry or tight',6)">After waking up — dry or tight</button>
-        <button class="q-opt" onclick="selectOpt(this,'behavior','Midday — oily or shiny',6)">Midday — oily or shiny</button>
-        <button class="q-opt" onclick="selectOpt(this,'behavior','After outdoors — irritated or red',6)">After outdoors — irritated or red</button>
-        <button class="q-opt" onclick="selectOpt(this,'behavior','After using products — reactive',6)">After using products — reactive</button>
-        <button class="q-opt" onclick="selectOpt(this,'behavior','Always inconsistent',6)">Always inconsistent</button>
+        <button class="q-opt" data-single="behavior" data-value="After waking up — dry or tight">After waking up — dry or tight</button>
+        <button class="q-opt" data-single="behavior" data-value="Midday — oily or shiny">Midday — oily or shiny</button>
+        <button class="q-opt" data-single="behavior" data-value="After outdoors — irritated or red">After outdoors — irritated or red</button>
+        <button class="q-opt" data-single="behavior" data-value="After using products — reactive">After using products — reactive</button>
+        <button class="q-opt" data-single="behavior" data-value="Always inconsistent">Always inconsistent</button>
       </div>
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(5)">← Back</button>
-        <button class="btn-quiz-next" id="next-6" onclick="nextStep(7)">Continue →</button>
+        <button class="btn-ghost" id="back-6">← Back</button>
+        <button class="btn-quiz-next" id="next-6">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 7: Lifestyle ─── -->
     <div class="quiz-step" data-step="7">
       <h2 class="quiz-q-title">A few quick lifestyle questions.</h2>
       <p class="quiz-q-sub">These shape your routine's pacing and ingredient intensity. Answer all four to continue.</p>
-
       <p class="quiz-group-label">Sleep quality?</p>
       <div class="quiz-options" id="opts-sleep" style="margin-bottom:24px">
-        <button class="q-opt" onclick="selectGroup(this,'sleep','Poor',7)">Poor</button>
-        <button class="q-opt" onclick="selectGroup(this,'sleep','Average',7)">Average</button>
-        <button class="q-opt" onclick="selectGroup(this,'sleep','Good',7)">Good</button>
-        <button class="q-opt" onclick="selectGroup(this,'sleep','Excellent',7)">Excellent</button>
+        <button class="q-opt" data-group="sleep" data-value="Poor">Poor</button>
+        <button class="q-opt" data-group="sleep" data-value="Average">Average</button>
+        <button class="q-opt" data-group="sleep" data-value="Good">Good</button>
+        <button class="q-opt" data-group="sleep" data-value="Excellent">Excellent</button>
       </div>
-
       <p class="quiz-group-label">Daily water intake?</p>
       <div class="quiz-options" id="opts-water" style="margin-bottom:24px">
-        <button class="q-opt" onclick="selectGroup(this,'water','Low',7)">Low</button>
-        <button class="q-opt" onclick="selectGroup(this,'water','Moderate',7)">Moderate</button>
-        <button class="q-opt" onclick="selectGroup(this,'water','High',7)">High</button>
+        <button class="q-opt" data-group="water" data-value="Low">Low</button>
+        <button class="q-opt" data-group="water" data-value="Moderate">Moderate</button>
+        <button class="q-opt" data-group="water" data-value="High">High</button>
       </div>
-
       <p class="quiz-group-label">Diet quality?</p>
       <div class="quiz-options" id="opts-diet" style="margin-bottom:24px">
-        <button class="q-opt" onclick="selectGroup(this,'diet','Junk',7)">Junk</button>
-        <button class="q-opt" onclick="selectGroup(this,'diet','Balanced',7)">Balanced</button>
-        <button class="q-opt" onclick="selectGroup(this,'diet','Clean',7)">Clean</button>
+        <button class="q-opt" data-group="diet" data-value="Junk">Junk</button>
+        <button class="q-opt" data-group="diet" data-value="Balanced">Balanced</button>
+        <button class="q-opt" data-group="diet" data-value="Clean">Clean</button>
       </div>
-
       <p class="quiz-group-label">Stress level?</p>
       <div class="quiz-options" id="opts-stress" style="margin-bottom:40px">
-        <button class="q-opt" onclick="selectGroup(this,'stress','Low',7)">Low</button>
-        <button class="q-opt" onclick="selectGroup(this,'stress','Moderate',7)">Moderate</button>
-        <button class="q-opt" onclick="selectGroup(this,'stress','High',7)">High</button>
+        <button class="q-opt" data-group="stress" data-value="Low">Low</button>
+        <button class="q-opt" data-group="stress" data-value="Moderate">Moderate</button>
+        <button class="q-opt" data-group="stress" data-value="High">High</button>
       </div>
-
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(6)">← Back</button>
-        <button class="btn-quiz-next" id="next-7" onclick="nextStep(8)">Continue →</button>
+        <button class="btn-ghost" id="back-7">← Back</button>
+        <button class="btn-quiz-next" id="next-7">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 8: Routine + Product History ─── -->
     <div class="quiz-step" data-step="8">
       <h2 class="quiz-q-title">Tell us about your current routine.</h2>
       <p class="quiz-q-sub">Knowing where you start helps us pitch the plan at the right level and avoid overloading you.</p>
-
       <p class="quiz-group-label">Current skincare routine?</p>
       <div class="quiz-options" id="opts-routine" style="margin-bottom:32px">
-        <button class="q-opt" onclick="selectGroup(this,'routine','None',8)">None</button>
-        <button class="q-opt" onclick="selectGroup(this,'routine','Cleanser only',8)">Cleanser only</button>
-        <button class="q-opt" onclick="selectGroup(this,'routine','Basic (2–3 steps)',8)">Basic (2–3 steps)</button>
-        <button class="q-opt" onclick="selectGroup(this,'routine','Full routine (4+ steps)',8)">Full routine (4+ steps)</button>
+        <button class="q-opt" data-group="routine" data-value="None">None</button>
+        <button class="q-opt" data-group="routine" data-value="Cleanser only">Cleanser only</button>
+        <button class="q-opt" data-group="routine" data-value="Basic (2–3 steps)">Basic (2–3 steps)</button>
+        <button class="q-opt" data-group="routine" data-value="Full routine (4+ steps)">Full routine (4+ steps)</button>
       </div>
-
       <p class="quiz-group-label">Ingredients you've used before?</p>
       <p class="quiz-group-hint">Select all that apply — helps us avoid reintroducing sensitivities. Optional but recommended.</p>
       <div class="quiz-options" id="opts-history" style="margin-bottom:40px">
-        <button class="q-opt" onclick="toggleHistory(this,'Salicylic Acid')">Salicylic Acid</button>
-        <button class="q-opt" onclick="toggleHistory(this,'Niacinamide')">Niacinamide</button>
-        <button class="q-opt" onclick="toggleHistory(this,'Retinol')">Retinol</button>
-        <button class="q-opt" onclick="toggleHistory(this,'Vitamin C')">Vitamin C</button>
-        <button class="q-opt" onclick="toggleHistory(this,'Benzoyl Peroxide')">Benzoyl Peroxide</button>
-        <button class="q-opt" onclick="toggleHistory(this,'Not sure')">Not sure</button>
+        <button class="q-opt" data-history="Salicylic Acid">Salicylic Acid</button>
+        <button class="q-opt" data-history="Niacinamide">Niacinamide</button>
+        <button class="q-opt" data-history="Retinol">Retinol</button>
+        <button class="q-opt" data-history="Vitamin C">Vitamin C</button>
+        <button class="q-opt" data-history="Benzoyl Peroxide">Benzoyl Peroxide</button>
+        <button class="q-opt" data-history="Not sure">Not sure</button>
       </div>
-
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(7)">← Back</button>
-        <button class="btn-quiz-next" id="next-8" onclick="nextStep(9)">Continue →</button>
+        <button class="btn-ghost" id="back-8">← Back</button>
+        <button class="btn-quiz-next" id="next-8">Continue →</button>
       </div>
     </div>
 
-    <!-- ─── Step 9: Photo Upload ─── -->
     <div class="quiz-step" data-step="9">
       <h2 class="quiz-q-title">Upload your skin photos.</h2>
       <p class="quiz-q-sub">The more angles you share, the more precise your routine. Front face is required.</p>
-
-      <!-- Instruction box -->
       <div class="upload-instruction-box">
         <p class="upload-instruction-title">
           <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 7v3m0 3h.01"/></svg>
@@ -729,64 +656,53 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <li>Neutral expression and relaxed face</li>
         </ul>
       </div>
-
-      <!-- Dermatologist Reviewed trust badge -->
       <div class="quiz-trust-badge">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         Dermatologist Reviewed
       </div>
-
       <div class="photo-slots" id="photo-slots">
-        <div class="photo-slot" id="slot-0" onclick="triggerSlot(0)">
+        <div class="photo-slot" id="slot-0">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           <p>Front Face</p><small>Required</small>
         </div>
-        <div class="photo-slot" id="slot-1" onclick="triggerSlot(1)">
+        <div class="photo-slot" id="slot-1">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           <p>Left Profile</p><small>Recommended</small>
         </div>
-        <div class="photo-slot" id="slot-2" onclick="triggerSlot(2)">
+        <div class="photo-slot" id="slot-2">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           <p>Right Profile</p><small>Recommended</small>
         </div>
-        <div class="photo-slot" id="slot-3" onclick="triggerSlot(3)">
+        <div class="photo-slot" id="slot-3">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>
           <p>Close-up</p><small>Recommended</small>
         </div>
-        <div class="photo-slot" id="slot-4" onclick="triggerSlot(4)">
+        <div class="photo-slot" id="slot-4">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
           <p>Video</p><small>Optional · 30s</small>
         </div>
       </div>
-
-      <input type="file" class="slot-file-input" id="slot-input-0" accept="image/*" onchange="handleSlotFile(this,0)">
-      <input type="file" class="slot-file-input" id="slot-input-1" accept="image/*" onchange="handleSlotFile(this,1)">
-      <input type="file" class="slot-file-input" id="slot-input-2" accept="image/*" onchange="handleSlotFile(this,2)">
-      <input type="file" class="slot-file-input" id="slot-input-3" accept="image/*" onchange="handleSlotFile(this,3)">
-      <input type="file" class="slot-file-input" id="slot-input-4" accept="video/*" onchange="handleSlotFile(this,4)">
-
-      <div class="upload-area" onclick="document.getElementById('slot-input-0').click()" style="margin-top:12px">
+      <input type="file" class="slot-file-input" id="slot-input-0" accept="image/*">
+      <input type="file" class="slot-file-input" id="slot-input-1" accept="image/*">
+      <input type="file" class="slot-file-input" id="slot-input-2" accept="image/*">
+      <input type="file" class="slot-file-input" id="slot-input-3" accept="image/*">
+      <input type="file" class="slot-file-input" id="slot-input-4" accept="video/*">
+      <div class="upload-area" id="front-upload-area" style="margin-top:12px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
         <p>Or tap here to upload front face photo</p>
         <small>JPG · PNG · HEIC · Max 10MB each</small>
       </div>
-
       <div class="photo-req-error" id="photo-req-error">
         ⚠ Please upload at least your front face photo to continue.
       </div>
-
       <div class="quiz-nav">
-        <button class="btn-ghost" onclick="prevStep(8)">← Back</button>
-<button class="btn-quiz-next" id="next-9">  Get My Skin Report →
-</button>
+        <button class="btn-ghost" id="back-9">← Back</button>
+        <button class="btn-quiz-next" id="next-9">Get My Skin Report →</button>
       </div>
     </div>
-
   </div>
-</div><!-- /page-quiz -->
+</div>
 
-
-<!-- ══════════ PAGE 3: WAITLIST ══════════ -->
 <div id="page-waitlist" class="page">
   <div class="wl-outer">
     <div class="wl-left page-fade">
@@ -821,7 +737,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <span class="wl-count"><strong>224 people</strong> already joined this week</span>
       </div>
     </div>
-
     <div class="wl-card page-fade" style="animation-delay:.12s">
       <div id="wl-form-wrap">
         <div class="wl-card-title">Unlock your full plan.</div>
@@ -841,7 +756,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <input class="wl-input" type="tel" id="wl-phone" placeholder="+91 98765 43210" autocomplete="tel">
           <span class="wl-field-err" id="wl-err-phone"></span>
         </div>
-        <button class="wl-btn" id="wl-submit-btn" onclick="submitWaitlist()">
+        <button class="wl-btn" id="wl-submit-btn">
           Join the Waitlist
           <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M10 4l6 6-6 6"/></svg>
         </button>
@@ -852,10 +767,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
     </div>
   </div>
-</div><!-- /page-waitlist -->
+</div>
 
-
-<!-- ══════════ PAGE 4: SUCCESS ══════════ -->
 <div id="page-success" class="page">
   <div class="success-outer">
     <div class="tick-wrap page-fade">
@@ -873,16 +786,14 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       224 people already joined
     </div>
     <div>
-      <button class="success-back" onclick="goHome()">
+      <button class="success-back" id="success-back-btn">
         <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 10H5M10 4l-6 6 6 6"/></svg>
         Back to home
       </button>
     </div>
   </div>
-</div><!-- /page-success -->
+</div>
 
-
-<!-- CHECKOUT MODAL -->
 <div id="modal-checkout">
   <div class="modal-box">
     <div class="modal-title">Almost there.</div>
@@ -893,705 +804,600 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="form-group"><label>Phone Number</label><input type="tel" id="f-phone" placeholder="+91 9876543210"><div class="form-error" id="err-phone"></div></div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-      <button class="btn-pay" onclick="processPayment()">Continue →</button>
+      <button class="btn-cancel" id="modal-cancel-btn">Cancel</button>
+      <button class="btn-pay" id="modal-pay-btn">Continue →</button>
     </div>
   </div>
 </div>
 
-<!-- ANALYSING OVERLAY -->
 <div id="overlay-analysing">
   <div class="spin-ring"></div>
   <div class="overlay-title">Analysing your skin…</div>
   <div class="overlay-sub">Building your personalised routine. Just a moment.</div>
 </div>
 
-<!-- CHAT FAB -->
 <button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
 <div class="chat-tip">24/7 AI Support</div>
 
-
-<!-- Supabase SDK -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script>
-try {
+const SUPABASE_URL = 'https://rkhlfmfubwszgslxiloh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
 
-/* ═══════════════════════════════════════════════════════
-   SUPABASE CLIENT
-═══════════════════════════════════════════════════════ */
-const supabaseClient = window.supabase.createClient(
-  'https://rkhlfmfubwszgslxiloh.supabase.co',
-  'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f'
-);
-async function saveToSupabase(data) {
-  try {
-    const prompt = generatePrompt(data);
+const supabaseClient = window.supabase
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
 
-    const { error } = await supabaseClient
-      .from("submissions")
-      .insert([
-        {
-          name: data.name || "",
-          age: data.age || null,
-          gender: data.gender || "",
-          city: data.city || "",
-          skin_type: data.skinType || "",
-          concerns: (data.concerns || []).join(", "),
-          sleep: data.sleep || "",
-          water: data.water || "",
-          stress: data.stress || "",
-          routine: data.routine || "",
-          history: data.history || "",
-          prompt: prompt
-        }
-      ]);
-
-    if (error) {
-      console.error("Supabase error:", error);
-      return false;
-    }
-
-    console.log("Saved successfully");
-    return true;
-
-  } catch (e) {
-    console.error("Save error:", e);
-    return false;
-  }
-}
-/* ═══════════════════════════════════════════════════════
-   FORM STATE — single object, all fields with safe defaults
-═══════════════════════════════════════════════════════ */
 const formData = {
-  name:     '',
-  age:      '',
-  gender:   '',
-  city:     '',
-  skinType: '',
-  concerns: [],   // multi-select, max 3
-  behavior: '',
-  sleep:    '',
-  water:    '',
-  diet:     '',
-  stress:   '',
-  routine:  '',
-  history:  [],   // multi-select, no limit
-  images:   {}
+  name: "",
+  age: "",
+  gender: "",
+  city: "",
+  skinType: "",
+  concerns: [],
+  sleep: "",
+  water: "",
+  stress: "",
+  behavior: "",
+  diet: "",
+  routine: "",
+  history: [],
+  images: {}
 };
 
-const slotFiles    = [null, null, null, null, null]; // indices 0–4
-let currentStep    = 1;
-const TOTAL_STEPS  = 9;
-let timerInterval  = null;
-let timerActive    = false;
+const slotFiles = [null, null, null, null, null];
+let currentStep = 1;
+const TOTAL_STEPS = 9;
+let timerInterval = null;
+let timerActive = false;
 
-/* ═══════════════════════════════════════════════════════
-   STEP READINESS — centralised, no scattered checks
-═══════════════════════════════════════════════════════ */
-function checkStepReady(step) {
-  try {
-    let ready = false;
-    switch (step) {
-      case 1: ready = (formData.name || '').length >= 2; break;
-      case 2: ready = formData.age !== '' && formData.gender !== ''; break;
-      case 3: ready = (formData.city || '').length >= 2; break;
-      case 4: ready = formData.skinType !== ''; break;
-      case 5: ready = formData.concerns.length >= 1; break;
-      case 6: ready = formData.behavior !== ''; break;
-      case 7: ready = formData.sleep !== '' && formData.water !== '' &&
-                      formData.diet !== '' && formData.stress !== ''; break;
-      case 8: ready = formData.routine !== ''; break;
-      case 9: ready = slotFiles[0] !== null; break;
-      default: ready = false;
-    }
-    const btn = document.getElementById('next-' + step);
-    if (btn) btn.classList.toggle('ready', ready);
-  } catch (e) {
-    console.error('[checkStepReady] step=' + step, e);
-  }
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-/* ═══════════════════════════════════════════════════════
-   PAGE SWITCHING
-═══════════════════════════════════════════════════════ */
 function showPage(id) {
-  try {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) target.classList.add('active');
-    window.scrollTo(0, 0);
-  } catch (e) {
-    console.error('[showPage]', e);
+  document.querySelectorAll('.page').forEach((page) => page.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
   }
+  window.scrollTo(0, 0);
 }
-function goHome()    { showPage('page-home'); }
-function startQuiz() {
-  // Reset all form state
-  formData.name     = '';
-  formData.age      = '';
-  formData.gender   = '';
-  formData.city     = '';
-  formData.skinType = '';
-  formData.concerns = [];
-  formData.behavior = '';
-  formData.sleep    = '';
-  formData.water    = '';
-  formData.diet     = '';
-  formData.stress   = '';
-  formData.routine  = '';
-  formData.history  = [];
-  formData.images   = {};
-  for (let i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
 
+function resetQuizState() {
+  formData.name = "";
+  formData.age = "";
+  formData.gender = "";
+  formData.city = "";
+  formData.skinType = "";
+  formData.concerns = [];
+  formData.sleep = "";
+  formData.water = "";
+  formData.stress = "";
+  formData.behavior = "";
+  formData.diet = "";
+  formData.routine = "";
+  formData.history = [];
+  formData.images = {};
+
+  slotFiles.forEach((_, index) => {
+    slotFiles[index] = null;
+  });
+
+  const nameInput = document.getElementById('input-name');
+  const cityInput = document.getElementById('input-city');
+  if (nameInput) nameInput.value = '';
+  if (cityInput) cityInput.value = '';
+
+  document.querySelectorAll('.q-opt').forEach((opt) => opt.classList.remove('sel'));
+  document.querySelectorAll('.slot-file-input').forEach((input) => { input.value = ''; });
+
+  const hint = document.getElementById('concern-hint');
+  if (hint) hint.innerHTML = 'Select up to <span>3</span> more';
+
+  const waitlistName = document.getElementById('wl-name');
+  if (waitlistName) waitlistName.value = '';
+
+  for (let i = 0; i < 5; i += 1) {
+    resetSlotMarkup(i);
+  }
+
+  clearWaitlistErrors();
+  clearCheckoutErrors();
+  checkAllSteps();
+}
+
+function goHome() {
+  showPage('page-home');
+}
+
+function startQuiz() {
+  resetQuizState();
   showPage('page-quiz');
   currentStep = 1;
   showStep(1, false);
 }
 
-/* ═══════════════════════════════════════════════════════
-   SCROLL ANIMATIONS
-═══════════════════════════════════════════════════════ */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fu').forEach(el => io.observe(el));
-
-/* ═══════════════════════════════════════════════════════
-   MAC DEMO WINDOW
-═══════════════════════════════════════════════════════ */
-function updateMacProgress() {
-  try {
-    const el = document.getElementById('mac-scroll');
-    if (!el) return;
-    const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) * 100;
-    const fill = document.getElementById('mac-fill');
-    const pctEl = document.getElementById('mac-pct');
-    const barFill = document.getElementById('mac-bar-fill');
-    if (fill)    fill.style.width = pct + '%';
-    if (pctEl)   pctEl.textContent = Math.round(pct) + '%';
-    if (barFill) barFill.style.width = Math.round(pct) + '%';
-  } catch (e) { /* silent */ }
+function updateQuizBar() {
+  const pct = (currentStep / TOTAL_STEPS) * 100;
+  const bar = document.getElementById('quiz-bar');
+  const label = document.getElementById('quiz-step-label');
+  if (bar) bar.style.width = pct + '%';
+  if (label) label.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
 }
-const macIo = new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) {
-    const bf = document.getElementById('mac-bar-fill');
-    if (bf) bf.style.width = '100%';
-    macIo.disconnect();
+
+function showStep(step, goingBack) {
+  document.querySelectorAll('.quiz-step').forEach((section) => {
+    section.classList.remove('active', 'going-back');
+    section.style.display = 'none';
+  });
+  const target = document.querySelector('[data-step="' + step + '"]');
+  if (!target) return;
+  target.style.display = 'block';
+  void target.offsetWidth;
+  target.classList.add(goingBack ? 'going-back' : 'active');
+  currentStep = step;
+  updateQuizBar();
+}
+
+function nextStep(step) {
+  showStep(step, false);
+}
+
+function prevStep(step) {
+  showStep(step, true);
+}
+
+function checkStepReady(step) {
+  let ready = false;
+  switch (step) {
+    case 1:
+      ready = formData.name.trim().length >= 2;
+      break;
+    case 2:
+      ready = formData.age !== '' && formData.gender !== '';
+      break;
+    case 3:
+      ready = formData.city.trim().length >= 2;
+      break;
+    case 4:
+      ready = formData.skinType !== '';
+      break;
+    case 5:
+      ready = formData.concerns.length >= 1;
+      break;
+    case 6:
+      ready = formData.behavior !== '';
+      break;
+    case 7:
+      ready = formData.sleep !== '' && formData.water !== '' && formData.diet !== '' && formData.stress !== '';
+      break;
+    case 8:
+      ready = formData.routine !== '';
+      break;
+    case 9:
+      ready = slotFiles[0] !== null;
+      break;
+    default:
+      ready = false;
   }
-}, { threshold: 0.3 });
-const macSection = document.querySelector('.demo-section');
-if (macSection) macIo.observe(macSection);
+  const button = document.getElementById('next-' + step);
+  if (button) button.classList.toggle('ready', ready);
+}
+
+function checkAllSteps() {
+  for (let step = 1; step <= TOTAL_STEPS; step += 1) {
+    checkStepReady(step);
+  }
+}
+
+function selectOpt(el, key, val, stepNum) {
+  const parent = el.closest('.quiz-options');
+  if (parent) {
+    parent.querySelectorAll('.q-opt').forEach((opt) => opt.classList.remove('sel'));
+  }
+  el.classList.add('sel');
+  if (key in formData) {
+    formData[key] = val;
+  }
+  checkStepReady(stepNum);
+}
+
+function selectGroup(el, key, val, stepNum) {
+  selectOpt(el, key, val, stepNum);
+}
+
+function toggleConcern(el, val) {
+  const idx = formData.concerns.indexOf(val);
+  if (idx > -1) {
+    formData.concerns.splice(idx, 1);
+    el.classList.remove('sel');
+  } else {
+    if (formData.concerns.length >= 3) return;
+    formData.concerns.push(val);
+    el.classList.add('sel');
+  }
+
+  const remaining = 3 - formData.concerns.length;
+  const hint = document.getElementById('concern-hint');
+  if (hint) {
+    if (formData.concerns.length === 0) {
+      hint.innerHTML = 'Select up to <span>3</span> more';
+    } else if (formData.concerns.length >= 3) {
+      hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
+    } else {
+      hint.innerHTML = '<span>' + remaining + '</span> more to go';
+    }
+  }
+
+  checkStepReady(5);
+}
+
+function toggleHistory(el, val) {
+  if (val === 'Not sure') {
+    formData.history = ['Not sure'];
+    document.querySelectorAll('#opts-history .q-opt').forEach((opt) => opt.classList.remove('sel'));
+    el.classList.add('sel');
+  } else {
+    const notSureIndex = formData.history.indexOf('Not sure');
+    if (notSureIndex > -1) {
+      formData.history.splice(notSureIndex, 1);
+      document.querySelectorAll('#opts-history .q-opt').forEach((opt) => {
+        if (opt.dataset.history === 'Not sure') opt.classList.remove('sel');
+      });
+    }
+    const idx = formData.history.indexOf(val);
+    if (idx > -1) {
+      formData.history.splice(idx, 1);
+      el.classList.remove('sel');
+    } else {
+      formData.history.push(val);
+      el.classList.add('sel');
+    }
+  }
+  checkStepReady(8);
+}
+
+function triggerSlot(idx) {
+  const input = document.getElementById('slot-input-' + idx);
+  if (input) input.click();
+}
+
+function resetSlotMarkup(idx) {
+  const slot = document.getElementById('slot-' + idx);
+  if (!slot) return;
+
+  const labels = [
+    ['Front Face', 'Required'],
+    ['Left Profile', 'Recommended'],
+    ['Right Profile', 'Recommended'],
+    ['Close-up', 'Recommended'],
+    ['Video', 'Optional · 30s']
+  ];
+
+  const icons = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
+  ];
+
+  slot.classList.remove('has-preview');
+  slot.innerHTML = icons[idx] + '<p>' + labels[idx][0] + '</p><small>' + labels[idx][1] + '</small>';
+}
+
+function clearSlot(event, idx) {
+  if (event) event.stopPropagation();
+  slotFiles[idx] = null;
+  resetSlotMarkup(idx);
+  checkUploadReady();
+}
+
+function handleSlotFile(input, idx) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+
+  slotFiles[idx] = file;
+  const slot = document.getElementById('slot-' + idx);
+  if (!slot) return;
+
+  slot.classList.add('has-preview');
+  if (idx === 4) {
+    slot.innerHTML =
+      '<div style="padding:14px 8px;text-align:center;">' +
+      '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
+      '<small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small>' +
+      '</div>' +
+      '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+  } else {
+    const url = URL.createObjectURL(file);
+    slot.innerHTML =
+      '<img class="slot-preview" src="' + url + '" alt="Preview">' +
+      '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+  }
+
+  input.value = '';
+  checkUploadReady();
+}
+
+function getUploadedImageFiles() {
+  return slotFiles.slice(0, 4).filter((file) => file !== null);
+}
+
+function checkUploadReady() {
+  checkStepReady(9);
+  const error = document.getElementById('photo-req-error');
+  if (error && slotFiles[0] !== null) {
+    error.style.display = 'none';
+  }
+}
+
+function updateMacProgress() {
+  const el = document.getElementById('mac-scroll');
+  if (!el) return;
+  const maxScroll = el.scrollHeight - el.clientHeight;
+  const pct = maxScroll > 0 ? (el.scrollTop / maxScroll) * 100 : 0;
+  const fill = document.getElementById('mac-fill');
+  const pctEl = document.getElementById('mac-pct');
+  const barFill = document.getElementById('mac-bar-fill');
+  if (fill) fill.style.width = pct + '%';
+  if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+  if (barFill) barFill.style.width = Math.round(pct) + '%';
+}
 
 function toggleChip(el) {
-  try {
-    const parent = el.closest('.chips');
-    if (parent) parent.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-  } catch (e) { /* silent */ }
+  const parent = el.closest('.chips');
+  if (parent) {
+    parent.querySelectorAll('.chip').forEach((chip) => chip.classList.remove('on'));
+  }
+  el.classList.add('on');
 }
 
-/* ═══════════════════════════════════════════════════════
-   PRICING TIMER
-═══════════════════════════════════════════════════════ */
 function handleBuyClick() {
   if (!timerActive) {
     timerActive = true;
     const noteEl = document.getElementById('price-note');
     const timerBox = document.getElementById('timer-box');
-    if (noteEl)   noteEl.textContent = '🎉 Flash deal — 1 minute only!';
+    if (noteEl) noteEl.textContent = '🎉 Flash deal — 1 minute only!';
     if (timerBox) timerBox.classList.add('show');
     let secs = 60;
-    timerInterval = setInterval(() => {
-      secs--;
-      const cd = document.getElementById('countdown');
-      if (cd) cd.textContent = '00:' + String(secs).padStart(2, '0');
+    const countdown = document.getElementById('countdown');
+    if (countdown) countdown.textContent = '01:00';
+
+    timerInterval = window.setInterval(() => {
+      secs -= 1;
+      if (countdown) countdown.textContent = '00:' + String(Math.max(secs, 0)).padStart(2, '0');
       if (secs <= 0) {
-        clearInterval(timerInterval);
+        window.clearInterval(timerInterval);
         timerActive = false;
         if (timerBox) timerBox.classList.remove('show');
-        if (noteEl)   noteEl.textContent = 'One-time · Instant access · No subscription';
+        if (noteEl) noteEl.textContent = 'One-time · Instant access · No subscription';
       }
     }, 1000);
   }
   openModal();
 }
 
-/* ═══════════════════════════════════════════════════════
-   CHECKOUT MODAL
-═══════════════════════════════════════════════════════ */
-function openModal()  {
-  const m = document.getElementById('modal-checkout');
-  if (m) m.classList.add('show');
+function openModal() {
+  const modal = document.getElementById('modal-checkout');
+  if (modal) modal.classList.add('show');
 }
+
 function closeModal() {
-  const m = document.getElementById('modal-checkout');
-  if (m) m.classList.remove('show');
+  const modal = document.getElementById('modal-checkout');
+  if (modal) modal.classList.remove('show');
 }
-const modalEl = document.getElementById('modal-checkout');
-if (modalEl) {
-  modalEl.addEventListener('click', e => {
-    if (e.target.id === 'modal-checkout') closeModal();
+
+function clearCheckoutErrors() {
+  ['name', 'email', 'phone'].forEach((key) => {
+    const err = document.getElementById('err-' + key);
+    if (err) err.textContent = '';
   });
 }
+
 function processPayment() {
-  try {
-    const name  = (document.getElementById('f-name')  || {}).value || '';
-    const email = (document.getElementById('f-email') || {}).value || '';
-    const phone = (document.getElementById('f-phone') || {}).value || '';
-    let valid = true;
-    ['name','email','phone'].forEach(k => {
-      const el = document.getElementById('err-' + k);
-      if (el) el.textContent = '';
-    });
-    if (!name.trim())  { const e = document.getElementById('err-name');  if (e) e.textContent = 'Required'; valid = false; }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      const e = document.getElementById('err-email'); if (e) e.textContent = 'Valid email required'; valid = false;
-    }
-    if (!phone.trim() || phone.replace(/\D/g,'').length < 10) {
-      const e = document.getElementById('err-phone'); if (e) e.textContent = 'Valid phone required'; valid = false;
-    }
-    if (!valid) return;
-    closeModal();
-    startQuiz();
-  } catch (e) {
-    console.error('[processPayment]', e);
+  const name = document.getElementById('f-name');
+  const email = document.getElementById('f-email');
+  const phone = document.getElementById('f-phone');
+
+  clearCheckoutErrors();
+
+  const nameValue = name ? name.value.trim() : '';
+  const emailValue = email ? email.value.trim() : '';
+  const phoneValue = phone ? phone.value.trim() : '';
+
+  let valid = true;
+
+  if (!nameValue) {
+    const err = document.getElementById('err-name');
+    if (err) err.textContent = 'Required';
+    valid = false;
   }
+
+  if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+    const err = document.getElementById('err-email');
+    if (err) err.textContent = 'Valid email required';
+    valid = false;
+  }
+
+  if (!phoneValue || phoneValue.replace(/\D/g, '').length < 10) {
+    const err = document.getElementById('err-phone');
+    if (err) err.textContent = 'Valid phone required';
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  closeModal();
+  startQuiz();
 }
 
-/* ═══════════════════════════════════════════════════════
-   QUIZ NAVIGATION
-═══════════════════════════════════════════════════════ */
-function updateQuizBar() {
-  try {
-    const pct = (currentStep / TOTAL_STEPS) * 100;
-    const bar = document.getElementById('quiz-bar');
-    const lbl = document.getElementById('quiz-step-label');
-    if (bar) bar.style.width = pct + '%';
-    if (lbl) lbl.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
-  } catch (e) { /* silent */ }
-}
-function showStep(n, goingBack) {
-  try {
-    document.querySelectorAll('.quiz-step').forEach(s => {
-      s.classList.remove('active', 'going-back');
-      s.style.display = 'none';
-    });
-    const target = document.querySelector('[data-step="' + n + '"]');
-    if (!target) return;
-    target.style.display = 'block';
-    void target.offsetWidth; // trigger reflow for animation
-    target.classList.add(goingBack ? 'going-back' : 'active');
-    currentStep = n;
-    updateQuizBar();
-  } catch (e) {
-    console.error('[showStep]', e);
-  }
-}
-function nextStep(n) { showStep(n, false); }
-function prevStep(n) { showStep(n, true);  }
-
-/* ─── Step 1: Name input ─── */
-const nameInputEl = document.getElementById('input-name');
-if (nameInputEl) {
-  nameInputEl.addEventListener('input', function () {
-    formData.name = (this.value || '').trim();
-    checkStepReady(1);
+function clearWaitlistErrors() {
+  ['name', 'email', 'phone'].forEach((key) => {
+    const error = document.getElementById('wl-err-' + key);
+    const input = document.getElementById('wl-' + key);
+    if (error) error.textContent = '';
+    if (input) input.classList.remove('err');
   });
 }
 
-/* ─── Step 3: City input ─── */
-const cityInputEl = document.getElementById('input-city');
-if (cityInputEl) {
-  cityInputEl.addEventListener('input', function () {
-    formData.city = (this.value || '').trim();
-    checkStepReady(3);
-  });
-}
-
-/* ─── selectOpt: single-select within a group, pass step number ─── */
-function selectOpt(el, key, val, stepNum) {
-  try {
-    const parent = el.closest('.quiz-options');
-    if (parent) parent.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
-    el.classList.add('sel');
-    if (key in formData) formData[key] = val;
-    checkStepReady(stepNum !== undefined ? stepNum : currentStep);
-  } catch (e) {
-    console.error('[selectOpt]', e);
-  }
-}
-
-/* ─── selectGroup: single-select within a named group, used for multi-group steps ─── */
-function selectGroup(el, key, val, stepNum) {
-  try {
-    const parent = el.closest('.quiz-options');
-    if (parent) parent.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
-    el.classList.add('sel');
-    if (key in formData) formData[key] = val;
-    checkStepReady(stepNum !== undefined ? stepNum : currentStep);
-  } catch (e) {
-    console.error('[selectGroup]', e);
-  }
-}
-
-/* ─── toggleConcern: multi-select, max 3 ─── */
-function toggleConcern(el, val) {
-  try {
-    // Decode HTML entities for comparison
-    const cleanVal = val.replace(/&amp;/g, '&');
-    const idx = formData.concerns.indexOf(cleanVal);
-    if (idx > -1) {
-      formData.concerns.splice(idx, 1);
-      el.classList.remove('sel');
-    } else {
-      if (formData.concerns.length >= 3) return; // cap at 3
-      formData.concerns.push(cleanVal);
-      el.classList.add('sel');
-    }
-    const remaining = 3 - formData.concerns.length;
-    const hint = document.getElementById('concern-hint');
-    if (hint) {
-      if (formData.concerns.length === 0) {
-        hint.innerHTML = 'Select up to <span>3</span> more';
-      } else if (formData.concerns.length >= 3) {
-        hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
-      } else {
-        hint.innerHTML = '<span>' + remaining + '</span> more to go';
-      }
-    }
-    checkStepReady(5);
-  } catch (e) {
-    console.error('[toggleConcern]', e);
-  }
-}
-
-/* ─── toggleHistory: multi-select, no limit; "Not sure" clears others ─── */
-function toggleHistory(el, val) {
-  try {
-    if (val === 'Not sure') {
-      formData.history = ['Not sure'];
-      document.querySelectorAll('#opts-history .q-opt').forEach(o => o.classList.remove('sel'));
-      el.classList.add('sel');
-    } else {
-      // Deselect "Not sure" if active
-      const nsIdx = formData.history.indexOf('Not sure');
-      if (nsIdx > -1) {
-        formData.history.splice(nsIdx, 1);
-        document.querySelectorAll('#opts-history .q-opt').forEach(o => {
-          if ((o.textContent || '').trim() === 'Not sure') o.classList.remove('sel');
-        });
-      }
-      const idx = formData.history.indexOf(val);
-      if (idx > -1) {
-        formData.history.splice(idx, 1);
-        el.classList.remove('sel');
-      } else {
-        formData.history.push(val);
-        el.classList.add('sel');
-      }
-    }
-    // History is optional — step 8 readiness driven by routine only
-    checkStepReady(8);
-  } catch (e) {
-    console.error('[toggleHistory]', e);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════
-   PHOTO UPLOAD
-═══════════════════════════════════════════════════════ */
-function triggerSlot(idx) {
-  try {
-    const input = document.getElementById('slot-input-' + idx);
-    if (input) input.click();
-  } catch (e) { console.error('[triggerSlot]', e); }
-}
-
-function handleSlotFile(input, idx) {
-  try {
-    const file = (input.files || [])[0];
-    if (!file) return;
-    slotFiles[idx] = file;
-    const slot = document.getElementById('slot-' + idx);
-    if (!slot) return;
-
-    if (idx === 4) {
-      // Video — text confirmation only
-      slot.classList.add('has-preview');
-      slot.innerHTML =
-        '<div style="padding:14px 8px;text-align:center;">' +
-        '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
-        '<small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small>' +
-        '</div>' +
-        '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
-    } else {
-      // Image — thumbnail preview
-      const url = URL.createObjectURL(file);
-      slot.classList.add('has-preview');
-      slot.innerHTML =
-        '<img class="slot-preview" src="' + url + '" alt="Preview">' +
-        '<button class="slot-clear" onclick="clearSlot(event,' + idx + ')">×</button>';
-    }
-    checkUploadReady();
-    input.value = '';
-  } catch (e) {
-    console.error('[handleSlotFile]', e);
-  }
-}
-
-function clearSlot(e, idx) {
-  try {
-    if (e && e.stopPropagation) e.stopPropagation();
-    slotFiles[idx] = null;
-    const slot = document.getElementById('slot-' + idx);
-    if (!slot) return;
-    slot.classList.remove('has-preview');
-
-    const labels = [
-      ['Front Face', 'Required'],
-      ['Left Profile', 'Recommended'],
-      ['Right Profile', 'Recommended'],
-      ['Close-up', 'Recommended'],
-      ['Video', 'Optional · 30s']
-    ];
-    const icons = [
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
-    ];
-    const pair   = labels[idx] || ['Photo', ''];
-    const icon   = icons[idx]  || '';
-    slot.innerHTML = icon + '<p>' + pair[0] + '</p><small>' + pair[1] + '</small>';
-    slot.onclick = function () { triggerSlot(idx); };
-    checkUploadReady();
-  } catch (e) {
-    console.error('[clearSlot]', e);
-  }
-}
-
-function getUploadedImageFiles() {
-  return (slotFiles || []).slice(0, 4).filter(f => f !== null);
-}
-
-function checkUploadReady() {
-  checkStepReady(9);
-  // Hide error message when front face is uploaded
-  if (slotFiles[0] !== null) {
-    const errEl = document.getElementById('photo-req-error');
-    if (errEl) errEl.style.display = 'none';
-  }
-}
-
-/* ═══════════════════════════════════════════════════════
-   PROMPT GENERATOR
-   Builds a structured dermatologist prompt from formData
-═══════════════════════════════════════════════════════ */
 function generatePrompt(data) {
-  try {
-    const concerns  = Array.isArray(data.concerns) ? data.concerns.join(', ') : (data.concerns || '');
-    const history   = Array.isArray(data.history)  ? data.history.join(', ')  : (data.history  || '');
-    return (
-      'You are a highly experienced dermatologist.\n\n' +
-      'Name: '       + (data.name     || '') + '\n' +
-      'Age: '        + (data.age      || '') + '\n' +
-      'Gender: '     + (data.gender   || '') + '\n' +
-      'City: '       + (data.city     || '') + '\n\n' +
-      'Skin Type: '  + (data.skinType || '') + '\n' +
-      'Concerns: '   + concerns             + '\n\n' +
-      'Lifestyle:\n' +
-      '- Sleep: '    + (data.sleep  || '') + '\n' +
-      '- Water: '    + (data.water  || '') + '\n' +
-      '- Diet: '     + (data.diet   || '') + '\n' +
-      '- Stress: '   + (data.stress || '') + '\n\n' +
-      'Current Routine: ' + (data.routine || '') + '\n' +
-      'Ingredient History: ' + history + '\n\n' +
-      'Generate a premium skincare report covering:\n' +
-      '1. Skin analysis\n' +
-      '2. Root causes\n' +
-      '3. Skin score (0–100)\n' +
-      '4. Morning + night routine (step by step)\n' +
-      '5. Product suggestions (budget / mid / premium)\n' +
-      '6. Common mistakes to avoid\n' +
-      '7. What to expect in 2–4 weeks\n\n' +
-      'Make it human, detailed, and worth ₹799.'
-    );
-  } catch (e) {
-    console.error('[generatePrompt]', e);
-    return '';
-  }
+  return [
+    'Create a personalised skincare report.',
+    'Name: ' + (data.name || 'Unknown'),
+    'Age: ' + (data.age || 'Unknown'),
+    'Gender: ' + (data.gender || 'Unknown'),
+    'City: ' + (data.city || 'Unknown'),
+    'Skin type: ' + (data.skinType || 'Unknown'),
+    'Concerns: ' + ((data.concerns || []).join(', ') || 'None'),
+    'Sleep: ' + (data.sleep || 'Unknown'),
+    'Water: ' + (data.water || 'Unknown'),
+    'Stress: ' + (data.stress || 'Unknown'),
+    'Behavior: ' + (data.behavior || 'Unknown'),
+    'Diet: ' + (data.diet || 'Unknown'),
+    'Routine: ' + (data.routine || 'Unknown'),
+    'History: ' + ((data.history || []).join(', ') || 'None')
+  ].join('\n');
 }
 
-/* ═══════════════════════════════════════════════════════
-   SAVE TO SUPABASE — submissions table
-   Fires-and-forgets; never blocks the UI flow
-═══════════════════════════════════════════════════════ */
 async function saveToSupabase(data) {
+  if (!supabaseClient) {
+    console.error('Supabase client unavailable');
+    return;
+  }
+
+  const payload = {
+    name: data.name || '',
+    age: data.age || '',
+    gender: data.gender || '',
+    city: data.city || '',
+    skin_type: data.skinType || '',
+    concerns: Array.isArray(data.concerns) ? data.concerns.join(', ') : '',
+    sleep: data.sleep || '',
+    water: data.water || '',
+    stress: data.stress || '',
+    prompt: generatePrompt(data)
+  };
+
   try {
-    const prompt   = generatePrompt(data);
-    const concerns = Array.isArray(data.concerns) ? data.concerns.join(', ') : (data.concerns || '');
-    const history  = Array.isArray(data.history)  ? data.history.join(', ')  : (data.history  || '');
-
-    const { error } = await supabaseClient
-      .from('submissions')
-      .insert([{
-        name:      data.name     || '',
-        age:       data.age      || null,
-        gender:    data.gender   || '',
-        city:      data.city     || '',
-        skin_type: data.skinType || '',
-        concerns:  concerns,
-        sleep:     data.sleep    || '',
-        water:     data.water    || '',
-        stress:    data.stress   || '',
-        routine:   data.routine  || '',
-        history:   history,
-        prompt:    prompt
-      }]);
-
+    const { error } = await supabaseClient.from('submissions').insert([payload]);
     if (error) {
-      console.error('[saveToSupabase] Supabase error:', error);
-      return false;
+      console.error('Supabase insert failed:', error);
     }
-
-    console.log('[saveToSupabase] Submission saved successfully.');
-    return true;
-  } catch (e) {
-    console.error('[saveToSupabase] Unexpected error:', e);
-    return false; // never throw — caller must not crash
+  } catch (error) {
+    console.error('Supabase request failed:', error);
   }
 }
 
-/* ═══════════════════════════════════════════════════════
-   ANALYSE → loading overlay (2.2 s) → waitlist page
-   Saves complete formData to Supabase + localStorage before transitioning
-═══════════════════════════════════════════════════════ */
 async function analyseAndGo() {
-  try {
-    // Front-face validation
-    if (slotFiles[0] === null) {
-      const errEl = document.getElementById('photo-req-error');
-      if (errEl) errEl.style.display = 'block';
-      return;
-    }
-    const errEl = document.getElementById('photo-req-error');
-    if (errEl) errEl.style.display = 'none';
-
-    // Sync text inputs into formData one last time
-    const ni = document.getElementById('input-name');
-    const ci = document.getElementById('input-city');
-    if (ni && ni.value.trim()) formData.name = ni.value.trim();
-    if (ci && ci.value.trim()) formData.city = ci.value.trim();
-
-    // Persist to localStorage (best-effort — don't block if unavailable)
-    try {
-      const snapshot = {
-        name:     formData.name,
-        age:      formData.age,
-        gender:   formData.gender,
-        city:     formData.city,
-        skinType: formData.skinType,
-        concerns: formData.concerns,
-        behavior: formData.behavior,
-        sleep:    formData.sleep,
-        water:    formData.water,
-        diet:     formData.diet,
-        stress:   formData.stress,
-        routine:  formData.routine,
-        history:  formData.history
-        // images are File objects — cannot stringify, omit intentionally
-      };
-      localStorage.setItem('skinData', JSON.stringify(snapshot));
-    } catch (storageErr) {
-      console.warn('[analyseAndGo] localStorage unavailable:', storageErr);
-    }
-
-    // Show overlay immediately so UX never lags
-    const overlay = document.getElementById('overlay-analysing');
-    if (overlay) overlay.classList.add('show');
-
-    // Fire-and-forget Supabase save — runs in parallel with the 2.2 s delay
-    // We deliberately do NOT await so a slow network can't block the UI
-    saveToSupabase(formData).catch(function(e) {
-      console.error('[analyseAndGo] saveToSupabase rejected:', e);
-    });
-
-    setTimeout(function () {
-      try {
-        if (overlay) overlay.classList.remove('show');
-
-        // Pre-fill waitlist name from formData
-        const nameEl = document.getElementById('wl-name');
-        if (nameEl && formData.name && !nameEl.value) nameEl.value = formData.name;
-
-        // Populate uploaded photo thumbnails on waitlist page
-        const wlPhotos = document.getElementById('wl-photos');
-        if (wlPhotos) {
-          wlPhotos.innerHTML = '';
-          getUploadedImageFiles().slice(0, 4).forEach(function (file) {
-            const img = document.createElement('img');
-            img.src       = URL.createObjectURL(file);
-            img.className = 'wl-uploaded-photo';
-            img.alt       = 'Your skin photo';
-            wlPhotos.appendChild(img);
-          });
-        }
-
-        showPage('page-waitlist');
-      } catch (innerErr) {
-        console.error('[analyseAndGo timeout]', innerErr);
-        showPage('page-waitlist'); // always navigate, never hang
-      }
-    }, 2200);
-
-  } catch (err) {
-    console.error('[analyseAndGo]', err);
-    showPage('page-waitlist'); // failsafe — never leave user stranded
+  if (slotFiles[0] === null) {
+    const error = document.getElementById('photo-req-error');
+    if (error) error.style.display = 'block';
+    return;
   }
-  await saveToSupabase(formData);
+
+  const error = document.getElementById('photo-req-error');
+  if (error) error.style.display = 'none';
+
+  const nameInput = document.getElementById('input-name');
+  const cityInput = document.getElementById('input-city');
+  if (nameInput && nameInput.value.trim()) formData.name = nameInput.value.trim();
+  if (cityInput && cityInput.value.trim()) formData.city = cityInput.value.trim();
+
+  try {
+    const snapshot = {
+      name: formData.name,
+      age: formData.age,
+      gender: formData.gender,
+      city: formData.city,
+      skinType: formData.skinType,
+      concerns: formData.concerns,
+      behavior: formData.behavior,
+      sleep: formData.sleep,
+      water: formData.water,
+      diet: formData.diet,
+      stress: formData.stress,
+      routine: formData.routine,
+      history: formData.history
+    };
+    localStorage.setItem('skinData', JSON.stringify(snapshot));
+  } catch (storageError) {
+    console.warn('localStorage unavailable:', storageError);
+  }
+
+  const overlay = document.getElementById('overlay-analysing');
+  if (overlay) overlay.classList.add('show');
+
+  if (supabaseClient && typeof saveToSupabase === "function") {
+    try {
+      await saveToSupabase(formData);
+    } catch (e) {
+      console.error("Supabase failed:", e);
+    }
+  }
+
+  window.setTimeout(() => {
+    if (overlay) overlay.classList.remove('show');
+
+    const waitlistName = document.getElementById('wl-name');
+    if (waitlistName && formData.name && !waitlistName.value) {
+      waitlistName.value = formData.name;
+    }
+
+    const wlPhotos = document.getElementById('wl-photos');
+    if (wlPhotos) {
+      wlPhotos.innerHTML = '';
+      getUploadedImageFiles().slice(0, 4).forEach((file) => {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.className = 'wl-uploaded-photo';
+        img.alt = 'Your skin photo';
+        wlPhotos.appendChild(img);
+      });
+    }
+
+    showPage('page-waitlist');
+  }, 2200);
 }
 
-/* ═══════════════════════════════════════════════════════
-   WAITLIST SUBMIT
-═══════════════════════════════════════════════════════ */
 async function submitWaitlist() {
-  const nameEl  = document.getElementById('wl-name');
+  const nameEl = document.getElementById('wl-name');
   const emailEl = document.getElementById('wl-email');
   const phoneEl = document.getElementById('wl-phone');
-  const btn     = document.getElementById('wl-submit-btn');
+  const btn = document.getElementById('wl-submit-btn');
 
-  // Clear previous errors
-  ['name','email','phone'].forEach(k => {
-    const errEl   = document.getElementById('wl-err-' + k);
-    const inputEl = document.getElementById('wl-' + k);
-    if (errEl)   errEl.textContent = '';
-    if (inputEl) inputEl.classList.remove('err');
-  });
+  clearWaitlistErrors();
 
-  const name  = nameEl  ? nameEl.value.trim()  : '';
-  const email = emailEl ? emailEl.value.trim()  : '';
-  const phone = phoneEl ? phoneEl.value.trim()  : '';
+  const name = nameEl ? nameEl.value.trim() : '';
+  const email = emailEl ? emailEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
   let valid = true;
 
   if (!name || name.length < 2) {
-    const e = document.getElementById('wl-err-name');
-    if (e) e.textContent = 'Please enter your full name.';
+    const err = document.getElementById('wl-err-name');
+    if (err) err.textContent = 'Please enter your full name.';
     if (nameEl) nameEl.classList.add('err');
     valid = false;
   }
+
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    const e = document.getElementById('wl-err-email');
-    if (e) e.textContent = 'Please enter a valid email address.';
+    const err = document.getElementById('wl-err-email');
+    if (err) err.textContent = 'Please enter a valid email address.';
     if (emailEl) emailEl.classList.add('err');
     valid = false;
   }
-  if (!phone || phone.replace(/\D/g,'').length < 10) {
-    const e = document.getElementById('wl-err-phone');
-    if (e) e.textContent = 'Please enter a valid phone number.';
+
+  if (!phone || phone.replace(/\D/g, '').length < 10) {
+    const err = document.getElementById('wl-err-phone');
+    if (err) err.textContent = 'Please enter a valid phone number.';
     if (phoneEl) phoneEl.classList.add('err');
     valid = false;
   }
+
   if (!valid) return;
 
   if (btn) {
@@ -1600,69 +1406,42 @@ async function submitWaitlist() {
   }
 
   try {
-    console.log('[waitlist] Inserting into Supabase:', { name, email, phone });
-    const { error: dbError } = await supabaseClient
-      .from('waitlist')
-      .insert([{ name, email, phone }]);
-
-    if (dbError) {
-      if (dbError.code === '23505') {
-        console.warn('[waitlist] Duplicate entry:', email);
-      } else {
-        console.error('[waitlist] Supabase error:', dbError);
-        throw new Error(dbError.message);
+    if (supabaseClient) {
+      const { error: dbError } = await supabaseClient.from('waitlist').insert([{ name, email, phone }]);
+      if (dbError && dbError.code !== '23505') {
+        throw dbError;
       }
-    } else {
-      console.log('[waitlist] Supabase insert OK');
     }
 
-    // Confirmation email
-    console.log('[waitlist] Calling /api/send-email for:', email);
-    try {
-      const emailRes  = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
-      });
-      const emailData = await emailRes.json();
-      if (!emailRes.ok) {
-        console.error('[waitlist] /api/send-email failed:', emailRes.status, emailData);
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
-        }
-        alert('Something went wrong sending your confirmation email. Please try again.');
-        return;
-      }
-      console.log('[waitlist] Confirmation email sent, ID:', emailData.id);
-    } catch (emailErr) {
-      console.error('[waitlist] /api/send-email network error:', emailErr);
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
-      }
-      alert('Network error. Please check your connection and try again.');
-      return;
+    const emailRes = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email })
+    });
+
+    const emailData = await emailRes.json();
+    if (!emailRes.ok) {
+      console.error('/api/send-email failed:', emailRes.status, emailData);
+      throw new Error('Confirmation email failed');
     }
 
-    // Populate success page photos
     const successPhotos = document.getElementById('success-photos');
     if (successPhotos) {
       successPhotos.innerHTML = '';
-      getUploadedImageFiles().slice(0, 4).forEach(function (file) {
+      getUploadedImageFiles().slice(0, 4).forEach((file) => {
         const img = document.createElement('img');
-        img.src       = URL.createObjectURL(file);
+        img.src = URL.createObjectURL(file);
         img.className = 'success-photo';
-        img.alt       = 'Uploaded skin photo';
+        img.alt = 'Uploaded skin photo';
         successPhotos.appendChild(img);
       });
     }
-    showPage('page-success');
 
+    showPage('page-success');
   } catch (err) {
-    console.error('[submitWaitlist] Fatal error:', err);
-    const e = document.getElementById('wl-err-name');
-    if (e) e.textContent = 'Something went wrong. Please try again.';
+    console.error('submitWaitlist failed:', err);
+    const fallback = document.getElementById('wl-err-name');
+    if (fallback) fallback.textContent = 'Something went wrong. Please try again.';
     if (btn) {
       btn.disabled = false;
       btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
@@ -1670,89 +1449,184 @@ async function submitWaitlist() {
   }
 }
 
-/* ═══════════════════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════════════════ */
-function escHtml(str) {
-  return String(str || '')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function bindStaticEvents() {
+  const heroStart = document.getElementById('hero-start-btn');
+  const logo = document.querySelector('.logo');
+  const navHome = document.querySelector('[data-nav-home]');
+  const navHow = document.querySelector('[data-nav-how]');
+  const navPricing = document.querySelector('[data-nav-pricing]');
+  const buyBtn = document.getElementById('buy-btn');
+  const modal = document.getElementById('modal-checkout');
+  const cancelBtn = document.getElementById('modal-cancel-btn');
+  const payBtn = document.getElementById('modal-pay-btn');
+  const successBack = document.getElementById('success-back-btn');
+  const waitlistSubmit = document.getElementById('wl-submit-btn');
+  const macScroll = document.getElementById('mac-scroll');
+  const frontUploadArea = document.getElementById('front-upload-area');
 
-/* ═══════════════════════════════════════════════════════
-   SMOOTH SCROLL (landing page anchors)
-═══════════════════════════════════════════════════════ */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const id     = (a.getAttribute('href') || '').slice(1);
-    const target = document.getElementById(id);
-    if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
+  if (heroStart) heroStart.addEventListener('click', startQuiz);
+  if (logo) logo.addEventListener('click', (event) => { event.preventDefault(); goHome(); });
+  if (navHome) navHome.addEventListener('click', (event) => { event.preventDefault(); goHome(); });
+  if (navHow) navHow.addEventListener('click', (event) => {
+    event.preventDefault();
+    goHome();
+    window.setTimeout(() => {
+      const how = document.getElementById('how');
+      if (how) how.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
   });
+  if (navPricing) navPricing.addEventListener('click', (event) => {
+    event.preventDefault();
+    goHome();
+    window.setTimeout(() => {
+      const pricing = document.getElementById('pricing');
+      if (pricing) pricing.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  });
+  if (buyBtn) buyBtn.addEventListener('click', handleBuyClick);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+  if (payBtn) payBtn.addEventListener('click', processPayment);
+  if (successBack) successBack.addEventListener('click', goHome);
+  if (waitlistSubmit) waitlistSubmit.addEventListener('click', submitWaitlist);
+  if (macScroll) macScroll.addEventListener('scroll', updateMacProgress);
+  if (frontUploadArea) frontUploadArea.addEventListener('click', () => triggerSlot(0));
+
+  if (modal) {
+    modal.addEventListener('click', (event) => {
+      if (event.target.id === 'modal-checkout') {
+        closeModal();
+      }
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (event) => {
+      const id = (anchor.getAttribute('href') || '').slice(1);
+      const target = document.getElementById(id);
+      if (target) {
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  document.querySelectorAll('.chips .chip').forEach((chip) => {
+    chip.addEventListener('click', () => toggleChip(chip));
+  });
+
+  document.querySelectorAll('[data-group]').forEach((button) => {
+    button.addEventListener('click', () => selectGroup(button, button.dataset.group, button.dataset.value, Number(button.closest('.quiz-step').dataset.step)));
+  });
+
+  document.querySelectorAll('[data-single]').forEach((button) => {
+    button.addEventListener('click', () => selectOpt(button, button.dataset.single, button.dataset.value, Number(button.closest('.quiz-step').dataset.step)));
+  });
+
+  document.querySelectorAll('[data-concern]').forEach((button) => {
+    button.addEventListener('click', () => toggleConcern(button, button.dataset.concern));
+  });
+
+  document.querySelectorAll('[data-history]').forEach((button) => {
+    button.addEventListener('click', () => toggleHistory(button, button.dataset.history));
+  });
+
+  document.querySelectorAll('.photo-slot').forEach((slot, index) => {
+    slot.addEventListener('click', () => triggerSlot(index));
+  });
+
+  document.querySelectorAll('.slot-file-input').forEach((input, index) => {
+    input.addEventListener('change', () => handleSlotFile(input, index));
+  });
+
+  document.addEventListener('click', (event) => {
+    const clearButton = event.target.closest('[data-clear-slot]');
+    if (clearButton) {
+      clearSlot(event, Number(clearButton.dataset.clearSlot));
+    }
+  });
+
+  const nameInput = document.getElementById('input-name');
+  const cityInput = document.getElementById('input-city');
+  if (nameInput) {
+    nameInput.addEventListener('input', function () {
+      formData.name = this.value.trim();
+      checkStepReady(1);
+    });
+  }
+  if (cityInput) {
+    cityInput.addEventListener('input', function () {
+      formData.city = this.value.trim();
+      checkStepReady(3);
+    });
+  }
+
+  const backButtons = {
+    'back-2': 1,
+    'back-3': 2,
+    'back-4': 3,
+    'back-5': 4,
+    'back-6': 5,
+    'back-7': 6,
+    'back-8': 7,
+    'back-9': 8
+  };
+
+  Object.keys(backButtons).forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', () => prevStep(backButtons[id]));
+  });
+
+  const nextButtons = {
+    'next-1': 2,
+    'next-2': 3,
+    'next-3': 4,
+    'next-4': 5,
+    'next-5': 6,
+    'next-6': 7,
+    'next-7': 8,
+    'next-8': 9
+  };
+
+  Object.keys(nextButtons).forEach((id) => {
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', () => nextStep(nextButtons[id]));
+  });
+
+  const reportBtn = document.getElementById('next-9');
+  if (reportBtn) {
+    reportBtn.addEventListener('click', analyseAndGo);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  bindStaticEvents();
+  updateQuizBar();
+  updateMacProgress();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('vis');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fu').forEach((el) => io.observe(el));
+
+  const demoSection = document.querySelector('.demo-section');
+  if (demoSection) {
+    const macIo = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        const fill = document.getElementById('mac-bar-fill');
+        if (fill) fill.style.width = '100%';
+        macIo.disconnect();
+      }
+    }, { threshold: 0.3 });
+    macIo.observe(demoSection);
+  }
+
+  checkAllSteps();
 });
-
-} catch (globalErr) {
-  // Top-level safety net — log but never crash the page
-  console.error('[BeSeen global error]', globalErr);
-}
-async function analyseAndGo() {
-  try {
-    if (typeof saveToSupabase === "function") {
-      await saveToSupabase(formData);
-    } else {
-      console.error("saveToSupabase not found");
-    }
-  } catch (e) {
-    console.error("Error saving:", e);
-  }
-
-  // Continue existing flow
-  const supabaseClient = window.supabase.createClient(
-  'https://rkhlfmfubwszgslxiloh.supabase.co',
-  'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f'
-);
-function generatePrompt(data) {
-  return `
-Skin Analysis Request:
-
-Name: ${data.name}
-Age: ${data.age}
-Skin Type: ${data.skinType}
-Concerns: ${(data.concerns || []).join(", ")}
-Sleep: ${data.sleep}
-Water: ${data.water}
-Stress: ${data.stress}
-`;
-}
-async function saveToSupabase(data) {
-  try {
-    const prompt = generatePrompt(data);
-
-    const { error } = await supabaseClient
-      .from("submissions")
-      .insert([{
-        name: data.name || "",
-        age: data.age || null,
-        gender: data.gender || "",
-        city: data.city || "",
-        skin_type: data.skinType || "",
-        concerns: (data.concerns || []).join(", "),
-        sleep: data.sleep || "",
-        water: data.water || "",
-        stress: data.stress || "",
-        prompt: prompt
-      }]);
-
-    if (error) {
-      console.error("Supabase error:", error);
-      return;
-    }
-
-    console.log("✅ Saved to Supabase");
-
-  } catch (e) {
-    console.error("Save error:", e);
-  }
-}
 </script>
 </body>
 </html>
