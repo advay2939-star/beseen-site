@@ -1385,10 +1385,89 @@ function checkUploadReady() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   ANALYSE → loading overlay (2.2 s) → waitlist page
-   Saves complete formData to localStorage before transitioning
+   PROMPT GENERATOR
+   Builds a structured dermatologist prompt from formData
 ═══════════════════════════════════════════════════════ */
-function analyseAndGo() {
+function generatePrompt(data) {
+  try {
+    const concerns  = Array.isArray(data.concerns) ? data.concerns.join(', ') : (data.concerns || '');
+    const history   = Array.isArray(data.history)  ? data.history.join(', ')  : (data.history  || '');
+    return (
+      'You are a highly experienced dermatologist.\n\n' +
+      'Name: '       + (data.name     || '') + '\n' +
+      'Age: '        + (data.age      || '') + '\n' +
+      'Gender: '     + (data.gender   || '') + '\n' +
+      'City: '       + (data.city     || '') + '\n\n' +
+      'Skin Type: '  + (data.skinType || '') + '\n' +
+      'Concerns: '   + concerns             + '\n\n' +
+      'Lifestyle:\n' +
+      '- Sleep: '    + (data.sleep  || '') + '\n' +
+      '- Water: '    + (data.water  || '') + '\n' +
+      '- Diet: '     + (data.diet   || '') + '\n' +
+      '- Stress: '   + (data.stress || '') + '\n\n' +
+      'Current Routine: ' + (data.routine || '') + '\n' +
+      'Ingredient History: ' + history + '\n\n' +
+      'Generate a premium skincare report covering:\n' +
+      '1. Skin analysis\n' +
+      '2. Root causes\n' +
+      '3. Skin score (0–100)\n' +
+      '4. Morning + night routine (step by step)\n' +
+      '5. Product suggestions (budget / mid / premium)\n' +
+      '6. Common mistakes to avoid\n' +
+      '7. What to expect in 2–4 weeks\n\n' +
+      'Make it human, detailed, and worth ₹799.'
+    );
+  } catch (e) {
+    console.error('[generatePrompt]', e);
+    return '';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   SAVE TO SUPABASE — submissions table
+   Fires-and-forgets; never blocks the UI flow
+═══════════════════════════════════════════════════════ */
+async function saveToSupabase(data) {
+  try {
+    const prompt   = generatePrompt(data);
+    const concerns = Array.isArray(data.concerns) ? data.concerns.join(', ') : (data.concerns || '');
+    const history  = Array.isArray(data.history)  ? data.history.join(', ')  : (data.history  || '');
+
+    const { error } = await supabaseClient
+      .from('submissions')
+      .insert([{
+        name:      data.name     || '',
+        age:       data.age      || null,
+        gender:    data.gender   || '',
+        city:      data.city     || '',
+        skin_type: data.skinType || '',
+        concerns:  concerns,
+        sleep:     data.sleep    || '',
+        water:     data.water    || '',
+        stress:    data.stress   || '',
+        routine:   data.routine  || '',
+        history:   history,
+        prompt:    prompt
+      }]);
+
+    if (error) {
+      console.error('[saveToSupabase] Supabase error:', error);
+      return false;
+    }
+
+    console.log('[saveToSupabase] Submission saved successfully.');
+    return true;
+  } catch (e) {
+    console.error('[saveToSupabase] Unexpected error:', e);
+    return false; // never throw — caller must not crash
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ANALYSE → loading overlay (2.2 s) → waitlist page
+   Saves complete formData to Supabase + localStorage before transitioning
+═══════════════════════════════════════════════════════ */
+async function analyseAndGo() {
   try {
     // Front-face validation
     if (slotFiles[0] === null) {
@@ -1428,9 +1507,15 @@ function analyseAndGo() {
       console.warn('[analyseAndGo] localStorage unavailable:', storageErr);
     }
 
-    // Show overlay
+    // Show overlay immediately so UX never lags
     const overlay = document.getElementById('overlay-analysing');
     if (overlay) overlay.classList.add('show');
+
+    // Fire-and-forget Supabase save — runs in parallel with the 2.2 s delay
+    // We deliberately do NOT await so a slow network can't block the UI
+    saveToSupabase(formData).catch(function(e) {
+      console.error('[analyseAndGo] saveToSupabase rejected:', e);
+    });
 
     setTimeout(function () {
       try {
