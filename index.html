@@ -924,7 +924,42 @@ const supabaseClient = window.supabase.createClient(
   'https://rkhlfmfubwszgslxiloh.supabase.co',
   'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f'
 );
+async function saveToSupabase(data) {
+  try {
+    const prompt = generatePrompt(data);
 
+    const { error } = await supabaseClient
+      .from("submissions")
+      .insert([
+        {
+          name: data.name || "",
+          age: data.age || null,
+          gender: data.gender || "",
+          city: data.city || "",
+          skin_type: data.skinType || "",
+          concerns: (data.concerns || []).join(", "),
+          sleep: data.sleep || "",
+          water: data.water || "",
+          stress: data.stress || "",
+          routine: data.routine || "",
+          history: data.history || "",
+          prompt: prompt
+        }
+      ]);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return false;
+    }
+
+    console.log("Saved successfully");
+    return true;
+
+  } catch (e) {
+    console.error("Save error:", e);
+    return false;
+  }
+}
 /* ═══════════════════════════════════════════════════════
    FORM STATE — single object, all fields with safe defaults
 ═══════════════════════════════════════════════════════ */
