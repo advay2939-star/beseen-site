@@ -1574,6 +1574,28 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   // Top-level safety net — log but never crash the page
   console.error('[BeSeen global error]', globalErr);
 }
+async function analyseAndGo() {
+  try {
+    if (typeof saveToSupabase === "function") {
+      await saveToSupabase(formData);
+    } else {
+      console.error("saveToSupabase not found");
+    }
+  } catch (e) {
+    console.error("Error saving:", e);
+  }
+
+  // Continue existing flow
+  try {
+    if (typeof nextStep === "function") {
+      nextStep(9);
+    } else {
+      console.warn("nextStep not found");
+    }
+  } catch (e) {
+    console.warn("Navigation error:", e);
+  }
+}
 </script>
 </body>
 </html>
