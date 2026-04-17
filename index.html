@@ -777,8 +777,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       <div class="quiz-nav">
         <button class="btn-ghost" onclick="prevStep(8)">← Back</button>
-        <button class="btn-quiz-next" id="next-9" onclick="analyseAndGo()">
-  Get My Skin Report →
+<button class="btn-quiz-next" id="next-9">  Get My Skin Report →
 </button>
       </div>
     </div>
@@ -1465,6 +1464,7 @@ function analyseAndGo() {
     console.error('[analyseAndGo]', err);
     showPage('page-waitlist'); // failsafe — never leave user stranded
   }
+  await saveToSupabase(formData);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1621,14 +1621,51 @@ async function analyseAndGo() {
   }
 
   // Continue existing flow
+  const supabaseClient = window.supabase.createClient(
+  'https://rkhlfmfubwszgslxiloh.supabase.co',
+  'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f'
+);
+function generatePrompt(data) {
+  return `
+Skin Analysis Request:
+
+Name: ${data.name}
+Age: ${data.age}
+Skin Type: ${data.skinType}
+Concerns: ${(data.concerns || []).join(", ")}
+Sleep: ${data.sleep}
+Water: ${data.water}
+Stress: ${data.stress}
+`;
+}
+async function saveToSupabase(data) {
   try {
-    if (typeof nextStep === "function") {
-      nextStep(9);
-    } else {
-      console.warn("nextStep not found");
+    const prompt = generatePrompt(data);
+
+    const { error } = await supabaseClient
+      .from("submissions")
+      .insert([{
+        name: data.name || "",
+        age: data.age || null,
+        gender: data.gender || "",
+        city: data.city || "",
+        skin_type: data.skinType || "",
+        concerns: (data.concerns || []).join(", "),
+        sleep: data.sleep || "",
+        water: data.water || "",
+        stress: data.stress || "",
+        prompt: prompt
+      }]);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return;
     }
+
+    console.log("✅ Saved to Supabase");
+
   } catch (e) {
-    console.warn("Navigation error:", e);
+    console.error("Save error:", e);
   }
 }
 </script>
