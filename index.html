@@ -812,8 +812,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
 <div id="overlay-analysing">
   <div class="spin-ring"></div>
-  <div class="overlay-title">Analysing your skin…</div>
-  <div class="overlay-sub">Building your personalised routine. Just a moment.</div>
+  <div class="overlay-title" id="overlay-title">Uploading your photos…</div>
+  <div class="overlay-sub" id="overlay-sub">Securely storing your images. Just a moment.</div>
 </div>
 
 <button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
@@ -822,6 +822,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 <script>
 const SUPABASE_URL = 'https://rkhlfmfubwszgslxiloh.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
+const STORAGE_BUCKET = 'skin-images';
 
 const supabaseClient = window.supabase
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
@@ -845,6 +846,7 @@ const formData = {
 };
 
 const slotFiles = [null, null, null, null, null];
+let uploadedImageUrls = [];
 let currentStep = 1;
 const TOTAL_STEPS = 9;
 let timerInterval = null;
@@ -861,9 +863,7 @@ function escHtml(str) {
 function showPage(id) {
   document.querySelectorAll('.page').forEach((page) => page.classList.remove('active'));
   const target = document.getElementById(id);
-  if (target) {
-    target.classList.add('active');
-  }
+  if (target) target.classList.add('active');
   window.scrollTo(0, 0);
 }
 
@@ -882,10 +882,9 @@ function resetQuizState() {
   formData.routine = "";
   formData.history = [];
   formData.images = {};
+  uploadedImageUrls = [];
 
-  slotFiles.forEach((_, index) => {
-    slotFiles[index] = null;
-  });
+  slotFiles.forEach((_, index) => { slotFiles[index] = null; });
 
   const nameInput = document.getElementById('input-name');
   const cityInput = document.getElementById('input-city');
@@ -901,18 +900,14 @@ function resetQuizState() {
   const waitlistName = document.getElementById('wl-name');
   if (waitlistName) waitlistName.value = '';
 
-  for (let i = 0; i < 5; i += 1) {
-    resetSlotMarkup(i);
-  }
+  for (let i = 0; i < 5; i += 1) resetSlotMarkup(i);
 
   clearWaitlistErrors();
   clearCheckoutErrors();
   checkAllSteps();
 }
 
-function goHome() {
-  showPage('page-home');
-}
+function goHome() { showPage('page-home'); }
 
 function startQuiz() {
   resetQuizState();
@@ -943,72 +938,40 @@ function showStep(step, goingBack) {
   updateQuizBar();
 }
 
-function nextStep(step) {
-  showStep(step, false);
-}
-
-function prevStep(step) {
-  showStep(step, true);
-}
+function nextStep(step) { showStep(step, false); }
+function prevStep(step) { showStep(step, true); }
 
 function checkStepReady(step) {
   let ready = false;
   switch (step) {
-    case 1:
-      ready = formData.name.trim().length >= 2;
-      break;
-    case 2:
-      ready = formData.age !== '' && formData.gender !== '';
-      break;
-    case 3:
-      ready = formData.city.trim().length >= 2;
-      break;
-    case 4:
-      ready = formData.skinType !== '';
-      break;
-    case 5:
-      ready = formData.concerns.length >= 1;
-      break;
-    case 6:
-      ready = formData.behavior !== '';
-      break;
-    case 7:
-      ready = formData.sleep !== '' && formData.water !== '' && formData.diet !== '' && formData.stress !== '';
-      break;
-    case 8:
-      ready = formData.routine !== '';
-      break;
-    case 9:
-      ready = slotFiles[0] !== null;
-      break;
-    default:
-      ready = false;
+    case 1: ready = formData.name.trim().length >= 2; break;
+    case 2: ready = formData.age !== '' && formData.gender !== ''; break;
+    case 3: ready = formData.city.trim().length >= 2; break;
+    case 4: ready = formData.skinType !== ''; break;
+    case 5: ready = formData.concerns.length >= 1; break;
+    case 6: ready = formData.behavior !== ''; break;
+    case 7: ready = formData.sleep !== '' && formData.water !== '' && formData.diet !== '' && formData.stress !== ''; break;
+    case 8: ready = formData.routine !== ''; break;
+    case 9: ready = slotFiles[0] !== null; break;
+    default: ready = false;
   }
   const button = document.getElementById('next-' + step);
   if (button) button.classList.toggle('ready', ready);
 }
 
 function checkAllSteps() {
-  for (let step = 1; step <= TOTAL_STEPS; step += 1) {
-    checkStepReady(step);
-  }
+  for (let step = 1; step <= TOTAL_STEPS; step += 1) checkStepReady(step);
 }
 
 function selectOpt(el, key, val, stepNum) {
   const parent = el.closest('.quiz-options');
-  if (parent) {
-    parent.querySelectorAll('.q-opt').forEach((opt) => opt.classList.remove('sel'));
-  }
+  if (parent) parent.querySelectorAll('.q-opt').forEach((opt) => opt.classList.remove('sel'));
   el.classList.add('sel');
-  if (key in formData) {
-    formData[key] = val;
-  }
+  if (key in formData) formData[key] = val;
   checkStepReady(stepNum);
 }
 
-function selectGroup(el, key, val, stepNum) {
-  selectOpt(el, key, val, stepNum);
-}
+function selectGroup(el, key, val, stepNum) { selectOpt(el, key, val, stepNum); }
 
 function toggleConcern(el, val) {
   const idx = formData.concerns.indexOf(val);
@@ -1020,19 +983,13 @@ function toggleConcern(el, val) {
     formData.concerns.push(val);
     el.classList.add('sel');
   }
-
   const remaining = 3 - formData.concerns.length;
   const hint = document.getElementById('concern-hint');
   if (hint) {
-    if (formData.concerns.length === 0) {
-      hint.innerHTML = 'Select up to <span>3</span> more';
-    } else if (formData.concerns.length >= 3) {
-      hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
-    } else {
-      hint.innerHTML = '<span>' + remaining + '</span> more to go';
-    }
+    if (formData.concerns.length === 0) hint.innerHTML = 'Select up to <span>3</span> more';
+    else if (formData.concerns.length >= 3) hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
+    else hint.innerHTML = '<span>' + remaining + '</span> more to go';
   }
-
   checkStepReady(5);
 }
 
@@ -1050,13 +1007,8 @@ function toggleHistory(el, val) {
       });
     }
     const idx = formData.history.indexOf(val);
-    if (idx > -1) {
-      formData.history.splice(idx, 1);
-      el.classList.remove('sel');
-    } else {
-      formData.history.push(val);
-      el.classList.add('sel');
-    }
+    if (idx > -1) { formData.history.splice(idx, 1); el.classList.remove('sel'); }
+    else { formData.history.push(val); el.classList.add('sel'); }
   }
   checkStepReady(8);
 }
@@ -1069,15 +1021,7 @@ function triggerSlot(idx) {
 function resetSlotMarkup(idx) {
   const slot = document.getElementById('slot-' + idx);
   if (!slot) return;
-
-  const labels = [
-    ['Front Face', 'Required'],
-    ['Left Profile', 'Recommended'],
-    ['Right Profile', 'Recommended'],
-    ['Close-up', 'Recommended'],
-    ['Video', 'Optional · 30s']
-  ];
-
+  const labels = [['Front Face','Required'],['Left Profile','Recommended'],['Right Profile','Recommended'],['Close-up','Recommended'],['Video','Optional · 30s']];
   const icons = [
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
@@ -1085,7 +1029,6 @@ function resetSlotMarkup(idx) {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
   ];
-
   slot.classList.remove('has-preview');
   slot.innerHTML = icons[idx] + '<p>' + labels[idx][0] + '</p><small>' + labels[idx][1] + '</small>';
 }
@@ -1100,26 +1043,16 @@ function clearSlot(event, idx) {
 function handleSlotFile(input, idx) {
   const file = input.files && input.files[0];
   if (!file) return;
-
   slotFiles[idx] = file;
   const slot = document.getElementById('slot-' + idx);
   if (!slot) return;
-
   slot.classList.add('has-preview');
   if (idx === 4) {
-    slot.innerHTML =
-      '<div style="padding:14px 8px;text-align:center;">' +
-      '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
-      '<small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small>' +
-      '</div>' +
-      '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+    slot.innerHTML = '<div style="padding:14px 8px;text-align:center;"><p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p><small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small></div><button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
   } else {
     const url = URL.createObjectURL(file);
-    slot.innerHTML =
-      '<img class="slot-preview" src="' + url + '" alt="Preview">' +
-      '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+    slot.innerHTML = '<img class="slot-preview" src="' + url + '" alt="Preview"><button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
   }
-
   input.value = '';
   checkUploadReady();
 }
@@ -1131,9 +1064,7 @@ function getUploadedImageFiles() {
 function checkUploadReady() {
   checkStepReady(9);
   const error = document.getElementById('photo-req-error');
-  if (error && slotFiles[0] !== null) {
-    error.style.display = 'none';
-  }
+  if (error && slotFiles[0] !== null) error.style.display = 'none';
 }
 
 function updateMacProgress() {
@@ -1151,9 +1082,7 @@ function updateMacProgress() {
 
 function toggleChip(el) {
   const parent = el.closest('.chips');
-  if (parent) {
-    parent.querySelectorAll('.chip').forEach((chip) => chip.classList.remove('on'));
-  }
+  if (parent) parent.querySelectorAll('.chip').forEach((chip) => chip.classList.remove('on'));
   el.classList.add('on');
 }
 
@@ -1167,7 +1096,6 @@ function handleBuyClick() {
     let secs = 60;
     const countdown = document.getElementById('countdown');
     if (countdown) countdown.textContent = '01:00';
-
     timerInterval = window.setInterval(() => {
       secs -= 1;
       if (countdown) countdown.textContent = '00:' + String(Math.max(secs, 0)).padStart(2, '0');
@@ -1203,35 +1131,15 @@ function processPayment() {
   const name = document.getElementById('f-name');
   const email = document.getElementById('f-email');
   const phone = document.getElementById('f-phone');
-
   clearCheckoutErrors();
-
   const nameValue = name ? name.value.trim() : '';
   const emailValue = email ? email.value.trim() : '';
   const phoneValue = phone ? phone.value.trim() : '';
-
   let valid = true;
-
-  if (!nameValue) {
-    const err = document.getElementById('err-name');
-    if (err) err.textContent = 'Required';
-    valid = false;
-  }
-
-  if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-    const err = document.getElementById('err-email');
-    if (err) err.textContent = 'Valid email required';
-    valid = false;
-  }
-
-  if (!phoneValue || phoneValue.replace(/\D/g, '').length < 10) {
-    const err = document.getElementById('err-phone');
-    if (err) err.textContent = 'Valid phone required';
-    valid = false;
-  }
-
+  if (!nameValue) { const err = document.getElementById('err-name'); if (err) err.textContent = 'Required'; valid = false; }
+  if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) { const err = document.getElementById('err-email'); if (err) err.textContent = 'Valid email required'; valid = false; }
+  if (!phoneValue || phoneValue.replace(/\D/g, '').length < 10) { const err = document.getElementById('err-phone'); if (err) err.textContent = 'Valid phone required'; valid = false; }
   if (!valid) return;
-
   closeModal();
   startQuiz();
 }
@@ -1243,6 +1151,31 @@ function clearWaitlistErrors() {
     if (error) error.textContent = '';
     if (input) input.classList.remove('err');
   });
+}
+
+// ── Supabase Storage Upload ──
+async function uploadImageToStorage(file) {
+  if (!supabaseClient) return null;
+  const ext = file.name.split('.').pop() || 'jpg';
+  const fileName = 'user_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8) + '.' + ext;
+  const { data, error } = await supabaseClient.storage
+    .from(STORAGE_BUCKET)
+    .upload(fileName, file, { cacheControl: '3600', upsert: false });
+  if (error) {
+    console.error('Storage upload error:', error);
+    return null;
+  }
+  return SUPABASE_URL + '/storage/v1/object/public/' + STORAGE_BUCKET + '/' + fileName;
+}
+
+async function uploadAllImages() {
+  const imageFiles = getUploadedImageFiles();
+  const urls = [];
+  for (let i = 0; i < imageFiles.length; i++) {
+    const url = await uploadImageToStorage(imageFiles[i]);
+    if (url) urls.push(url);
+  }
+  return urls;
 }
 
 function generatePrompt(data) {
@@ -1264,12 +1197,8 @@ function generatePrompt(data) {
   ].join('\n');
 }
 
-async function saveToSupabase(data) {
-  if (!supabaseClient) {
-    console.error('Supabase client unavailable');
-    return;
-  }
-
+async function saveToSupabase(data, imageUrls) {
+  if (!supabaseClient) { console.error('Supabase client unavailable'); return; }
   const payload = {
     name: data.name || '',
     age: data.age || '',
@@ -1280,14 +1209,12 @@ async function saveToSupabase(data) {
     sleep: data.sleep || '',
     water: data.water || '',
     stress: data.stress || '',
-    prompt: generatePrompt(data)
+    prompt: generatePrompt(data),
+    images: JSON.stringify(imageUrls || [])
   };
-
   try {
     const { error } = await supabaseClient.from('submissions').insert([payload]);
-    if (error) {
-      console.error('Supabase insert failed:', error);
-    }
+    if (error) console.error('Supabase insert failed:', error);
   } catch (error) {
     console.error('Supabase request failed:', error);
   }
@@ -1308,56 +1235,67 @@ async function analyseAndGo() {
   if (nameInput && nameInput.value.trim()) formData.name = nameInput.value.trim();
   if (cityInput && cityInput.value.trim()) formData.city = cityInput.value.trim();
 
+  const overlay = document.getElementById('overlay-analysing');
+  const overlayTitle = document.getElementById('overlay-title');
+  const overlaySub = document.getElementById('overlay-sub');
+
+  if (overlay) overlay.classList.add('show');
+  if (overlayTitle) overlayTitle.textContent = 'Uploading your photos…';
+  if (overlaySub) overlaySub.textContent = 'Securely storing your images. Just a moment.';
+
+  // Upload images to storage
+  let imageUrls = [];
+  try {
+    imageUrls = await uploadAllImages();
+    uploadedImageUrls = imageUrls;
+  } catch (uploadErr) {
+    console.error('Image upload failed:', uploadErr);
+  }
+
+  if (overlayTitle) overlayTitle.textContent = 'Analysing your skin…';
+  if (overlaySub) overlaySub.textContent = 'Building your personalised routine. Just a moment.';
+
   try {
     const snapshot = {
-      name: formData.name,
-      age: formData.age,
-      gender: formData.gender,
-      city: formData.city,
-      skinType: formData.skinType,
-      concerns: formData.concerns,
-      behavior: formData.behavior,
-      sleep: formData.sleep,
-      water: formData.water,
-      diet: formData.diet,
-      stress: formData.stress,
-      routine: formData.routine,
-      history: formData.history
+      name: formData.name, age: formData.age, gender: formData.gender, city: formData.city,
+      skinType: formData.skinType, concerns: formData.concerns, behavior: formData.behavior,
+      sleep: formData.sleep, water: formData.water, diet: formData.diet,
+      stress: formData.stress, routine: formData.routine, history: formData.history
     };
     localStorage.setItem('skinData', JSON.stringify(snapshot));
-  } catch (storageError) {
-    console.warn('localStorage unavailable:', storageError);
-  }
+  } catch (storageError) { console.warn('localStorage unavailable:', storageError); }
 
-  const overlay = document.getElementById('overlay-analysing');
-  if (overlay) overlay.classList.add('show');
-
-  if (supabaseClient && typeof saveToSupabase === "function") {
-    try {
-      await saveToSupabase(formData);
-    } catch (e) {
-      console.error("Supabase failed:", e);
-    }
-  }
+  try {
+    await saveToSupabase(formData, imageUrls);
+  } catch (e) { console.error("Supabase failed:", e); }
 
   window.setTimeout(() => {
     if (overlay) overlay.classList.remove('show');
 
     const waitlistName = document.getElementById('wl-name');
-    if (waitlistName && formData.name && !waitlistName.value) {
-      waitlistName.value = formData.name;
-    }
+    if (waitlistName && formData.name && !waitlistName.value) waitlistName.value = formData.name;
 
     const wlPhotos = document.getElementById('wl-photos');
     if (wlPhotos) {
       wlPhotos.innerHTML = '';
-      getUploadedImageFiles().slice(0, 4).forEach((file) => {
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(file);
-        img.className = 'wl-uploaded-photo';
-        img.alt = 'Your skin photo';
-        wlPhotos.appendChild(img);
-      });
+      // Show from uploaded URLs if available, else local preview
+      if (imageUrls.length > 0) {
+        imageUrls.slice(0, 4).forEach((url) => {
+          const img = document.createElement('img');
+          img.src = url;
+          img.className = 'wl-uploaded-photo';
+          img.alt = 'Your skin photo';
+          wlPhotos.appendChild(img);
+        });
+      } else {
+        getUploadedImageFiles().slice(0, 4).forEach((file) => {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.className = 'wl-uploaded-photo';
+          img.alt = 'Your skin photo';
+          wlPhotos.appendChild(img);
+        });
+      }
     }
 
     showPage('page-waitlist');
@@ -1369,83 +1307,42 @@ async function submitWaitlist() {
   const emailEl = document.getElementById('wl-email');
   const phoneEl = document.getElementById('wl-phone');
   const btn = document.getElementById('wl-submit-btn');
-
   clearWaitlistErrors();
-
   const name = nameEl ? nameEl.value.trim() : '';
   const email = emailEl ? emailEl.value.trim() : '';
   const phone = phoneEl ? phoneEl.value.trim() : '';
   let valid = true;
-
-  if (!name || name.length < 2) {
-    const err = document.getElementById('wl-err-name');
-    if (err) err.textContent = 'Please enter your full name.';
-    if (nameEl) nameEl.classList.add('err');
-    valid = false;
-  }
-
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    const err = document.getElementById('wl-err-email');
-    if (err) err.textContent = 'Please enter a valid email address.';
-    if (emailEl) emailEl.classList.add('err');
-    valid = false;
-  }
-
-  if (!phone || phone.replace(/\D/g, '').length < 10) {
-    const err = document.getElementById('wl-err-phone');
-    if (err) err.textContent = 'Please enter a valid phone number.';
-    if (phoneEl) phoneEl.classList.add('err');
-    valid = false;
-  }
-
+  if (!name || name.length < 2) { const err = document.getElementById('wl-err-name'); if (err) err.textContent = 'Please enter your full name.'; if (nameEl) nameEl.classList.add('err'); valid = false; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { const err = document.getElementById('wl-err-email'); if (err) err.textContent = 'Please enter a valid email address.'; if (emailEl) emailEl.classList.add('err'); valid = false; }
+  if (!phone || phone.replace(/\D/g, '').length < 10) { const err = document.getElementById('wl-err-phone'); if (err) err.textContent = 'Please enter a valid phone number.'; if (phoneEl) phoneEl.classList.add('err'); valid = false; }
   if (!valid) return;
-
-  if (btn) {
-    btn.disabled = true;
-    btn.innerHTML = 'Saving… <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
-  }
-
+  if (btn) { btn.disabled = true; btn.innerHTML = 'Saving… <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>'; }
   try {
     if (supabaseClient) {
       const { error: dbError } = await supabaseClient.from('waitlist').insert([{ name, email, phone }]);
-      if (dbError && dbError.code !== '23505') {
-        throw dbError;
-      }
+      if (dbError && dbError.code !== '23505') throw dbError;
     }
-
-    const emailRes = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email })
-    });
-
+    const emailRes = await fetch('/api/send-email', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email }) });
     const emailData = await emailRes.json();
-    if (!emailRes.ok) {
-      console.error('/api/send-email failed:', emailRes.status, emailData);
-      throw new Error('Confirmation email failed');
-    }
-
+    if (!emailRes.ok) { console.error('/api/send-email failed:', emailRes.status, emailData); throw new Error('Confirmation email failed'); }
     const successPhotos = document.getElementById('success-photos');
     if (successPhotos) {
       successPhotos.innerHTML = '';
-      getUploadedImageFiles().slice(0, 4).forEach((file) => {
+      const photos = uploadedImageUrls.length > 0 ? uploadedImageUrls : getUploadedImageFiles().map(f => URL.createObjectURL(f));
+      photos.slice(0, 4).forEach((src) => {
         const img = document.createElement('img');
-        img.src = URL.createObjectURL(file);
+        img.src = src;
         img.className = 'success-photo';
         img.alt = 'Uploaded skin photo';
         successPhotos.appendChild(img);
       });
     }
-
     showPage('page-success');
   } catch (err) {
     console.error('submitWaitlist failed:', err);
     const fallback = document.getElementById('wl-err-name');
     if (fallback) fallback.textContent = 'Something went wrong. Please try again.';
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>';
-    }
+    if (btn) { btn.disabled = false; btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>'; }
   }
 }
 
@@ -1467,22 +1364,8 @@ function bindStaticEvents() {
   if (heroStart) heroStart.addEventListener('click', startQuiz);
   if (logo) logo.addEventListener('click', (event) => { event.preventDefault(); goHome(); });
   if (navHome) navHome.addEventListener('click', (event) => { event.preventDefault(); goHome(); });
-  if (navHow) navHow.addEventListener('click', (event) => {
-    event.preventDefault();
-    goHome();
-    window.setTimeout(() => {
-      const how = document.getElementById('how');
-      if (how) how.scrollIntoView({ behavior: 'smooth' });
-    }, 200);
-  });
-  if (navPricing) navPricing.addEventListener('click', (event) => {
-    event.preventDefault();
-    goHome();
-    window.setTimeout(() => {
-      const pricing = document.getElementById('pricing');
-      if (pricing) pricing.scrollIntoView({ behavior: 'smooth' });
-    }, 200);
-  });
+  if (navHow) navHow.addEventListener('click', (event) => { event.preventDefault(); goHome(); window.setTimeout(() => { const how = document.getElementById('how'); if (how) how.scrollIntoView({ behavior: 'smooth' }); }, 200); });
+  if (navPricing) navPricing.addEventListener('click', (event) => { event.preventDefault(); goHome(); window.setTimeout(() => { const pricing = document.getElementById('pricing'); if (pricing) pricing.scrollIntoView({ behavior: 'smooth' }); }, 200); });
   if (buyBtn) buyBtn.addEventListener('click', handleBuyClick);
   if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
   if (payBtn) payBtn.addEventListener('click', processPayment);
@@ -1490,112 +1373,38 @@ function bindStaticEvents() {
   if (waitlistSubmit) waitlistSubmit.addEventListener('click', submitWaitlist);
   if (macScroll) macScroll.addEventListener('scroll', updateMacProgress);
   if (frontUploadArea) frontUploadArea.addEventListener('click', () => triggerSlot(0));
-
-  if (modal) {
-    modal.addEventListener('click', (event) => {
-      if (event.target.id === 'modal-checkout') {
-        closeModal();
-      }
-    });
-  }
+  if (modal) modal.addEventListener('click', (event) => { if (event.target.id === 'modal-checkout') closeModal(); });
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', (event) => {
       const id = (anchor.getAttribute('href') || '').slice(1);
       const target = document.getElementById(id);
-      if (target) {
-        event.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (target) { event.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
 
-  document.querySelectorAll('.chips .chip').forEach((chip) => {
-    chip.addEventListener('click', () => toggleChip(chip));
-  });
-
-  document.querySelectorAll('[data-group]').forEach((button) => {
-    button.addEventListener('click', () => selectGroup(button, button.dataset.group, button.dataset.value, Number(button.closest('.quiz-step').dataset.step)));
-  });
-
-  document.querySelectorAll('[data-single]').forEach((button) => {
-    button.addEventListener('click', () => selectOpt(button, button.dataset.single, button.dataset.value, Number(button.closest('.quiz-step').dataset.step)));
-  });
-
-  document.querySelectorAll('[data-concern]').forEach((button) => {
-    button.addEventListener('click', () => toggleConcern(button, button.dataset.concern));
-  });
-
-  document.querySelectorAll('[data-history]').forEach((button) => {
-    button.addEventListener('click', () => toggleHistory(button, button.dataset.history));
-  });
-
-  document.querySelectorAll('.photo-slot').forEach((slot, index) => {
-    slot.addEventListener('click', () => triggerSlot(index));
-  });
-
-  document.querySelectorAll('.slot-file-input').forEach((input, index) => {
-    input.addEventListener('change', () => handleSlotFile(input, index));
-  });
-
-  document.addEventListener('click', (event) => {
-    const clearButton = event.target.closest('[data-clear-slot]');
-    if (clearButton) {
-      clearSlot(event, Number(clearButton.dataset.clearSlot));
-    }
-  });
+  document.querySelectorAll('.chips .chip').forEach((chip) => { chip.addEventListener('click', () => toggleChip(chip)); });
+  document.querySelectorAll('[data-group]').forEach((button) => { button.addEventListener('click', () => selectGroup(button, button.dataset.group, button.dataset.value, Number(button.closest('.quiz-step').dataset.step))); });
+  document.querySelectorAll('[data-single]').forEach((button) => { button.addEventListener('click', () => selectOpt(button, button.dataset.single, button.dataset.value, Number(button.closest('.quiz-step').dataset.step))); });
+  document.querySelectorAll('[data-concern]').forEach((button) => { button.addEventListener('click', () => toggleConcern(button, button.dataset.concern)); });
+  document.querySelectorAll('[data-history]').forEach((button) => { button.addEventListener('click', () => toggleHistory(button, button.dataset.history)); });
+  document.querySelectorAll('.photo-slot').forEach((slot, index) => { slot.addEventListener('click', () => triggerSlot(index)); });
+  document.querySelectorAll('.slot-file-input').forEach((input, index) => { input.addEventListener('change', () => handleSlotFile(input, index)); });
+  document.addEventListener('click', (event) => { const clearButton = event.target.closest('[data-clear-slot]'); if (clearButton) clearSlot(event, Number(clearButton.dataset.clearSlot)); });
 
   const nameInput = document.getElementById('input-name');
   const cityInput = document.getElementById('input-city');
-  if (nameInput) {
-    nameInput.addEventListener('input', function () {
-      formData.name = this.value.trim();
-      checkStepReady(1);
-    });
-  }
-  if (cityInput) {
-    cityInput.addEventListener('input', function () {
-      formData.city = this.value.trim();
-      checkStepReady(3);
-    });
-  }
+  if (nameInput) nameInput.addEventListener('input', function () { formData.name = this.value.trim(); checkStepReady(1); });
+  if (cityInput) cityInput.addEventListener('input', function () { formData.city = this.value.trim(); checkStepReady(3); });
 
-  const backButtons = {
-    'back-2': 1,
-    'back-3': 2,
-    'back-4': 3,
-    'back-5': 4,
-    'back-6': 5,
-    'back-7': 6,
-    'back-8': 7,
-    'back-9': 8
-  };
+  const backButtons = { 'back-2': 1, 'back-3': 2, 'back-4': 3, 'back-5': 4, 'back-6': 5, 'back-7': 6, 'back-8': 7, 'back-9': 8 };
+  Object.keys(backButtons).forEach((id) => { const btn = document.getElementById(id); if (btn) btn.addEventListener('click', () => prevStep(backButtons[id])); });
 
-  Object.keys(backButtons).forEach((id) => {
-    const btn = document.getElementById(id);
-    if (btn) btn.addEventListener('click', () => prevStep(backButtons[id]));
-  });
-
-  const nextButtons = {
-    'next-1': 2,
-    'next-2': 3,
-    'next-3': 4,
-    'next-4': 5,
-    'next-5': 6,
-    'next-6': 7,
-    'next-7': 8,
-    'next-8': 9
-  };
-
-  Object.keys(nextButtons).forEach((id) => {
-    const btn = document.getElementById(id);
-    if (btn) btn.addEventListener('click', () => nextStep(nextButtons[id]));
-  });
+  const nextButtons = { 'next-1': 2, 'next-2': 3, 'next-3': 4, 'next-4': 5, 'next-5': 6, 'next-6': 7, 'next-7': 8, 'next-8': 9 };
+  Object.keys(nextButtons).forEach((id) => { const btn = document.getElementById(id); if (btn) btn.addEventListener('click', () => nextStep(nextButtons[id])); });
 
   const reportBtn = document.getElementById('next-9');
-  if (reportBtn) {
-    reportBtn.addEventListener('click', analyseAndGo);
-  }
+  if (reportBtn) reportBtn.addEventListener('click', analyseAndGo);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1604,13 +1413,8 @@ document.addEventListener('DOMContentLoaded', () => {
   updateMacProgress();
 
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('vis');
-      }
-    });
+    entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('vis'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
   document.querySelectorAll('.fu').forEach((el) => io.observe(el));
 
   const demoSection = document.querySelector('.demo-section');
