@@ -1,87 +1,1235 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>BeSeen Admin</title>
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beseen · Admin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #faf7f4;
+      --petal:       #f2e8e1;
+      --blush:       #e8d5c8;
+      --rose:        #c4866a;
+      --deep-rose:   #a0604a;
+      --bark:        #5c3d2e;
+      --mist:        #f7f3ef;
+      --ink:         #2a1f1a;
+      --mid:         #7a5c50;
+      --border:      rgba(196,134,106,0.18);
+      --shadow-sm:   0 2px 12px rgba(90,50,30,0.07);
+      --shadow-md:   0 8px 32px rgba(90,50,30,0.10);
+      --shadow-lg:   0 20px 60px rgba(90,50,30,0.14);
+      --radius:      18px;
+      --radius-sm:   10px;
+      --transition:  0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ════════════════════════════════════
+       LOGIN SCREEN
+    ════════════════════════════════════ */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fdf8f5 0%, #f2e8e0 50%, #ede0d6 100%);
+    }
+
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,134,106,0.15) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    #login-screen::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,213,200,0.4) 0%, transparent 70%);
+      bottom: -80px;
+      left: -80px;
+      pointer-events: none;
+    }
+
+    .login-card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(196,134,106,0.2);
+      border-radius: 28px;
+      padding: 56px 52px;
+      width: 420px;
+      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.8);
+      animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    .login-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .login-logo .monogram {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(160,96,74,0.35);
+    }
+
+    .login-logo h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: var(--bark);
+      text-transform: uppercase;
+    }
+
+    .login-logo p {
+      font-size: 12px;
+      color: var(--mid);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .login-field {
+      margin-bottom: 20px;
+    }
+
+    .login-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+
+    .login-field input {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(250,247,244,0.9);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .login-field input:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 4px rgba(196,134,106,0.12);
+    }
+
+    .login-error {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(220,80,60,0.08);
+      border: 1px solid rgba(220,80,60,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #c0392b;
+      margin-bottom: 18px;
+    }
+
+    .login-error.visible { display: flex; }
+
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+      box-shadow: 0 6px 20px rgba(160,96,74,0.35);
+    }
+
+    .login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(160,96,74,0.42);
+    }
+
+    .login-btn:active { transform: translateY(0); }
+
+    /* ════════════════════════════════════
+       DASHBOARD
+    ════════════════════════════════════ */
+    #dashboard {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    #dashboard.visible { display: flex; }
+
+    /* ── Header ── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,247,244,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-mono {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--bark);
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: var(--mid);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(196,134,106,0.1);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: var(--bark);
+    }
+
+    .stat-pill strong {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--rose);
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .logout-btn:hover {
+      border-color: var(--rose);
+      color: var(--rose);
+      background: rgba(196,134,106,0.06);
+    }
+
+    /* ── Main Content ── */
+    .main {
+      flex: 1;
+      padding: 48px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ── Page Head ── */
+    .page-head {
+      margin-bottom: 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .page-head h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 400;
+      color: var(--bark);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .page-head h2 em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .page-head p {
+      font-size: 14px;
+      color: var(--mid);
+      max-width: 340px;
+      line-height: 1.7;
+    }
+
+    /* ── Loading / Error States ── */
+    .state-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .state-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .state-icon.loading {
+      background: rgba(196,134,106,0.1);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .state-icon.error { background: rgba(220,80,60,0.08); }
+    .state-icon.empty { background: rgba(196,134,106,0.08); }
+
+    .state-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--bark);
+    }
+
+    .state-box p { font-size: 14px; color: var(--mid); max-width: 300px; line-height: 1.6; }
+
+    /* ── Cards Grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 28px;
+    }
+
+    /* ── User Card ── */
+    .user-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(196,134,106,0.15);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      animation: fadeUp 0.5s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    .user-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(196,134,106,0.3);
+    }
+
+    .card-header {
+      padding: 24px 28px 20px;
+      background: linear-gradient(135deg, rgba(242,232,225,0.6) 0%, rgba(250,247,244,0.3) 100%);
+      border-bottom: 1px solid rgba(196,134,106,0.1);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .card-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(160,96,74,0.3);
+    }
+
+    .card-name-block { flex: 1; min-width: 0; }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--bark);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-weight: 500;
+    }
+
+    .meta-tag.type {
+      background: rgba(196,134,106,0.12);
+      color: var(--deep-rose);
+      border: 1px solid rgba(196,134,106,0.2);
+    }
+
+    .meta-tag.date {
+      background: rgba(92,61,46,0.06);
+      color: var(--mid);
+      border: 1px solid rgba(92,61,46,0.1);
+    }
+
+    .card-date { font-size: 11px; color: var(--mid); margin-top: 2px; letter-spacing: 0.5px; }
+
+    /* ── Card Body ── */
+    .card-body { padding: 24px 28px; }
+
+    .info-section { margin-bottom: 18px; }
+
+    .info-section:last-of-type { margin-bottom: 0; }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 500;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(196,134,106,0.2), transparent);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .info-item {
+      background: rgba(250,247,244,0.8);
+      border: 1px solid rgba(196,134,106,0.1);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+    }
+
+    .info-item .key {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 3px;
+    }
+
+    .info-item .val {
+      font-size: 14px;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .concerns-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .concern-chip {
+      font-size: 12px;
+      padding: 4px 12px;
+      background: rgba(242,232,225,0.9);
+      border: 1px solid rgba(196,134,106,0.2);
+      border-radius: 50px;
+      color: var(--bark);
+    }
+
+    /* ── Lifestyle Pills ── */
+    .lifestyle-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .ls-item {
+      background: rgba(250,247,244,0.8);
+      border: 1px solid rgba(196,134,106,0.1);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .ls-item .key {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 4px;
+    }
+
+    .ls-item .val {
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ── Card Footer / Actions ── */
+    .card-footer {
+      padding: 18px 28px 24px;
+      border-top: 1px solid rgba(196,134,106,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .gen-btn {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+      box-shadow: 0 4px 16px rgba(160,96,74,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gen-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .gen-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(160,96,74,0.4);
+    }
+
+    .gen-btn:active { transform: translateY(0); }
+
+    .gen-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── Prompt Box ── */
+    .prompt-box {
+      display: none;
+      border: 1.5px solid rgba(196,134,106,0.2);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .prompt-box.visible { display: block; }
+
+    .prompt-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: linear-gradient(90deg, rgba(242,232,225,0.8), rgba(250,247,244,0.6));
+      border-bottom: 1px solid rgba(196,134,106,0.15);
+    }
+
+    .prompt-box-header span {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-weight: 500;
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(196,134,106,0.1);
+      border: 1px solid rgba(196,134,106,0.25);
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--deep-rose);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .copy-btn:hover {
+      background: rgba(196,134,106,0.2);
+      border-color: var(--rose);
+    }
+
+    .copy-btn.copied {
+      background: rgba(60,180,100,0.1);
+      border-color: rgba(60,180,100,0.3);
+      color: #2a7a4a;
+    }
+
+    .prompt-text {
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 18px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--ink);
+      background: rgba(250,247,244,0.6);
+      white-space: pre-wrap;
+      font-family: 'DM Sans', sans-serif;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196,134,106,0.3) transparent;
+    }
+
+    .prompt-text::-webkit-scrollbar { width: 4px; }
+    .prompt-text::-webkit-scrollbar-track { background: transparent; }
+    .prompt-text::-webkit-scrollbar-thumb { background: rgba(196,134,106,0.3); border-radius: 4px; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 4px 0;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.5; }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Stagger delays for cards ── */
+    .user-card:nth-child(1)  { animation-delay: 0.05s; }
+    .user-card:nth-child(2)  { animation-delay: 0.10s; }
+    .user-card:nth-child(3)  { animation-delay: 0.15s; }
+    .user-card:nth-child(4)  { animation-delay: 0.20s; }
+    .user-card:nth-child(5)  { animation-delay: 0.25s; }
+    .user-card:nth-child(6)  { animation-delay: 0.30s; }
+    .user-card:nth-child(7)  { animation-delay: 0.35s; }
+    .user-card:nth-child(8)  { animation-delay: 0.40s; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 28px 48px;
+      font-size: 12px;
+      color: var(--mid);
+      letter-spacing: 1px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      .header { padding: 0 20px; }
+      .main { padding: 28px 20px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .login-card { width: 90%; padding: 40px 28px; }
+      .page-head h2 { font-size: 32px; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<h1>Client Submissions</h1>
+<!-- ══════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="monogram">B</div>
+      <h1>Beseen</h1>
+      <p>Admin Portal</p>
+    </div>
 
-<div id="list"></div>
+    <div id="login-error" class="login-error" role="alert">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="error-msg">Incorrect password. Please try again.</span>
+    </div>
+
+    <div class="login-field">
+      <label for="pwd-input">Access Password</label>
+      <input type="password" id="pwd-input" placeholder="Enter your password" autocomplete="current-password" />
+    </div>
+
+    <button class="login-btn" id="login-btn">Enter Dashboard</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     DASHBOARD
+══════════════════════════════════ -->
+<div id="dashboard">
+
+  <header class="header">
+    <div class="header-brand">
+      <div class="header-mono">B</div>
+      <div>
+        <div class="header-title">Beseen</div>
+        <div class="header-subtitle">Admin · Submissions</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="stat-pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <strong id="count-display">—</strong> submissions
+      </div>
+      <button class="logout-btn" id="logout-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-head">
+      <div>
+        <h2>Client <em>Profiles</em></h2>
+        <div style="height:6px"></div>
+        <p>All questionnaire submissions. Generate personalised AI-powered skincare prompts per client.</p>
+      </div>
+    </div>
+
+    <div id="content-area">
+      <!-- Populated by JS -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2025 Beseen · Confidential Admin Dashboard
+  </footer>
+</div>
 
 <script>
-const supabase = window.supabase.createClient(
-  "https://rkhlfmfubwszgslxiloh.supabase.co",
-  "sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f"
-);
+(function () {
+  'use strict';
 
-async function loadData() {
-  const { data, error } = await supabase
-    .from("submissions")
-    .select("*")
-    .order("created_at", { ascending: false });
+  /* ── Config ── */
+  const SUPABASE_URL  = 'https://rkhlfmfubwszgslxiloh.supabase.co';
+  const SUPABASE_KEY  = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
+  const DASHBOARD_PWD = '2810';
+  const TABLE_NAME    = 'submissions';
 
-  if (error) {
-    console.error(error);
-    return;
+  /* ── Supabase Client (single instance) ── */
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  /* ── DOM refs ── */
+  const loginScreen   = document.getElementById('login-screen');
+  const dashboard     = document.getElementById('dashboard');
+  const pwdInput      = document.getElementById('pwd-input');
+  const loginBtn      = document.getElementById('login-btn');
+  const loginError    = document.getElementById('login-error');
+  const errorMsg      = document.getElementById('error-msg');
+  const logoutBtn     = document.getElementById('logout-btn');
+  const contentArea   = document.getElementById('content-area');
+  const countDisplay  = document.getElementById('count-display');
+
+  /* ──────────────────────────────────────
+     AUTH
+  ────────────────────────────────────── */
+  function attemptLogin () {
+    const val = pwdInput.value.trim();
+    if (val === DASHBOARD_PWD) {
+      loginScreen.style.display = 'none';
+      dashboard.classList.add('visible');
+      loadSubmissions();
+    } else {
+      loginError.classList.add('visible');
+      errorMsg.textContent = 'Incorrect password. Please try again.';
+      pwdInput.value = '';
+      pwdInput.focus();
+      pwdInput.style.borderColor = 'rgba(220,80,60,0.5)';
+      setTimeout(() => { pwdInput.style.borderColor = ''; }, 1200);
+    }
   }
 
-  const container = document.getElementById("list");
-  container.innerHTML = "";
+  loginBtn.addEventListener('click', attemptLogin);
 
-  data.forEach(user => {
-    const div = document.createElement("div");
+  pwdInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') attemptLogin();
+    if (loginError.classList.contains('visible')) {
+      loginError.classList.remove('visible');
+    }
+  });
 
-    div.innerHTML = `
-      <h3>${user.name}</h3>
-      <p>${user.email}</p>
-      <button onclick='generatePrompt(${JSON.stringify(user)})'>
-        Generate Prompt
-      </button>
-      <pre id="prompt-${user.id}"></pre>
-      <button onclick="copyPrompt('${user.id}')">Copy</button>
-      <hr/>
+  logoutBtn.addEventListener('click', function () {
+    dashboard.classList.remove('visible');
+    loginScreen.style.display = 'flex';
+    pwdInput.value = '';
+    contentArea.innerHTML = '';
+    countDisplay.textContent = '—';
+  });
+
+  /* ──────────────────────────────────────
+     DATA LOADING
+  ────────────────────────────────────── */
+  async function loadSubmissions () {
+    renderLoading();
+    try {
+      const { data, error } = await sb
+        .from(TABLE_NAME)
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        renderEmpty();
+        return;
+      }
+
+      countDisplay.textContent = data.length;
+      renderCards(data);
+    } catch (err) {
+      renderError(err.message || 'Could not reach Supabase.');
+    }
+  }
+
+  /* ──────────────────────────────────────
+     STATE RENDERERS
+  ────────────────────────────────────── */
+  function renderLoading () {
+    contentArea.innerHTML = `
+      <div class="state-box">
+        <div class="state-icon loading">✦</div>
+        <h3>Fetching Profiles</h3>
+        <p>Connecting to Supabase and loading submissions…</p>
+      </div>`;
+  }
+
+  function renderEmpty () {
+    countDisplay.textContent = '0';
+    contentArea.innerHTML = `
+      <div class="state-box">
+        <div class="state-icon empty">🌿</div>
+        <h3>No Submissions Yet</h3>
+        <p>Once clients complete the questionnaire, their profiles will appear here.</p>
+      </div>`;
+  }
+
+  function renderError (msg) {
+    contentArea.innerHTML = `
+      <div class="state-box">
+        <div class="state-icon error">⚠</div>
+        <h3>Connection Error</h3>
+        <p>${sanitize(msg)}</p>
+      </div>`;
+  }
+
+  /* ──────────────────────────────────────
+     CARD RENDERING
+  ────────────────────────────────────── */
+  function renderCards (rows) {
+    const grid = document.createElement('div');
+    grid.className = 'cards-grid';
+
+    rows.forEach(function (row, index) {
+      grid.appendChild(buildCard(row, index));
+    });
+
+    contentArea.innerHTML = '';
+    contentArea.appendChild(grid);
+  }
+
+  function buildCard (row, index) {
+    const name      = val(row.name        || row.full_name);
+    const age       = val(row.age);
+    const gender    = val(row.gender);
+    const city      = val(row.city        || row.location);
+    const skinType  = val(row.skin_type   || row.skintype   || row.skin);
+    const concerns  = parseConcerns(row.concerns || row.skin_concerns || row.issues);
+    const sleep     = val(row.sleep       || row.sleep_hours);
+    const water     = val(row.water       || row.water_intake);
+    const stress    = val(row.stress      || row.stress_level);
+    const dateStr   = row.created_at ? formatDate(row.created_at) : null;
+
+    const initials  = getInitials(name);
+    const cardId    = 'card-' + index;
+
+    const card = document.createElement('div');
+    card.className = 'user-card';
+    card.id = cardId;
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-avatar">${initials}</div>
+        <div class="card-name-block">
+          <div class="card-name">${sanitize(name)}</div>
+          <div class="card-meta">
+            ${skinType !== '—' ? `<span class="meta-tag type">${sanitize(skinType)}</span>` : ''}
+            ${age !== '—' ? `<span class="meta-tag date">${sanitize(age)} yrs</span>` : ''}
+          </div>
+          ${dateStr ? `<div class="card-date">${dateStr}</div>` : ''}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="info-section">
+          <div class="section-label">Profile</div>
+          <div class="info-grid">
+            <div class="info-item"><div class="key">Gender</div><div class="val">${sanitize(gender)}</div></div>
+            <div class="info-item"><div class="key">City</div><div class="val">${sanitize(city)}</div></div>
+            <div class="info-item"><div class="key">Age</div><div class="val">${sanitize(age)}</div></div>
+            <div class="info-item"><div class="key">Skin Type</div><div class="val">${sanitize(skinType)}</div></div>
+          </div>
+        </div>
+
+        ${concerns.length > 0 ? `
+        <div class="info-section">
+          <div class="section-label">Concerns</div>
+          <div class="concerns-wrap">
+            ${concerns.map(c => `<span class="concern-chip">${sanitize(c)}</span>`).join('')}
+          </div>
+        </div>` : ''}
+
+        <div class="info-section">
+          <div class="section-label">Lifestyle</div>
+          <div class="lifestyle-row">
+            <div class="ls-item"><div class="key">Sleep</div><div class="val">${sanitize(sleep)}</div></div>
+            <div class="ls-item"><div class="key">Water</div><div class="val">${sanitize(water)}</div></div>
+            <div class="ls-item"><div class="key">Stress</div><div class="val">${sanitize(stress)}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button class="gen-btn" data-idx="${index}">✦ Generate AI Prompt</button>
+        <div class="prompt-box" id="prompt-${index}">
+          <div class="prompt-box-header">
+            <span>AI Skincare Prompt</span>
+            <button class="copy-btn" data-idx="${index}">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+          <div class="prompt-text" id="prompt-text-${index}"></div>
+        </div>
+      </div>
     `;
 
-    container.appendChild(div);
-  });
-}
+    /* Store row data on element for prompt generation */
+    card._rowData = { name, age, gender, city, skinType, concerns, sleep, water, stress };
 
-function generatePrompt(user) {
-  const prompt = `
-You are a professional dermatologist.
+    /* Bind generate button */
+    const genBtn = card.querySelector('.gen-btn');
+    genBtn.addEventListener('click', function () {
+      generatePrompt(card, index);
+    });
 
-Client Details:
-Name: ${user.name}
-Age: ${user.age}
-Skin Type: ${user.skintype}
-Concerns: ${user.concerns}
-Sleep: ${user.sleep}
-Water Intake: ${user.water}
-Stress: ${user.stress}
+    /* Bind copy button */
+    const copyBtn = card.querySelector('.copy-btn');
+    copyBtn.addEventListener('click', function () {
+      copyPrompt(index, copyBtn);
+    });
 
-TASK:
-1. Analyse skin condition deeply
-2. Identify root causes
-3. Give AM + PM routine
-4. Suggest ingredients (not brands)
-5. Keep it practical
+    return card;
+  }
 
-Tone: premium, expert, personalised
-`;
+  /* ──────────────────────────────────────
+     PROMPT GENERATION
+  ────────────────────────────────────── */
+  function generatePrompt (card, index) {
+    const d = card._rowData;
+    const concernsStr = d.concerns.length > 0 ? d.concerns.join(', ') : '—';
 
-  document.getElementById("prompt-" + user.id).innerText = prompt;
-}
+    const prompt = buildPromptText(d.name, d.age, d.gender, d.city, d.skinType, concernsStr, d.sleep, d.water, d.stress);
 
-function copyPrompt(id) {
-  const text = document.getElementById("prompt-" + id).innerText;
-  navigator.clipboard.writeText(text);
-  alert("Copied!");
-}
+    const promptBox  = document.getElementById('prompt-' + index);
+    const promptText = document.getElementById('prompt-text-' + index);
+    const genBtn     = card.querySelector('.gen-btn');
 
-loadData();
+    promptText.textContent = prompt;
+    promptBox.classList.add('visible');
+    genBtn.textContent = '✦ Regenerate Prompt';
+    promptBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function buildPromptText (name, age, gender, city, skinType, concerns, sleep, water, stress) {
+    return `You are a highly experienced dermatologist and licensed skin specialist with over 20 years of clinical expertise in treating diverse skin types and conditions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CLIENT PROFILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name            : ${name}
+Age             : ${age}
+Gender          : ${gender}
+City / Location : ${city}
+Skin Type       : ${skinType}
+
+Primary Concerns : ${concerns}
+
+Lifestyle Factors:
+  • Sleep         : ${sleep}
+  • Water Intake  : ${water}
+  • Stress Level  : ${stress}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YOUR TASK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. DEEP SKIN ANALYSIS
+   Thoroughly assess the client's skin condition based on all available data. Consider how their skin type, concerns, age, gender, and location (climate, pollution, UV exposure) interact with each other.
+
+2. ROOT CAUSE IDENTIFICATION
+   Identify the likely root causes behind each primary concern. Connect lifestyle factors (sleep deprivation, dehydration, stress) to skin manifestations where applicable.
+
+3. STRUCTURED SKINCARE ROUTINE
+
+   ▸ Morning Routine (step-by-step):
+     For each step, name the step, suggest the type of ingredient(s) to look for, and explain WHY this step is included for this specific client.
+
+   ▸ Night Routine (step-by-step):
+     For each step, name the step, suggest the type of ingredient(s) to look for, and explain WHY this step is included.
+
+4. KEY INGREDIENTS TO PRIORITISE
+   List the most beneficial ingredients for this client. Explain the mechanism of action and why each is relevant to their specific concerns. Do NOT name specific brands.
+
+5. INGREDIENTS TO AVOID
+   List ingredients or formulation types this client should steer clear of, and explain why given their skin profile.
+
+6. LIFESTYLE RECOMMENDATIONS
+   Provide 3–5 practical lifestyle changes that will meaningfully impact their skin health based on their current habits.
+
+7. REALISTIC EXPECTATIONS
+   Set a clear, honest timeline for when the client should expect to see improvements, broken down by concern.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OUTPUT STYLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Write in a warm, expert, and human tone — like a trusted specialist speaking directly to the client
+• Structure the output with clear headings for each section
+• Be specific, practical, and evidence-based
+• Avoid filler language, generic advice, or brand mentions
+• Every recommendation must be justified by the client's unique profile`;
+  }
+
+  /* ──────────────────────────────────────
+     COPY TO CLIPBOARD
+  ────────────────────────────────────── */
+  function copyPrompt (index, btn) {
+    const textEl = document.getElementById('prompt-text-' + index);
+    if (!textEl || !textEl.textContent.trim()) return;
+
+    navigator.clipboard.writeText(textEl.textContent).then(function () {
+      btn.classList.add('copied');
+      btn.innerHTML = `
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Copied`;
+      setTimeout(function () {
+        btn.classList.remove('copied');
+        btn.innerHTML = `
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy`;
+      }, 2200);
+    }).catch(function () {
+      /* Fallback for non-HTTPS */
+      const ta = document.createElement('textarea');
+      ta.value = textEl.textContent;
+      ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = '✓ Copied';
+      setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+
+  /* ──────────────────────────────────────
+     HELPERS
+  ────────────────────────────────────── */
+  function val (v) {
+    if (v === null || v === undefined || v === '') return '—';
+    return String(v).trim() || '—';
+  }
+
+  function parseConcerns (raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw.filter(Boolean).map(String);
+    return String(raw).split(/[,;|]+/).map(s => s.trim()).filter(Boolean);
+  }
+
+  function getInitials (name) {
+    if (!name || name === '—') return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    return name.slice(0, 2).toUpperCase();
+  }
+
+  function formatDate (iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    } catch (_) { return null; }
+  }
+
+  function sanitize (str) {
+    if (!str || str === '—') return '—';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+})();
 </script>
-
 </body>
 </html>
