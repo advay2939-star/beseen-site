@@ -1086,9 +1086,36 @@
      PROMPT GENERATION
   ────────────────────────────────────── */
   function generatePrompt (card, index) {
+    const skinScore = calculateSkinScore(d);
     const d = card._rowData;
     const concernsStr = d.concerns.length > 0 ? d.concerns.join(', ') : '—';
+function calculateSkinScore(data) {
+  let score = 100;
 
+  // Acne impact
+  if (data.concerns.includes("acne")) score -= 15;
+  if (data.concerns.includes("breakouts")) score -= 10;
+
+  // Pigmentation
+  if (data.concerns.includes("pigmentation")) score -= 12;
+
+  // Pores
+  if (data.concerns.includes("pores")) score -= 8;
+
+  // Lifestyle penalties
+  if (data.sleep === "Poor") score -= 10;
+  if (data.water === "Low") score -= 8;
+  if (data.stress === "High") score -= 10;
+
+  // Skin type adjustment
+  if (data.skinType === "Oily") score -= 5;
+  if (data.skinType === "Sensitive") score -= 7;
+
+  // Clamp
+  if (score < 40) score = 40;
+
+  return score;
+}
     const prompt = buildPromptText(d.name, d.age, d.gender, d.city, d.skinType, concernsStr, d.sleep, d.water, d.stress);
 
     const promptBox  = document.getElementById('prompt-' + index);
