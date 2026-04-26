@@ -342,7 +342,34 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; color: var(--mid); letter-spacing: 1px; text-transform: uppercase;
     }
+.structured-imgs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
 
+.preview-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(196,134,106,0.15);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.preview-img:hover { transform: scale(1.04); box-shadow: var(--shadow-md); }
+
+.img-label {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.img-cell { display: flex; flex-direction: column; align-items: center; }
     .card-footer {
       padding: 18px 28px 24px;
       border-top: 1px solid rgba(196,134,106,0.1);
@@ -664,7 +691,14 @@
     const water     = val(row.water || row.water_intake);
     const stress    = val(row.stress || row.stress_level);
     const dateStr   = row.created_at ? formatDate(row.created_at) : null;
-    const images    = parseImages(row.images);
+   const images    = parseImages(row.images);
+    const structured = {
+      front:   row.front_image   || null,
+      left:    row.left_image    || null,
+      right:   row.right_image   || null,
+      concern: row.concern_image || null
+    };
+    const hasStructured = structured.front || structured.left || structured.right || structured.concern;
 
     const initials  = getInitials(name);
     const skinScore = calculateSkinScore({ concerns, sleep, water, stress, skinType });
@@ -674,9 +708,20 @@
     card.className = 'user-card';
     card.id = 'card-' + index;
 
-    const imagesHtml = images.length > 0
-      ? images.map(imgUrl => `<img src="${sanitize(imgUrl)}" class="client-img" data-src="${sanitize(imgUrl)}" alt="Skin photo" loading="lazy" />`).join('')
-      : '<div class="img-placeholder">No photos</div>';
+    const LABELS = { front: 'Front', left: 'Left', right: 'Right', concern: 'Close-up' };
+
+    const imagesHtml = hasStructured
+      ? Object.entries(structured)
+          .filter(([, url]) => !!url)
+          .map(([type, url]) =>
+            `<div class="img-cell">
+               <img src="${sanitize(url)}" class="preview-img client-img" data-src="${sanitize(url)}" alt="${LABELS[type]}" loading="lazy" />
+               <div class="img-label">${LABELS[type]}</div>
+             </div>`)
+          .join('')
+      : images.length > 0
+        ? images.map(u => `<div class="img-cell"><img src="${sanitize(u)}" class="preview-img client-img" data-src="${sanitize(u)}" alt="Skin photo" loading="lazy" /></div>`).join('')
+        : '<div class="img-placeholder">No photos</div>';
 
     card.innerHTML = `
       <div class="card-header">
@@ -723,10 +768,10 @@
           </div>
         </div>
 
-        ${images.length > 0 ? `
+       ${(hasStructured || images.length > 0) ? `
         <div class="info-section">
           <div class="section-label">Skin Photos</div>
-          <div class="image-grid">${imagesHtml}</div>
+          <div class="structured-imgs">${imagesHtml}</div>
         </div>` : ''}
       </div>
 
@@ -745,7 +790,7 @@
       </div>
     `;
 
-    card._rowData = { name, age, gender, city, skinType, concerns, sleep, water, stress, images, skinScore };
+card._rowData = { name, age, gender, city, skinType, concerns, sleep, water, stress, images, structured, skinScore };
 
     card.querySelector('.gen-btn').addEventListener('click', function () { generatePrompt(card, index); });
     card.querySelector('.copy-btn').addEventListener('click', function () { copyPrompt(index, card.querySelector('.copy-btn')); });
@@ -762,8 +807,7 @@
   function generatePrompt(card, index) {
     const d = card._rowData;
     const concernsStr = d.concerns.length > 0 ? d.concerns.join(', ') : '—';
-    const prompt = buildPromptText(d.name, d.age, d.gender, d.city, d.skinType, concernsStr, d.sleep, d.water, d.stress, d.images, d.skinScore);
-
+function buildPromptText(name, age, gender, city, skinType, concerns, sleep, water, stress, images, skinScore, structured) {
     const promptBox  = document.getElementById('prompt-' + index);
     const promptText = document.getElementById('prompt-text-' + index);
     const genBtn     = card.querySelector('.gen-btn');
@@ -775,9 +819,18 @@
   }
 
   function buildPromptText(name, age, gender, city, skinType, concerns, sleep, water, stress, images, skinScore) {
-    const imageSection = (images && images.length > 0)
-      ? 'CLIENT IMAGES:\n' + images.join('\n')
-      : 'CLIENT IMAGES:\nNo images uploaded';
+const s = structured || {};
+    const imageLines = [
+      s.front   ? 'Front:   ' + s.front   : null,
+      s.left    ? 'Left:    ' + s.left    : null,
+      s.right   ? 'Right:   ' + s.right   : null,
+      s.concern ? 'Close-up: ' + s.concern : null
+    ].filter(Boolean);
+    const imageSection = imageLines.length > 0
+      ? 'CLIENT IMAGES:\n' + imageLines.join('\n')
+      : images && images.length > 0
+        ? 'CLIENT IMAGES:\n' + images.join('\n')
+        : 'CLIENT IMAGES:\nNo images uploaded';      ? 'CLIENT IMAGES:\n' + images.join('\n')
 
     return `You are a top-tier dermatologist creating a PAID skincare plan.
 

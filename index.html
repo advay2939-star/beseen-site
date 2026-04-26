@@ -1153,29 +1153,45 @@ function clearWaitlistErrors() {
   });
 }
 
-// ── Supabase Storage Upload ──
-async function uploadImageToStorage(file) {
-  if (!supabaseClient) return null;
-  const ext = file.name.split('.').pop() || 'jpg';
-  const fileName = 'user_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8) + '.' + ext;
-  const { data, error } = await supabaseClient.storage
+// ── Structured Storage Upload ──
+function makeNameSlug(name) {
+  return (name || 'user')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+async function uploadImage(file, imageType) {
+  if (!supabaseClient || !file) return null;
+  const slug = makeNameSlug(formData.name);
+  const ts = Math.floor(Date.now() / 1000);
+  const ext = (file.name || 'jpg').split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+  const path = slug + '-' + ts + '/' + imageType + '.' + ext;
+
+  const { error } = await supabaseClient.storage
     .from(STORAGE_BUCKET)
-    .upload(fileName, file, { cacheControl: '3600', upsert: false });
+    .upload(path, file, { cacheControl: '3600', upsert: true });
+
   if (error) {
-    console.error('Storage upload error:', error);
+    console.error('Storage upload error [' + imageType + ']:', error);
     return null;
   }
-  return SUPABASE_URL + '/storage/v1/object/public/' + STORAGE_BUCKET + '/' + fileName;
+  return SUPABASE_URL + '/storage/v1/object/public/' + STORAGE_BUCKET + '/' + path;
 }
 
 async function uploadAllImages() {
-  const imageFiles = getUploadedImageFiles();
-  const urls = [];
-  for (let i = 0; i < imageFiles.length; i++) {
-    const url = await uploadImageToStorage(imageFiles[i]);
-    if (url) urls.push(url);
+  const types = ['front', 'left', 'right', 'concern'];
+  const results = { front: null, left: null, right: null, concern: null, urls: [] };
+
+  for (let i = 0; i < 4; i++) {
+    if (slotFiles[i]) {
+      const url = await uploadImage(slotFiles[i], types[i]);
+      results[types[i]] = url;
+      if (url) results.urls.push(url);
+    }
   }
-  return urls;
+  return results;
 }
 
 function generatePrompt(data) {
@@ -1197,7 +1213,7 @@ function generatePrompt(data) {
   ].join('\n');
 }
 
-async function saveToSupabase(data, imageUrls) {
+async function saveToSupabase(data, imageData) {
   if (!supabaseClient) { console.error('Supabase client unavailable'); return; }
   const payload = {
     name: data.name || '',
@@ -1210,7 +1226,11 @@ async function saveToSupabase(data, imageUrls) {
     water: data.water || '',
     stress: data.stress || '',
     prompt: generatePrompt(data),
-    images: JSON.stringify(imageUrls || [])
+    images: JSON.stringify(imageData.urls || []),
+    front_image: imageData.front || null,
+    left_image: imageData.left || null,
+    right_image: imageData.right || null,
+    concern_image: imageData.concern || null
   };
   try {
     const { error } = await supabaseClient.from('submissions').insert([payload]);
@@ -1243,11 +1263,11 @@ async function analyseAndGo() {
   if (overlayTitle) overlayTitle.textContent = 'Uploading your photos…';
   if (overlaySub) overlaySub.textContent = 'Securely storing your images. Just a moment.';
 
-  // Upload images to storage
-  let imageUrls = [];
+ // Upload images to storage
+  let imageData = { front: null, left: null, right: null, concern: null, urls: [] };
   try {
-    imageUrls = await uploadAllImages();
-    uploadedImageUrls = imageUrls;
+    imageData = await uploadAllImages();
+    uploadedImageUrls = imageData.urls;
   } catch (uploadErr) {
     console.error('Image upload failed:', uploadErr);
   }
@@ -1266,7 +1286,7 @@ async function analyseAndGo() {
   } catch (storageError) { console.warn('localStorage unavailable:', storageError); }
 
   try {
-    await saveToSupabase(formData, imageUrls);
+    await saveToSupabase(formData, imageData);
   } catch (e) { console.error("Supabase failed:", e); }
 
   window.setTimeout(() => {
@@ -1279,8 +1299,8 @@ async function analyseAndGo() {
     if (wlPhotos) {
       wlPhotos.innerHTML = '';
       // Show from uploaded URLs if available, else local preview
-      if (imageUrls.length > 0) {
-        imageUrls.slice(0, 4).forEach((url) => {
+     if (imageData.urls.length > 0) {
+        imageData.urls.slice(0, 4).forEach((url) => {
           const img = document.createElement('img');
           img.src = url;
           img.className = 'wl-uploaded-photo';
