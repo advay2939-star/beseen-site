@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeSeen. — Personalised Skincare From Home</title>
-<link rel="icon" href="/favicon4.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
@@ -23,10 +22,6 @@ html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden;font-size:15px;line-height:1.6}
 .page{display:none;min-height:100vh}
 .page.active{display:block}
-#page-waitlist{display:none;align-items:center;justify-content:center}
-#page-waitlist.active{display:flex}
-#page-success{display:none;align-items:center;justify-content:center}
-#page-success.active{display:flex}
 @keyframes pageFadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .page-fade{animation:pageFadeIn .45s cubic-bezier(.25,.1,.25,1) both}
 nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;background:rgba(250,250,250,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);animation:navIn .4s ease both}
@@ -38,23 +33,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .nav-center a{font-size:13px;font-weight:400;color:var(--g700);text-decoration:none;transition:color .2s}
 .nav-center a:hover{color:var(--black)}
 .nav-right{margin-left:auto}
-.btn-google{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:500;color:var(--black);cursor:pointer;transition:box-shadow .2s,border-color .2s;text-decoration:none;font-family:'DM Sans',sans-serif}
-.btn-google:hover{box-shadow:var(--shadow-c);border-color:var(--g300)}
-.btn-google svg{width:16px;height:16px;flex-shrink:0}
 .container{max-width:1120px;margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:9px;padding:13px 26px;cursor:pointer;transition:all .2s;text-decoration:none;border:none}
 .btn-primary{background:var(--black);color:var(--white)}
 .btn-primary:hover{opacity:.85;transform:translateY(-2px);box-shadow:var(--shadow-l)}
 .btn-secondary{background:transparent;border:1px solid var(--g200);color:var(--black)}
 .btn-secondary:hover{background:var(--g100);border-color:var(--g300)}
-.btn-accent{background:var(--accent);color:var(--white)}
-.btn-accent:hover{opacity:.88;transform:translateY(-1px)}
 .section-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;letter-spacing:-.04em;line-height:1.08}
 .section-title em{font-style:italic;color:var(--accent)}
 .fu{opacity:0;transform:translateY(32px);transition:opacity .65s cubic-bezier(.25,.1,.25,1),transform .65s cubic-bezier(.25,.1,.25,1)}
 .fu.vis{opacity:1;transform:none}
 .fu.d1{transition-delay:.08s}.fu.d2{transition-delay:.16s}.fu.d3{transition-delay:.24s}.fu.d4{transition-delay:.32s}
+
+/* ── HOME ── */
 #page-home{padding-top:60px}
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 32px 60px;position:relative;overflow:hidden;background:radial-gradient(ellipse 75% 55% at 50% 25%,#dceae5 0%,var(--white) 70%)}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:blobDrift 14s ease-in-out infinite alternate}
@@ -153,11 +145,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .footer-links a{font-size:12px;color:var(--g500);text-decoration:none;transition:color .18s}
 .footer-links a:hover{color:var(--g300)}
 .footer-copy{font-size:11.5px;color:#444;text-align:center;padding:20px 32px 0;border-top:1px solid #1e1e1e;max-width:1120px;margin:20px auto 0}
-.chat-fab{position:fixed;bottom:28px;right:28px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--black);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-l);transition:transform .2s}
-.chat-fab:hover{transform:scale(1.08)}
-.chat-fab svg{width:22px;height:22px}
-.chat-tip{position:fixed;bottom:90px;right:28px;z-index:500;background:var(--black);color:var(--white);font-size:12px;padding:8px 14px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
-.chat-fab:hover+.chat-tip{opacity:1}
+
+/* ── QUIZ ── */
 #page-quiz{padding-top:60px;background:var(--white);min-height:100vh}
 .quiz-wrap{max-width:640px;margin:0 auto;padding:60px 32px 80px}
 .quiz-progress-bar-wrap{margin-bottom:32px}
@@ -211,6 +200,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .quiz-trust-badge{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1.5px solid var(--accent);border-radius:var(--pill);padding:7px 16px;font-size:12px;font-weight:500;color:var(--accent);margin-bottom:20px;box-shadow:var(--shadow-s)}
 .quiz-trust-badge svg{width:15px;height:15px;flex-shrink:0}
 .photo-req-error{display:none;font-size:12px;color:#c0392b;background:#fdf0ef;border:1px solid #e9c4c2;border-radius:8px;padding:10px 14px;margin:8px 0 16px}
+
+/* ── OVERLAY ── */
 #overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.96);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;gap:20px}
 #overlay-analysing.show{display:flex;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -218,6 +209,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .overlay-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--black)}
 .overlay-sub{font-size:13px;color:var(--g500)}
+
+/* ── CHECKOUT MODAL ── */
 #modal-checkout{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);align-items:center;justify-content:center}
 #modal-checkout.show{display:flex;animation:fadeIn .2s ease}
 .modal-box{background:var(--white);border-radius:18px;padding:44px 40px;width:520px;max-width:95vw;box-shadow:var(--shadow-l);animation:modalIn .28s ease;overflow:hidden}
@@ -235,95 +228,125 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-cancel:hover{background:var(--g100)}
 .btn-pay{flex:2;padding:13px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
 .btn-pay:hover{opacity:.85}
-#page-waitlist{padding-top:60px;background:var(--g50);min-height:100vh}
-.wl-outer{width:100%;max-width:1080px;margin:0 auto;padding:64px 32px 80px;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:start}
-.wl-left{padding-top:8px}
-.wl-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 10px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--g500);margin-bottom:28px;box-shadow:var(--shadow-s)}
-.wl-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:wlPulse 2s ease-in-out infinite}
-@keyframes wlPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.wl-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,58px);font-weight:600;letter-spacing:-.045em;line-height:1.08;color:var(--black);margin-bottom:20px}
-.wl-headline em{font-style:italic;color:var(--accent)}
-.wl-sub{font-size:15px;font-weight:300;color:var(--g700);line-height:1.75;max-width:440px;margin-bottom:36px}
-.wl-uploaded-photos{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
-.wl-uploaded-photo{width:68px;height:68px;border-radius:10px;object-fit:cover;border:2px solid var(--white);box-shadow:var(--shadow-s)}
-.wl-preview{display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
-.wl-preview-row{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;box-shadow:var(--shadow-s)}
-.wl-preview-icon{font-size:18px;flex-shrink:0;width:32px;text-align:center}
-.wl-preview-text strong{display:block;font-size:13px;font-weight:500;color:var(--black);margin-bottom:2px}
-.wl-preview-text span{font-size:12px;color:var(--g500)}
-.wl-preview-lock{margin-left:auto;font-size:11px;font-weight:500;color:var(--accent);letter-spacing:.06em;background:var(--accent-l);border-radius:20px;padding:3px 10px;white-space:nowrap;flex-shrink:0}
-.wl-preview-lock.free{color:var(--g500);background:var(--g100)}
-.wl-social{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--g500)}
-.wl-avatars{display:flex}
-.wl-av{width:28px;height:28px;border-radius:50%;border:2px solid var(--g50);margin-right:-8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--white);background:linear-gradient(135deg,#a0c0b8,#3d6b5e);flex-shrink:0}
-.wl-av:nth-child(2){background:linear-gradient(135deg,#c4a882,#8a6a4e)}
-.wl-av:nth-child(3){background:linear-gradient(135deg,#b8a8d0,#7a6a9e)}
-.wl-count{margin-left:16px;font-size:13px;color:var(--g700)}
-.wl-count strong{color:var(--black);font-weight:600}
-.wl-card{background:var(--white);border:1px solid var(--g200);border-radius:20px;padding:36px 32px 40px;box-shadow:0 8px 40px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);position:sticky;top:80px}
-.wl-card-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.025em;margin-bottom:6px;color:var(--black)}
-.wl-card-sub{font-size:13px;color:var(--g500);margin-bottom:28px;line-height:1.6}
-.wl-field{margin-bottom:16px}
-.wl-label{display:block;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:6px;letter-spacing:.02em}
-.wl-input{width:100%;border:1.5px solid var(--g200);border-radius:10px;padding:13px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--black);background:var(--white);transition:border-color .2s,box-shadow .2s;outline:none}
-.wl-input::placeholder{color:var(--g300)}
-.wl-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,107,94,.08)}
-.wl-input.err{border-color:#e05252}
-.wl-field-err{font-size:11px;color:#c0392b;margin-top:4px;min-height:16px;display:block}
-.wl-btn{width:100%;padding:15px;border-radius:11px;background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s,transform .2s,box-shadow .2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
-.wl-btn:hover:not(:disabled){opacity:.88;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
-.wl-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.wl-btn svg{width:16px;height:16px;flex-shrink:0;transition:transform .2s}
-.wl-btn:hover:not(:disabled) svg{transform:translateX(3px)}
-.wl-micro{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:var(--g500);margin-top:14px}
-.wl-micro svg{width:13px;height:13px;color:var(--accent);flex-shrink:0}
-#page-success{padding-top:60px;background:var(--g50);min-height:100vh}
-.success-outer{width:100%;max-width:560px;margin:0 auto;padding:80px 32px 80px;text-align:center}
-.tick-wrap{width:72px;height:72px;margin:0 auto 32px;position:relative}
-.tick-circle{width:72px;height:72px;border-radius:50%;background:var(--accent-l);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;animation:tickPop .5s cubic-bezier(.34,1.56,.64,1) .1s both}
-@keyframes tickPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
-.tick-svg{width:34px;height:34px;overflow:visible}
-.tick-path{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:tickDraw .5s ease .55s forwards}
-@keyframes tickDraw{to{stroke-dashoffset:0}}
-.success-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,52px);font-weight:600;letter-spacing:-.04em;line-height:1.1;color:var(--black);margin-bottom:16px;animation:pageFadeIn .5s ease .3s both}
-.success-sub{font-size:15px;font-weight:300;color:var(--g700);line-height:1.75;margin-bottom:40px;max-width:400px;margin-left:auto;margin-right:auto;animation:pageFadeIn .5s ease .4s both}
-.success-photos{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;animation:pageFadeIn .5s ease .5s both}
-.success-photo{width:72px;height:72px;border-radius:10px;object-fit:cover;box-shadow:var(--shadow-s);border:2px solid var(--white)}
-.success-count{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--g500);background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px;margin-bottom:32px;box-shadow:var(--shadow-s);animation:pageFadeIn .5s ease .6s both}
-.success-count-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
-.success-back{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--g500);background:transparent;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s;padding:0;animation:pageFadeIn .5s ease .7s both}
-.success-back:hover{color:var(--black)}
+
+/* ── THANK YOU PAGE ── */
+#page-thankyou{
+  display:none;min-height:100vh;
+  align-items:center;justify-content:center;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%,#dceae5 0%,var(--white) 70%);
+  padding:40px 32px;
+}
+#page-thankyou.active{display:flex}
+
+.ty-outer{
+  text-align:center;max-width:560px;width:100%;
+  animation:tyFadeUp .7s cubic-bezier(.25,.1,.25,1) both;
+}
+@keyframes tyFadeUp{
+  from{opacity:0;transform:translateY(28px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+
+.ty-icon-wrap{margin:0 auto 40px;width:88px;height:88px;position:relative}
+.ty-circle{
+  width:88px;height:88px;border-radius:50%;
+  background:var(--accent-l);
+  border:2px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  animation:tyPop .6s cubic-bezier(.34,1.56,.64,1) .15s both;
+}
+@keyframes tyPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.ty-tick{width:40px;height:40px;overflow:visible}
+.ty-tick-path{
+  fill:none;stroke:var(--accent);stroke-width:2.5;
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:50;stroke-dashoffset:50;
+  animation:tyTickDraw .55s ease .65s forwards;
+}
+@keyframes tyTickDraw{to{stroke-dashoffset:0}}
+
+.ty-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--white);border:1px solid var(--g200);
+  border-radius:var(--pill);padding:5px 14px;
+  font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--g500);margin-bottom:24px;box-shadow:var(--shadow-s);
+  animation:pageFadeIn .5s ease .35s both;
+}
+.ty-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+.ty-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,58px);font-weight:600;
+  letter-spacing:-.04em;line-height:1.08;color:var(--black);
+  margin-bottom:20px;
+  animation:pageFadeIn .5s ease .45s both;
+}
+.ty-title em{font-style:italic;color:var(--accent)}
+
+.ty-sub{
+  font-size:15px;font-weight:300;color:var(--g700);
+  line-height:1.8;max-width:420px;margin:0 auto 44px;
+  animation:pageFadeIn .5s ease .55s both;
+}
+
+.ty-card{
+  background:var(--white);border:1px solid var(--g200);
+  border-radius:var(--rl);padding:28px 32px;
+  box-shadow:var(--shadow-c);margin-bottom:36px;
+  animation:pageFadeIn .5s ease .65s both;
+  text-align:left;
+}
+.ty-card-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--g100)}
+.ty-card-row:last-child{border:none;padding-bottom:0}
+.ty-card-row:first-child{padding-top:0}
+.ty-card-icon{font-size:18px;flex-shrink:0}
+.ty-card-text strong{display:block;font-size:13px;font-weight:500;color:var(--black)}
+.ty-card-text span{font-size:12px;color:var(--g500)}
+
+.ty-back{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:13px;color:var(--g500);background:transparent;border:none;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:color .2s;padding:0;
+  animation:pageFadeIn .5s ease .75s both;
+}
+.ty-back:hover{color:var(--black)}
+
+/* ── CHAT FAB ── */
+.chat-fab{position:fixed;bottom:28px;right:28px;z-index:500;width:52px;height:52px;border-radius:50%;background:var(--black);color:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-l);transition:transform .2s}
+.chat-fab:hover{transform:scale(1.08)}
+.chat-fab svg{width:22px;height:22px}
+
+/* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .how-inner{grid-template-columns:1fr;gap:40px}
   .photo-slots{grid-template-columns:repeat(3,1fr)}
-  .wl-outer{grid-template-columns:1fr;gap:40px;padding:48px 32px 64px}
-  .wl-card{position:static}
 }
 @media(max-width:768px){
   .nav-center{display:none}
   .sample-cols{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   .photo-slots{grid-template-columns:repeat(2,1fr)}
-  .wl-outer{padding:40px 20px 60px;gap:32px}
-  .wl-card{padding:28px 20px 32px}
-  .success-outer{padding:60px 24px 60px}
 }
 </style>
 </head>
 <body>
+
 <nav>
   <div class="nav-inner">
-    <a class="logo" href="#">BeSeen<span>.</span></a>
+    <a class="logo" href="#" id="nav-logo">BeSeen<span>.</span></a>
     <ul class="nav-center">
-      <li><a href="#" data-nav-home>Home</a></li>
-      <li><a href="#how" data-nav-how>How It Works</a></li>
-      <li><a href="#pricing" data-nav-pricing>Pricing</a></li>
+      <li><a href="#" id="nav-home">Home</a></li>
+      <li><a href="#how" id="nav-how">How It Works</a></li>
+      <li><a href="#pricing" id="nav-pricing">Pricing</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
     <div class="nav-right"></div>
   </div>
 </nav>
 
+<!-- ══════════ HOME PAGE ══════════ -->
 <div id="page-home" class="page active">
 <section class="hero">
   <div class="blob blob-a"></div>
@@ -370,8 +393,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <div class="steps">
           <div class="step fu d1"><div class="step-num">1</div><div class="step-body"><h4>Answer a short questionnaire</h4><p>Tell us about your skin type, lifestyle, concerns, and goals. 9 targeted questions. Under 90 seconds.</p></div></div>
           <div class="step fu d2"><div class="step-num">2</div><div class="step-body"><h4>Upload your skin photos</h4><p>Natural light, no filter. Front, left, right, and close-up. Our analysis reads texture, pores, pigmentation, and oiliness.</p></div></div>
-          <div class="step fu d3"><div class="step-num">3</div><div class="step-body"><h4>Join the early access list</h4><p>Your personalised plan is generated instantly. Be among the first to receive it the moment we launch.</p></div></div>
-          <div class="step fu d4"><div class="step-num">4</div><div class="step-body"><h4>Receive your complete plan</h4><p>Morning, afternoon, night, and pre-sleep routines — ingredient-matched and ready for you.</p></div></div>
+          <div class="step fu d3"><div class="step-num">3</div><div class="step-body"><h4>We analyse your profile</h4><p>Your personalised plan is generated instantly using your answers and photos.</p></div></div>
+          <div class="step fu d4"><div class="step-num">4</div><div class="step-body"><h4>Receive your plan on WhatsApp</h4><p>Morning, afternoon, night, and pre-sleep routines — ingredient-matched and delivered directly to you.</p></div></div>
         </div>
       </div>
       <div class="fu d2">
@@ -414,12 +437,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <div class="mac-analysis"><div class="mac-analysis-row"><span>Analysing your skin…</span><span id="mac-pct">0%</span></div><div class="mac-bar-bg"><div class="mac-bar-fill" id="mac-bar-fill"></div></div></div>
           <hr class="mac-divider">
           <h2 style="font-size:22px;margin-bottom:4px">Your Sample Routine</h2>
-          <p class="mac-sub" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500">Based on Combination-Acne Profile · Full plan ready at launch</p>
+          <p class="mac-sub" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500">Based on Combination-Acne Profile · Full plan delivered via WhatsApp</p>
           <div class="sample-cols">
             <div><div class="s-col-head">🌅 Morning</div><div class="s-card"><strong>Gel Cleanser</strong><span>2 pumps · 30 sec</span></div><div class="s-card"><strong>Niacinamide Serum</strong><span>3 drops · pat in</span></div><div class="s-card"><strong>SPF 50+</strong><span>last step · always</span></div></div>
             <div><div class="s-col-head">🌙 Night</div><div class="s-card"><strong>Balm Cleanser</strong><span>massage 60 sec</span></div><div class="s-card"><strong>Retinol 0.2%</strong><span>2 drops · avoid eyes</span></div><div class="s-card"><strong>Ceramide Cream</strong><span>generous layer</span></div></div>
           </div>
-          <div class="unlock-banner">🔒 Afternoon, night &amp; pre-sleep routines unlock at launch</div>
+          <div class="unlock-banner">🌿 Full routine delivered to your WhatsApp after analysis</div>
         </div>
       </div>
     </div>
@@ -448,9 +471,9 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <li><span class="perk-icon">✓</span> Day-by-day progress tracker</li>
           <li><span class="perk-icon">✓</span> Use What You Own product matching</li>
           <li><span class="perk-icon">✓</span> 24/7 AI support chat</li>
-          <li><span class="perk-icon">✓</span> Lifetime access to your plan</li>
+          <li><span class="perk-icon">✓</span> Delivered via WhatsApp</li>
         </ul>
-        <button class="btn-buy" id="buy-btn">Join Early Access — ₹699</button>
+        <button class="btn-buy" id="buy-btn">Get My Skin Plan — ₹699</button>
       </div>
     </div>
   </div>
@@ -476,6 +499,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </footer>
 </div>
 
+<!-- ══════════ QUIZ PAGE ══════════ -->
 <div id="page-quiz" class="page">
   <div class="quiz-wrap">
     <div class="quiz-progress-bar-wrap">
@@ -617,7 +641,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
     <div class="quiz-step" data-step="8">
       <h2 class="quiz-q-title">Tell us about your current routine.</h2>
-      <p class="quiz-q-sub">Knowing where you start helps us pitch the plan at the right level and avoid overloading you.</p>
+      <p class="quiz-q-sub">Knowing where you start helps us pitch the plan at the right level.</p>
       <p class="quiz-group-label">Current skincare routine?</p>
       <div class="quiz-options" id="opts-routine" style="margin-bottom:32px">
         <button class="q-opt" data-group="routine" data-value="None">None</button>
@@ -658,7 +682,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
       <div class="quiz-trust-badge">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        Dermatologist Reviewed
+        Your photos are encrypted and never shared
       </div>
       <div class="photo-slots" id="photo-slots">
         <div class="photo-slot" id="slot-0">
@@ -703,97 +727,44 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
 </div>
 
-<div id="page-waitlist" class="page">
-  <div class="wl-outer">
-    <div class="wl-left page-fade">
-      <div class="wl-eyebrow"><span class="wl-eyebrow-dot"></span>Analysis Complete</div>
-      <h1 class="wl-headline">Your personalised plan<br>is <em>ready.</em></h1>
-      <p class="wl-sub">We've analysed your skin profile and built a complete recovery plan — ingredient-matched, step-by-step, made only for you.</p>
-      <div class="wl-uploaded-photos" id="wl-photos"></div>
-      <div class="wl-preview">
-        <div class="wl-preview-row">
-          <div class="wl-preview-icon">🌅</div>
-          <div class="wl-preview-text"><strong>Morning Routine</strong><span>3–4 steps · Cleanser, Serum, SPF</span></div>
-          <span class="wl-preview-lock free">Included</span>
-        </div>
-        <div class="wl-preview-row">
-          <div class="wl-preview-icon">☀️</div>
-          <div class="wl-preview-text"><strong>Afternoon Routine</strong><span>2 steps · SPF reapply, Hydration</span></div>
-          <span class="wl-preview-lock">🔒 Unlock</span>
-        </div>
-        <div class="wl-preview-row">
-          <div class="wl-preview-icon">🌙</div>
-          <div class="wl-preview-text"><strong>Night Routine</strong><span>3–5 steps · Active ingredients, repair</span></div>
-          <span class="wl-preview-lock">🔒 Unlock</span>
-        </div>
-        <div class="wl-preview-row">
-          <div class="wl-preview-icon">💤</div>
-          <div class="wl-preview-text"><strong>Pre-Sleep Routine</strong><span>Spot treatment, barrier support</span></div>
-          <span class="wl-preview-lock">🔒 Unlock</span>
-        </div>
-      </div>
-      <div class="wl-social">
-        <div class="wl-avatars"><div class="wl-av">P</div><div class="wl-av">A</div><div class="wl-av">K</div></div>
-        <span class="wl-count"><strong>224 people</strong> already joined this week</span>
-      </div>
-    </div>
-    <div class="wl-card page-fade" style="animation-delay:.12s">
-      <div id="wl-form-wrap">
-        <div class="wl-card-title">Unlock your full plan.</div>
-        <p class="wl-card-sub">Enter your details to be first in line when your personalised 7-day routine is ready.</p>
-        <div class="wl-field">
-          <label class="wl-label" for="wl-name">Full Name</label>
-          <input class="wl-input" type="text" id="wl-name" placeholder="Your name" autocomplete="name">
-          <span class="wl-field-err" id="wl-err-name"></span>
-        </div>
-        <div class="wl-field">
-          <label class="wl-label" for="wl-email">Email Address</label>
-          <input class="wl-input" type="email" id="wl-email" placeholder="you@email.com" autocomplete="email">
-          <span class="wl-field-err" id="wl-err-email"></span>
-        </div>
-        <div class="wl-field">
-          <label class="wl-label" for="wl-phone">Phone Number</label>
-          <input class="wl-input" type="tel" id="wl-phone" placeholder="+91 98765 43210" autocomplete="tel">
-          <span class="wl-field-err" id="wl-err-phone"></span>
-        </div>
-        <button class="wl-btn" id="wl-submit-btn">
-          Join the Waitlist
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M10 4l6 6-6 6"/></svg>
-        </button>
-        <div class="wl-micro">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-          Your data is private. We never share or sell it.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="page-success" class="page">
-  <div class="success-outer">
-    <div class="tick-wrap page-fade">
-      <div class="tick-circle">
-        <svg class="tick-svg" viewBox="0 0 34 34">
-          <polyline class="tick-path" points="6,17 14,25 28,9"/>
+<!-- ══════════ THANK YOU PAGE ══════════ -->
+<div id="page-thankyou" class="page">
+  <div class="ty-outer">
+    <div class="ty-icon-wrap">
+      <div class="ty-circle">
+        <svg class="ty-tick" viewBox="0 0 40 40">
+          <polyline class="ty-tick-path" points="8,21 17,30 32,11"/>
         </svg>
       </div>
     </div>
-    <h1 class="success-title">You're on the list.</h1>
-    <p class="success-sub">We'll notify you as soon as your personalised skin recovery plan is ready. You'll be among the first to know.</p>
-    <div class="success-photos" id="success-photos"></div>
-    <div class="success-count">
-      <span class="success-count-dot"></span>
-      224 people already joined
+    <div class="ty-eyebrow">
+      <span class="ty-eyebrow-dot"></span>
+      Analysis Complete
     </div>
-    <div>
-      <button class="success-back" id="success-back-btn">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 10H5M10 4l-6 6 6 6"/></svg>
-        Back to home
-      </button>
+    <h1 class="ty-title">Thank you for<br>choosing <em>BeSeen.</em></h1>
+    <p class="ty-sub">Your personalised skin analysis and complete routine is being prepared. You'll receive everything on <strong>WhatsApp</strong> within 24 hours.</p>
+    <div class="ty-card">
+      <div class="ty-card-row">
+        <div class="ty-card-icon">📋</div>
+        <div class="ty-card-text"><strong>Profile Received</strong><span>Your skin data has been securely saved</span></div>
+      </div>
+      <div class="ty-card-row">
+        <div class="ty-card-icon">🔬</div>
+        <div class="ty-card-text"><strong>Analysis In Progress</strong><span>Our experts are reviewing your photos</span></div>
+      </div>
+      <div class="ty-card-row">
+        <div class="ty-card-icon">💬</div>
+        <div class="ty-card-text"><strong>WhatsApp Delivery</strong><span>Full routine sent to you within 24 hours</span></div>
+      </div>
     </div>
+    <button class="ty-back" id="ty-back-btn">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 10H5M10 4l-6 6 6 6"/></svg>
+      Back to home
+    </button>
   </div>
 </div>
 
+<!-- ══════════ CHECKOUT MODAL ══════════ -->
 <div id="modal-checkout">
   <div class="modal-box">
     <div class="modal-title">Almost there.</div>
@@ -810,6 +781,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
 </div>
 
+<!-- ══════════ ANALYSING OVERLAY ══════════ -->
 <div id="overlay-analysing">
   <div class="spin-ring"></div>
   <div class="overlay-title" id="overlay-title">Uploading your photos…</div>
@@ -817,640 +789,581 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </div>
 
 <button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
-<div class="chat-tip">24/7 AI Support</div>
 
 <script>
-const SUPABASE_URL = 'https://rkhlfmfubwszgslxiloh.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
-const STORAGE_BUCKET = 'skin-images';
+(function () {
+  'use strict';
 
-const supabaseClient = window.supabase
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-  : null;
+  /* ── Config ── */
+  const SUPABASE_URL    = 'https://rkhlfmfubwszgslxiloh.supabase.co';
+  const SUPABASE_KEY    = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
+  const STORAGE_BUCKET  = 'skin-images';
 
-const formData = {
-  name: "",
-  age: "",
-  gender: "",
-  city: "",
-  skinType: "",
-  concerns: [],
-  sleep: "",
-  water: "",
-  stress: "",
-  behavior: "",
-  diet: "",
-  routine: "",
-  history: [],
-  images: {}
-};
+  /* ── Single Supabase client ── */
+  const sb = window.supabase
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+    : null;
 
-const slotFiles = [null, null, null, null, null];
-let uploadedImageUrls = [];
-let currentStep = 1;
-const TOTAL_STEPS = 9;
-let timerInterval = null;
-let timerActive = false;
+  /* ── Form State ── */
+  const formData = {
+    name: '', age: '', gender: '', city: '',
+    skinType: '', concerns: [], behavior: '',
+    sleep: '', water: '', diet: '', stress: '',
+    routine: '', history: []
+  };
 
-function escHtml(str) {
-  return String(str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
+  const slotFiles  = [null, null, null, null, null];
+  let currentStep  = 1;
+  const TOTAL_STEPS = 9;
+  let timerInterval = null;
+  let timerActive   = false;
 
-function showPage(id) {
-  document.querySelectorAll('.page').forEach((page) => page.classList.remove('active'));
-  const target = document.getElementById(id);
-  if (target) target.classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function resetQuizState() {
-  formData.name = "";
-  formData.age = "";
-  formData.gender = "";
-  formData.city = "";
-  formData.skinType = "";
-  formData.concerns = [];
-  formData.sleep = "";
-  formData.water = "";
-  formData.stress = "";
-  formData.behavior = "";
-  formData.diet = "";
-  formData.routine = "";
-  formData.history = [];
-  formData.images = {};
-  uploadedImageUrls = [];
-
-  slotFiles.forEach((_, index) => { slotFiles[index] = null; });
-
-  const nameInput = document.getElementById('input-name');
-  const cityInput = document.getElementById('input-city');
-  if (nameInput) nameInput.value = '';
-  if (cityInput) cityInput.value = '';
-
-  document.querySelectorAll('.q-opt').forEach((opt) => opt.classList.remove('sel'));
-  document.querySelectorAll('.slot-file-input').forEach((input) => { input.value = ''; });
-
-  const hint = document.getElementById('concern-hint');
-  if (hint) hint.innerHTML = 'Select up to <span>3</span> more';
-
-  const waitlistName = document.getElementById('wl-name');
-  if (waitlistName) waitlistName.value = '';
-
-  for (let i = 0; i < 5; i += 1) resetSlotMarkup(i);
-
-  clearWaitlistErrors();
-  clearCheckoutErrors();
-  checkAllSteps();
-}
-
-function goHome() { showPage('page-home'); }
-
-function startQuiz() {
-  resetQuizState();
-  showPage('page-quiz');
-  currentStep = 1;
-  showStep(1, false);
-}
-
-function updateQuizBar() {
-  const pct = (currentStep / TOTAL_STEPS) * 100;
-  const bar = document.getElementById('quiz-bar');
-  const label = document.getElementById('quiz-step-label');
-  if (bar) bar.style.width = pct + '%';
-  if (label) label.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
-}
-
-function showStep(step, goingBack) {
-  document.querySelectorAll('.quiz-step').forEach((section) => {
-    section.classList.remove('active', 'going-back');
-    section.style.display = 'none';
-  });
-  const target = document.querySelector('[data-step="' + step + '"]');
-  if (!target) return;
-  target.style.display = 'block';
-  void target.offsetWidth;
-  target.classList.add(goingBack ? 'going-back' : 'active');
-  currentStep = step;
-  updateQuizBar();
-}
-
-function nextStep(step) { showStep(step, false); }
-function prevStep(step) { showStep(step, true); }
-
-function checkStepReady(step) {
-  let ready = false;
-  switch (step) {
-    case 1: ready = formData.name.trim().length >= 2; break;
-    case 2: ready = formData.age !== '' && formData.gender !== ''; break;
-    case 3: ready = formData.city.trim().length >= 2; break;
-    case 4: ready = formData.skinType !== ''; break;
-    case 5: ready = formData.concerns.length >= 1; break;
-    case 6: ready = formData.behavior !== ''; break;
-    case 7: ready = formData.sleep !== '' && formData.water !== '' && formData.diet !== '' && formData.stress !== ''; break;
-    case 8: ready = formData.routine !== ''; break;
-    case 9: ready = slotFiles[0] !== null; break;
-    default: ready = false;
+  /* ── Utilities ── */
+  function escHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-  const button = document.getElementById('next-' + step);
-  if (button) button.classList.toggle('ready', ready);
-}
 
-function checkAllSteps() {
-  for (let step = 1; step <= TOTAL_STEPS; step += 1) checkStepReady(step);
-}
-
-function selectOpt(el, key, val, stepNum) {
-  const parent = el.closest('.quiz-options');
-  if (parent) parent.querySelectorAll('.q-opt').forEach((opt) => opt.classList.remove('sel'));
-  el.classList.add('sel');
-  if (key in formData) formData[key] = val;
-  checkStepReady(stepNum);
-}
-
-function selectGroup(el, key, val, stepNum) { selectOpt(el, key, val, stepNum); }
-
-function toggleConcern(el, val) {
-  const idx = formData.concerns.indexOf(val);
-  if (idx > -1) {
-    formData.concerns.splice(idx, 1);
-    el.classList.remove('sel');
-  } else {
-    if (formData.concerns.length >= 3) return;
-    formData.concerns.push(val);
-    el.classList.add('sel');
+  function makeSlug(name) {
+    return (name || 'user').toLowerCase().trim()
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'user';
   }
-  const remaining = 3 - formData.concerns.length;
-  const hint = document.getElementById('concern-hint');
-  if (hint) {
-    if (formData.concerns.length === 0) hint.innerHTML = 'Select up to <span>3</span> more';
-    else if (formData.concerns.length >= 3) hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
-    else hint.innerHTML = '<span>' + remaining + '</span> more to go';
-  }
-  checkStepReady(5);
-}
 
-function toggleHistory(el, val) {
-  if (val === 'Not sure') {
-    formData.history = ['Not sure'];
-    document.querySelectorAll('#opts-history .q-opt').forEach((opt) => opt.classList.remove('sel'));
-    el.classList.add('sel');
-  } else {
-    const notSureIndex = formData.history.indexOf('Not sure');
-    if (notSureIndex > -1) {
-      formData.history.splice(notSureIndex, 1);
-      document.querySelectorAll('#opts-history .q-opt').forEach((opt) => {
-        if (opt.dataset.history === 'Not sure') opt.classList.remove('sel');
-      });
+  /* ── Page Navigation ── */
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function goHome() { showPage('page-home'); }
+
+  /* ── Quiz ── */
+  function startQuiz() {
+    resetQuizState();
+    showPage('page-quiz');
+    currentStep = 1;
+    showStep(1, false);
+  }
+
+  function resetQuizState() {
+    Object.assign(formData, {
+      name: '', age: '', gender: '', city: '',
+      skinType: '', concerns: [], behavior: '',
+      sleep: '', water: '', diet: '', stress: '',
+      routine: '', history: []
+    });
+    for (let i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
+
+    const nameInput = document.getElementById('input-name');
+    const cityInput = document.getElementById('input-city');
+    if (nameInput) nameInput.value = '';
+    if (cityInput) cityInput.value = '';
+
+    document.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
+    document.querySelectorAll('.slot-file-input').forEach(i => { i.value = ''; });
+
+    const hint = document.getElementById('concern-hint');
+    if (hint) hint.innerHTML = 'Select up to <span>3</span> more';
+
+    for (let i = 0; i < 5; i++) resetSlotMarkup(i);
+    clearCheckoutErrors();
+    checkAllSteps();
+  }
+
+  function updateQuizBar() {
+    const pct   = (currentStep / TOTAL_STEPS) * 100;
+    const bar   = document.getElementById('quiz-bar');
+    const label = document.getElementById('quiz-step-label');
+    if (bar) bar.style.width = pct + '%';
+    if (label) label.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+  }
+
+  function showStep(step, goingBack) {
+    document.querySelectorAll('.quiz-step').forEach(s => {
+      s.classList.remove('active', 'going-back');
+      s.style.display = 'none';
+    });
+    const target = document.querySelector('[data-step="' + step + '"]');
+    if (!target) return;
+    target.style.display = 'block';
+    void target.offsetWidth;
+    target.classList.add(goingBack ? 'going-back' : 'active');
+    currentStep = step;
+    updateQuizBar();
+  }
+
+  function nextStep(step) { showStep(step, false); }
+  function prevStep(step) { showStep(step, true); }
+
+  function checkStepReady(step) {
+    let ready = false;
+    switch (step) {
+      case 1: ready = formData.name.trim().length >= 2; break;
+      case 2: ready = formData.age !== '' && formData.gender !== ''; break;
+      case 3: ready = formData.city.trim().length >= 2; break;
+      case 4: ready = formData.skinType !== ''; break;
+      case 5: ready = formData.concerns.length >= 1; break;
+      case 6: ready = formData.behavior !== ''; break;
+      case 7: ready = formData.sleep !== '' && formData.water !== '' && formData.diet !== '' && formData.stress !== ''; break;
+      case 8: ready = formData.routine !== ''; break;
+      case 9: ready = slotFiles[0] !== null; break;
+      default: ready = false;
     }
-    const idx = formData.history.indexOf(val);
-    if (idx > -1) { formData.history.splice(idx, 1); el.classList.remove('sel'); }
-    else { formData.history.push(val); el.classList.add('sel'); }
+    const btn = document.getElementById('next-' + step);
+    if (btn) btn.classList.toggle('ready', ready);
   }
-  checkStepReady(8);
-}
 
-function triggerSlot(idx) {
-  const input = document.getElementById('slot-input-' + idx);
-  if (input) input.click();
-}
+  function checkAllSteps() {
+    for (let i = 1; i <= TOTAL_STEPS; i++) checkStepReady(i);
+  }
 
-function resetSlotMarkup(idx) {
-  const slot = document.getElementById('slot-' + idx);
-  if (!slot) return;
-  const labels = [['Front Face','Required'],['Left Profile','Recommended'],['Right Profile','Recommended'],['Close-up','Recommended'],['Video','Optional · 30s']];
-  const icons = [
+  function selectOpt(el, key, val, stepNum) {
+    const parent = el.closest('.quiz-options');
+    if (parent) parent.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    if (key in formData) formData[key] = val;
+    checkStepReady(stepNum);
+  }
+
+  function toggleConcern(el, val) {
+    const idx = formData.concerns.indexOf(val);
+    if (idx > -1) {
+      formData.concerns.splice(idx, 1);
+      el.classList.remove('sel');
+    } else {
+      if (formData.concerns.length >= 3) return;
+      formData.concerns.push(val);
+      el.classList.add('sel');
+    }
+    const remaining = 3 - formData.concerns.length;
+    const hint = document.getElementById('concern-hint');
+    if (hint) {
+      if (formData.concerns.length === 0) hint.innerHTML = 'Select up to <span>3</span> more';
+      else if (formData.concerns.length >= 3) hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
+      else hint.innerHTML = '<span>' + remaining + '</span> more to go';
+    }
+    checkStepReady(5);
+  }
+
+  function toggleHistory(el, val) {
+    if (val === 'Not sure') {
+      formData.history = ['Not sure'];
+      document.querySelectorAll('#opts-history .q-opt').forEach(o => o.classList.remove('sel'));
+      el.classList.add('sel');
+    } else {
+      const nsIdx = formData.history.indexOf('Not sure');
+      if (nsIdx > -1) {
+        formData.history.splice(nsIdx, 1);
+        document.querySelectorAll('#opts-history .q-opt').forEach(o => {
+          if (o.dataset.history === 'Not sure') o.classList.remove('sel');
+        });
+      }
+      const idx = formData.history.indexOf(val);
+      if (idx > -1) { formData.history.splice(idx, 1); el.classList.remove('sel'); }
+      else { formData.history.push(val); el.classList.add('sel'); }
+    }
+    checkStepReady(8);
+  }
+
+  /* ── Photo Slots ── */
+  const SLOT_LABELS = [
+    ['Front Face','Required'],['Left Profile','Recommended'],
+    ['Right Profile','Recommended'],['Close-up','Recommended'],
+    ['Video','Optional · 30s']
+  ];
+  const SLOT_ICONS = [
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>'
   ];
-  slot.classList.remove('has-preview');
-  slot.innerHTML = icons[idx] + '<p>' + labels[idx][0] + '</p><small>' + labels[idx][1] + '</small>';
-}
 
-function clearSlot(event, idx) {
-  if (event) event.stopPropagation();
-  slotFiles[idx] = null;
-  resetSlotMarkup(idx);
-  checkUploadReady();
-}
-
-function handleSlotFile(input, idx) {
-  const file = input.files && input.files[0];
-  if (!file) return;
-  slotFiles[idx] = file;
-  const slot = document.getElementById('slot-' + idx);
-  if (!slot) return;
-  slot.classList.add('has-preview');
-  if (idx === 4) {
-    slot.innerHTML = '<div style="padding:14px 8px;text-align:center;"><p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p><small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small></div><button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
-  } else {
-    const url = URL.createObjectURL(file);
-    slot.innerHTML = '<img class="slot-preview" src="' + url + '" alt="Preview"><button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+  function resetSlotMarkup(idx) {
+    const slot = document.getElementById('slot-' + idx);
+    if (!slot) return;
+    slot.classList.remove('has-preview');
+    slot.innerHTML = SLOT_ICONS[idx] +
+      '<p>' + SLOT_LABELS[idx][0] + '</p>' +
+      '<small>' + SLOT_LABELS[idx][1] + '</small>';
   }
-  input.value = '';
-  checkUploadReady();
-}
 
-function getUploadedImageFiles() {
-  return slotFiles.slice(0, 4).filter((file) => file !== null);
-}
+  function triggerSlot(idx) {
+    const input = document.getElementById('slot-input-' + idx);
+    if (input) input.click();
+  }
 
-function checkUploadReady() {
-  checkStepReady(9);
-  const error = document.getElementById('photo-req-error');
-  if (error && slotFiles[0] !== null) error.style.display = 'none';
-}
+  function clearSlot(event, idx) {
+    if (event) event.stopPropagation();
+    slotFiles[idx] = null;
+    resetSlotMarkup(idx);
+    checkUploadReady();
+  }
 
-function updateMacProgress() {
-  const el = document.getElementById('mac-scroll');
-  if (!el) return;
-  const maxScroll = el.scrollHeight - el.clientHeight;
-  const pct = maxScroll > 0 ? (el.scrollTop / maxScroll) * 100 : 0;
-  const fill = document.getElementById('mac-fill');
-  const pctEl = document.getElementById('mac-pct');
-  const barFill = document.getElementById('mac-bar-fill');
-  if (fill) fill.style.width = pct + '%';
-  if (pctEl) pctEl.textContent = Math.round(pct) + '%';
-  if (barFill) barFill.style.width = Math.round(pct) + '%';
-}
+  function handleSlotFile(input, idx) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    slotFiles[idx] = file;
+    const slot = document.getElementById('slot-' + idx);
+    if (!slot) return;
+    slot.classList.add('has-preview');
+    if (idx === 4) {
+      slot.innerHTML =
+        '<div style="padding:14px 8px;text-align:center">' +
+        '<p style="font-size:11.5px;font-weight:500;color:var(--accent);margin-bottom:4px">✓ Video added</p>' +
+        '<small style="font-size:10px;color:var(--g500)">' + escHtml((file.name || '').substring(0, 18)) + '</small></div>' +
+        '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+    } else {
+      const url = URL.createObjectURL(file);
+      slot.innerHTML =
+        '<img class="slot-preview" src="' + url + '" alt="Preview">' +
+        '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
+    }
+    input.value = '';
+    checkUploadReady();
+  }
 
-function toggleChip(el) {
-  const parent = el.closest('.chips');
-  if (parent) parent.querySelectorAll('.chip').forEach((chip) => chip.classList.remove('on'));
-  el.classList.add('on');
-}
+  function checkUploadReady() {
+    checkStepReady(9);
+    const err = document.getElementById('photo-req-error');
+    if (err && slotFiles[0] !== null) err.style.display = 'none';
+  }
 
-function handleBuyClick() {
-  if (!timerActive) {
-    timerActive = true;
-    const noteEl = document.getElementById('price-note');
-    const timerBox = document.getElementById('timer-box');
-    if (noteEl) noteEl.textContent = '🎉 Flash deal — 1 minute only!';
-    if (timerBox) timerBox.classList.add('show');
-    let secs = 60;
-    const countdown = document.getElementById('countdown');
-    if (countdown) countdown.textContent = '01:00';
-    timerInterval = window.setInterval(() => {
-      secs -= 1;
-      if (countdown) countdown.textContent = '00:' + String(Math.max(secs, 0)).padStart(2, '0');
-      if (secs <= 0) {
-        window.clearInterval(timerInterval);
-        timerActive = false;
-        if (timerBox) timerBox.classList.remove('show');
-        if (noteEl) noteEl.textContent = 'One-time · Instant access · No subscription';
+  /* ── Image Upload ── */
+  async function uploadImage(file, type) {
+    if (!sb || !file) return null;
+    const slug = makeSlug(formData.name);
+    const ts   = Math.floor(Date.now() / 1000);
+    const ext  = ((file.name || 'jpg').split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+    const path = slug + '-' + ts + '/' + type + '.' + ext;
+
+    try {
+      const { error } = await sb.storage
+        .from(STORAGE_BUCKET)
+        .upload(path, file, { cacheControl: '3600', upsert: true });
+
+      if (error) {
+        console.error('Storage upload error [' + type + ']:', error);
+        return null;
       }
-    }, 1000);
-  }
-  openModal();
-}
 
-function openModal() {
-  const modal = document.getElementById('modal-checkout');
-  if (modal) modal.classList.add('show');
-}
-
-function closeModal() {
-  const modal = document.getElementById('modal-checkout');
-  if (modal) modal.classList.remove('show');
-}
-
-function clearCheckoutErrors() {
-  ['name', 'email', 'phone'].forEach((key) => {
-    const err = document.getElementById('err-' + key);
-    if (err) err.textContent = '';
-  });
-}
-
-function processPayment() {
-  const name = document.getElementById('f-name');
-  const email = document.getElementById('f-email');
-  const phone = document.getElementById('f-phone');
-  clearCheckoutErrors();
-  const nameValue = name ? name.value.trim() : '';
-  const emailValue = email ? email.value.trim() : '';
-  const phoneValue = phone ? phone.value.trim() : '';
-  let valid = true;
-  if (!nameValue) { const err = document.getElementById('err-name'); if (err) err.textContent = 'Required'; valid = false; }
-  if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) { const err = document.getElementById('err-email'); if (err) err.textContent = 'Valid email required'; valid = false; }
-  if (!phoneValue || phoneValue.replace(/\D/g, '').length < 10) { const err = document.getElementById('err-phone'); if (err) err.textContent = 'Valid phone required'; valid = false; }
-  if (!valid) return;
-  closeModal();
-  startQuiz();
-}
-
-function clearWaitlistErrors() {
-  ['name', 'email', 'phone'].forEach((key) => {
-    const error = document.getElementById('wl-err-' + key);
-    const input = document.getElementById('wl-' + key);
-    if (error) error.textContent = '';
-    if (input) input.classList.remove('err');
-  });
-}
-
-// ── Structured Storage Upload ──
-function makeNameSlug(name) {
-  return (name || 'user')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-async function uploadImage(file, imageType) {
-  if (!supabaseClient || !file) return null;
-  const slug = makeNameSlug(formData.name);
-  const ts = Math.floor(Date.now() / 1000);
-  const ext = (file.name || 'jpg').split('.').pop().toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
-  const path = slug + '-' + ts + '/' + imageType + '.' + ext;
-
-  const { error } = await supabaseClient.storage
-    .from(STORAGE_BUCKET)
-    .upload(path, file, { cacheControl: '3600', upsert: true });
-
-  if (error) {
-    console.error('Storage upload error [' + imageType + ']:', error);
-    return null;
-  }
-  return SUPABASE_URL + '/storage/v1/object/public/' + STORAGE_BUCKET + '/' + path;
-}
-
-async function uploadAllImages() {
-  const types = ['front', 'left', 'right', 'concern'];
-  const results = { front: null, left: null, right: null, concern: null, urls: [] };
-
-  for (let i = 0; i < 4; i++) {
-    if (slotFiles[i]) {
-      const url = await uploadImage(slotFiles[i], types[i]);
-      results[types[i]] = url;
-      if (url) results.urls.push(url);
+      const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+      return data ? data.publicUrl : null;
+    } catch (err) {
+      console.error('uploadImage exception [' + type + ']:', err);
+      return null;
     }
   }
-  return results;
-}
 
-function generatePrompt(data) {
-  return [
-    'Create a personalised skincare report.',
-    'Name: ' + (data.name || 'Unknown'),
-    'Age: ' + (data.age || 'Unknown'),
-    'Gender: ' + (data.gender || 'Unknown'),
-    'City: ' + (data.city || 'Unknown'),
-    'Skin type: ' + (data.skinType || 'Unknown'),
-    'Concerns: ' + ((data.concerns || []).join(', ') || 'None'),
-    'Sleep: ' + (data.sleep || 'Unknown'),
-    'Water: ' + (data.water || 'Unknown'),
-    'Stress: ' + (data.stress || 'Unknown'),
-    'Behavior: ' + (data.behavior || 'Unknown'),
-    'Diet: ' + (data.diet || 'Unknown'),
-    'Routine: ' + (data.routine || 'Unknown'),
-    'History: ' + ((data.history || []).join(', ') || 'None')
-  ].join('\n');
-}
+  async function uploadAllImages() {
+    const types   = ['front', 'left', 'right', 'concern'];
+    const result  = { front: null, left: null, right: null, concern: null, urls: [] };
 
-async function saveToSupabase(data, imageData) {
-  if (!supabaseClient) { console.error('Supabase client unavailable'); return; }
-  const payload = {
-    name: data.name || '',
-    age: data.age || '',
-    gender: data.gender || '',
-    city: data.city || '',
-    skin_type: data.skinType || '',
-    concerns: Array.isArray(data.concerns) ? data.concerns.join(', ') : '',
-    sleep: data.sleep || '',
-    water: data.water || '',
-    stress: data.stress || '',
-    prompt: generatePrompt(data),
-    images: JSON.stringify(imageData.urls || []),
-    front_image: imageData.front || null,
-    left_image: imageData.left || null,
-    right_image: imageData.right || null,
-    concern_image: imageData.concern || null
-  };
-  try {
-    const { error } = await supabaseClient.from('submissions').insert([payload]);
-    if (error) console.error('Supabase insert failed:', error);
-  } catch (error) {
-    console.error('Supabase request failed:', error);
-  }
-}
-
-async function analyseAndGo() {
-  if (slotFiles[0] === null) {
-    const error = document.getElementById('photo-req-error');
-    if (error) error.style.display = 'block';
-    return;
+    for (let i = 0; i < 4; i++) {
+      if (slotFiles[i]) {
+        const url = await uploadImage(slotFiles[i], types[i]);
+        result[types[i]] = url;
+        if (url) result.urls.push(url);
+      }
+    }
+    return result;
   }
 
-  const error = document.getElementById('photo-req-error');
-  if (error) error.style.display = 'none';
+  /* ── Database Save ── */
+  async function saveToSupabase(imageData) {
+    if (!sb) { console.error('Supabase client unavailable'); return; }
 
-  const nameInput = document.getElementById('input-name');
-  const cityInput = document.getElementById('input-city');
-  if (nameInput && nameInput.value.trim()) formData.name = nameInput.value.trim();
-  if (cityInput && cityInput.value.trim()) formData.city = cityInput.value.trim();
-
-  const overlay = document.getElementById('overlay-analysing');
-  const overlayTitle = document.getElementById('overlay-title');
-  const overlaySub = document.getElementById('overlay-sub');
-
-  if (overlay) overlay.classList.add('show');
-  if (overlayTitle) overlayTitle.textContent = 'Uploading your photos…';
-  if (overlaySub) overlaySub.textContent = 'Securely storing your images. Just a moment.';
-
- // Upload images to storage
-  let imageData = { front: null, left: null, right: null, concern: null, urls: [] };
-  try {
-    imageData = await uploadAllImages();
-    uploadedImageUrls = imageData.urls;
-  } catch (uploadErr) {
-    console.error('Image upload failed:', uploadErr);
-  }
-
-  if (overlayTitle) overlayTitle.textContent = 'Analysing your skin…';
-  if (overlaySub) overlaySub.textContent = 'Building your personalised routine. Just a moment.';
-
-  try {
-    const snapshot = {
-      name: formData.name, age: formData.age, gender: formData.gender, city: formData.city,
-      skinType: formData.skinType, concerns: formData.concerns, behavior: formData.behavior,
-      sleep: formData.sleep, water: formData.water, diet: formData.diet,
-      stress: formData.stress, routine: formData.routine, history: formData.history
+    const payload = {
+      name:          formData.name || '',
+      age:           formData.age  || '',
+      gender:        formData.gender || '',
+      city:          formData.city   || '',
+      skin_type:     formData.skinType || '',
+      concerns:      formData.concerns.join(', '),
+      behavior:      formData.behavior || '',
+      sleep:         formData.sleep   || '',
+      water:         formData.water   || '',
+      diet:          formData.diet    || '',
+      stress:        formData.stress  || '',
+      routine:       formData.routine || '',
+      history:       formData.history.join(', '),
+      images:        JSON.stringify(imageData.urls || []),
+      front_image:   imageData.front   || null,
+      left_image:    imageData.left    || null,
+      right_image:   imageData.right   || null,
+      concern_image: imageData.concern || null
     };
-    localStorage.setItem('skinData', JSON.stringify(snapshot));
-  } catch (storageError) { console.warn('localStorage unavailable:', storageError); }
 
-  try {
-    await saveToSupabase(formData, imageData);
-  } catch (e) { console.error("Supabase failed:", e); }
+    try {
+      const { error } = await sb.from('submissions').insert([payload]);
+      if (error) console.error('Supabase insert failed:', error);
+    } catch (err) {
+      console.error('saveToSupabase exception:', err);
+    }
+  }
 
-  window.setTimeout(() => {
+  /* ── Main Submission Flow ── */
+  async function analyseAndGo() {
+    if (slotFiles[0] === null) {
+      const err = document.getElementById('photo-req-error');
+      if (err) err.style.display = 'block';
+      return;
+    }
+
+    const errEl = document.getElementById('photo-req-error');
+    if (errEl) errEl.style.display = 'none';
+
+    // Sync latest text inputs
+    const nameInput = document.getElementById('input-name');
+    const cityInput = document.getElementById('input-city');
+    if (nameInput && nameInput.value.trim()) formData.name = nameInput.value.trim();
+    if (cityInput && cityInput.value.trim()) formData.city = cityInput.value.trim();
+
+    const overlay      = document.getElementById('overlay-analysing');
+    const overlayTitle = document.getElementById('overlay-title');
+    const overlaySub   = document.getElementById('overlay-sub');
+
+    if (overlay) overlay.classList.add('show');
+    if (overlayTitle) overlayTitle.textContent = 'Uploading your photos…';
+    if (overlaySub) overlaySub.textContent = 'Securely storing your images. Just a moment.';
+
+    // Upload images
+    let imageData = { front: null, left: null, right: null, concern: null, urls: [] };
+    try {
+      imageData = await uploadAllImages();
+    } catch (err) {
+      console.error('Image upload failed:', err);
+    }
+
+    if (overlayTitle) overlayTitle.textContent = 'Analysing your skin…';
+    if (overlaySub) overlaySub.textContent = 'Building your personalised routine.';
+
+    // Save to database
+    try {
+      await saveToSupabase(imageData);
+    } catch (err) {
+      console.error('Database save failed:', err);
+    }
+
+    // Brief pause for UX
+    await new Promise(resolve => setTimeout(resolve, 1800));
+
     if (overlay) overlay.classList.remove('show');
-
-    const waitlistName = document.getElementById('wl-name');
-    if (waitlistName && formData.name && !waitlistName.value) waitlistName.value = formData.name;
-
-    const wlPhotos = document.getElementById('wl-photos');
-    if (wlPhotos) {
-      wlPhotos.innerHTML = '';
-      // Show from uploaded URLs if available, else local preview
-     if (imageData.urls.length > 0) {
-        imageData.urls.slice(0, 4).forEach((url) => {
-          const img = document.createElement('img');
-          img.src = url;
-          img.className = 'wl-uploaded-photo';
-          img.alt = 'Your skin photo';
-          wlPhotos.appendChild(img);
-        });
-      } else {
-        getUploadedImageFiles().slice(0, 4).forEach((file) => {
-          const img = document.createElement('img');
-          img.src = URL.createObjectURL(file);
-          img.className = 'wl-uploaded-photo';
-          img.alt = 'Your skin photo';
-          wlPhotos.appendChild(img);
-        });
-      }
-    }
-
-    showPage('page-waitlist');
-  }, 2200);
-}
-
-async function submitWaitlist() {
-  const nameEl = document.getElementById('wl-name');
-  const emailEl = document.getElementById('wl-email');
-  const phoneEl = document.getElementById('wl-phone');
-  const btn = document.getElementById('wl-submit-btn');
-  clearWaitlistErrors();
-  const name = nameEl ? nameEl.value.trim() : '';
-  const email = emailEl ? emailEl.value.trim() : '';
-  const phone = phoneEl ? phoneEl.value.trim() : '';
-  let valid = true;
-  if (!name || name.length < 2) { const err = document.getElementById('wl-err-name'); if (err) err.textContent = 'Please enter your full name.'; if (nameEl) nameEl.classList.add('err'); valid = false; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { const err = document.getElementById('wl-err-email'); if (err) err.textContent = 'Please enter a valid email address.'; if (emailEl) emailEl.classList.add('err'); valid = false; }
-  if (!phone || phone.replace(/\D/g, '').length < 10) { const err = document.getElementById('wl-err-phone'); if (err) err.textContent = 'Please enter a valid phone number.'; if (phoneEl) phoneEl.classList.add('err'); valid = false; }
-  if (!valid) return;
-  if (btn) { btn.disabled = true; btn.innerHTML = 'Saving… <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>'; }
-  try {
-    if (supabaseClient) {
-      const { error: dbError } = await supabaseClient.from('waitlist').insert([{ name, email, phone }]);
-      if (dbError && dbError.code !== '23505') throw dbError;
-    }
-    const emailRes = await fetch('/api/send-email', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email }) });
-    const emailData = await emailRes.json();
-    if (!emailRes.ok) { console.error('/api/send-email failed:', emailRes.status, emailData); throw new Error('Confirmation email failed'); }
-    const successPhotos = document.getElementById('success-photos');
-    if (successPhotos) {
-      successPhotos.innerHTML = '';
-      const photos = uploadedImageUrls.length > 0 ? uploadedImageUrls : getUploadedImageFiles().map(f => URL.createObjectURL(f));
-      photos.slice(0, 4).forEach((src) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.className = 'success-photo';
-        img.alt = 'Uploaded skin photo';
-        successPhotos.appendChild(img);
-      });
-    }
-    showPage('page-success');
-  } catch (err) {
-    console.error('submitWaitlist failed:', err);
-    const fallback = document.getElementById('wl-err-name');
-    if (fallback) fallback.textContent = 'Something went wrong. Please try again.';
-    if (btn) { btn.disabled = false; btn.innerHTML = 'Join the Waitlist <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M4 10h12M10 4l6 6-6 6"/></svg>'; }
+    showPage('page-thankyou');
   }
-}
 
-function bindStaticEvents() {
-  const heroStart = document.getElementById('hero-start-btn');
-  const logo = document.querySelector('.logo');
-  const navHome = document.querySelector('[data-nav-home]');
-  const navHow = document.querySelector('[data-nav-how]');
-  const navPricing = document.querySelector('[data-nav-pricing]');
-  const buyBtn = document.getElementById('buy-btn');
-  const modal = document.getElementById('modal-checkout');
-  const cancelBtn = document.getElementById('modal-cancel-btn');
-  const payBtn = document.getElementById('modal-pay-btn');
-  const successBack = document.getElementById('success-back-btn');
-  const waitlistSubmit = document.getElementById('wl-submit-btn');
-  const macScroll = document.getElementById('mac-scroll');
-  const frontUploadArea = document.getElementById('front-upload-area');
+  /* ── Pricing Timer ── */
+  function handleBuyClick() {
+    if (!timerActive) {
+      timerActive = true;
+      const noteEl   = document.getElementById('price-note');
+      const timerBox = document.getElementById('timer-box');
+      if (noteEl) noteEl.textContent = '🎉 Flash deal — 1 minute only!';
+      if (timerBox) timerBox.classList.add('show');
+      let secs = 60;
+      const countdown = document.getElementById('countdown');
+      if (countdown) countdown.textContent = '01:00';
+      timerInterval = setInterval(() => {
+        secs -= 1;
+        if (countdown) countdown.textContent = '00:' + String(Math.max(secs, 0)).padStart(2, '0');
+        if (secs <= 0) {
+          clearInterval(timerInterval);
+          timerActive = false;
+          if (timerBox) timerBox.classList.remove('show');
+          if (noteEl) noteEl.textContent = 'One-time · Instant access · No subscription';
+        }
+      }, 1000);
+    }
+    openModal();
+  }
 
-  if (heroStart) heroStart.addEventListener('click', startQuiz);
-  if (logo) logo.addEventListener('click', (event) => { event.preventDefault(); goHome(); });
-  if (navHome) navHome.addEventListener('click', (event) => { event.preventDefault(); goHome(); });
-  if (navHow) navHow.addEventListener('click', (event) => { event.preventDefault(); goHome(); window.setTimeout(() => { const how = document.getElementById('how'); if (how) how.scrollIntoView({ behavior: 'smooth' }); }, 200); });
-  if (navPricing) navPricing.addEventListener('click', (event) => { event.preventDefault(); goHome(); window.setTimeout(() => { const pricing = document.getElementById('pricing'); if (pricing) pricing.scrollIntoView({ behavior: 'smooth' }); }, 200); });
-  if (buyBtn) buyBtn.addEventListener('click', handleBuyClick);
-  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
-  if (payBtn) payBtn.addEventListener('click', processPayment);
-  if (successBack) successBack.addEventListener('click', goHome);
-  if (waitlistSubmit) waitlistSubmit.addEventListener('click', submitWaitlist);
-  if (macScroll) macScroll.addEventListener('scroll', updateMacProgress);
-  if (frontUploadArea) frontUploadArea.addEventListener('click', () => triggerSlot(0));
-  if (modal) modal.addEventListener('click', (event) => { if (event.target.id === 'modal-checkout') closeModal(); });
+  /* ── Modal ── */
+  function openModal() {
+    const modal = document.getElementById('modal-checkout');
+    if (modal) modal.classList.add('show');
+  }
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (event) => {
-      const id = (anchor.getAttribute('href') || '').slice(1);
-      const target = document.getElementById(id);
-      if (target) { event.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  function closeModal() {
+    const modal = document.getElementById('modal-checkout');
+    if (modal) modal.classList.remove('show');
+  }
+
+  function clearCheckoutErrors() {
+    ['name', 'email', 'phone'].forEach(k => {
+      const err = document.getElementById('err-' + k);
+      if (err) err.textContent = '';
     });
-  });
-
-  document.querySelectorAll('.chips .chip').forEach((chip) => { chip.addEventListener('click', () => toggleChip(chip)); });
-  document.querySelectorAll('[data-group]').forEach((button) => { button.addEventListener('click', () => selectGroup(button, button.dataset.group, button.dataset.value, Number(button.closest('.quiz-step').dataset.step))); });
-  document.querySelectorAll('[data-single]').forEach((button) => { button.addEventListener('click', () => selectOpt(button, button.dataset.single, button.dataset.value, Number(button.closest('.quiz-step').dataset.step))); });
-  document.querySelectorAll('[data-concern]').forEach((button) => { button.addEventListener('click', () => toggleConcern(button, button.dataset.concern)); });
-  document.querySelectorAll('[data-history]').forEach((button) => { button.addEventListener('click', () => toggleHistory(button, button.dataset.history)); });
-  document.querySelectorAll('.photo-slot').forEach((slot, index) => { slot.addEventListener('click', () => triggerSlot(index)); });
-  document.querySelectorAll('.slot-file-input').forEach((input, index) => { input.addEventListener('change', () => handleSlotFile(input, index)); });
-  document.addEventListener('click', (event) => { const clearButton = event.target.closest('[data-clear-slot]'); if (clearButton) clearSlot(event, Number(clearButton.dataset.clearSlot)); });
-
-  const nameInput = document.getElementById('input-name');
-  const cityInput = document.getElementById('input-city');
-  if (nameInput) nameInput.addEventListener('input', function () { formData.name = this.value.trim(); checkStepReady(1); });
-  if (cityInput) cityInput.addEventListener('input', function () { formData.city = this.value.trim(); checkStepReady(3); });
-
-  const backButtons = { 'back-2': 1, 'back-3': 2, 'back-4': 3, 'back-5': 4, 'back-6': 5, 'back-7': 6, 'back-8': 7, 'back-9': 8 };
-  Object.keys(backButtons).forEach((id) => { const btn = document.getElementById(id); if (btn) btn.addEventListener('click', () => prevStep(backButtons[id])); });
-
-  const nextButtons = { 'next-1': 2, 'next-2': 3, 'next-3': 4, 'next-4': 5, 'next-5': 6, 'next-6': 7, 'next-7': 8, 'next-8': 9 };
-  Object.keys(nextButtons).forEach((id) => { const btn = document.getElementById(id); if (btn) btn.addEventListener('click', () => nextStep(nextButtons[id])); });
-
-  const reportBtn = document.getElementById('next-9');
-  if (reportBtn) reportBtn.addEventListener('click', analyseAndGo);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  bindStaticEvents();
-  updateQuizBar();
-  updateMacProgress();
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('vis'); });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fu').forEach((el) => io.observe(el));
-
-  const demoSection = document.querySelector('.demo-section');
-  if (demoSection) {
-    const macIo = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        const fill = document.getElementById('mac-bar-fill');
-        if (fill) fill.style.width = '100%';
-        macIo.disconnect();
-      }
-    }, { threshold: 0.3 });
-    macIo.observe(demoSection);
   }
 
-  checkAllSteps();
-});
+  function processPayment() {
+    const name  = document.getElementById('f-name');
+    const email = document.getElementById('f-email');
+    const phone = document.getElementById('f-phone');
+    clearCheckoutErrors();
+    const nv = name  ? name.value.trim()  : '';
+    const ev = email ? email.value.trim() : '';
+    const pv = phone ? phone.value.trim() : '';
+    let valid = true;
+    if (!nv) { const e = document.getElementById('err-name'); if (e) e.textContent = 'Required'; valid = false; }
+    if (!ev || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ev)) { const e = document.getElementById('err-email'); if (e) e.textContent = 'Valid email required'; valid = false; }
+    if (!pv || pv.replace(/\D/g, '').length < 10) { const e = document.getElementById('err-phone'); if (e) e.textContent = 'Valid phone required'; valid = false; }
+    if (!valid) return;
+    closeModal();
+    startQuiz();
+  }
+
+  /* ── Mac Demo ── */
+  function updateMacProgress() {
+    const el = document.getElementById('mac-scroll');
+    if (!el) return;
+    const max = el.scrollHeight - el.clientHeight;
+    const pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
+    const fill   = document.getElementById('mac-fill');
+    const pctEl  = document.getElementById('mac-pct');
+    const barFill = document.getElementById('mac-bar-fill');
+    if (fill)    fill.style.width    = pct + '%';
+    if (pctEl)   pctEl.textContent   = Math.round(pct) + '%';
+    if (barFill) barFill.style.width = Math.round(pct) + '%';
+  }
+
+  function toggleChip(el) {
+    const parent = el.closest('.chips');
+    if (parent) parent.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  }
+
+  /* ── Bind All Events ── */
+  function bindEvents() {
+    // Navigation
+    document.getElementById('hero-start-btn').addEventListener('click', startQuiz);
+    document.getElementById('nav-logo').addEventListener('click', e => { e.preventDefault(); goHome(); });
+    document.getElementById('nav-home').addEventListener('click', e => { e.preventDefault(); goHome(); });
+    document.getElementById('nav-how').addEventListener('click', e => {
+      e.preventDefault(); goHome();
+      setTimeout(() => { const s = document.getElementById('how'); if (s) s.scrollIntoView({ behavior: 'smooth' }); }, 200);
+    });
+    document.getElementById('nav-pricing').addEventListener('click', e => {
+      e.preventDefault(); goHome();
+      setTimeout(() => { const s = document.getElementById('pricing'); if (s) s.scrollIntoView({ behavior: 'smooth' }); }, 200);
+    });
+
+    // Pricing
+    document.getElementById('buy-btn').addEventListener('click', handleBuyClick);
+
+    // Modal
+    document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
+    document.getElementById('modal-pay-btn').addEventListener('click', processPayment);
+    document.getElementById('modal-checkout').addEventListener('click', e => { if (e.target.id === 'modal-checkout') closeModal(); });
+
+    // Thank You back
+    document.getElementById('ty-back-btn').addEventListener('click', goHome);
+
+    // Mac demo
+    const macScroll = document.getElementById('mac-scroll');
+    if (macScroll) macScroll.addEventListener('scroll', updateMacProgress);
+    document.querySelectorAll('.chips .chip').forEach(c => c.addEventListener('click', () => toggleChip(c)));
+
+    // Smooth scroll anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = (a.getAttribute('href') || '').slice(1);
+        const target = document.getElementById(id);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // Quiz option groups
+    document.querySelectorAll('[data-group]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = Number(btn.closest('.quiz-step').dataset.step);
+        selectOpt(btn, btn.dataset.group, btn.dataset.value, step);
+      });
+    });
+    document.querySelectorAll('[data-single]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = Number(btn.closest('.quiz-step').dataset.step);
+        selectOpt(btn, btn.dataset.single, btn.dataset.value, step);
+      });
+    });
+    document.querySelectorAll('[data-concern]').forEach(btn => {
+      btn.addEventListener('click', () => toggleConcern(btn, btn.dataset.concern));
+    });
+    document.querySelectorAll('[data-history]').forEach(btn => {
+      btn.addEventListener('click', () => toggleHistory(btn, btn.dataset.history));
+    });
+
+    // Text inputs
+    document.getElementById('input-name').addEventListener('input', function () {
+      formData.name = this.value.trim(); checkStepReady(1);
+    });
+    document.getElementById('input-city').addEventListener('input', function () {
+      formData.city = this.value.trim(); checkStepReady(3);
+    });
+
+    // Photo slots
+    document.querySelectorAll('.photo-slot').forEach((slot, idx) => {
+      slot.addEventListener('click', () => triggerSlot(idx));
+    });
+    document.querySelectorAll('.slot-file-input').forEach((input, idx) => {
+      input.addEventListener('change', () => handleSlotFile(input, idx));
+    });
+    document.getElementById('front-upload-area').addEventListener('click', () => triggerSlot(0));
+
+    // Slot clear buttons (delegated)
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-clear-slot]');
+      if (btn) clearSlot(e, Number(btn.dataset.clearSlot));
+    });
+
+    // Quiz back buttons
+    const backs = { 'back-2':1,'back-3':2,'back-4':3,'back-5':4,'back-6':5,'back-7':6,'back-8':7,'back-9':8 };
+    Object.keys(backs).forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', () => prevStep(backs[id]));
+    });
+
+    // Quiz next buttons
+    const nexts = { 'next-1':2,'next-2':3,'next-3':4,'next-4':5,'next-5':6,'next-6':7,'next-7':8,'next-8':9 };
+    Object.keys(nexts).forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', () => nextStep(nexts[id]));
+    });
+
+    // Final submit
+    document.getElementById('next-9').addEventListener('click', analyseAndGo);
+  }
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    bindEvents();
+    updateQuizBar();
+    updateMacProgress();
+
+    // Intersection observer for scroll animations
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fu').forEach(el => io.observe(el));
+
+    // Demo progress bar trigger
+    const demoSection = document.querySelector('.demo-section');
+    if (demoSection) {
+      const macIo = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          const fill = document.getElementById('mac-bar-fill');
+          if (fill) fill.style.width = '100%';
+          macIo.disconnect();
+        }
+      }, { threshold: 0.3 });
+      macIo.observe(demoSection);
+    }
+
+    checkAllSteps();
+  });
+})();
 </script>
 </body>
 </html>

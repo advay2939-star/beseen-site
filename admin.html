@@ -13,22 +13,22 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:       #faf7f4;
-      --petal:       #f2e8e1;
-      --blush:       #e8d5c8;
-      --rose:        #c4866a;
-      --deep-rose:   #a0604a;
-      --bark:        #5c3d2e;
-      --mist:        #f7f3ef;
-      --ink:         #2a1f1a;
-      --mid:         #7a5c50;
-      --border:      rgba(196,134,106,0.18);
-      --shadow-sm:   0 2px 12px rgba(90,50,30,0.07);
-      --shadow-md:   0 8px 32px rgba(90,50,30,0.10);
-      --shadow-lg:   0 20px 60px rgba(90,50,30,0.14);
-      --radius:      18px;
-      --radius-sm:   10px;
-      --transition:  0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      --cream:     #faf7f4;
+      --petal:     #f2e8e1;
+      --blush:     #e8d5c8;
+      --rose:      #c4866a;
+      --deep-rose: #a0604a;
+      --bark:      #5c3d2e;
+      --mist:      #f7f3ef;
+      --ink:       #2a1f1a;
+      --mid:       #7a5c50;
+      --border:    rgba(196,134,106,0.18);
+      --shadow-sm: 0 2px 12px rgba(90,50,30,0.07);
+      --shadow-md: 0 8px 32px rgba(90,50,30,0.10);
+      --shadow-lg: 0 20px 60px rgba(90,50,30,0.14);
+      --radius:    18px;
+      --radius-sm: 10px;
+      --transition:0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html, body {
@@ -39,97 +39,62 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
     /* ── LOGIN ── */
     #login-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
       background: linear-gradient(135deg, #fdf8f5 0%, #f2e8e0 50%, #ede0d6 100%);
     }
-
     #login-screen::before {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
+      content: ''; position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
       background: radial-gradient(circle, rgba(196,134,106,0.15) 0%, transparent 70%);
-      top: -100px; right: -100px;
-      pointer-events: none;
+      top: -100px; right: -100px; pointer-events: none;
     }
-
     #login-screen::after {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      border-radius: 50%;
+      content: ''; position: absolute;
+      width: 400px; height: 400px; border-radius: 50%;
       background: radial-gradient(circle, rgba(232,213,200,0.4) 0%, transparent 70%);
-      bottom: -80px; left: -80px;
-      pointer-events: none;
+      bottom: -80px; left: -80px; pointer-events: none;
     }
 
     .login-card {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(196,134,106,0.2);
-      border-radius: 28px;
-      padding: 56px 52px;
-      width: 420px;
+      border-radius: 28px; padding: 56px 52px; width: 420px;
       box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.8);
       animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both;
     }
 
     .login-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: flex; flex-direction: column; align-items: center;
       margin-bottom: 36px;
     }
-
     .login-logo .monogram {
-      width: 56px; height: 56px;
-      border-radius: 16px;
+      width: 56px; height: 56px; border-radius: 16px;
       background: linear-gradient(135deg, var(--rose), var(--deep-rose));
       display: flex; align-items: center; justify-content: center;
-      color: #fff;
-      font-family: 'Cormorant Garamond', serif;
+      color: #fff; font-family: 'Cormorant Garamond', serif;
       font-size: 22px; font-weight: 600; letter-spacing: 1px;
       margin-bottom: 16px;
       box-shadow: 0 8px 24px rgba(160,96,74,0.35);
     }
-
     .login-logo h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 28px; font-weight: 500;
       letter-spacing: 3px; color: var(--bark); text-transform: uppercase;
     }
-
     .login-logo p { font-size: 12px; color: var(--mid); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
 
     .login-field { margin-bottom: 20px; }
-
     .login-field label {
       display: block; font-size: 11px; font-weight: 500;
       letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px;
     }
-
     .login-field input {
-      width: 100%;
-      padding: 14px 18px;
+      width: 100%; padding: 14px 18px;
       background: rgba(250,247,244,0.9);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
@@ -137,7 +102,6 @@
       outline: none;
       transition: border-color var(--transition), box-shadow var(--transition);
     }
-
     .login-field input:focus { border-color: var(--rose); box-shadow: 0 0 0 4px rgba(196,134,106,0.12); }
 
     .login-error {
@@ -155,11 +119,10 @@
       color: #fff; font-family: 'DM Sans', sans-serif;
       font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
       cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+      transition: transform var(--transition), box-shadow var(--transition);
       box-shadow: 0 6px 20px rgba(160,96,74,0.35);
     }
     .login-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(160,96,74,0.42); }
-    .login-btn:active { transform: translateY(0); }
 
     /* ── DASHBOARD ── */
     #dashboard { display: none; min-height: 100vh; flex-direction: column; }
@@ -173,16 +136,13 @@
       padding: 0 48px; height: 72px;
       display: flex; align-items: center; justify-content: space-between;
     }
-
     .header-brand { display: flex; align-items: center; gap: 14px; }
-
     .header-mono {
       width: 38px; height: 38px; border-radius: 10px;
       background: linear-gradient(135deg, var(--rose), var(--deep-rose));
       display: flex; align-items: center; justify-content: center;
       color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600;
     }
-
     .header-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--bark); }
     .header-subtitle { font-size: 11px; color: var(--mid); letter-spacing: 1.5px; text-transform: uppercase; }
     .header-right { display: flex; align-items: center; gap: 20px; }
@@ -215,14 +175,16 @@
     .page-head h2 em { font-style: italic; color: var(--rose); }
     .page-head p { font-size: 14px; color: var(--mid); max-width: 340px; line-height: 1.7; }
 
+    /* ── STATE BOXES ── */
     .state-box { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 320px; gap: 16px; text-align: center; }
     .state-icon { width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
     .state-icon.loading { background: rgba(196,134,106,0.1); animation: pulse 1.8s ease-in-out infinite; }
-    .state-icon.error { background: rgba(220,80,60,0.08); }
-    .state-icon.empty { background: rgba(196,134,106,0.08); }
+    .state-icon.error   { background: rgba(220,80,60,0.08); }
+    .state-icon.empty   { background: rgba(196,134,106,0.08); }
     .state-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--bark); }
-    .state-box p { font-size: 14px; color: var(--mid); max-width: 300px; line-height: 1.6; }
+    .state-box p  { font-size: 14px; color: var(--mid); max-width: 300px; line-height: 1.6; }
 
+    /* ── CARDS ── */
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 28px; }
 
     .user-card {
@@ -242,7 +204,6 @@
       border-bottom: 1px solid rgba(196,134,106,0.1);
       display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
     }
-
     .card-avatar {
       width: 48px; height: 48px; border-radius: 14px;
       background: linear-gradient(135deg, var(--rose), var(--deep-rose));
@@ -250,45 +211,25 @@
       color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600;
       flex-shrink: 0; box-shadow: 0 4px 14px rgba(160,96,74,0.3);
     }
-
     .card-name-block { flex: 1; min-width: 0; }
     .card-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--bark); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .card-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
-
     .meta-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; font-weight: 500; }
     .meta-tag.type { background: rgba(196,134,106,0.12); color: var(--deep-rose); border: 1px solid rgba(196,134,106,0.2); }
     .meta-tag.date { background: rgba(92,61,46,0.06); color: var(--mid); border: 1px solid rgba(92,61,46,0.1); }
+    .card-date { font-size: 11px; color: var(--mid); margin-top: 2px; letter-spacing: 0.5px; }
 
-    /* ── SKIN SCORE BADGE ── */
+    /* ── SCORE BADGE ── */
     .score-badge {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
       font-family: 'Cormorant Garamond', serif;
     }
-    .score-badge .score-num {
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1;
-    }
-    .score-badge .score-label {
-      font-size: 8px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      margin-top: 2px;
-    }
-    .score-high { background: rgba(60,160,90,0.12); border: 1px solid rgba(60,160,90,0.25); color: #2d8a50; }
+    .score-badge .score-num  { font-size: 20px; font-weight: 600; line-height: 1; }
+    .score-badge .score-label { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'DM Sans', sans-serif; font-weight: 500; margin-top: 2px; }
+    .score-high { background: rgba(60,160,90,0.12);  border: 1px solid rgba(60,160,90,0.25);  color: #2d8a50; }
     .score-mid  { background: rgba(196,134,106,0.12); border: 1px solid rgba(196,134,106,0.3); color: var(--deep-rose); }
-    .score-low  { background: rgba(220,80,60,0.10); border: 1px solid rgba(220,80,60,0.2); color: #c0392b; }
-
-    .card-date { font-size: 11px; color: var(--mid); margin-top: 2px; letter-spacing: 0.5px; }
+    .score-low  { background: rgba(220,80,60,0.10);   border: 1px solid rgba(220,80,60,0.2);   color: #c0392b; }
 
     .card-body { padding: 24px 28px; }
 
@@ -303,7 +244,6 @@
     .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(196,134,106,0.2), transparent); }
 
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
     .info-item { background: rgba(250,247,244,0.8); border: 1px solid rgba(196,134,106,0.1); border-radius: var(--radius-sm); padding: 10px 14px; }
     .info-item .key { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 3px; }
     .info-item .val { font-size: 14px; color: var(--ink); font-weight: 400; }
@@ -317,59 +257,32 @@
     .ls-item .val { font-size: 13px; color: var(--ink); font-weight: 500; }
 
     /* ── IMAGE GRID ── */
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 4px;
-    }
+    .structured-imgs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+
+    .img-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 
     .client-img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 10px;
+      width: 110px; height: 110px;
+      object-fit: cover; border-radius: 10px;
       border: 1px solid rgba(196,134,106,0.15);
       cursor: pointer;
       transition: transform var(--transition), box-shadow var(--transition);
     }
-    .client-img:hover { transform: scale(1.03); box-shadow: var(--shadow-md); }
+    .client-img:hover { transform: scale(1.04); box-shadow: var(--shadow-md); }
 
+    .img-label {
+      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--mid); text-align: center;
+    }
     .img-placeholder {
-      width: 100%; height: 90px; border-radius: 10px;
+      width: 100%; min-height: 80px; border-radius: 10px;
       background: rgba(242,232,225,0.5);
       border: 1.5px dashed rgba(196,134,106,0.3);
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; color: var(--mid); letter-spacing: 1px; text-transform: uppercase;
     }
-.structured-imgs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
-}
 
-.preview-img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid rgba(196,134,106,0.15);
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-.preview-img:hover { transform: scale(1.04); box-shadow: var(--shadow-md); }
-
-.img-label {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--mid);
-  text-align: center;
-  margin-top: 4px;
-}
-
-.img-cell { display: flex; flex-direction: column; align-items: center; }
+    /* ── CARD FOOTER ── */
     .card-footer {
       padding: 18px 28px 24px;
       border-top: 1px solid rgba(196,134,106,0.1);
@@ -389,7 +302,6 @@
     }
     .gen-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); pointer-events: none; }
     .gen-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(160,96,74,0.4); }
-    .gen-btn:active { transform: translateY(0); }
     .gen-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
 
     .prompt-box {
@@ -421,7 +333,7 @@
     .copy-btn.copied { background: rgba(60,180,100,0.1); border-color: rgba(60,180,100,0.3); color: #2a7a4a; }
 
     .prompt-text {
-      max-height: 320px; overflow-y: auto;
+      max-height: 340px; overflow-y: auto;
       padding: 18px;
       font-size: 13px; line-height: 1.75; color: var(--ink);
       background: rgba(250,247,244,0.6);
@@ -429,41 +341,38 @@
       scrollbar-width: thin; scrollbar-color: rgba(196,134,106,0.3) transparent;
     }
     .prompt-text::-webkit-scrollbar { width: 4px; }
-    .prompt-text::-webkit-scrollbar-track { background: transparent; }
     .prompt-text::-webkit-scrollbar-thumb { background: rgba(196,134,106,0.3); border-radius: 4px; }
 
-    /* ── IMAGE LIGHTBOX ── */
+    /* ── LIGHTBOX ── */
     #lightbox {
-      display: none;
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(8px);
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
       align-items: center; justify-content: center;
     }
     #lightbox.open { display: flex; animation: fadeIn 0.2s ease both; }
     #lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
     #lightbox-close {
       position: absolute; top: 24px; right: 28px;
-      color: rgba(255,255,255,0.8); font-size: 28px; cursor: pointer; background: none; border: none;
-      transition: color 0.15s; font-family: sans-serif; line-height: 1;
+      color: rgba(255,255,255,0.8); font-size: 32px; cursor: pointer;
+      background: none; border: none; transition: color 0.15s; line-height: 1;
     }
     #lightbox-close:hover { color: #fff; }
 
-    .footer { text-align: center; padding: 28px 48px; font-size: 12px; color: var(--mid); letter-spacing: 1px; border-top: 1px solid var(--border); }
+    footer { text-align: center; padding: 28px 48px; font-size: 12px; color: var(--mid); letter-spacing: 1px; border-top: 1px solid var(--border); }
 
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-    .user-card:nth-child(1)  { animation-delay: 0.05s; }
-    .user-card:nth-child(2)  { animation-delay: 0.10s; }
-    .user-card:nth-child(3)  { animation-delay: 0.15s; }
-    .user-card:nth-child(4)  { animation-delay: 0.20s; }
-    .user-card:nth-child(5)  { animation-delay: 0.25s; }
-    .user-card:nth-child(6)  { animation-delay: 0.30s; }
-    .user-card:nth-child(7)  { animation-delay: 0.35s; }
-    .user-card:nth-child(8)  { animation-delay: 0.40s; }
+    .user-card:nth-child(1) { animation-delay: 0.05s; }
+    .user-card:nth-child(2) { animation-delay: 0.10s; }
+    .user-card:nth-child(3) { animation-delay: 0.15s; }
+    .user-card:nth-child(4) { animation-delay: 0.20s; }
+    .user-card:nth-child(5) { animation-delay: 0.25s; }
+    .user-card:nth-child(6) { animation-delay: 0.30s; }
+    .user-card:nth-child(7) { animation-delay: 0.35s; }
+    .user-card:nth-child(8) { animation-delay: 0.40s; }
 
     @media (max-width: 760px) {
       .header { padding: 0 20px; }
@@ -477,7 +386,7 @@
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ══════════ LOGIN ══════════ -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
@@ -497,7 +406,7 @@
   </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- ══════════ DASHBOARD ══════════ -->
 <div id="dashboard">
   <header class="header">
     <div class="header-brand">
@@ -533,7 +442,7 @@
   <footer class="footer">© 2025 Beseen · Confidential Admin Dashboard</footer>
 </div>
 
-<!-- LIGHTBOX -->
+<!-- ══════════ LIGHTBOX ══════════ -->
 <div id="lightbox">
   <button id="lightbox-close">×</button>
   <img id="lightbox-img" src="" alt="Skin photo" />
@@ -549,26 +458,26 @@
   const DASHBOARD_PWD = '2810';
   const TABLE_NAME    = 'submissions';
 
-  /* ── Supabase ── */
+  /* ── Single Supabase client ── */
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  /* ── DOM ── */
-  const loginScreen  = document.getElementById('login-screen');
-  const dashboard    = document.getElementById('dashboard');
-  const pwdInput     = document.getElementById('pwd-input');
-  const loginBtn     = document.getElementById('login-btn');
-  const loginError   = document.getElementById('login-error');
-  const errorMsg     = document.getElementById('error-msg');
-  const logoutBtn    = document.getElementById('logout-btn');
-  const contentArea  = document.getElementById('content-area');
-  const countDisplay = document.getElementById('count-display');
-  const lightbox     = document.getElementById('lightbox');
-  const lightboxImg  = document.getElementById('lightbox-img');
+  /* ── DOM refs ── */
+  const loginScreen   = document.getElementById('login-screen');
+  const dashboard     = document.getElementById('dashboard');
+  const pwdInput      = document.getElementById('pwd-input');
+  const loginBtn      = document.getElementById('login-btn');
+  const loginError    = document.getElementById('login-error');
+  const errorMsg      = document.getElementById('error-msg');
+  const logoutBtn     = document.getElementById('logout-btn');
+  const contentArea   = document.getElementById('content-area');
+  const countDisplay  = document.getElementById('count-display');
+  const lightbox      = document.getElementById('lightbox');
+  const lightboxImg   = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
 
   /* ── Lightbox ── */
   lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
 
   function openLightbox(src) {
     lightboxImg.src = src;
@@ -577,8 +486,7 @@
 
   /* ── Auth ── */
   function attemptLogin() {
-    const val = pwdInput.value.trim();
-    if (val === DASHBOARD_PWD) {
+    if (pwdInput.value.trim() === DASHBOARD_PWD) {
       loginScreen.style.display = 'none';
       dashboard.classList.add('visible');
       loadSubmissions();
@@ -593,12 +501,12 @@
   }
 
   loginBtn.addEventListener('click', attemptLogin);
-  pwdInput.addEventListener('keydown', function (e) {
+  pwdInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') attemptLogin();
-    if (loginError.classList.contains('visible')) loginError.classList.remove('visible');
+    loginError.classList.remove('visible');
   });
 
-  logoutBtn.addEventListener('click', function () {
+  logoutBtn.addEventListener('click', () => {
     dashboard.classList.remove('visible');
     loginScreen.style.display = 'flex';
     pwdInput.value = '';
@@ -614,64 +522,62 @@
         .from(TABLE_NAME)
         .select('*')
         .order('created_at', { ascending: false });
+
       if (error) throw error;
       if (!data || data.length === 0) { renderEmpty(); return; }
+
       countDisplay.textContent = data.length;
       renderCards(data);
     } catch (err) {
+      console.error('loadSubmissions error:', err);
       renderError(err.message || 'Could not reach Supabase.');
     }
   }
 
   /* ── State Renderers ── */
   function renderLoading() {
-    contentArea.innerHTML = `<div class="state-box"><div class="state-icon loading">✦</div><h3>Fetching Profiles</h3><p>Connecting to Supabase and loading submissions…</p></div>`;
+    contentArea.innerHTML = '<div class="state-box"><div class="state-icon loading">✦</div><h3>Fetching Profiles</h3><p>Connecting to Supabase and loading submissions…</p></div>';
   }
 
   function renderEmpty() {
     countDisplay.textContent = '0';
-    contentArea.innerHTML = `<div class="state-box"><div class="state-icon empty">🌿</div><h3>No Submissions Yet</h3><p>Once clients complete the questionnaire, their profiles will appear here.</p></div>`;
+    contentArea.innerHTML = '<div class="state-box"><div class="state-icon empty">🌿</div><h3>No Submissions Yet</h3><p>Once clients complete the questionnaire, their profiles will appear here.</p></div>';
   }
 
   function renderError(msg) {
-    contentArea.innerHTML = `<div class="state-box"><div class="state-icon error">⚠</div><h3>Connection Error</h3><p>${sanitize(msg)}</p></div>`;
+    contentArea.innerHTML = '<div class="state-box"><div class="state-icon error">⚠</div><h3>Connection Error</h3><p>' + sanitize(msg) + '</p></div>';
   }
 
   /* ── Cards ── */
   function renderCards(rows) {
     const grid = document.createElement('div');
     grid.className = 'cards-grid';
-    rows.forEach(function (row, index) { grid.appendChild(buildCard(row, index)); });
+    rows.forEach((row, index) => grid.appendChild(buildCard(row, index)));
     contentArea.innerHTML = '';
     contentArea.appendChild(grid);
   }
 
   /* ── Skin Score ── */
-  function calculateSkinScore(data) {
+  function calculateSkinScore(concerns, sleep, water, stress, skinType) {
     let score = 100;
-    const concernsStr = (Array.isArray(data.concerns) ? data.concerns.join(' ') : String(data.concerns || '')).toLowerCase();
+    const cStr = (Array.isArray(concerns) ? concerns.join(' ') : String(concerns || '')).toLowerCase();
 
-    if (concernsStr.includes('acne')) score -= 15;
-    if (concernsStr.includes('breakout')) score -= 10;
-    if (concernsStr.includes('pigment')) score -= 12;
-    if (concernsStr.includes('pore')) score -= 8;
-    if (concernsStr.includes('sensitiv') || concernsStr.includes('redness')) score -= 7;
-    if (concernsStr.includes('fine line') || concernsStr.includes('wrinkle')) score -= 6;
-    if (concernsStr.includes('oilin')) score -= 5;
-    if (concernsStr.includes('dryness') || concernsStr.includes('dehydrat')) score -= 5;
+    if (cStr.includes('acne'))            score -= 15;
+    if (cStr.includes('breakout'))        score -= 10;
+    if (cStr.includes('pigment'))         score -= 12;
+    if (cStr.includes('pore'))            score -= 8;
+    if (cStr.includes('sensitiv') || cStr.includes('redness')) score -= 7;
+    if (cStr.includes('fine line'))       score -= 6;
+    if (cStr.includes('oilin'))           score -= 5;
+    if (cStr.includes('dryness') || cStr.includes('dehydrat')) score -= 5;
 
-    const sleep = String(data.sleep || '').toLowerCase();
-    const water = String(data.water || '').toLowerCase();
-    const stress = String(data.stress || '').toLowerCase();
-    const skinType = String(data.skinType || data.skin_type || '').toLowerCase();
+    if (String(sleep || '').toLowerCase().includes('poor'))    score -= 10;
+    if (String(water || '').toLowerCase().includes('low'))     score -= 8;
+    if (String(stress || '').toLowerCase().includes('high'))   score -= 10;
+    if (String(skinType || '').toLowerCase() === 'oily')       score -= 5;
+    if (String(skinType || '').toLowerCase() === 'sensitive')  score -= 7;
 
-    if (sleep.includes('poor')) score -= 10;
-    if (water.includes('low')) score -= 8;
-    if (stress.includes('high')) score -= 10;
-    if (skinType === 'oily') score -= 5;
-    if (skinType === 'sensitive') score -= 7;
-
-    return Math.max(score, 40);
+    return Math.min(100, Math.max(40, score));
   }
 
   function scoreClass(score) {
@@ -680,124 +586,144 @@
     return 'score-low';
   }
 
+  /* ── Build Card ── */
   function buildCard(row, index) {
-    const name      = val(row.name || row.full_name);
-    const age       = val(row.age);
-    const gender    = val(row.gender);
-    const city      = val(row.city || row.location);
-    const skinType  = val(row.skin_type || row.skintype || row.skin);
-    const concerns  = parseConcerns(row.concerns || row.skin_concerns || row.issues);
-    const sleep     = val(row.sleep || row.sleep_hours);
-    const water     = val(row.water || row.water_intake);
-    const stress    = val(row.stress || row.stress_level);
-    const dateStr   = row.created_at ? formatDate(row.created_at) : null;
-   const images    = parseImages(row.images);
+    const name     = val(row.name || row.full_name);
+    const age      = val(row.age);
+    const gender   = val(row.gender);
+    const city     = val(row.city || row.location);
+    const skinType = val(row.skin_type || row.skintype || row.skin);
+    const concerns = parseConcerns(row.concerns || row.skin_concerns);
+    const sleep    = val(row.sleep);
+    const water    = val(row.water);
+    const stress   = val(row.stress);
+    const diet     = val(row.diet);
+    const routine  = val(row.routine);
+    const history  = val(row.history);
+    const dateStr  = row.created_at ? formatDate(row.created_at) : null;
+
     const structured = {
       front:   row.front_image   || null,
       left:    row.left_image    || null,
       right:   row.right_image   || null,
       concern: row.concern_image || null
     };
-    const hasStructured = structured.front || structured.left || structured.right || structured.concern;
+    const legacyImages = parseImages(row.images);
+    const hasImages    = structured.front || structured.left || structured.right || structured.concern || legacyImages.length > 0;
 
-    const initials  = getInitials(name);
-    const skinScore = calculateSkinScore({ concerns, sleep, water, stress, skinType });
+    const skinScore = calculateSkinScore(concerns, sleep, water, stress, skinType);
     const sClass    = scoreClass(skinScore);
-
-    const card = document.createElement('div');
-    card.className = 'user-card';
-    card.id = 'card-' + index;
+    const initials  = getInitials(name);
 
     const LABELS = { front: 'Front', left: 'Left', right: 'Right', concern: 'Close-up' };
 
-    const imagesHtml = hasStructured
-      ? Object.entries(structured)
-          .filter(([, url]) => !!url)
-          .map(([type, url]) =>
-            `<div class="img-cell">
-               <img src="${sanitize(url)}" class="preview-img client-img" data-src="${sanitize(url)}" alt="${LABELS[type]}" loading="lazy" />
-               <div class="img-label">${LABELS[type]}</div>
-             </div>`)
-          .join('')
-      : images.length > 0
-        ? images.map(u => `<div class="img-cell"><img src="${sanitize(u)}" class="preview-img client-img" data-src="${sanitize(u)}" alt="Skin photo" loading="lazy" /></div>`).join('')
-        : '<div class="img-placeholder">No photos</div>';
+    // Build image HTML
+    let imagesHtml = '';
+    if (structured.front || structured.left || structured.right || structured.concern) {
+      Object.entries(structured).forEach(([type, url]) => {
+        if (url) {
+          imagesHtml +=
+            '<div class="img-cell">' +
+              '<img src="' + sanitize(url) + '" class="client-img" data-src="' + sanitize(url) + '" alt="' + LABELS[type] + '" loading="lazy" />' +
+              '<div class="img-label">' + LABELS[type] + '</div>' +
+            '</div>';
+        }
+      });
+    } else if (legacyImages.length > 0) {
+      legacyImages.forEach(u => {
+        imagesHtml +=
+          '<div class="img-cell">' +
+            '<img src="' + sanitize(u) + '" class="client-img" data-src="' + sanitize(u) + '" alt="Skin photo" loading="lazy" />' +
+          '</div>';
+      });
+    } else {
+      imagesHtml = '<div class="img-placeholder">No photos uploaded</div>';
+    }
 
-    card.innerHTML = `
-      <div class="card-header">
-        <div class="card-avatar">${initials}</div>
-        <div class="card-name-block">
-          <div class="card-name">${sanitize(name)}</div>
-          <div class="card-meta">
-            ${skinType !== '—' ? `<span class="meta-tag type">${sanitize(skinType)}</span>` : ''}
-            ${age !== '—' ? `<span class="meta-tag date">${sanitize(age)} yrs</span>` : ''}
-          </div>
-          ${dateStr ? `<div class="card-date">${dateStr}</div>` : ''}
-        </div>
-        <div class="score-badge ${sClass}">
-          <div class="score-num">${skinScore}</div>
-          <div class="score-label">/ 100</div>
-        </div>
-      </div>
+    const card = document.createElement('div');
+    card.className = 'user-card';
 
-      <div class="card-body">
-        <div class="info-section">
-          <div class="section-label">Profile</div>
-          <div class="info-grid">
-            <div class="info-item"><div class="key">Gender</div><div class="val">${sanitize(gender)}</div></div>
-            <div class="info-item"><div class="key">City</div><div class="val">${sanitize(city)}</div></div>
-            <div class="info-item"><div class="key">Age</div><div class="val">${sanitize(age)}</div></div>
-            <div class="info-item"><div class="key">Skin Type</div><div class="val">${sanitize(skinType)}</div></div>
-          </div>
-        </div>
+    card.innerHTML =
+      '<div class="card-header">' +
+        '<div class="card-avatar">' + initials + '</div>' +
+        '<div class="card-name-block">' +
+          '<div class="card-name">' + sanitize(name) + '</div>' +
+          '<div class="card-meta">' +
+            (skinType !== '—' ? '<span class="meta-tag type">' + sanitize(skinType) + '</span>' : '') +
+            (age !== '—' ? '<span class="meta-tag date">' + sanitize(age) + ' yrs</span>' : '') +
+          '</div>' +
+          (dateStr ? '<div class="card-date">' + dateStr + '</div>' : '') +
+        '</div>' +
+        '<div class="score-badge ' + sClass + '">' +
+          '<div class="score-num">' + skinScore + '</div>' +
+          '<div class="score-label">/ 100</div>' +
+        '</div>' +
+      '</div>' +
 
-        ${concerns.length > 0 ? `
-        <div class="info-section">
-          <div class="section-label">Concerns</div>
-          <div class="concerns-wrap">
-            ${concerns.map(c => `<span class="concern-chip">${sanitize(c)}</span>`).join('')}
-          </div>
-        </div>` : ''}
+      '<div class="card-body">' +
+        '<div class="info-section">' +
+          '<div class="section-label">Profile</div>' +
+          '<div class="info-grid">' +
+            '<div class="info-item"><div class="key">Gender</div><div class="val">' + sanitize(gender) + '</div></div>' +
+            '<div class="info-item"><div class="key">City</div><div class="val">' + sanitize(city) + '</div></div>' +
+            '<div class="info-item"><div class="key">Age</div><div class="val">' + sanitize(age) + '</div></div>' +
+            '<div class="info-item"><div class="key">Skin Type</div><div class="val">' + sanitize(skinType) + '</div></div>' +
+          '</div>' +
+        '</div>' +
 
-        <div class="info-section">
-          <div class="section-label">Lifestyle</div>
-          <div class="lifestyle-row">
-            <div class="ls-item"><div class="key">Sleep</div><div class="val">${sanitize(sleep)}</div></div>
-            <div class="ls-item"><div class="key">Water</div><div class="val">${sanitize(water)}</div></div>
-            <div class="ls-item"><div class="key">Stress</div><div class="val">${sanitize(stress)}</div></div>
-          </div>
-        </div>
+        (concerns.length > 0 ?
+          '<div class="info-section">' +
+            '<div class="section-label">Concerns</div>' +
+            '<div class="concerns-wrap">' +
+              concerns.map(c => '<span class="concern-chip">' + sanitize(c) + '</span>').join('') +
+            '</div>' +
+          '</div>' : '') +
 
-       ${(hasStructured || images.length > 0) ? `
-        <div class="info-section">
-          <div class="section-label">Skin Photos</div>
-          <div class="structured-imgs">${imagesHtml}</div>
-        </div>` : ''}
-      </div>
+        '<div class="info-section">' +
+          '<div class="section-label">Lifestyle</div>' +
+          '<div class="lifestyle-row">' +
+            '<div class="ls-item"><div class="key">Sleep</div><div class="val">' + sanitize(sleep) + '</div></div>' +
+            '<div class="ls-item"><div class="key">Water</div><div class="val">' + sanitize(water) + '</div></div>' +
+            '<div class="ls-item"><div class="key">Stress</div><div class="val">' + sanitize(stress) + '</div></div>' +
+          '</div>' +
+        '</div>' +
 
-      <div class="card-footer">
-        <button class="gen-btn" data-idx="${index}">✦ Generate AI Prompt</button>
-        <div class="prompt-box" id="prompt-${index}">
-          <div class="prompt-box-header">
-            <span>AI Skincare Prompt</span>
-            <button class="copy-btn" data-idx="${index}">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              Copy
-            </button>
-          </div>
-          <div class="prompt-text" id="prompt-text-${index}"></div>
-        </div>
-      </div>
-    `;
+        '<div class="info-section">' +
+          '<div class="section-label">Skin Photos</div>' +
+          '<div class="structured-imgs">' + imagesHtml + '</div>' +
+        '</div>' +
+      '</div>' +
 
-card._rowData = { name, age, gender, city, skinType, concerns, sleep, water, stress, images, structured, skinScore };
+      '<div class="card-footer">' +
+        '<button class="gen-btn" data-index="' + index + '">✦ Generate AI Prompt</button>' +
+        '<div class="prompt-box" id="prompt-box-' + index + '">' +
+          '<div class="prompt-box-header">' +
+            '<span>AI Skincare Prompt</span>' +
+            '<button class="copy-btn" data-index="' + index + '">' +
+              '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+              ' Copy' +
+            '</button>' +
+          '</div>' +
+          '<div class="prompt-text" id="prompt-text-' + index + '"></div>' +
+        '</div>' +
+      '</div>';
 
-    card.querySelector('.gen-btn').addEventListener('click', function () { generatePrompt(card, index); });
-    card.querySelector('.copy-btn').addEventListener('click', function () { copyPrompt(index, card.querySelector('.copy-btn')); });
+    // Store data on element for prompt generation
+    card._data = { name, age, gender, city, skinType, concerns, sleep, water, stress, diet, routine, history, skinScore, structured, legacyImages };
 
-    // Lightbox on images
-    card.querySelectorAll('.client-img').forEach(function (img) {
-      img.addEventListener('click', function () { openLightbox(img.dataset.src); });
+    // Event: generate prompt
+    card.querySelector('.gen-btn').addEventListener('click', () => {
+      generatePrompt(card, index);
+    });
+
+    // Event: copy prompt
+    card.querySelector('.copy-btn').addEventListener('click', () => {
+      copyPrompt(index, card.querySelector('.copy-btn'));
+    });
+
+    // Event: lightbox on images
+    card.querySelectorAll('.client-img').forEach(img => {
+      img.addEventListener('click', () => openLightbox(img.dataset.src));
     });
 
     return card;
@@ -805,116 +731,105 @@ card._rowData = { name, age, gender, city, skinType, concerns, sleep, water, str
 
   /* ── Prompt Generation ── */
   function generatePrompt(card, index) {
-    const d = card._rowData;
-    const concernsStr = d.concerns.length > 0 ? d.concerns.join(', ') : '—';
-function buildPromptText(name, age, gender, city, skinType, concerns, sleep, water, stress, images, skinScore, structured) {
-    const promptBox  = document.getElementById('prompt-' + index);
+    const d = card._data;
+    const promptBox  = document.getElementById('prompt-box-' + index);
     const promptText = document.getElementById('prompt-text-' + index);
     const genBtn     = card.querySelector('.gen-btn');
 
-    promptText.textContent = prompt;
+    const text = buildPromptText(d);
+
+    promptText.textContent = text;
     promptBox.classList.add('visible');
     genBtn.textContent = '✦ Regenerate Prompt';
     promptBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  function buildPromptText(name, age, gender, city, skinType, concerns, sleep, water, stress, images, skinScore) {
-const s = structured || {};
-    const imageLines = [
-      s.front   ? 'Front:   ' + s.front   : null,
-      s.left    ? 'Left:    ' + s.left    : null,
-      s.right   ? 'Right:   ' + s.right   : null,
-      s.concern ? 'Close-up: ' + s.concern : null
-    ].filter(Boolean);
-    const imageSection = imageLines.length > 0
-      ? 'CLIENT IMAGES:\n' + imageLines.join('\n')
-      : images && images.length > 0
-        ? 'CLIENT IMAGES:\n' + images.join('\n')
-        : 'CLIENT IMAGES:\nNo images uploaded';      ? 'CLIENT IMAGES:\n' + images.join('\n')
+  function buildPromptText(d) {
+    const name      = d.name      || '—';
+    const age       = d.age       || '—';
+    const gender    = d.gender    || '—';
+    const city      = d.city      || '—';
+    const skinType  = d.skinType  || '—';
+    const concerns  = Array.isArray(d.concerns) && d.concerns.length > 0 ? d.concerns.join(', ') : '—';
+    const sleep     = d.sleep     || '—';
+    const water     = d.water     || '—';
+    const stress    = d.stress    || '—';
+    const diet      = d.diet      || '—';
+    const routine   = d.routine   || '—';
+    const history   = d.history   || '—';
+    const skinScore = d.skinScore || '—';
 
-    return `You are a top-tier dermatologist creating a PAID skincare plan.
+    // Build image section
+    const s = d.structured || {};
+    const imageLines = [];
+    if (s.front)   imageLines.push('Front:    ' + s.front);
+    if (s.left)    imageLines.push('Left:     ' + s.left);
+    if (s.right)   imageLines.push('Right:    ' + s.right);
+    if (s.concern) imageLines.push('Close-up: ' + s.concern);
 
-IMPORTANT:
-Your output will be sent DIRECTLY to the client.
-It must be:
-- concise
-- structured
-- actionable
-- premium
-- NO fluff
-- NO long explanations
+    let imageSection;
+    if (imageLines.length > 0) {
+      imageSection = 'CLIENT IMAGES:\n' + imageLines.join('\n');
+    } else if (d.legacyImages && d.legacyImages.length > 0) {
+      imageSection = 'CLIENT IMAGES:\n' + d.legacyImages.join('\n');
+    } else {
+      imageSection = 'CLIENT IMAGES:\nNo images uploaded';
+    }
 
-━━━━━━━━━━━━━━━━━━━━━━━
-CLIENT PROFILE
-━━━━━━━━━━━━━━━━━━━━━━━
-Name: ${name}
-Age: ${age}
-Gender: ${gender}
-City: ${city}
-Skin Type: ${skinType}
-Concerns: ${concerns}
-Sleep: ${sleep}
-Water: ${water}
-Stress: ${stress}
-
-━━━━━━━━━━━━━━━━━━━━━━━
-OUTPUT FORMAT (STRICT)
-━━━━━━━━━━━━━━━━━━━━━━━
-
-SKIN SCORE: ${skinScore}/100
-
-MAIN ISSUES:
-(List top 3 problems only)
-
----
-
-MORNING ROUTINE (MAX 4 STEPS):
-Step 1:
-Step 2:
-Step 3:
-Step 4 (optional):
-
----
-
-NIGHT ROUTINE:
-Step 1:
-Step 2:
-Step 3:
-
-(If needed, include alternating routine like retinol days)
-
----
-
-KEY INGREDIENTS:
-(List 4–6 only, short reason each)
-
----
-
-WHAT TO AVOID:
-(List 4–6 things)
-
----
-
-WHY YOUR SKIN IS LIKE THIS:
-(2–3 lines MAX, simple explanation)
-
----
-
-EXPECTED RESULTS:
-(Acne timeline, pigmentation timeline, realistic expectations)
-
-━━━━━━━━━━━━━━━━━━━━━━━
-${imageSection}
-━━━━━━━━━━━━━━━━━━━━━━━
-
-RULES
-━━━━━━━━━━━━━━━━━━━━━━━
-- NO long paragraphs
-- NO unnecessary explanation
-- Keep it sharp and premium
-- Every line must add value
-- This should feel like a paid expert prescription
-`;
+    return 'You are a top-tier dermatologist creating a PAID skincare plan.\n\n' +
+      'IMPORTANT:\n' +
+      'Your output will be sent DIRECTLY to the client.\n' +
+      'It must be concise, structured, actionable, premium — NO fluff.\n\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'CLIENT PROFILE\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Name:      ' + name     + '\n' +
+      'Age:       ' + age      + '\n' +
+      'Gender:    ' + gender   + '\n' +
+      'City:      ' + city     + '\n' +
+      'Skin Type: ' + skinType + '\n' +
+      'Concerns:  ' + concerns + '\n' +
+      'Sleep:     ' + sleep    + '\n' +
+      'Water:     ' + water    + '\n' +
+      'Stress:    ' + stress   + '\n' +
+      'Diet:      ' + diet     + '\n' +
+      'Routine:   ' + routine  + '\n' +
+      'History:   ' + history  + '\n\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'OUTPUT FORMAT (STRICT)\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+      'SKIN SCORE: ' + skinScore + '/100\n\n' +
+      'MAIN ISSUES:\n(List top 3 problems only)\n\n' +
+      '---\n\n' +
+      'MORNING ROUTINE (MAX 4 STEPS):\n' +
+      'Step 1:\nStep 2:\nStep 3:\nStep 4 (optional):\n\n' +
+      '---\n\n' +
+      'AFTERNOON ROUTINE (2–3 STEPS):\n' +
+      'Step 1:\nStep 2:\n\n' +
+      '---\n\n' +
+      'NIGHT ROUTINE:\n' +
+      'Step 1:\nStep 2:\nStep 3:\n\n' +
+      '---\n\n' +
+      'PRE-SLEEP:\n' +
+      'Step 1:\nStep 2:\n\n' +
+      '---\n\n' +
+      'KEY INGREDIENTS:\n(List 4–6, with short reason each)\n\n' +
+      '---\n\n' +
+      'WHAT TO AVOID:\n(List 4–6 things specific to this profile)\n\n' +
+      '---\n\n' +
+      'WHY YOUR SKIN IS LIKE THIS:\n(2–3 lines MAX, simple explanation)\n\n' +
+      '---\n\n' +
+      'EXPECTED RESULTS:\n(Acne timeline, pigmentation timeline, realistic expectations)\n\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      imageSection + '\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+      'RULES\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      '- NO long paragraphs\n' +
+      '- Keep it sharp and premium\n' +
+      '- Every line must add value\n' +
+      '- This should feel like a paid expert prescription\n' +
+      '- Greet the client by first name';
   }
 
   /* ── Copy to Clipboard ── */
@@ -922,30 +837,43 @@ RULES
     const textEl = document.getElementById('prompt-text-' + index);
     if (!textEl || !textEl.textContent.trim()) return;
 
-    navigator.clipboard.writeText(textEl.textContent).then(function () {
-      btn.classList.add('copied');
-      btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied`;
-      setTimeout(function () {
-        btn.classList.remove('copied');
-        btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
-      }, 2200);
-    }).catch(function () {
-      const ta = document.createElement('textarea');
-      ta.value = textEl.textContent;
-      ta.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      btn.textContent = '✓ Copied';
-      setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
-    });
+    const text = textEl.textContent;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => flashCopied(btn)).catch(() => fallbackCopy(text, btn));
+    } else {
+      fallbackCopy(text, btn);
+    }
+  }
+
+  function fallbackCopy(text, btn) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); flashCopied(btn); } catch (e) { console.error('Copy failed', e); }
+    document.body.removeChild(ta);
+  }
+
+  function flashCopied(btn) {
+    btn.classList.add('copied');
+    btn.innerHTML =
+      '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>' +
+      ' Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML =
+        '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+        ' Copy';
+    }, 2200);
   }
 
   /* ── Helpers ── */
   function val(v) {
     if (v === null || v === undefined || v === '') return '—';
-    return String(v).trim() || '—';
+    const s = String(v).trim();
+    return s || '—';
   }
 
   function parseConcerns(raw) {
@@ -960,8 +888,7 @@ RULES
     if (typeof raw === 'string') {
       try {
         const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) return parsed.filter(Boolean);
-        return [];
+        return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
       } catch (_) { return []; }
     }
     return [];
@@ -976,19 +903,15 @@ RULES
 
   function formatDate(iso) {
     try {
-      const d = new Date(iso);
-      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     } catch (_) { return null; }
   }
 
   function sanitize(str) {
     if (!str || str === '—') return '—';
     return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
 })();
