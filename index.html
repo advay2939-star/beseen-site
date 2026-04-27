@@ -111,22 +111,6 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .tcard-meta{font-size:11px;color:var(--g500);display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px}
 .tcard-badge{background:var(--accent-l);color:var(--accent);font-size:10px;font-weight:500;padding:1px 7px;border-radius:4px;letter-spacing:.04em}
 
-/* ── BEFORE/AFTER ── */
-.before-after{padding:88px 0;background:var(--white)}
-.ba-header{text-align:center;margin-bottom:52px}
-.ba-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto}
-.ba-card{border-radius:var(--rl);overflow:hidden;box-shadow:var(--shadow-c);transition:transform .32s cubic-bezier(.25,.1,.25,1),box-shadow .32s ease;cursor:default}
-.ba-card:hover{transform:translateY(-5px) scale(1.012);box-shadow:var(--shadow-l)}
-.ba-images{display:grid;grid-template-columns:1fr 1fr;height:210px}
-.ba-half{position:relative;overflow:hidden}
-.ba-pholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px}
-.ba-pholder.before{background:linear-gradient(160deg,#d8cec8 0%,#c4b8b0 100%)}
-.ba-pholder.after{background:linear-gradient(160deg,#b5d0c9 0%,#3d6b5e 100%)}
-.ba-label{position:absolute;top:8px;left:8px;background:rgba(10,10,10,.62);color:var(--white);font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:4px;backdrop-filter:blur(4px)}
-.ba-info{background:var(--white);padding:14px 16px;border-top:1px solid var(--g100)}
-.ba-person{font-size:13px;font-weight:500;color:var(--black)}
-.ba-result{font-size:11.5px;color:var(--g500);margin-top:3px}
-
 /* ── HOW ── */
 .how{padding:96px 0}
 .how-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
@@ -179,6 +163,91 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .s-card strong{display:block;font-size:13px;font-weight:500;color:var(--black)}
 .s-card span{font-size:11.5px;color:var(--g500)}
 .unlock-banner{background:var(--accent-l);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--accent);font-weight:500;margin-top:16px}
+
+/* ── REAL RESULTS (BEFORE/AFTER) ── */
+.before-after{padding:88px 0;background:var(--white)}
+.ba-header{text-align:center;margin-bottom:52px}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  max-width:960px;
+  margin:0 auto;
+}
+
+.result-card{
+  border-radius:var(--rl);
+  overflow:hidden;
+  box-shadow:var(--shadow-c);
+  background:var(--white);
+  transition:transform .32s cubic-bezier(.25,.1,.25,1),box-shadow .32s ease;
+  cursor:default;
+}
+
+.result-card:hover{
+  transform:translateY(-5px) scale(1.012);
+  box-shadow:var(--shadow-l);
+}
+
+.image-container{
+  display:flex;
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--rl) var(--rl) 0 0;
+  height:220px;
+}
+
+.image-container img{
+  width:50%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  flex-shrink:0;
+  transition:transform 0.4s ease;
+}
+
+.result-card:hover .image-container img{
+  transform:scale(1.03);
+}
+
+.label{
+  position:absolute;
+  top:10px;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.06em;
+  padding:4px 9px;
+  border-radius:6px;
+  background:rgba(0,0,0,0.58);
+  color:#fff;
+  backdrop-filter:blur(4px);
+  pointer-events:none;
+  z-index:2;
+  text-transform:uppercase;
+}
+
+.before-label{left:10px;}
+.after-label{right:10px;}
+
+.result-info{
+  padding:14px 16px;
+  border-top:1px solid var(--g100);
+}
+
+.result-info h4{
+  font-size:13px;
+  font-weight:500;
+  color:var(--black);
+  margin-bottom:4px;
+  line-height:1.4;
+}
+
+.result-info p{
+  font-size:11.5px;
+  color:var(--g500);
+  font-weight:300;
+}
 
 /* ── FAQ ── */
 .faq-section{padding:88px 0;background:var(--g50);border-top:1px solid var(--g200)}
@@ -394,7 +463,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 @media(max-width:1024px){
   .how-inner{grid-template-columns:1fr;gap:40px}
   .photo-slots{grid-template-columns:repeat(3,1fr)}
-  .ba-grid{grid-template-columns:repeat(2,1fr)}
+  .results-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   .nav-center{display:none}
@@ -405,8 +474,9 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .stat-item{padding:20px 28px}
   .stat-divider{width:80%;height:1px}
   .stats-inner{flex-direction:column}
-  .ba-grid{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
   .nav-cta{font-size:11.5px;padding:7px 14px}
+  .image-container{height:200px}
 }
 </style>
 </head>
@@ -667,7 +737,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
 </section>
 
-<!-- BEFORE / AFTER -->
+<!-- ══════════ REAL RESULTS (BEFORE / AFTER) ══════════ -->
 <section class="before-after" id="results">
   <div class="container">
     <div class="ba-header">
@@ -675,61 +745,49 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <h2 class="section-title fu d1">See the <em>transformation</em> for yourself.</h2>
       <p class="fu d2" style="font-size:14px;color:var(--g500);margin-top:10px;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto">Real customers, real photos, real skin. No filters. No editing. Just honest progress over 21–30 days.</p>
     </div>
-    <div class="ba-grid" style="margin-top:40px">
 
-      <div class="ba-card fu d1">
-        <div class="ba-images">
-          <div class="ba-half">
-            <div class="ba-pholder before">😐</div>
-            <div class="ba-label">Before</div>
-          </div>
-          <div class="ba-half">
-            <div class="ba-pholder after">✨</div>
-            <div class="ba-label">After</div>
-          </div>
+    <div class="results-grid" style="margin-top:40px">
+
+      <div class="result-card fu d1">
+        <div class="image-container">
+          <img src="images/priya-before.jpg" class="before-img" alt="Priya before treatment">
+          <img src="images/priya-after.jpg" class="after-img" alt="Priya after treatment">
+          <span class="label before-label">Before</span>
+          <span class="label after-label">After</span>
         </div>
-        <div class="ba-info">
-          <div class="ba-person">Priya M., 24 — Acne & Pigmentation</div>
-          <div class="ba-result">Visible clearing in 21 days · Mumbai</div>
+        <div class="result-info">
+          <h4>Priya M., 24 — Acne &amp; Pigmentation</h4>
+          <p>Visible clearing in 21 days · Mumbai</p>
         </div>
       </div>
 
-      <div class="ba-card fu d2">
-        <div class="ba-images">
-          <div class="ba-half">
-            <div class="ba-pholder before">😐</div>
-            <div class="ba-label">Before</div>
-          </div>
-          <div class="ba-half">
-            <div class="ba-pholder after">✨</div>
-            <div class="ba-label">After</div>
-          </div>
+      <div class="result-card fu d2">
+        <div class="image-container">
+          <img src="images/kabir-before.jpg" class="before-img" alt="Kabir before treatment">
+          <img src="images/kabir-after.jpg" class="after-img" alt="Kabir after treatment">
+          <span class="label before-label">Before</span>
+          <span class="label after-label">After</span>
         </div>
-        <div class="ba-info">
-          <div class="ba-person">Kabir M., 29 — Dark Spots</div>
-          <div class="ba-result">Significantly faded in 28 days · Pune</div>
+        <div class="result-info">
+          <h4>Kabir M., 29 — Dark Spots</h4>
+          <p>Significantly faded in 28 days · Pune</p>
         </div>
       </div>
 
-      <div class="ba-card fu d3">
-        <div class="ba-images">
-          <div class="ba-half">
-            <div class="ba-pholder before">😐</div>
-            <div class="ba-label">Before</div>
-          </div>
-          <div class="ba-half">
-            <div class="ba-pholder after">✨</div>
-            <div class="ba-label">After</div>
-          </div>
+      <div class="result-card fu d3">
+        <div class="image-container">
+          <img src="images/simran-before.jpg" class="before-img" alt="Simran before treatment">
+          <img src="images/simran-after.jpg" class="after-img" alt="Simran after treatment">
+          <span class="label before-label">Before</span>
+          <span class="label after-label">After</span>
         </div>
-        <div class="ba-info">
-          <div class="ba-person">Simran K., 21 — Sensitivity & Redness</div>
-          <div class="ba-result">Calm and balanced in 14 days · Delhi</div>
+        <div class="result-info">
+          <h4>Simran K., 21 — Sensitivity &amp; Redness</h4>
+          <p>Calm and balanced in 14 days · Delhi</p>
         </div>
       </div>
 
     </div>
-    <p class="fu" style="text-align:center;font-size:11.5px;color:var(--g500);margin-top:24px">Placeholder images shown — real results vary per skin type. AI image prompts available for content team.</p>
   </div>
 </section>
 
@@ -1085,7 +1143,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
     <div class="payment-grid">
 
-      <!-- LEFT: Dermatologist Card -->
       <div class="payment-derm-card">
         <div class="derm-avatar-wrap">
           <div class="derm-avatar" id="payment-derm-avatar">S</div>
@@ -1104,7 +1161,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         </div>
       </div>
 
-      <!-- RIGHT: Pricing Block -->
       <div class="payment-price-card">
         <div class="payment-price-badge">Early Access — Limited</div>
         <div class="payment-price-orig">₹899</div>
@@ -1201,44 +1257,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
 <button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
 
-<!--
-  ═══════════════════════════════════════════
-  AI IMAGE GENERATION PROMPTS (Content Team)
-  ═══════════════════════════════════════════
-
-  BEFORE/AFTER — Male Acne:
-  "Indian male, early 20s, acne-prone skin with active breakouts, before treatment.
-  Natural window lighting, front-facing, no filters, realistic skin texture, slight oiliness,
-  clinical photography style, neutral expression, no makeup."
-
-  BEFORE/AFTER — Male Acne (After):
-  "Indian male, early 20s, same person, cleared acne with minor post-inflammatory hyperpigmentation,
-  same natural window lighting, same angle, consistent clinical photography. Visible improvement,
-  realistic skin, not plastic or retouched."
-
-  BEFORE/AFTER — Female Pigmentation:
-  "Indian female, mid-20s, visible pigmentation and dark spots around cheeks and forehead,
-  before skincare treatment. Warm natural light, front-facing, no makeup, no filters,
-  realistic skin imperfections, dermatology photography style."
-
-  BEFORE/AFTER — Female Pigmentation (After):
-  "Indian female, mid-20s, same lighting and angle, significantly reduced dark spots and
-  more even skin tone. Realistic improvement, not filtered or digitally edited, same woman."
-
-  BEFORE/AFTER — Female Sensitivity:
-  "Indian female, early 20s, visible redness and sensitivity around nose and cheeks.
-  Natural daylight, close-up front-facing portrait, no filters, real skin texture,
-  clinical consistency."
-
-  GENERAL GUIDELINE:
-  — No fake or plastic-looking skin
-  — Real visible imperfections
-  — Consistent lighting across before/after pairs
-  — Same angle, same distance, same expression
-  — Clinical, not editorial or fashion
-
--->
-
 <script>
 (function () {
   'use strict';
@@ -1298,25 +1316,18 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     let lastScrollY = 0;
     let hideTimeout = null;
 
-    function showNav() {
-      nav.classList.add('nav-visible');
-    }
-    function hideNav() {
-      nav.classList.remove('nav-visible');
-    }
+    function showNav() { nav.classList.add('nav-visible'); }
+    function hideNav() { nav.classList.remove('nav-visible'); }
 
-    // Slide down on load
     requestAnimationFrame(() => {
       setTimeout(() => {
         showNav();
-        // Auto-hide after 2.5s if user hasn't scrolled
         hideTimeout = setTimeout(() => {
           if (window.scrollY < 60) hideNav();
         }, 2500);
       }, 120);
     });
 
-    // Scroll-based show/hide
     window.addEventListener('scroll', () => {
       const currentY = window.scrollY;
       clearTimeout(hideTimeout);
@@ -1356,10 +1367,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       carousel.style.userSelect = 'none';
     });
     carousel.addEventListener('mouseleave', () => { isDragging = false; });
-    carousel.addEventListener('mouseup', () => {
-      isDragging = false;
-      carousel.style.userSelect = '';
-    });
+    carousel.addEventListener('mouseup', () => { isDragging = false; carousel.style.userSelect = ''; });
     carousel.addEventListener('mousemove', e => {
       if (!isDragging) return;
       e.preventDefault();
@@ -1386,9 +1394,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     if (timerEl) timerEl.textContent = '01:00';
     paymentTimer = setInterval(() => {
       secs = Math.max(secs - 1, 0);
-      if (timerEl) {
-        timerEl.textContent = '00:' + String(secs).padStart(2, '0');
-      }
+      if (timerEl) timerEl.textContent = '00:' + String(secs).padStart(2, '0');
       if (secs <= 0) clearInterval(paymentTimer);
     }, 1000);
   }
@@ -1396,12 +1402,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   function showPaymentPage() {
     const derm = pickDermatologist();
     assignedDermName = derm.name;
-
-    const nameEl    = document.getElementById('payment-derm-name');
-    const avatarEl  = document.getElementById('payment-derm-avatar');
+    const nameEl   = document.getElementById('payment-derm-name');
+    const avatarEl = document.getElementById('payment-derm-avatar');
     if (nameEl)   nameEl.textContent   = derm.name;
     if (avatarEl) avatarEl.textContent = derm.initial;
-
     showPage('page-payment');
     startPaymentCountdown();
   }
@@ -1450,8 +1454,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     const pct   = (currentStep / TOTAL_STEPS) * 100;
     const bar   = document.getElementById('quiz-bar');
     const label = document.getElementById('quiz-step-label');
-    if (bar)   bar.style.width     = pct + '%';
-    if (label) label.textContent   = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
+    if (bar)   bar.style.width   = pct + '%';
+    if (label) label.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
   }
 
   function showStep(step, goingBack) {
@@ -1706,8 +1710,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     await new Promise(resolve => setTimeout(resolve, 1800));
 
     if (overlay) overlay.classList.remove('show');
-
-    // NEW: Go to payment page instead of thank you
     showPaymentPage();
   }
 
@@ -1793,7 +1795,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
   /* ── Bind All Events ── */
   function bindEvents() {
-    // Navigation
     document.getElementById('hero-start-btn').addEventListener('click', startQuiz);
     document.getElementById('nav-logo').addEventListener('click', e => { e.preventDefault(); goHome(); });
     document.getElementById('nav-home').addEventListener('click', e => { e.preventDefault(); goHome(); });
@@ -1807,26 +1808,17 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       setTimeout(() => { const s = document.getElementById('pricing'); if (s) s.scrollIntoView({ behavior:'smooth' }); }, 200);
     });
 
-    // Pricing
     document.getElementById('buy-btn').addEventListener('click', handleBuyClick);
-
-    // Modal
     document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
     document.getElementById('modal-pay-btn').addEventListener('click', processPayment);
     document.getElementById('modal-checkout').addEventListener('click', e => { if (e.target.id === 'modal-checkout') closeModal(); });
-
-    // Payment page CTA
     document.getElementById('payment-cta-btn').addEventListener('click', confirmPaymentAndShowThankYou);
-
-    // Thank You back
     document.getElementById('ty-back-btn').addEventListener('click', goHome);
 
-    // Mac demo
     const macScroll = document.getElementById('mac-scroll');
     if (macScroll) macScroll.addEventListener('scroll', updateMacProgress);
     document.querySelectorAll('.chips .chip').forEach(c => c.addEventListener('click', () => toggleChip(c)));
 
-    // Smooth scroll anchors
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         const id = (a.getAttribute('href') || '').slice(1);
@@ -1835,7 +1827,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       });
     });
 
-    // Quiz option groups
     document.querySelectorAll('[data-group]').forEach(btn => {
       btn.addEventListener('click', () => {
         const step = Number(btn.closest('.quiz-step').dataset.step);
@@ -1855,7 +1846,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       btn.addEventListener('click', () => toggleHistory(btn, btn.dataset.history));
     });
 
-    // Text inputs
     document.getElementById('input-name').addEventListener('input', function() {
       formData.name = this.value.trim(); checkStepReady(1);
     });
@@ -1863,7 +1853,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       formData.city = this.value.trim(); checkStepReady(3);
     });
 
-    // Photo slots
     document.querySelectorAll('.photo-slot').forEach((slot, idx) => {
       slot.addEventListener('click', () => triggerSlot(idx));
     });
@@ -1872,27 +1861,23 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     });
     document.getElementById('front-upload-area').addEventListener('click', () => triggerSlot(0));
 
-    // Slot clear (delegated)
     document.addEventListener('click', e => {
       const btn = e.target.closest('[data-clear-slot]');
       if (btn) clearSlot(e, Number(btn.dataset.clearSlot));
     });
 
-    // Quiz back
     const backs = {'back-2':1,'back-3':2,'back-4':3,'back-5':4,'back-6':5,'back-7':6,'back-8':7,'back-9':8};
     Object.keys(backs).forEach(id => {
       const btn = document.getElementById(id);
       if (btn) btn.addEventListener('click', () => prevStep(backs[id]));
     });
 
-    // Quiz next
     const nexts = {'next-1':2,'next-2':3,'next-3':4,'next-4':5,'next-5':6,'next-6':7,'next-7':8,'next-8':9};
     Object.keys(nexts).forEach(id => {
       const btn = document.getElementById(id);
       if (btn) btn.addEventListener('click', () => nextStep(nexts[id]));
     });
 
-    // Final submit
     document.getElementById('next-9').addEventListener('click', analyseAndGo);
   }
 
@@ -1904,13 +1889,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     updateQuizBar();
     updateMacProgress();
 
-    // Intersection observer for scroll animations
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.fu').forEach(el => io.observe(el));
 
-    // Demo progress bar trigger
     const demoSection = document.querySelector('.demo-section');
     if (demoSection) {
       const macIo = new IntersectionObserver(entries => {
