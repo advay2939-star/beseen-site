@@ -1073,50 +1073,57 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   }
 
   /* ── Database Save ── */
-  async function saveToSupabase(imageData) {
-    if (!sb) { console.error('Supabase client unavailable'); return; }
-
-    const payload = {
-  name: formData.name || '',
-  age: formData.age || '',
-  gender: formData.gender || '',
-  city: formData.city || '',
-  skin_type: formData.skinType || '',
-
-  concerns: Array.isArray(formData.concerns)
-    ? formData.concerns.join(',')
-    : '',
-
-  behavior: formData.behavior || '',
-  sleep: formData.sleep || '',
-  water: formData.water || '',
-  diet: formData.diet || '',
-  stress: formData.stress || '',
-  routine: formData.routine || '',
-
-  history: Array.isArray(formData.history)
-    ? formData.history.join(',')
-    : '',
-
-  front_image: imageData.front || null,
-  left_image: imageData.left || null,
-  right_image: imageData.right || null,
-  concern_image: imageData.concern || null
-};
-console.log("PAYLOAD:", payload);
-
-    try {
-     if (error) {
-  console.error("FULL ERROR:", error);
-} else {
-  console.log("SUCCESS INSERT");
-}
-      if (error) console.error('Supabase insert failed:', error);
-    } catch (err) {
-      console.error('saveToSupabase exception:', err);
-    }
+async function saveToSupabase(imageData) {
+  if (!sb) {
+    console.error('Supabase client unavailable');
+    return;
   }
 
+  const payload = {
+    name: formData.name || '',
+    age: formData.age || '',
+    gender: formData.gender || '',
+    city: formData.city || '',
+    skin_type: formData.skinType || '',
+
+    concerns: Array.isArray(formData.concerns)
+      ? formData.concerns.join(',')
+      : '',
+
+    behavior: formData.behavior || '',
+    sleep: formData.sleep || '',
+    water: formData.water || '',
+    diet: formData.diet || '',
+    stress: formData.stress || '',
+    routine: formData.routine || '',
+
+    history: Array.isArray(formData.history)
+      ? formData.history.join(',')
+      : '',
+
+    front_image: imageData.front || null,
+    left_image: imageData.left || null,
+    right_image: imageData.right || null,
+    concern_image: imageData.concern || null
+  };
+
+  console.log("PAYLOAD:", payload);
+
+  try {
+    const { error } = await sb
+      .from('submissions')
+      .insert([payload]);
+
+    if (error) {
+      console.error("❌ SUPABASE ERROR:", error);
+    } else {
+      console.log("✅ SUCCESS INSERT");
+    }
+
+  } catch (err) {
+    console.error("🔥 saveToSupabase exception:", err);
+  }
+}
   /* ── Main Submission Flow ── */
   async function analyseAndGo() {
     if (slotFiles[0] === null) {
