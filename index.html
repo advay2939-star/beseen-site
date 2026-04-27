@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeSeen. — Personalised Skincare From Home</title>
+<link rel="icon" type="image/png" href="/favicon4.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
@@ -47,13 +48,15 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 
 .container{max-width:1120px;margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border-radius:9px;padding:13px 26px;cursor:pointer;transition:all .2s;text-decoration:none;border:none}
-.btn-primary{background:var(--black);color:var(--white)}
-.btn-primary:hover{opacity:.85;transform:translateY(-2px);box-shadow:var(--shadow-l)}
+.btn-primary{background:var(--accent);color:var(--white)}
+.btn-primary:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,107,94,.35)}
 .btn-secondary{background:transparent;border:1px solid var(--g200);color:var(--black)}
 .btn-secondary:hover{background:var(--g100);border-color:var(--g300)}
 .section-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--g500);margin-bottom:10px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;letter-spacing:-.04em;line-height:1.08}
 .section-title em{font-style:italic;color:var(--accent)}
+
+/* ── SCROLL ANIMATIONS ── */
 .fu{opacity:0;transform:translateY(32px);transition:opacity .65s cubic-bezier(.25,.1,.25,1),transform .65s cubic-bezier(.25,.1,.25,1)}
 .fu.vis{opacity:1;transform:none}
 .fu.d1{transition-delay:.08s}.fu.d2{transition-delay:.16s}.fu.d3{transition-delay:.24s}.fu.d4{transition-delay:.32s}
@@ -171,8 +174,8 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .results-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:24px;
-  max-width:960px;
+  gap:28px;
+  max-width:1000px;
   margin:0 auto;
 }
 
@@ -181,12 +184,13 @@ nav.nav-visible{transform:translateY(0);opacity:1}
   overflow:hidden;
   box-shadow:var(--shadow-c);
   background:var(--white);
-  transition:transform .32s cubic-bezier(.25,.1,.25,1),box-shadow .32s ease;
+  border:1px solid var(--g200);
+  transition:transform .35s cubic-bezier(.25,.1,.25,1),box-shadow .35s ease;
   cursor:default;
 }
 
 .result-card:hover{
-  transform:translateY(-5px) scale(1.012);
+  transform:translateY(-6px) scale(1.015);
   box-shadow:var(--shadow-l);
 }
 
@@ -194,8 +198,21 @@ nav.nav-visible{transform:translateY(0);opacity:1}
   display:flex;
   position:relative;
   overflow:hidden;
-  border-radius:var(--rl) var(--rl) 0 0;
-  height:220px;
+  height:240px;
+}
+
+/* divider line between before/after */
+.image-container::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:rgba(255,255,255,0.7);
+  transform:translateX(-50%);
+  z-index:3;
+  pointer-events:none;
 }
 
 .image-container img{
@@ -204,39 +221,70 @@ nav.nav-visible{transform:translateY(0);opacity:1}
   object-fit:cover;
   display:block;
   flex-shrink:0;
-  transition:transform 0.4s ease;
+  transition:transform 0.45s ease;
+  background:var(--g200);
+}
+
+/* Image fallback — shown when src fails */
+.image-container img.img-error{
+  background:linear-gradient(135deg, var(--g100) 0%, var(--accent-l) 100%);
 }
 
 .result-card:hover .image-container img{
-  transform:scale(1.03);
+  transform:scale(1.04);
 }
 
 .label{
   position:absolute;
   top:10px;
-  font-size:11px;
-  font-weight:500;
-  letter-spacing:.06em;
-  padding:4px 9px;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.10em;
+  padding:4px 10px;
   border-radius:6px;
-  background:rgba(0,0,0,0.58);
+  background:rgba(10,10,10,0.62);
   color:#fff;
-  backdrop-filter:blur(4px);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
   pointer-events:none;
-  z-index:2;
+  z-index:4;
   text-transform:uppercase;
 }
 
 .before-label{left:10px;}
 .after-label{right:10px;}
 
+/* Fallback placeholder shown when image fails */
+.img-placeholder{
+  width:50%;
+  height:100%;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:11px;
+  color:var(--g500);
+  font-weight:400;
+}
+.img-placeholder.before-placeholder{
+  background:linear-gradient(135deg,#f0ece8 0%,#e8e0da 100%);
+}
+.img-placeholder.after-placeholder{
+  background:linear-gradient(135deg,var(--accent-l) 0%,#d0e8e0 100%);
+}
+.img-placeholder svg{
+  width:28px;height:28px;opacity:.35;
+}
+
 .result-info{
-  padding:14px 16px;
+  padding:16px 18px;
   border-top:1px solid var(--g100);
 }
 
 .result-info h4{
-  font-size:13px;
+  font-size:13.5px;
   font-weight:500;
   color:var(--black);
   margin-bottom:4px;
@@ -267,25 +315,6 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0,1,.25,1)}
 .faq-answer-inner{padding:0 0 22px;font-size:13.5px;font-weight:300;color:var(--g700);line-height:1.8;max-width:640px}
 .faq-item.open .faq-answer{max-height:260px}
-
-/* ── PRICING ── */
-.pricing{padding:96px 0;background:var(--white)}
-.pricing-header{text-align:center;margin-bottom:52px}
-.price-card{background:var(--white);border:1.5px solid var(--accent);border-radius:var(--rl);padding:44px 40px;max-width:400px;margin:0 auto;box-shadow:var(--shadow-c);position:relative}
-.price-badge{position:absolute;top:18px;right:18px;background:var(--accent);color:var(--white);font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:var(--pill)}
-.price-region{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--g500);margin-bottom:8px}
-.price-orig{font-size:18px;color:var(--g300);text-decoration:line-through;font-weight:300;display:block;margin-bottom:2px}
-.price-main{font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:600;line-height:1;letter-spacing:-3px;color:var(--black)}
-.price-note{font-size:12px;color:var(--g500);margin-bottom:28px;margin-top:4px}
-.timer-box{background:var(--g100);border:1px solid var(--g200);border-radius:8px;padding:12px 16px;margin-bottom:24px;display:none;align-items:center;gap:10px}
-.timer-box.show{display:flex}
-.timer-label{font-size:11px;color:var(--g500)}
-.timer-digits{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--black);letter-spacing:1px}
-.perks{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:14px}
-.perks li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--g700)}
-.perk-icon{color:var(--accent);flex-shrink:0;margin-top:1px}
-.btn-buy{width:100%;padding:15px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;transition:opacity .2s,transform .2s;font-family:'DM Sans',sans-serif}
-.btn-buy:hover{opacity:.88;transform:translateY(-1px)}
 
 /* ── TRUST STRIP ── */
 .trust-strip{background:var(--g100);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);padding:36px 0}
@@ -488,7 +517,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     <ul class="nav-center">
       <li><a href="#" id="nav-home">Home</a></li>
       <li><a href="#how" id="nav-how">How It Works</a></li>
-      <li><a href="#pricing" id="nav-pricing">Pricing</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
     <div class="nav-right">
@@ -508,7 +536,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     <h1 class="hero-h1 fu vis" style="transition-delay:.1s">Get a <em>personalised</em> skincare<br>routine from home in minutes.</h1>
     <p class="hero-sub fu vis" style="transition-delay:.2s">Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.</p>
     <div class="hero-btns fu vis" style="transition-delay:.3s">
-      <button class="btn btn-primary" id="hero-start-btn">Start Free →</button>
+      <button class="btn btn-primary" id="hero-start-btn">Start Your Journey →</button>
       <a href="#how" class="btn btn-secondary">How It Works</a>
     </div>
     <div class="hero-trust fu vis" style="transition-delay:.4s">
@@ -748,10 +776,17 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
     <div class="results-grid" style="margin-top:40px">
 
+      <!-- Card 1: Priya -->
       <div class="result-card fu d1">
         <div class="image-container">
-          <img src="/images/priya-before.jpg" class="before-img" alt="Priya before treatment">
-          <img src="/images/priya-after.jpg" class="after-img" alt="Priya after treatment">
+          <img
+            src="/images/priya-before.jpg"
+            alt="Priya before treatment"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'img-placeholder before-placeholder',innerHTML:'<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Before</span>'}),this)">
+          <img
+            src="/images/priya-after.jpg"
+            alt="Priya after treatment"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'img-placeholder after-placeholder',innerHTML:'<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>After</span>'}),this)">
           <span class="label before-label">Before</span>
           <span class="label after-label">After</span>
         </div>
@@ -761,10 +796,17 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         </div>
       </div>
 
+      <!-- Card 2: Kabir -->
       <div class="result-card fu d2">
         <div class="image-container">
-          <img src="/images/kabir-before.jpg" class="before-img" alt="Kabir before treatment">
-          <img src="/images/kabir-after.jpg" class="after-img" alt="Kabir after treatment">
+          <img
+            src="/images/kabir-before.jpg"
+            alt="Kabir before treatment"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'img-placeholder before-placeholder',innerHTML:'<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Before</span>'}),this)">
+          <img
+            src="/images/kabir-after.jpg"
+            alt="Kabir after treatment"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'img-placeholder after-placeholder',innerHTML:'<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>After</span>'}),this)">
           <span class="label before-label">Before</span>
           <span class="label after-label">After</span>
         </div>
@@ -774,10 +816,17 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         </div>
       </div>
 
+      <!-- Card 3: Simran -->
       <div class="result-card fu d3">
         <div class="image-container">
-          <img src="/images/simran-before.jpg" class="before-img" alt="Simran before treatment">
-          <img src="/images/simran-after.jpg" class="after-img" alt="Simran after treatment">
+          <img
+            src="/images/simran-before.jpg"
+            alt="Simran before treatment"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'img-placeholder before-placeholder',innerHTML:'<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Before</span>'}),this)">
+          <img
+            src="/images/simran-after.jpg"
+            alt="Simran after treatment"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'img-placeholder after-placeholder',innerHTML:'<svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>After</span>'}),this)">
           <span class="label before-label">Before</span>
           <span class="label after-label">After</span>
         </div>
@@ -787,37 +836,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="container">
-    <div class="pricing-header">
-      <p class="section-label fu">Simple Pricing</p>
-      <h2 class="section-title fu d1">One payment. <em>A lifetime of clarity.</em></h2>
-      <p class="fu d2" style="font-size:14px;color:var(--g500);margin-top:12px;font-weight:300">Early access members lock in the introductory price — less than a single premium serum.</p>
-    </div>
-    <div class="fu d2">
-      <div class="price-card">
-        <div class="price-badge">Early Access</div>
-        <div class="price-region">🇮🇳 India</div>
-        <span class="price-orig">₹999</span>
-        <div class="price-main">₹699</div>
-        <p class="price-note" id="price-note">One-time · Instant access · No subscription</p>
-        <div class="timer-box" id="timer-box"><div><div class="timer-label">⚡ Flash deal active — expires in</div><div class="timer-digits" id="countdown">01:00</div></div></div>
-        <ul class="perks">
-          <li><span class="perk-icon">✓</span> Full 7-day personalised plan</li>
-          <li><span class="perk-icon">✓</span> Morning, afternoon, night &amp; pre-sleep routines</li>
-          <li><span class="perk-icon">✓</span> Expert ingredient explanations</li>
-          <li><span class="perk-icon">✓</span> Day-by-day progress tracker</li>
-          <li><span class="perk-icon">✓</span> Use What You Own product matching</li>
-          <li><span class="perk-icon">✓</span> 24/7 AI support chat</li>
-          <li><span class="perk-icon">✓</span> Delivered via WhatsApp</li>
-        </ul>
-        <button class="btn-buy" id="buy-btn">Get My Skin Plan — ₹699</button>
-      </div>
     </div>
   </div>
 </section>
@@ -1713,31 +1731,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     showPaymentPage();
   }
 
-  /* ── Pricing Timer (home page) ── */
-  function handleBuyClick() {
-    if (!timerActive) {
-      timerActive = true;
-      const noteEl   = document.getElementById('price-note');
-      const timerBox = document.getElementById('timer-box');
-      if (noteEl)   noteEl.textContent = '🎉 Flash deal — 1 minute only!';
-      if (timerBox) timerBox.classList.add('show');
-      let secs = 60;
-      const countdown = document.getElementById('countdown');
-      if (countdown) countdown.textContent = '01:00';
-      timerInterval = setInterval(() => {
-        secs -= 1;
-        if (countdown) countdown.textContent = '00:' + String(Math.max(secs, 0)).padStart(2,'0');
-        if (secs <= 0) {
-          clearInterval(timerInterval);
-          timerActive = false;
-          if (timerBox) timerBox.classList.remove('show');
-          if (noteEl)   noteEl.textContent = 'One-time · Instant access · No subscription';
-        }
-      }, 1000);
-    }
-    openModal();
-  }
-
   /* ── Modal ── */
   function openModal() {
     const modal = document.getElementById('modal-checkout');
@@ -1795,7 +1788,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
   /* ── Bind All Events ── */
   function bindEvents() {
-    document.getElementById('hero-start-btn').addEventListener('click', startQuiz);
+    document.getElementById('hero-start-btn').addEventListener('click', function() {
+      const questionnaire = document.getElementById('questionnaire') || document.getElementById('page-quiz');
+      // Scroll to questionnaire section if on home page, otherwise start quiz
+      startQuiz();
+    });
     document.getElementById('nav-logo').addEventListener('click', e => { e.preventDefault(); goHome(); });
     document.getElementById('nav-home').addEventListener('click', e => { e.preventDefault(); goHome(); });
     document.getElementById('nav-cta-btn').addEventListener('click', startQuiz);
@@ -1803,12 +1800,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       e.preventDefault(); goHome();
       setTimeout(() => { const s = document.getElementById('how'); if (s) s.scrollIntoView({ behavior:'smooth' }); }, 200);
     });
-    document.getElementById('nav-pricing').addEventListener('click', e => {
-      e.preventDefault(); goHome();
-      setTimeout(() => { const s = document.getElementById('pricing'); if (s) s.scrollIntoView({ behavior:'smooth' }); }, 200);
-    });
 
-    document.getElementById('buy-btn').addEventListener('click', handleBuyClick);
     document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
     document.getElementById('modal-pay-btn').addEventListener('click', processPayment);
     document.getElementById('modal-checkout').addEventListener('click', e => { if (e.target.id === 'modal-checkout') closeModal(); });
