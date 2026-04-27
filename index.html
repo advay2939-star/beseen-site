@@ -1157,8 +1157,8 @@ console.log("PAYLOAD:", payload);
     try {
       await saveToSupabase(imageData);
     } catch (err) {
-      console.error('Database save failed:', err);
-    }
+  console.error("SAVE ERROR:", err);
+}
 
     // Brief pause for UX
     await new Promise(resolve => setTimeout(resolve, 1800));
