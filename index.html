@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,8 +64,8 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 /* ── HOME ── */
 #page-home{padding-top:60px}
 .hero{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
-  padding:80px 32px 60px;position:relative;overflow:hidden;
+  min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:80px 32px 72px;position:relative;overflow:hidden;
   background:radial-gradient(ellipse 75% 55% at 50% 25%,#dceae5 0%,var(--white) 70%);
 }
 .blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:blobDrift 14s ease-in-out infinite alternate}
@@ -74,20 +73,17 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .blob-b{width:360px;height:360px;bottom:-80px;right:-60px;background:#c4d9d2;opacity:.18;animation-delay:-7s}
 @keyframes blobDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.05)}}
 .hero-content{position:relative;z-index:1;max-width:720px;width:100%}
-.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 8px;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:24px;box-shadow:var(--shadow-s)}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 8px;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:28px;box-shadow:var(--shadow-s)}
 .pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,76px);font-weight:600;letter-spacing:-.045em;line-height:1.06;color:var(--black);margin-bottom:18px}
 .hero-h1 em{font-style:italic;color:var(--accent)}
-.hero-sub{font-size:16px;font-weight:300;color:var(--g700);max-width:520px;margin:0 auto 28px;line-height:1.75}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:0}
-.hero-trust{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:52px}
-.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g500)}
-.trust-item svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
+.hero-sub{font-size:16px;font-weight:300;color:var(--g700);max-width:520px;margin:0 auto 32px;line-height:1.75}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 
 /* ── HERO SOCIAL PROOF ── */
 .hero-social-proof{
   display:flex;flex-direction:column;align-items:center;gap:10px;
-  margin-top:20px;
+  padding-top:4px;
 }
 .face-stack{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
 .face-avatars{display:flex;align-items:center}
@@ -102,9 +98,19 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .face-av:first-child{margin-left:0}
 .face-stack-label{font-size:12px;color:var(--g700)}
 .face-stack-label strong{color:var(--black);font-weight:600}
-.face-meta{font-size:12px;color:var(--g700);text-align:center;line-height:1.5}
+.face-meta{font-size:12.5px;color:var(--g700);text-align:center;line-height:1.5}
 .hero-trust-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--g700)}
 .htp-dot{width:3px;height:3px;border-radius:50%;background:var(--g300);flex-shrink:0}
+
+/* ── REAL AVATAR IMAGES ── */
+.face-av-img{
+  width:30px;height:30px;border-radius:50%;
+  border:2px solid var(--white);
+  margin-left:-9px;
+  object-fit:cover;display:block;flex-shrink:0;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+.face-av-img:first-child{margin-left:0}
 
 /* ── TICKER ── */
 .ticker{height:50px;background:var(--g50);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);overflow:hidden;display:flex;align-items:center}
@@ -229,7 +235,7 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .ft-stars{margin-left:auto;font-size:13px;color:var(--accent)}
 
 /* ── HOW ── */
-.how{padding:88px 0}
+.how{padding:88px 0;border-top:1px solid var(--g200)}
 .how-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .steps{display:flex;flex-direction:column;gap:28px}
 .step{display:flex;gap:20px;align-items:flex-start}
@@ -252,41 +258,6 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .r-name{font-size:13.5px;font-weight:500;color:var(--black)}
 .r-usage{font-size:11.5px;color:var(--g500)}
 
-/* ── DEMO ── */
-.demo-section{padding:80px 0;background:var(--g100);border-top:1px solid var(--g200)}
-.demo-header{text-align:center;margin-bottom:52px}
-.mac-window{max-width:880px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.14),0 0 0 1px var(--g200)}
-.mac-bar{background:#e0e0dc;padding:0 16px;height:44px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #c8c8c4}
-.mac-dots{display:flex;gap:6px}
-.mac-dot{width:12px;height:12px;border-radius:50%}
-.mac-url{flex:1;background:var(--white);border:1px solid var(--g300);border-radius:6px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--g500)}
-.mac-body{height:500px;overflow-y:scroll;background:var(--white);position:relative}
-.mac-body::-webkit-scrollbar{width:4px}
-.mac-body::-webkit-scrollbar-thumb{background:var(--g200);border-radius:4px}
-.mac-progress-bar{position:sticky;top:0;height:3px;background:var(--g200);z-index:10}
-.mac-progress-fill{height:3px;background:var(--accent);width:0%;transition:width .1s}
-.mac-content{padding:44px 52px}
-.mac-content h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:6px}
-.mac-sub{font-size:13px;color:var(--g500);margin-bottom:28px}
-.q-block{margin-bottom:24px}
-.q-label{font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:7px 14px;border:1px solid var(--g200);border-radius:8px;font-size:12.5px;color:var(--g700);background:var(--white);cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif}
-.chip:hover,.chip.on{border-color:var(--accent);background:var(--accent-l);color:var(--accent)}
-.mac-divider{border:none;border-top:1px solid var(--g200);margin:32px 0}
-.upload-zone-demo{border:1.5px dashed var(--g300);border-radius:10px;padding:32px;text-align:center;color:var(--g500);margin-bottom:20px;font-size:13px}
-.upload-zone-demo svg{display:block;margin:0 auto 10px;width:28px;height:28px;opacity:.4}
-.mac-analysis{margin-bottom:32px}
-.mac-analysis-row{display:flex;justify-content:space-between;font-size:13px;font-weight:500;margin-bottom:8px}
-.mac-bar-bg{background:var(--g200);height:6px;border-radius:4px;overflow:hidden}
-.mac-bar-fill{height:6px;border-radius:4px;background:var(--accent);width:0%;transition:width 1.5s ease}
-.sample-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.s-col-head{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--g500);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.s-card{background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:12px 14px;margin-bottom:8px}
-.s-card strong{display:block;font-size:13px;font-weight:500;color:var(--black)}
-.s-card span{font-size:11.5px;color:var(--g500)}
-.unlock-banner{background:var(--accent-l);border:1px solid var(--accent);border-radius:8px;padding:12px 16px;font-size:12.5px;color:var(--accent);font-weight:500;margin-top:16px}
-
 /* ── FAQ ── */
 .faq-section{padding:88px 0;background:var(--g50);border-top:1px solid var(--g200)}
 .faq-header{text-align:center;margin-bottom:56px}
@@ -306,82 +277,26 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .faq-answer-inner{padding:0 0 22px;font-size:13.5px;font-weight:300;color:var(--g700);line-height:1.8;max-width:640px}
 .faq-item.open .faq-answer{max-height:260px}
 
-/* ── TRUST STRIP ── */
-.trust-strip{background:var(--g100);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);padding:36px 0}
-.trust-items{display:flex;gap:48px;justify-content:center;align-items:center;flex-wrap:wrap}
+/* ── COMBINED TRUST ROW ── */
+.trust-row{
+  background:var(--g50);
+  border-top:1px solid var(--g200);
+  border-bottom:1px solid var(--g200);
+  padding:40px 0;
+}
+.trust-row-inner{
+  max-width:1100px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:28px 40px;
+}
 .trust-badge{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--g700)}
 .trust-badge svg{color:var(--accent);width:17px;height:17px;flex-shrink:0}
-
-/* ── CTA URGENCY STRIP ── */
-.cta-strip{
-  padding:76px 0;
-  background:linear-gradient(135deg,#0a0a0a 0%,#162620 100%);
-  position:relative;overflow:hidden;
-}
-.cta-strip::before{
-  content:'';position:absolute;top:-80px;right:-100px;
-  width:400px;height:400px;border-radius:50%;
-  background:var(--accent);opacity:.07;pointer-events:none;
-}
-.cta-strip::after{
-  content:'';position:absolute;bottom:-60px;left:-60px;
-  width:240px;height:240px;border-radius:50%;
-  background:#5a9e8f;opacity:.06;pointer-events:none;
-}
-.cta-strip-inner{
-  max-width:680px;margin:0 auto;padding:0 32px;
-  text-align:center;position:relative;z-index:1;
-}
-.cta-strip-label{
-  font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
-  color:#5a9e8f;margin-bottom:18px;
-}
-.cta-strip-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(32px,4.5vw,54px);font-weight:600;
-  letter-spacing:-.04em;color:var(--white);
-  line-height:1.08;margin-bottom:16px;
-}
-.cta-strip-title em{font-style:italic;color:#87c1b5}
-.cta-strip-sub{
-  font-size:14px;font-weight:300;color:#8a8a85;
-  margin-bottom:36px;line-height:1.75;
-}
-.btn-cta-strip{
-  display:inline-flex;align-items:center;gap:9px;
-  background:var(--accent);color:var(--white);
-  font-size:14.5px;font-weight:500;padding:15px 32px;
-  border-radius:10px;border:none;cursor:pointer;
-  font-family:'DM Sans',sans-serif;transition:all .25s;
-  letter-spacing:.01em;
-}
-.btn-cta-strip:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 10px 32px rgba(61,107,94,.4)}
-.cta-strip-urgency{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-  border-radius:var(--pill);padding:7px 18px;
-  font-size:12px;color:#666;margin-top:20px;
-}
-
-/* ── FINAL TRUST CLOSE ── */
-.final-trust{
-  background:var(--g50);border-top:1px solid var(--g200);
-  padding:36px 0;
-}
-.final-trust-inner{
-  max-width:800px;margin:0 auto;padding:0 32px;
-  display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:32px;
-}
-.ftrust-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--g700)}
-.ftrust-check{
+.trust-badge-check{
   width:20px;height:20px;border-radius:50%;
   background:var(--accent-l);border:1px solid #b5d0c9;
   display:flex;align-items:center;justify-content:center;
   font-size:9.5px;color:var(--accent);font-weight:700;flex-shrink:0;
 }
-.ftrust-divider{width:1px;height:20px;background:var(--g200);flex-shrink:0}
-@media(max-width:640px){.ftrust-divider{display:none}}
 
 /* ── FOOTER ── */
 footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
@@ -573,16 +488,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 /* ── HIGHLIGHT WORDS ── */
 .highlight-word{color:var(--accent);font-weight:500}
 
-/* ── REAL AVATAR IMAGES ── */
-.face-av-img{
-  width:30px;height:30px;border-radius:50%;
-  border:2px solid var(--white);
-  margin-left:-9px;
-  object-fit:cover;display:block;flex-shrink:0;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
-}
-.face-av-img:first-child{margin-left:0}
-
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .how-inner{grid-template-columns:1fr;gap:40px}
@@ -593,7 +498,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 }
 @media(max-width:768px){
   .nav-center{display:none}
-  .sample-cols{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   .photo-slots{grid-template-columns:repeat(2,1fr)}
   .payment-grid{grid-template-columns:1fr}
@@ -602,12 +506,13 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .stats-inner{flex-direction:column}
   .nav-cta{font-size:11.5px;padding:7px 14px}
   .derm-header{flex-direction:column;text-align:center}
-  .hero-trust-pills{font-size:11.5px}
+  .trust-row-inner{gap:20px 28px}
 }
 </style>
 </head>
 <body>
 
+<!-- ══════════ NAVBAR ══════════ -->
 <nav id="main-nav">
   <div class="nav-inner">
     <a class="logo" href="#" id="nav-logo">BeSeen<span>.</span></a>
@@ -622,7 +527,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
 </nav>
 
+<!-- ══════════ HOME PAGE ══════════ -->
 <div id="page-home" class="page active">
+
+  <!-- ── HERO ── -->
   <section class="hero">
     <div class="blob blob-a"></div>
     <div class="blob blob-b"></div>
@@ -633,15 +541,20 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         Science-backed · Expert-guided · Clinically designed
       </div>
 
-      <h1 class="hero-h1">Get a <em>personalised</em> skincare<br>routine from home in minutes.</h1>
+      <h1 class="hero-h1">
+        Get a <em>personalised</em> skincare<br>routine from home in minutes.
+      </h1>
 
-      <p class="hero-sub">Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.</p>
+      <p class="hero-sub">
+        Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.
+      </p>
 
       <div class="hero-btns">
         <button class="btn btn-primary" id="hero-start-btn">Start Your Journey →</button>
         <a href="#how" class="btn btn-secondary">How It Works</a>
       </div>
 
+      <!-- Social proof directly under buttons -->
       <div class="hero-social-proof">
         <div class="face-stack">
           <div class="face-avatars">
@@ -652,28 +565,67 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           </div>
           <span class="face-stack-label"><strong>Trusted by 500+</strong> users</span>
         </div>
-
         <div class="face-meta">
-          ⭐ 4.8/5 from 120+ real users • Dermatologist guided • Results in 21 days
+          ⭐ 4.8/5 from 120+ real users &nbsp;·&nbsp; Dermatologist guided &nbsp;·&nbsp; Results in 21 days
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ── TICKER ── -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
+      <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
+      <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
+      <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
+      <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
+      <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
+      <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ── STATS BAR ── -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stat-item fu">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">customers transformed</div>
+        </div>
+        <div class="stat-divider fu d1"></div>
+        <div class="stat-item fu d2">
+          <div class="stat-num">97%</div>
+          <div class="stat-label">reported visible improvement</div>
+        </div>
+        <div class="stat-divider fu d2"></div>
+        <div class="stat-item fu d3">
+          <div class="stat-num">✦</div>
+          <div class="stat-label">Dermatologist-reviewed routines</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROOF STRIP ── -->
   <section class="proof-strip-section">
     <div class="proof-strip-header fu">
       <p>What our customers say</p>
       <h3>Real skin. <em>Real change.</em></h3>
     </div>
-
     <div class="proof-strip-scroll" id="proof-strip-scroll">
+
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
-          <span class="pcard-lbl b">Before</span>
-          <span class="pcard-lbl a">After</span>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Acne cleared in three weeks. Couldn't believe it."</p>
@@ -690,11 +642,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
-          <span class="pcard-lbl b">Before</span>
-          <span class="pcard-lbl a">After</span>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Dark spots genuinely faded. Expert replied within hours."</p>
@@ -711,11 +664,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
-          <span class="pcard-lbl b">Before</span>
-          <span class="pcard-lbl a">After</span>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Oily T-zone finally balanced — life changing."</p>
@@ -732,11 +686,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
-          <span class="pcard-lbl b">Before</span>
-          <span class="pcard-lbl a">After</span>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Texture improved remarkably after the 21-day review."</p>
@@ -753,11 +708,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
-          <span class="pcard-lbl b">Before</span>
-          <span class="pcard-lbl a">After</span>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Zero irritants, zero reactions. Calm skin in 14 days."</p>
@@ -774,11 +730,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
+            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
-          <span class="pcard-lbl b">Before</span>
-          <span class="pcard-lbl a">After</span>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Used products I already owned. Saved ₹2k and my skin."</p>
@@ -792,257 +749,186 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           </div>
         </div>
       </div>
+
     </div>
   </section>
-</div>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
-    <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
-    <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
-    <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
-    <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
-    <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
-    <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
-    <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
-    <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
-    <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
-  </div>
-</div>
-
-<!-- STATS BAR -->
-<section class="stats-bar">
-  <div class="container">
-    <div class="stats-inner">
-      <div class="stat-item fu">
-        <div class="stat-num">500+</div>
-        <div class="stat-label">customers transformed</div>
+  <!-- ── FEATURED TRANSFORMATION ── -->
+  <section class="featured-transform">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:48px">
+        <p class="section-label fu">Featured Story</p>
+        <h2 class="section-title fu d1">The transformation <em>that started it all.</em></h2>
       </div>
-      <div class="stat-divider fu d1"></div>
-      <div class="stat-item fu d2">
-        <div class="stat-num">97%</div>
-        <div class="stat-label">reported visible improvement</div>
-      </div>
-      <div class="stat-divider fu d2"></div>
-      <div class="stat-item fu d3">
-        <div class="stat-num">✦</div>
-        <div class="stat-label">Dermatologist-reviewed routines</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURED TRANSFORMATION -->
-<section class="featured-transform">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:48px">
-      <p class="section-label fu">Featured Story</p>
-      <h2 class="section-title fu d1">The transformation <em>that started it all.</em></h2>
-    </div>
-    <div class="ft-inner fu d2">
-      <div class="ft-images">
-        <div class="ft-img-wrap">
-          <img class="ft-img" src="/images/priya-before.png" loading="lazy" alt="Priya before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph bph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Before'}),this)">
-          <span class="ft-lbl">Before</span>
+      <div class="ft-inner fu d2">
+        <div class="ft-images">
+          <div class="ft-img-wrap">
+            <img class="ft-img" src="/images/priya-before.png" loading="lazy" alt="Priya before"
+              onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph bph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Before'}),this)">
+            <span class="ft-lbl">Before</span>
+          </div>
+          <div class="ft-img-wrap">
+            <img class="ft-img" src="/images/priya-after.png" loading="lazy" alt="Priya after"
+              onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph aph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>After'}),this)">
+            <span class="ft-lbl aft">After — 21 days</span>
+          </div>
         </div>
-        <div class="ft-img-wrap">
-          <img class="ft-img" src="/images/priya-after.png" loading="lazy" alt="Priya after"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph aph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>After'}),this)">
-          <span class="ft-lbl aft">After — 21 days</span>
-        </div>
-      </div>
-      <div class="ft-content">
-        <div class="ft-verified-badge">✔ Verified Customer · Mumbai</div>
-        <p class="ft-quote">Three weeks in and my acne has reduced dramatically. The routine was simple enough to actually stick to — no 10-step nonsense, just what works.</p>
-        <div class="ft-person">
-          <div class="ft-avatar-wrap">
-            <img class="ft-avatar" src="/images/testimonial-priya-profile.png" loading="lazy" alt="Priya Mehta"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="ft-avatar-fallback">P</div>
-          </div>
-          <div>
-            <div class="ft-person-name">Priya Mehta, 24</div>
-            <div class="ft-person-sub">Mumbai · Combination skin</div>
-            <span class="ft-concern-tag">Acne &amp; Pigmentation</span>
-          </div>
-          <div class="ft-stars">★★★★★</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="container">
-    <div class="how-inner">
-      <div>
-        <p class="section-label fu">The Process</p>
-        <h2 class="section-title fu d1" style="margin-bottom:16px">Three steps to <em>visible results.</em></h2>
-        <p class="fu d2" style="font-size:14px;color:var(--g700);font-weight:300;max-width:400px;line-height:1.7;margin-bottom:36px">No appointment. No guesswork. Science-backed guidance delivered in minutes.</p>
-        <div class="steps">
-          <div class="step fu d1">
-            <div class="step-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+        <div class="ft-content">
+          <div class="ft-verified-badge">✔ Verified Customer · Mumbai</div>
+          <p class="ft-quote">Three weeks in and my acne has reduced dramatically. The routine was simple enough to actually stick to — no 10-step nonsense, just what works.</p>
+          <div class="ft-person">
+            <div class="ft-avatar-wrap">
+              <img class="ft-avatar" src="/images/testimonial-priya-profile.png" loading="lazy" alt="Priya Mehta"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="ft-avatar-fallback">P</div>
             </div>
-            <div class="step-body">
-              <h4>Upload your skin photos</h4>
-              <p>Natural light, front and sides. Answer 9 targeted questions about your skin in under 90 seconds.</p>
+            <div>
+              <div class="ft-person-name">Priya Mehta, 24</div>
+              <div class="ft-person-sub">Mumbai · Combination skin</div>
+              <span class="ft-concern-tag">Acne &amp; Pigmentation</span>
             </div>
-          </div>
-          <div class="step fu d2">
-            <div class="step-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            </div>
-            <div class="step-body">
-              <h4>Get your personalised routine</h4>
-              <p>Your expert reviews your profile and builds your ingredient-matched morning, night, and pre-sleep routine.</p>
-            </div>
-          </div>
-          <div class="step fu d3">
-            <div class="step-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
-            </div>
-            <div class="step-body">
-              <h4>See visible results in 21 days</h4>
-              <p>Your expert checks in at day 4 and day 21, adjusting your plan based on how your skin responds.</p>
-            </div>
+            <div class="ft-stars">★★★★★</div>
           </div>
         </div>
       </div>
-      <div class="fu d2">
-        <div class="float-card">
-          <h3>Your Morning Routine Preview</h3>
-          <p class="float-card-sub">Combination-Acne Profile · Generated for you</p>
-          <div class="routine-row"><div class="r-dot" style="background:#3d6b5e"></div><div><div class="r-name">Gentle Gel Cleanser</div><div class="r-usage">2 pumps · 30 sec</div></div></div>
-          <div class="routine-row"><div class="r-dot" style="background:#5a9e8f"></div><div><div class="r-name">Niacinamide 10% Serum</div><div class="r-usage">3 drops · pat in</div></div></div>
-          <div class="routine-row"><div class="r-dot" style="background:#87c1b5"></div><div><div class="r-name">Oil-Free Moisturiser</div><div class="r-usage">pea size · blend outward</div></div></div>
-          <div class="routine-row"><div class="r-dot" style="background:#b8d9d3"></div><div><div class="r-name">SPF 50+ Sunscreen</div><div class="r-usage">last step · always</div></div></div>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- DEMO SECTION -->
-<section class="demo-section">
-  <div class="container">
-    <div class="demo-header">
-      <p class="section-label fu">Live Preview</p>
-      <h2 class="section-title fu d1">See the <em>experience</em> for yourself.</h2>
-    </div>
-    <div class="mac-window fu d2">
-      <div class="mac-bar">
-        <div class="mac-dots"><div class="mac-dot" style="background:#ff5f56"></div><div class="mac-dot" style="background:#febc2e"></div><div class="mac-dot" style="background:#28c840"></div></div>
-        <div class="mac-url">app.beseen.co · Skin Analysis</div>
-      </div>
-      <div class="mac-body" id="mac-scroll">
-        <div class="mac-progress-bar"><div class="mac-progress-fill" id="mac-fill"></div></div>
-        <div class="mac-content">
-          <h2>Let's understand your skin.</h2>
-          <p class="mac-sub">9 questions. 90 seconds. Your answers shape every recommendation.</p>
-          <div class="q-block"><p class="q-label">Primary concern?</p><div class="chips"><span class="chip on">Acne &amp; Breakouts</span><span class="chip">Pigmentation</span><span class="chip">Dryness</span><span class="chip">Fine Lines</span></div></div>
-          <div class="q-block"><p class="q-label">Skin type?</p><div class="chips"><span class="chip">Oily</span><span class="chip on">Combination</span><span class="chip">Dry</span><span class="chip">Sensitive</span></div></div>
-          <div class="q-block"><p class="q-label">Age range?</p><div class="chips"><span class="chip">Under 20</span><span class="chip on">20–30</span><span class="chip">31–40</span><span class="chip">40+</span></div></div>
-          <hr class="mac-divider">
-          <h2 style="font-size:22px;margin-bottom:6px">Upload your skin photos</h2>
-          <p class="mac-sub">Natural light, no filter. Front, left, right, and close-up.</p>
-          <div class="upload-zone-demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>Drag &amp; drop or tap to upload</div>
-          <div class="mac-analysis"><div class="mac-analysis-row"><span>Analysing your skin…</span><span id="mac-pct">0%</span></div><div class="mac-bar-bg"><div class="mac-bar-fill" id="mac-bar-fill"></div></div></div>
-          <hr class="mac-divider">
-          <h2 style="font-size:22px;margin-bottom:4px">Your Sample Routine</h2>
-          <p class="mac-sub" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500">Based on Combination-Acne Profile · Full plan delivered via WhatsApp</p>
-          <div class="sample-cols">
-            <div><div class="s-col-head">🌅 Morning</div><div class="s-card"><strong>Gel Cleanser</strong><span>2 pumps · 30 sec</span></div><div class="s-card"><strong>Niacinamide Serum</strong><span>3 drops · pat in</span></div><div class="s-card"><strong>SPF 50+</strong><span>last step · always</span></div></div>
-            <div><div class="s-col-head">🌙 Night</div><div class="s-card"><strong>Balm Cleanser</strong><span>massage 60 sec</span></div><div class="s-card"><strong>Retinol 0.2%</strong><span>2 drops · avoid eyes</span></div><div class="s-card"><strong>Ceramide Cream</strong><span>generous layer</span></div></div>
+  <!-- ── HOW IT WORKS ── -->
+  <section class="how" id="how">
+    <div class="container">
+      <div class="how-inner">
+        <div>
+          <p class="section-label fu">The Process</p>
+          <h2 class="section-title fu d1" style="margin-bottom:16px">Three steps to <em>visible results.</em></h2>
+          <p class="fu d2" style="font-size:14px;color:var(--g700);font-weight:300;max-width:400px;line-height:1.7;margin-bottom:36px">No appointment. No guesswork. Science-backed guidance delivered in minutes.</p>
+          <div class="steps">
+            <div class="step fu d1">
+              <div class="step-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              </div>
+              <div class="step-body">
+                <h4>Upload your skin photos</h4>
+                <p>Natural light, front and sides. Answer 9 targeted questions about your skin in under 90 seconds.</p>
+              </div>
+            </div>
+            <div class="step fu d2">
+              <div class="step-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div class="step-body">
+                <h4>Get your personalised routine</h4>
+                <p>Your expert reviews your profile and builds your ingredient-matched morning, night, and pre-sleep routine.</p>
+              </div>
+            </div>
+            <div class="step fu d3">
+              <div class="step-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+              </div>
+              <div class="step-body">
+                <h4>See visible results in 21 days</h4>
+                <p>Your expert checks in at day 4 and day 21, adjusting your plan based on how your skin responds.</p>
+              </div>
+            </div>
           </div>
-          <div class="unlock-banner">🌿 Full routine delivered to your WhatsApp after analysis</div>
+          <div style="margin-top:36px">
+            <button class="btn btn-primary fu d4" id="how-start-btn" onclick="document.getElementById('hero-start-btn').click()">
+              Start Your Journey →
+            </button>
+          </div>
+        </div>
+        <div class="fu d2">
+          <div class="float-card">
+            <h3>Your Morning Routine Preview</h3>
+            <p class="float-card-sub">Combination-Acne Profile · Generated for you</p>
+            <div class="routine-row"><div class="r-dot" style="background:#3d6b5e"></div><div><div class="r-name">Gentle Gel Cleanser</div><div class="r-usage">2 pumps · 30 sec</div></div></div>
+            <div class="routine-row"><div class="r-dot" style="background:#5a9e8f"></div><div><div class="r-name">Niacinamide 10% Serum</div><div class="r-usage">3 drops · pat in</div></div></div>
+            <div class="routine-row"><div class="r-dot" style="background:#87c1b5"></div><div><div class="r-name">Oil-Free Moisturiser</div><div class="r-usage">pea size · blend outward</div></div></div>
+            <div class="routine-row"><div class="r-dot" style="background:#b8d9d3"></div><div><div class="r-name">SPF 50+ Sunscreen</div><div class="r-usage">last step · always</div></div></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FAQ -->
-<section class="faq-section" id="faq">
-  <div class="container">
-    <div class="faq-header">
-      <p class="section-label fu">Questions &amp; Answers</p>
-      <h2 class="section-title fu d1">Everything you need <em>to know.</em></h2>
+  <!-- ── FAQ ── -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-header">
+        <p class="section-label fu">Questions &amp; Answers</p>
+        <h2 class="section-title fu d1">Everything you need <em>to know.</em></h2>
+      </div>
+      <div class="faq-list fu d2">
+        <div class="faq-item">
+          <button class="faq-question">Is this dermatologist approved?<span class="faq-icon"></span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. Every routine framework and ingredient recommendation on BeSeen has been reviewed and validated by qualified dermatologists. Our protocols are built on peer-reviewed clinical evidence, not trends. While BeSeen is not a replacement for an in-person medical consultation, our routines are held to the same standard of care you'd expect from a reputable skincare clinic.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Are my photos safe? Who can see them?<span class="faq-icon"></span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Your privacy is paramount to us. All photos you upload are encrypted in transit and at rest using industry-standard AES-256 encryption. They are stored securely on private servers and are never shared with third parties, advertisers, or any external service. Only the dedicated skincare expert assigned to your profile can view your photos — strictly for the purpose of building your personalised routine. You can request deletion at any time.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Will real people guide me, or is it all AI?<span class="faq-icon"></span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Both, working together. Our technology analyses your photos and questionnaire responses to create a highly personalised starting point. But the human element is where BeSeen truly stands apart — you'll be assigned a dedicated skincare expert (Samaira, Aarav, or Riya) who personally reviews your profile, checks in at day 4 and day 21, and is available on WhatsApp to answer your questions. They're not bots. They're real, trained people who genuinely care about your skin journey.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What happens after I submit my questionnaire?<span class="faq-icon"></span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Once you complete your questionnaire and upload your photos, our system begins building your personalised plan immediately. After your order is confirmed, your assigned expert reviews your full profile and prepares your complete morning, afternoon, night, and pre-sleep routine with detailed explanations. This is then delivered to you via WhatsApp within 24 hours — often much sooner.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How fast will I see results?<span class="faq-icon"></span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Most customers notice an improvement in skin texture and feel within the first 7–10 days. Concerns like acne, oiliness, and dryness typically show visible improvement by the 21-day mark — which is why we have a structured 21-day progress review built in. Pigmentation and fine lines take longer — usually 4–8 weeks of consistent use. Your expert will help calibrate your expectations and adjust your routine at the 21-day checkpoint if needed.</div></div>
+        </div>
+      </div>
     </div>
-    <div class="faq-list fu d2">
-      <div class="faq-item">
-        <button class="faq-question">Is this dermatologist approved?<span class="faq-icon"></span></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Yes. Every routine framework and ingredient recommendation on BeSeen has been reviewed and validated by qualified dermatologists. Our protocols are built on peer-reviewed clinical evidence, not trends. While BeSeen is not a replacement for an in-person medical consultation, our routines are held to the same standard of care you'd expect from a reputable skincare clinic.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Are my photos safe? Who can see them?<span class="faq-icon"></span></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Your privacy is paramount to us. All photos you upload are encrypted in transit and at rest using industry-standard AES-256 encryption. They are stored securely on private servers and are never shared with third parties, advertisers, or any external service. Only the dedicated skincare expert assigned to your profile can view your photos — strictly for the purpose of building your personalised routine. You can request deletion at any time.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Will real people guide me, or is it all AI?<span class="faq-icon"></span></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Both, working together. Our technology analyses your photos and questionnaire responses to create a highly personalised starting point. But the human element is where BeSeen truly stands apart — you'll be assigned a dedicated skincare expert (Samaira, Aarav, or Riya) who personally reviews your profile, checks in at day 4 and day 21, and is available on WhatsApp to answer your questions. They're not bots. They're real, trained people who genuinely care about your skin journey.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">What happens after I submit my questionnaire?<span class="faq-icon"></span></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Once you complete your questionnaire and upload your photos, our system begins building your personalised plan immediately. After your order is confirmed, your assigned expert reviews your full profile and prepares your complete morning, afternoon, night, and pre-sleep routine with detailed explanations. This is then delivered to you via WhatsApp within 24 hours — often much sooner.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">How fast will I see results?<span class="faq-icon"></span></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Most customers notice an improvement in skin texture and feel within the first 7–10 days. Concerns like acne, oiliness, and dryness typically show visible improvement by the 21-day mark — which is why we have a structured 21-day progress review built in. Pigmentation and fine lines take longer — usually 4–8 weeks of consistent use. Your expert will help calibrate your expectations and adjust your routine at the 21-day checkpoint if needed.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- TRUST STRIP -->
-<div class="trust-strip">
-  <div class="container">
-    <div class="trust-items">
-      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Dermatologist Reviewed</div>
-      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2zm3-9v2m0 0a1 1 0 100 2 1 1 0 000-2z"/></svg>Photos Never Sold or Shared</div>
-      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4M7.835 4.697A3.42 3.42 0 0010 4c.56 0 1.11.074 1.63.21"/></svg>Ingredient-Matched Routines</div>
-      <div class="trust-badge"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>Real Human Support via WhatsApp</div>
+  <!-- ── CONSOLIDATED TRUST ROW ── -->
+  <div class="trust-row">
+    <div class="trust-row-inner">
+      <div class="trust-badge">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Dermatologist Reviewed
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15v2m-6 0h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2zm3-9v2m0 0a1 1 0 100 2 1 1 0 000-2z"/></svg>
+        Photos Never Sold or Shared
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4M7.835 4.697A3.42 3.42 0 0010 4c.56 0 1.11.074 1.63.21"/></svg>
+        Ingredient-Matched Routines
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+        Human WhatsApp Support
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-check">✔</div>
+        21-day money-back guarantee
+      </div>
+      <div class="trust-badge">
+        <div class="trust-badge-check">✔</div>
+        No subscriptions, ever
+      </div>
     </div>
   </div>
-</div>
 
-<!-- FINAL TRUST CLOSE -->
-<div class="final-trust">
-  <div class="final-trust-inner">
-    <div class="ftrust-item">
-      <div class="ftrust-check">✔</div>
-      <span>21-day money-back guarantee</span>
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">BeSeen<span>.</span></div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Refund Policy</a></li>
+      </ul>
     </div>
-    <div class="ftrust-divider"></div>
-    <div class="ftrust-item">
-      <div class="ftrust-check">✔</div>
-      <span>No subscriptions, ever</span>
-    </div>
-    <div class="ftrust-divider"></div>
-    <div class="ftrust-item">
-      <div class="ftrust-check">✔</div>
-      <span>Secure &amp; fully private</span>
-    </div>
-    <div class="ftrust-divider"></div>
-    <div class="ftrust-item">
-      <div class="ftrust-check">✔</div>
-      <span>One-time payment · ₹699</span>
-    </div>
-  </div>
-</div>
+    <div class="footer-copy">© 2025 BeSeen. All rights reserved. Not a substitute for professional medical advice.</div>
+  </footer>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">BeSeen<span>.</span></div>
-    <ul class="footer-links"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Contact</a></li><li><a href="#">Refund Policy</a></li></ul>
-  </div>
-  <div class="footer-copy">© 2025 BeSeen. All rights reserved. Not a substitute for professional medical advice.</div>
-</footer>
-</div>
+</div><!-- /page-home -->
+
 
 <!-- ══════════ QUIZ PAGE ══════════ -->
 <div id="page-quiz" class="page">
@@ -1302,8 +1188,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <button class="btn-quiz-next" id="next-9">Get My Skin Report →</button>
       </div>
     </div>
+
   </div>
-</div>
+</div><!-- /page-quiz -->
+
 
 <!-- ══════════ PAYMENT PAGE ══════════ -->
 <div id="page-payment" class="page">
@@ -1361,7 +1249,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
     </div>
   </div>
-</div>
+</div><!-- /page-payment -->
+
 
 <!-- ══════════ THANK YOU PAGE ══════════ -->
 <div id="page-thankyou" class="page">
@@ -1387,7 +1276,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       Back to home
     </button>
   </div>
-</div>
+</div><!-- /page-thankyou -->
+
 
 <!-- ══════════ CHECKOUT MODAL ══════════ -->
 <div id="modal-checkout">
@@ -1413,7 +1303,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   <div class="overlay-sub" id="overlay-sub">Securely storing your images. Just a moment.</div>
 </div>
 
-<button class="chat-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></button>
+<!-- ══════════ CHAT FAB ══════════ -->
+<button class="chat-fab">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+</button>
+
 
 <!-- ══════════ ORIGINAL JS (UNTOUCHED) ══════════ -->
 <script>
