@@ -517,6 +517,45 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .derm-header{flex-direction:column;text-align:center}
   .trust-row-inner{gap:20px 28px}
 }
+ /* ── PRICE ANIMATION CSS ── */
+  #price-orig-anim {
+    position: relative;
+    display: inline-block;
+    transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #price-orig-anim::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0%;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.6;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #price-orig-anim.strike-active::after {
+    width: 100%;
+  }
+
+  .price-old-animate {
+    transform: translateY(-6px) scale(0.96);
+    opacity: 0.45;
+  }
+
+  #price-main-anim {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .price-reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
 </style>
 </head>
 <body>
@@ -1421,52 +1460,34 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     return derms[Math.floor(Math.random() * derms.length)];
   }
 
-  // ── PRICE ANIMATION ──
-  function animatePriceReveal() {
-    const origEl = document.getElementById('price-orig-anim');
-    const mainEl = document.getElementById('price-main-anim');
-    if (!origEl || !mainEl) return;
+  // ── PRICE ANIMATION (PREMIUM FIXED) ──
+function animatePriceReveal() {
+  const origEl = document.getElementById('price-orig-anim'); // ₹899
+  const mainEl = document.getElementById('price-main-anim'); // ₹699
 
-    // Reset state
-    origEl.classList.remove('strike-active');
-    mainEl.classList.remove('price-reveal');
-    mainEl.style.opacity = '0';
-    mainEl.style.transform = 'translateY(10px)';
+  if (!origEl || !mainEl) return;
 
-    // Step 1: show ₹899 clearly for 800ms
-    // Step 2: animate strikethrough
-    setTimeout(function() {
-      origEl.classList.add('strike-active');
-      // Step 3: after strike begins, reveal ₹699
-      setTimeout(function() {
-        mainEl.classList.add('price-reveal');
-      }, 420);
-    }, 800);
-  }
+  // Reset (important for re-entry)
+  origEl.classList.remove('strike-active', 'price-old-animate');
+  mainEl.classList.remove('price-reveal');
 
-  function startPaymentCountdown() {
-    clearInterval(paymentTimer);
-    let secs = 59; // starts at 59
-    const timerEl = document.getElementById('payment-timer');
-    if (timerEl) timerEl.textContent = '00:59';
-    paymentTimer = setInterval(function() {
-      secs = Math.max(secs - 1, 0);
-      if (timerEl) timerEl.textContent = '00:' + String(secs).padStart(2, '0');
-      if (secs <= 0) clearInterval(paymentTimer);
-    }, 1000);
-  }
+  mainEl.style.opacity = '0';
+  mainEl.style.transform = 'translateY(12px)';
 
-  function showPaymentPage() {
-    const derm    = pickDermatologist();
-    assignedDermName = derm.name;
+  // STEP 1 — hold ₹899 clean
+  setTimeout(function () {
 
-    const nameEl   = document.getElementById('payment-derm-name');
-    const photoEl  = document.getElementById('payment-derm-photo');
-    const avatarEl = document.getElementById('payment-derm-avatar');
+    // STEP 2 — strike + move ₹899
+    origEl.classList.add('strike-active');
+    origEl.classList.add('price-old-animate');
 
-    if (nameEl)   nameEl.textContent   = derm.name;
-    if (avatarEl) avatarEl.textContent = derm.initial;
+    // STEP 3 — reveal ₹699 smoothly
+    setTimeout(function () {
+      mainEl.classList.add('price-reveal');
+    }, 300); // tighter timing = premium feel
 
+  }, 700);
+}
     // Update photo src
     if (photoEl) {
       photoEl.src = '/images/doctor-' + derm.name.toLowerCase() + '.png';
