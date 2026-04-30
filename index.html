@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<!-- ── RAZORPAY ── -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -93,8 +92,6 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .face-meta{font-size:12.5px;color:var(--g700);text-align:center;line-height:1.5}
 .hero-trust-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--g700)}
 .htp-dot{width:3px;height:3px;border-radius:50%;background:var(--g300);flex-shrink:0}
-
-/* ── REAL AVATAR IMAGES ── */
 .face-av-img{width:30px;height:30px;border-radius:50%;border:2px solid var(--white);margin-left:-9px;object-fit:cover;display:block;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.12)}
 .face-av-img:first-child{margin-left:0}
 
@@ -202,7 +199,7 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .faq-answer-inner{padding:0 0 22px;font-size:13.5px;font-weight:300;color:var(--g700);line-height:1.8;max-width:640px}
 .faq-item.open .faq-answer{max-height:260px}
 
-/* ── COMBINED TRUST ROW ── */
+/* ── TRUST ROW ── */
 .trust-row{background:var(--g50);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);padding:40px 0}
 .trust-row-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:28px 40px}
 .trust-badge{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--g700)}
@@ -289,25 +286,44 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 /* ── DERM CARD ── */
 .payment-derm-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);padding:32px;box-shadow:var(--shadow-c)}
 .derm-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-.derm-photo-wrap{position:relative;flex-shrink:0}
-/* ── UPGRADED DERM PHOTO ── */
+
+/* ── DERM PHOTO WRAP — upgraded for real images ── */
+.derm-photo-wrap{
+  width:64px;height:64px;
+  position:relative;flex-shrink:0;
+  border-radius:50%;
+  /* subtle outer glow ring */
+  box-shadow:0 0 0 2.5px var(--accent-l),0 0 0 4px #b5d0c9,0 4px 16px rgba(61,107,94,.18);
+}
 .derm-photo{
-  width:64px;height:64px;border-radius:50%;object-fit:cover;
-  border:2.5px solid var(--accent-l);
-  box-shadow:0 4px 16px rgba(61,107,94,.18),0 2px 6px rgba(0,0,0,.10);
-  display:block;background:var(--accent-l);
+  width:64px;height:64px;
+  border-radius:50%;
+  object-fit:cover;object-position:top center;
+  border:2.5px solid var(--white);
+  display:block;
+  background:var(--accent-l);
   transition:transform .22s ease,box-shadow .22s ease;
 }
-.derm-photo:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,107,94,.25)}
+.derm-photo:hover{
+  transform:translateY(-2px) scale(1.04);
+  box-shadow:0 8px 24px rgba(61,107,94,.28);
+}
+/* Fallback initials avatar — shown only when image fails */
 .derm-avatar{
-  width:64px;height:64px;border-radius:50%;
+  width:64px;height:64px;
+  border-radius:50%;
   background:linear-gradient(135deg,var(--accent),#5a9e8f);
-  display:none;align-items:center;justify-content:center;
-  color:var(--white);font-family:'Cormorant Garamond',serif;
-  font-size:28px;font-weight:600;flex-shrink:0;
-  border:2.5px solid var(--accent-l);
+  display:none; /* JS sets to flex when needed */
+  align-items:center;justify-content:center;
+  color:var(--white);
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:600;
+  flex-shrink:0;
+  border:2.5px solid var(--white);
   box-shadow:0 4px 16px rgba(61,107,94,.18);
 }
+/* ── end derm photo styles ── */
+
 .derm-header-info{flex:1;min-width:0}
 .derm-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--black);margin-bottom:2px}
 .derm-name span{color:var(--accent)}
@@ -326,33 +342,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
 /* ── PRICE ANIMATION ── */
 .price-anim-wrap{position:relative;margin-bottom:4px;min-height:40px}
-.payment-price-orig{
-  font-size:20px;color:var(--g400,#aaa);font-weight:300;
-  display:inline-block;position:relative;
-  transition:opacity .45s ease-out,transform .45s ease-out,color .3s ease;
-  transform:translateY(0);opacity:1;
-}
-.payment-price-orig::after{
-  content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;
-  background:var(--g500);transform:translateY(-50%);
-  transition:width .4s cubic-bezier(.65,0,.35,1) .1s;
-}
-.payment-price-orig.strike-active{
-  opacity:.38;
-  transform:translateY(-3px);
-  color:var(--g500);
-}
+.payment-price-orig{font-size:20px;color:var(--g500);font-weight:300;display:inline-block;position:relative;opacity:1;transform:translateY(0) scale(1);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1),color .35s ease;will-change:opacity,transform}
+.payment-price-orig::after{content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;background:var(--g500);transform:translateY(-50%);transition:width .42s cubic-bezier(.65,0,.35,1) .12s}
+.payment-price-orig.strike-active{opacity:.32;transform:translateY(-6px) scale(0.92);color:var(--g500)}
 .payment-price-orig.strike-active::after{width:100%}
-
-.payment-price-main{
-  font-family:'Cormorant Garamond',serif;
-  font-size:72px;font-weight:600;line-height:1;
-  letter-spacing:-3px;color:var(--black);
-  display:block;
-  opacity:0;transform:translateY(10px);
-  transition:opacity .5s ease-out,transform .5s ease-out;
-  margin-bottom:4px;
-}
+.payment-price-main{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:600;line-height:1;letter-spacing:-3px;color:var(--black);display:block;opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.25,.1,.25,1),transform .6s cubic-bezier(.25,.1,.25,1);margin-bottom:4px;will-change:opacity,transform}
 .payment-price-main.price-reveal{opacity:1;transform:translateY(0)}
 
 .payment-price-note{font-size:12px;color:var(--g500);margin-bottom:24px}
@@ -368,46 +362,18 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .payment-guarantee{text-align:center;margin-top:24px}
 .guarantee-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:8px 20px;font-size:12.5px;color:var(--g700);box-shadow:var(--shadow-s)}
 
-/* ── OVERLAY — UPGRADED ── */
-#overlay-analysing{
-  display:none;position:fixed;inset:0;z-index:1000;
-  background:rgba(250,250,250,.97);backdrop-filter:blur(14px);
-  flex-direction:column;align-items:center;justify-content:center;gap:0;
-}
+/* ── OVERLAY ── */
+#overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.97);backdrop-filter:blur(14px);flex-direction:column;align-items:center;justify-content:center;gap:0}
 #overlay-analysing.show{display:flex;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-.overlay-inner{
-  display:flex;flex-direction:column;align-items:center;
-  gap:16px;max-width:320px;width:100%;padding:0 24px;
-}
-.spin-ring{
-  width:52px;height:52px;border-radius:50%;
-  border:2px solid var(--g200);border-top-color:var(--accent);
-  animation:spin 1s linear infinite;flex-shrink:0;
-  margin-bottom:4px;
-}
+.overlay-inner{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:320px;width:100%;padding:0 24px}
+.spin-ring{width:52px;height:52px;border-radius:50%;border:2px solid var(--g200);border-top-color:var(--accent);animation:spin 1s linear infinite;flex-shrink:0;margin-bottom:4px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.overlay-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:24px;font-weight:600;color:var(--black);
-  text-align:center;line-height:1.2;
-}
-.overlay-rotating-text{
-  font-size:13px;color:var(--g500);font-weight:300;
-  text-align:center;line-height:1.6;
-  min-height:20px;
-  transition:opacity .35s ease;
-  letter-spacing:.01em;
-}
+.overlay-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--black);text-align:center;line-height:1.2}
+.overlay-rotating-text{font-size:13px;color:var(--g500);font-weight:300;text-align:center;line-height:1.6;min-height:20px;transition:opacity .35s ease;letter-spacing:.01em}
 .overlay-rotating-text.fading{opacity:0}
-.overlay-progress-dots{
-  display:flex;gap:6px;align-items:center;margin-top:8px;
-}
-.ov-dot{
-  width:5px;height:5px;border-radius:50%;
-  background:var(--g200);transition:background .3s ease,transform .3s ease;
-}
+.overlay-progress-dots{display:flex;gap:6px;align-items:center;margin-top:8px}
+.ov-dot{width:5px;height:5px;border-radius:50%;background:var(--g200);transition:background .3s ease,transform .3s ease}
 .ov-dot.active{background:var(--accent);transform:scale(1.3)}
 
 /* ── CHECKOUT MODAL ── */
@@ -429,7 +395,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-pay{flex:2;padding:13px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
 .btn-pay:hover{opacity:.85}
 
-/* ── THANK YOU PAGE — UPGRADED ── */
+/* ── THANK YOU ── */
 #page-thankyou{display:none;min-height:100vh;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 60% at 50% 30%,#dceae5 0%,var(--white) 70%);padding:40px 32px}
 #page-thankyou.active{display:flex}
 .ty-outer{text-align:center;max-width:560px;width:100%;animation:tyFadeUp .7s cubic-bezier(.25,.1,.25,1) both}
@@ -442,19 +408,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 @keyframes tyTickDraw{to{stroke-dashoffset:0}}
 .ty-eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--g500);margin-bottom:24px;box-shadow:var(--shadow-s);animation:pageFadeIn .5s ease .35s both}
 .ty-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
-/* UPDATED: BeSeen. styling */
-.ty-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(36px,5vw,58px);font-weight:600;
-  letter-spacing:-.04em;line-height:1.08;
-  color:var(--black);margin-bottom:20px;
-  animation:pageFadeIn .5s ease .45s both;
-  font-style:normal;
-}
+.ty-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,58px);font-weight:600;letter-spacing:-.04em;line-height:1.08;color:var(--black);margin-bottom:20px;animation:pageFadeIn .5s ease .45s both;font-style:normal}
 .ty-title em{font-style:italic;color:var(--accent)}
 .ty-brand{color:var(--black);font-style:normal}
 .ty-brand-dot{color:var(--accent);font-style:normal}
-
 .ty-sub{font-size:16px;font-weight:300;color:var(--g700);line-height:1.85;max-width:420px;margin:0 auto 44px;animation:pageFadeIn .5s ease .55s both}
 .ty-sub strong{font-weight:500;color:var(--black)}
 .ty-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);padding:28px 32px;box-shadow:var(--shadow-c);margin-bottom:36px;animation:pageFadeIn .5s ease .65s both;text-align:left}
@@ -517,45 +474,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .derm-header{flex-direction:column;text-align:center}
   .trust-row-inner{gap:20px 28px}
 }
- /* ── PRICE ANIMATION CSS ── */
-  #price-orig-anim {
-    position: relative;
-    display: inline-block;
-    transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #price-orig-anim::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0%;
-    height: 2px;
-    background: currentColor;
-    opacity: 0.6;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #price-orig-anim.strike-active::after {
-    width: 100%;
-  }
-
-  .price-old-animate {
-    transform: translateY(-6px) scale(0.96);
-    opacity: 0.45;
-  }
-
-  #price-main-anim {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .price-reveal {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-
 </style>
 </head>
 <body>
@@ -578,7 +496,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 <!-- ══════════ HOME PAGE ══════════ -->
 <div id="page-home" class="page active">
 
-  <!-- ── HERO ── -->
   <section class="hero">
     <div class="blob blob-a"></div>
     <div class="blob blob-b"></div>
@@ -614,7 +531,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </section>
 
-  <!-- ── TICKER ── -->
   <div class="ticker">
     <div class="ticker-track">
       <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
@@ -630,7 +546,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </div>
 
-  <!-- ── STATS BAR ── -->
   <section class="stats-bar">
     <div class="container">
       <div class="stats-inner">
@@ -652,7 +567,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </section>
 
-  <!-- ── PROOF STRIP ── -->
   <section class="proof-strip-section">
     <div class="proof-strip-header fu">
       <p>What our customers say</p>
@@ -661,8 +575,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     <div class="proof-strip-scroll" id="proof-strip-scroll">
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
@@ -676,8 +590,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
@@ -691,8 +605,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
@@ -706,8 +620,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
@@ -721,8 +635,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
@@ -736,8 +650,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
@@ -752,7 +666,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </section>
 
-  <!-- ── FEATURED TRANSFORMATION ── -->
   <section class="featured-transform">
     <div class="container">
       <div style="text-align:center;margin-bottom:48px">
@@ -762,11 +675,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="ft-inner fu d2">
         <div class="ft-images">
           <div class="ft-img-wrap">
-            <img class="ft-img" src="/images/priya-before.png" loading="lazy" alt="Priya before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph bph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Before'}),this)">
+            <img class="ft-img" src="/images/priya-before.png" loading="lazy" alt="Priya before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph bph',innerHTML:'Before'}),this)">
             <span class="ft-lbl">Before</span>
           </div>
           <div class="ft-img-wrap">
-            <img class="ft-img" src="/images/priya-after.png" loading="lazy" alt="Priya after" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph aph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>After'}),this)">
+            <img class="ft-img" src="/images/priya-after.png" loading="lazy" alt="Priya after" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph aph',innerHTML:'After'}),this)">
             <span class="ft-lbl aft">After — 21 days</span>
           </div>
         </div>
@@ -790,7 +703,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </section>
 
-  <!-- ── HOW IT WORKS ── -->
   <section class="how" id="how">
     <div class="container">
       <div class="how-inner">
@@ -828,7 +740,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
             </div>
           </div>
           <div style="margin-top:36px">
-            <button class="btn btn-primary fu d4" id="how-start-btn" onclick="document.getElementById('hero-start-btn').click()">
+            <button class="btn btn-primary fu d4" id="how-start-btn">
               Start Your Journey →
             </button>
           </div>
@@ -847,7 +759,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </section>
 
-  <!-- ── FAQ ── -->
   <section class="faq-section" id="faq">
     <div class="container">
       <div class="faq-header">
@@ -857,29 +768,28 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="faq-list fu d2">
         <div class="faq-item">
           <button class="faq-question">Is this dermatologist approved?<span class="faq-icon"></span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Yes. Every routine framework and ingredient recommendation on BeSeen has been reviewed and validated by qualified dermatologists. Our protocols are built on peer-reviewed clinical evidence, not trends. While BeSeen is not a replacement for an in-person medical consultation, our routines are held to the same standard of care you'd expect from a reputable skincare clinic.</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. Every routine framework and ingredient recommendation on BeSeen has been reviewed and validated by qualified dermatologists. Our protocols are built on peer-reviewed clinical evidence, not trends.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">Are my photos safe? Who can see them?<span class="faq-icon"></span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Your privacy is paramount to us. All photos you upload are encrypted in transit and at rest using industry-standard AES-256 encryption. They are stored securely on private servers and are never shared with third parties, advertisers, or any external service. Only the dedicated skincare expert assigned to your profile can view your photos — strictly for the purpose of building your personalised routine. You can request deletion at any time.</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Your privacy is paramount to us. All photos you upload are encrypted in transit and at rest using industry-standard AES-256 encryption. They are stored securely on private servers and are never shared with third parties, advertisers, or any external service. Only the dedicated skincare expert assigned to your profile can view your photos.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">Will real people guide me, or is it all AI?<span class="faq-icon"></span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Both, working together. Our technology analyses your photos and questionnaire responses to create a highly personalised starting point. But the human element is where BeSeen truly stands apart — you'll be assigned a dedicated skincare expert (Riya, Ananya, Samairaa, or Sara) who personally reviews your profile, checks in at day 4 and day 21, and is available on WhatsApp to answer your questions. They're not bots. They're real, trained people who genuinely care about your skin journey.</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Both, working together. Our technology analyses your photos and questionnaire responses to create a highly personalised starting point. But the human element is where BeSeen truly stands apart — you'll be assigned a dedicated skincare expert who personally reviews your profile, checks in at day 4 and day 21, and is available on WhatsApp.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">What happens after I submit my questionnaire?<span class="faq-icon"></span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Once you complete your questionnaire and upload your photos, our system begins building your personalised plan immediately. After your order is confirmed, your assigned expert reviews your full profile and prepares your complete morning, afternoon, night, and pre-sleep routine with detailed explanations. This is then delivered to you via WhatsApp within 24 hours — often much sooner.</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Once you complete your questionnaire and upload your photos, our system begins building your personalised plan immediately. Your complete routine is then delivered via WhatsApp within 24 hours — often much sooner.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">How fast will I see results?<span class="faq-icon"></span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Most customers notice an improvement in skin texture and feel within the first 7–10 days. Concerns like acne, oiliness, and dryness typically show visible improvement by the 21-day mark — which is why we have a structured 21-day progress review built in. Pigmentation and fine lines take longer — usually 4–8 weeks of consistent use. Your expert will help calibrate your expectations and adjust your routine at the 21-day checkpoint if needed.</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Most customers notice an improvement in skin texture and feel within the first 7–10 days. Concerns like acne, oiliness, and dryness typically show visible improvement by the 21-day mark. Your expert will calibrate your expectations and adjust your routine at the 21-day checkpoint if needed.</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── CONSOLIDATED TRUST ROW ── -->
   <div class="trust-row">
     <div class="trust-row-inner">
       <div class="trust-badge">
@@ -903,7 +813,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
   </div>
 
-  <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">BeSeen<span>.</span></div>
@@ -1193,21 +1102,33 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
     <div class="payment-grid">
 
-      <!-- ── UPGRADED DERM CARD ── -->
       <div class="payment-derm-card">
         <div class="derm-header">
+
+          <!--
+            DERM PHOTO WRAP — upgraded structure
+            • .derm-photo-wrap  : ring/shadow container
+            • .derm-photo       : real <img>; hidden via JS if load fails
+            • .derm-avatar      : initials fallback; display:none by default,
+                                  JS sets display:flex only on image error
+          -->
           <div class="derm-photo-wrap">
-            <!-- REAL DOCTOR IMAGE — updated names: Riya, Ananya, Meera, Kavya -->
             <img
               class="derm-photo"
               id="payment-derm-photo"
-              src="/images/doctor-riya.png"
+              src=""
               loading="eager"
-              alt="Dr. Riya"
-              onerror="this.style.display='none';document.getElementById('payment-derm-avatar').style.display='flex'"
+              alt="Your assigned dermatologist"
+              onerror="
+                this.style.display='none';
+                var av=document.getElementById('payment-derm-avatar');
+                if(av){av.style.display='flex';}
+              "
             >
             <div class="derm-avatar" id="payment-derm-avatar">R</div>
           </div>
+          <!-- /derm-photo-wrap -->
+
           <div class="derm-header-info">
             <div class="derm-name">Dr. <span id="payment-derm-name">Riya</span></div>
             <div class="derm-title">Certified Dermatologist · BeSeen</div>
@@ -1226,16 +1147,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         </div>
       </div>
 
-      <!-- ── UPGRADED PRICE CARD ── -->
       <div class="payment-price-card">
         <div class="payment-price-badge">Early Access — Limited</div>
-
-        <!-- ANIMATED PRICE -->
         <div class="price-anim-wrap">
           <span class="payment-price-orig" id="price-orig-anim">₹899</span>
         </div>
         <div class="payment-price-main" id="price-main-anim">₹699</div>
-
         <p class="payment-price-note">One-time payment · No subscription · Instant access</p>
         <div class="payment-timer-box">
           <div class="payment-timer-label">⚡ Offer expires in</div>
@@ -1259,7 +1176,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </div><!-- /page-payment -->
 
 
-<!-- ══════════ THANK YOU PAGE — UPGRADED ══════════ -->
+<!-- ══════════ THANK YOU PAGE ══════════ -->
 <div id="page-thankyou" class="page">
   <div class="ty-outer">
     <div class="ty-icon-wrap">
@@ -1270,17 +1187,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
     </div>
     <div class="ty-eyebrow"><span class="ty-eyebrow-dot"></span>Payment Confirmed</div>
-
-    <!-- UPDATED: BeSeen black, . green -->
     <h1 class="ty-title">
       Thank you for choosing<br><span class="ty-brand">BeSeen</span><span class="ty-brand-dot">.</span>
     </h1>
-
-    <!-- UPDATED: Simplified, emotional subtext -->
     <p class="ty-sub">
       Your dermatologist will reach out within <strong>24 hours</strong>.
     </p>
-
     <div class="ty-card">
       <div class="ty-card-row"><div class="ty-card-icon">📋</div><div class="ty-card-text"><strong>Profile Received</strong><span>Your skin data has been securely saved</span></div></div>
       <div class="ty-card-row"><div class="ty-card-icon">🔬</div><div class="ty-card-text"><strong>Analysis In Progress</strong><span>Our experts are reviewing your photos</span></div></div>
@@ -1313,7 +1225,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </div>
 
 
-<!-- ══════════ ANALYSING OVERLAY — UPGRADED ══════════ -->
+<!-- ══════════ ANALYSING OVERLAY ══════════ -->
 <div id="overlay-analysing">
   <div class="overlay-inner">
     <div class="spin-ring"></div>
@@ -1333,185 +1245,216 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </button>
 
 
-<!-- ══════════ ORIGINAL JS (PRESERVED + UPGRADED) ══════════ -->
+<!-- ══════════ MAIN JS ══════════ -->
 <script>
 (function () {
   'use strict';
 
-  const SUPABASE_URL   = 'https://rkhlfmfubwszgslxiloh.supabase.co';
-  const SUPABASE_KEY   = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
-  const STORAGE_BUCKET = 'skin-images';
+  var SUPABASE_URL   = 'https://rkhlfmfubwszgslxiloh.supabase.co';
+  var SUPABASE_KEY   = 'sb_publishable_vkOdWllAwG12e9-roiMIdA_I6N2YZ8f';
+  var STORAGE_BUCKET = 'skin-images';
 
-  const sb = window.supabase
+  var sb = (window.supabase && window.supabase.createClient)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
     : null;
 
-  const formData = {
-    name: '', age: '', gender: '', city: '',
-    skinType: '', concerns: [], behavior: '',
-    sleep: '', water: '', diet: '', stress: '',
-    routine: '', history: []
+  var formData = {
+    name:'', age:'', gender:'', city:'',
+    skinType:'', concerns:[], behavior:'',
+    sleep:'', water:'', diet:'', stress:'',
+    routine:'', history:[]
   };
 
-  const slotFiles  = [null, null, null, null, null];
-  let currentStep  = 1;
-  const TOTAL_STEPS = 9;
-  let timerInterval     = null;
-  let timerActive       = false;
-  let paymentTimer      = null;
-  let assignedDermName  = 'Riya';
-  let overlayRotateInterval = null;
+  var slotFiles         = [null, null, null, null, null];
+  var currentStep       = 1;
+  var TOTAL_STEPS       = 9;
+  var paymentTimer      = null;
+  var assignedDermName  = 'Riya';
+  var overlayRotateInt  = null;
 
+  /* ── CONSOLIDATED DERM PHOTO MAP ── */
+  var DERM_PHOTO_MAP = {
+    'Riya':     '/images/doctor-riya.png',
+    'Ananya':   '/images/doctor-ananya.png',
+    'Samairaa': '/images/doctor-samairaa.png',
+    'Sara':     '/images/doctor-sara.png'
+  };
+
+  /* ── HELPERS ── */
   function escHtml(str) {
     return String(str || '')
       .replace(/&/g,'&amp;').replace(/</g,'&lt;')
       .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
   function makeSlug(name) {
     return (name || 'user').toLowerCase().trim()
       .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'user';
   }
-
   function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) target.classList.add('active');
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var t = document.getElementById(id);
+    if (t) t.classList.add('active');
     window.scrollTo(0, 0);
   }
-
   function goHome() { showPage('page-home'); }
 
+  /* ── NAVBAR ── */
   (function initNavbar() {
-    const nav = document.getElementById('main-nav');
+    var nav = document.getElementById('main-nav');
     if (!nav) return;
-    let lastScrollY = 0;
-    let hideTimeout = null;
-
-    function showNav() { nav.classList.add('nav-visible'); }
-    function hideNav() { nav.classList.remove('nav-visible'); }
-
-    requestAnimationFrame(() => {
-      setTimeout(() => {
+    var lastY = 0, hideT = null;
+    function showNav(){ nav.classList.add('nav-visible'); }
+    function hideNav(){ nav.classList.remove('nav-visible'); }
+    requestAnimationFrame(function(){
+      setTimeout(function(){
         showNav();
-        hideTimeout = setTimeout(() => {
-          if (window.scrollY < 60) hideNav();
-        }, 2500);
+        hideT = setTimeout(function(){ if (window.scrollY < 60) hideNav(); }, 2500);
       }, 120);
     });
-
-    window.addEventListener('scroll', () => {
-      const currentY = window.scrollY;
-      clearTimeout(hideTimeout);
-      if (currentY < lastScrollY || currentY < 10) {
-        showNav();
-      } else if (currentY > lastScrollY && currentY > 80) {
-        hideNav();
-      }
-      lastScrollY = currentY;
-    }, { passive: true });
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      clearTimeout(hideT);
+      if (y < lastY || y < 10) showNav();
+      else if (y > lastY && y > 80) hideNav();
+      lastY = y;
+    }, { passive:true });
   })();
 
+  /* ── FAQ ── */
   function initFAQ() {
-    document.querySelectorAll('.faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
+    document.querySelectorAll('.faq-question').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var item = btn.closest('.faq-item');
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+        if (!wasOpen) item.classList.add('open');
       });
     });
   }
 
+  /* ── PROOF STRIP ── */
   function initProofStrip() {
-    const strip = document.getElementById('proof-strip-scroll');
+    var strip = document.getElementById('proof-strip-scroll');
     if (!strip) return;
-    let isDragging = false, startX = 0, scrollLeft = 0;
-    strip.addEventListener('mousedown', e => {
+    var isDragging = false, startX = 0, scrollLeft = 0;
+    strip.addEventListener('mousedown', function(e){
       isDragging = true; startX = e.pageX - strip.offsetLeft;
       scrollLeft = strip.scrollLeft; strip.style.userSelect = 'none';
     });
-    strip.addEventListener('mouseleave', () => { isDragging = false; });
-    strip.addEventListener('mouseup', () => { isDragging = false; strip.style.userSelect = ''; });
-    strip.addEventListener('mousemove', e => {
+    strip.addEventListener('mouseleave', function(){ isDragging = false; });
+    strip.addEventListener('mouseup', function(){ isDragging = false; strip.style.userSelect = ''; });
+    strip.addEventListener('mousemove', function(e){
       if (!isDragging) return; e.preventDefault();
       strip.scrollLeft = scrollLeft - (e.pageX - strip.offsetLeft - startX) * 1.4;
     });
-
-    let autoScrollPaused = false;
-    strip.addEventListener('mouseenter', () => { autoScrollPaused = true; });
-    strip.addEventListener('mouseleave', () => { autoScrollPaused = false; });
-    setInterval(() => {
-      if (autoScrollPaused || isDragging) return;
+    var paused = false;
+    strip.addEventListener('mouseenter', function(){ paused = true; });
+    strip.addEventListener('mouseleave', function(){ paused = false; });
+    setInterval(function(){
+      if (paused || isDragging) return;
       strip.scrollLeft += 0.6;
-      const maxScroll = strip.scrollWidth - strip.clientWidth;
-      if (strip.scrollLeft >= maxScroll) strip.scrollLeft = 0;
+      if (strip.scrollLeft >= strip.scrollWidth - strip.clientWidth) strip.scrollLeft = 0;
     }, 16);
   }
 
-  // ── UPDATED: 4 real doctors ──
+  /* ── PICK DERMATOLOGIST ── */
   function pickDermatologist() {
-    const derms = [
-      { name: 'Riya',   initial: 'R' },
-      { name: 'Ananya', initial: 'A' },
-      { name: 'Samairaa',  initial: 'S' },
-      { name: 'Sara',  initial: 'S' }
+    var list = [
+      { name:'Riya',     initial:'R' },
+      { name:'Ananya',   initial:'A' },
+      { name:'Samairaa', initial:'S' },
+      { name:'Sara',     initial:'S' }
     ];
-    return derms[Math.floor(Math.random() * derms.length)];
+    return list[Math.floor(Math.random() * list.length)];
   }
 
-  // ── PRICE ANIMATION (PREMIUM FIXED) ──
-function animatePriceReveal() {
-  const origEl = document.getElementById('price-orig-anim'); // ₹899
-  const mainEl = document.getElementById('price-main-anim'); // ₹699
+  /* ── PRICE ANIMATION ── */
+  function animatePriceReveal() {
+    var origEl = document.getElementById('price-orig-anim');
+    var mainEl = document.getElementById('price-main-anim');
+    if (!origEl || !mainEl) return;
 
-  if (!origEl || !mainEl) return;
+    origEl.classList.remove('strike-active');
+    mainEl.classList.remove('price-reveal');
+    void origEl.offsetWidth;
+    void mainEl.offsetWidth;
 
-  // Reset (important for re-entry)
-  origEl.classList.remove('strike-active', 'price-old-animate');
-  mainEl.classList.remove('price-reveal');
-
-  mainEl.style.opacity = '0';
-  mainEl.style.transform = 'translateY(12px)';
-
-  // STEP 1 — hold ₹899 clean
-  setTimeout(function () {
-
-    // STEP 2 — strike + move ₹899
-    origEl.classList.add('strike-active');
-    origEl.classList.add('price-old-animate');
-
-    // STEP 3 — reveal ₹699 smoothly
     setTimeout(function () {
-      mainEl.classList.add('price-reveal');
-    }, 300); // tighter timing = premium feel
+      origEl.classList.add('strike-active');
+      setTimeout(function () {
+        mainEl.classList.add('price-reveal');
+      }, 320);
+    }, 700);
+  }
 
-  }, 700);
-}
-    // Update photo src
-    if (photoEl) {
-      photoEl.src = '/images/doctor-' + derm.name.toLowerCase() + '.png';
-      photoEl.alt = 'Dr. ' + derm.name;
+  /* ── PAYMENT COUNTDOWN ── */
+  function startPaymentCountdown() {
+    clearInterval(paymentTimer);
+    var seconds = 59;
+    var el = document.getElementById('payment-timer');
+    if (el) el.textContent = '00:59';
+    paymentTimer = setInterval(function () {
+      seconds--;
+      if (seconds < 0) { seconds = 0; clearInterval(paymentTimer); }
+      var mm = String(Math.floor(seconds / 60)).padStart(2, '0');
+      var ss = String(seconds % 60).padStart(2, '0');
+      if (el) el.textContent = mm + ':' + ss;
+    }, 1000);
+  }
+
+  /* ══════════════════════════════════════════
+     SHOW PAYMENT PAGE — with real photo logic
+     ══════════════════════════════════════════ */
+  function showPaymentPage() {
+    var derm     = pickDermatologist();
+    assignedDermName = derm.name;
+
+    var nameEl   = document.getElementById('payment-derm-name');
+    var photoEl  = document.getElementById('payment-derm-photo');
+    var avatarEl = document.getElementById('payment-derm-avatar');
+
+    /* 1 — write the name text */
+    if (nameEl) nameEl.textContent = derm.name;
+
+    /* 2 — set initials on the fallback avatar always (safe default) */
+    if (avatarEl) avatarEl.textContent = derm.initial;
+
+    /* 3 — attempt to load the real photo */
+    var photoSrc = DERM_PHOTO_MAP[derm.name] || null;
+
+    if (photoEl && photoSrc) {
+      /* Reset any previous error state */
       photoEl.style.display = 'block';
       if (avatarEl) avatarEl.style.display = 'none';
+
+      /* Point to the real image — onerror in HTML handles the fallback */
+      photoEl.src = photoSrc;
+      photoEl.alt = 'Dr. ' + derm.name;
+    } else {
+      /* No photo path mapped → show initials immediately */
+      if (photoEl)  photoEl.style.display  = 'none';
+      if (avatarEl) avatarEl.style.display = 'flex';
     }
 
     showPage('page-payment');
     startPaymentCountdown();
 
-    // Trigger price animation after page paint
-    requestAnimationFrame(function() {
+    /* Fire price animation after first paint */
+    requestAnimationFrame(function () {
       setTimeout(animatePriceReveal, 80);
     });
   }
+  /* ══════════════════════════════════════════ */
 
+  /* ── THANK YOU ── */
   function confirmPaymentAndShowThankYou() {
     clearInterval(paymentTimer);
-    const tyDermEl = document.getElementById('ty-derm-name');
-    if (tyDermEl) tyDermEl.textContent = assignedDermName;
+    var tyEl = document.getElementById('ty-derm-name');
+    if (tyEl) tyEl.textContent = assignedDermName;
     showPage('page-thankyou');
   }
 
+  /* ── QUIZ ── */
   function startQuiz() {
     resetQuizState();
     showPage('page-quiz');
@@ -1526,38 +1469,38 @@ function animatePriceReveal() {
       sleep:'', water:'', diet:'', stress:'',
       routine:'', history:[]
     });
-    for (let i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
+    for (var i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
 
-    const nameInput = document.getElementById('input-name');
-    const cityInput = document.getElementById('input-city');
-    if (nameInput) nameInput.value = '';
-    if (cityInput) cityInput.value = '';
+    var ni = document.getElementById('input-name');
+    var ci = document.getElementById('input-city');
+    if (ni) ni.value = '';
+    if (ci) ci.value = '';
 
-    document.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
-    document.querySelectorAll('.slot-file-input').forEach(i => { i.value = ''; });
+    document.querySelectorAll('.q-opt').forEach(function(o){ o.classList.remove('sel'); });
+    document.querySelectorAll('.slot-file-input').forEach(function(inp){ inp.value = ''; });
 
-    const hint = document.getElementById('concern-hint');
+    var hint = document.getElementById('concern-hint');
     if (hint) hint.innerHTML = 'Select up to <span>3</span> more';
 
-    for (let i = 0; i < 5; i++) resetSlotMarkup(i);
+    for (var j = 0; j < 5; j++) resetSlotMarkup(j);
     clearCheckoutErrors();
     checkAllSteps();
   }
 
   function updateQuizBar() {
-    const pct   = (currentStep / TOTAL_STEPS) * 100;
-    const bar   = document.getElementById('quiz-bar');
-    const label = document.getElementById('quiz-step-label');
+    var pct   = (currentStep / TOTAL_STEPS) * 100;
+    var bar   = document.getElementById('quiz-bar');
+    var label = document.getElementById('quiz-step-label');
     if (bar)   bar.style.width   = pct + '%';
     if (label) label.textContent = 'Step ' + currentStep + ' of ' + TOTAL_STEPS;
   }
 
   function showStep(step, goingBack) {
-    document.querySelectorAll('.quiz-step').forEach(s => {
+    document.querySelectorAll('.quiz-step').forEach(function(s){
       s.classList.remove('active','going-back');
       s.style.display = 'none';
     });
-    const target = document.querySelector('[data-step="' + step + '"]');
+    var target = document.querySelector('[data-step="' + step + '"]');
     if (!target) return;
     target.style.display = 'block';
     void target.offsetWidth;
@@ -1570,7 +1513,7 @@ function animatePriceReveal() {
   function prevStep(step) { showStep(step, true); }
 
   function checkStepReady(step) {
-    let ready = false;
+    var ready = false;
     switch (step) {
       case 1: ready = formData.name.trim().length >= 2; break;
       case 2: ready = formData.age !== '' && formData.gender !== ''; break;
@@ -1583,24 +1526,24 @@ function animatePriceReveal() {
       case 9: ready = slotFiles[0] !== null; break;
       default: ready = false;
     }
-    const btn = document.getElementById('next-' + step);
+    var btn = document.getElementById('next-' + step);
     if (btn) btn.classList.toggle('ready', ready);
   }
 
   function checkAllSteps() {
-    for (let i = 1; i <= TOTAL_STEPS; i++) checkStepReady(i);
+    for (var i = 1; i <= TOTAL_STEPS; i++) checkStepReady(i);
   }
 
   function selectOpt(el, key, val, stepNum) {
-    const parent = el.closest('.quiz-options');
-    if (parent) parent.querySelectorAll('.q-opt').forEach(o => o.classList.remove('sel'));
+    var parent = el.closest('.quiz-options');
+    if (parent) parent.querySelectorAll('.q-opt').forEach(function(o){ o.classList.remove('sel'); });
     el.classList.add('sel');
     if (key in formData) formData[key] = val;
     checkStepReady(stepNum);
   }
 
   function toggleConcern(el, val) {
-    const idx = formData.concerns.indexOf(val);
+    var idx = formData.concerns.indexOf(val);
     if (idx > -1) {
       formData.concerns.splice(idx, 1);
       el.classList.remove('sel');
@@ -1609,8 +1552,8 @@ function animatePriceReveal() {
       formData.concerns.push(val);
       el.classList.add('sel');
     }
-    const remaining = 3 - formData.concerns.length;
-    const hint = document.getElementById('concern-hint');
+    var remaining = 3 - formData.concerns.length;
+    var hint = document.getElementById('concern-hint');
     if (hint) {
       if (formData.concerns.length === 0) hint.innerHTML = 'Select up to <span>3</span> more';
       else if (formData.concerns.length >= 3) hint.innerHTML = '<span style="color:var(--accent)">Max 3 selected</span>';
@@ -1622,29 +1565,30 @@ function animatePriceReveal() {
   function toggleHistory(el, val) {
     if (val === 'Not sure') {
       formData.history = ['Not sure'];
-      document.querySelectorAll('#opts-history .q-opt').forEach(o => o.classList.remove('sel'));
+      document.querySelectorAll('#opts-history .q-opt').forEach(function(o){ o.classList.remove('sel'); });
       el.classList.add('sel');
     } else {
-      const nsIdx = formData.history.indexOf('Not sure');
+      var nsIdx = formData.history.indexOf('Not sure');
       if (nsIdx > -1) {
         formData.history.splice(nsIdx, 1);
-        document.querySelectorAll('#opts-history .q-opt').forEach(o => {
+        document.querySelectorAll('#opts-history .q-opt').forEach(function(o){
           if (o.dataset.history === 'Not sure') o.classList.remove('sel');
         });
       }
-      const idx = formData.history.indexOf(val);
+      var idx = formData.history.indexOf(val);
       if (idx > -1) { formData.history.splice(idx, 1); el.classList.remove('sel'); }
       else { formData.history.push(val); el.classList.add('sel'); }
     }
     checkStepReady(8);
   }
 
-  const SLOT_LABELS = [
+  /* ── PHOTO SLOTS ── */
+  var SLOT_LABELS = [
     ['Front Face','Required'],['Left Profile','Recommended'],
     ['Right Profile','Recommended'],['Close-up','Recommended'],
     ['Video','Optional · 30s']
   ];
-  const SLOT_ICONS = [
+  var SLOT_ICONS = [
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
@@ -1653,7 +1597,7 @@ function animatePriceReveal() {
   ];
 
   function resetSlotMarkup(idx) {
-    const slot = document.getElementById('slot-' + idx);
+    var slot = document.getElementById('slot-' + idx);
     if (!slot) return;
     slot.classList.remove('has-preview');
     slot.innerHTML = SLOT_ICONS[idx] +
@@ -1662,7 +1606,7 @@ function animatePriceReveal() {
   }
 
   function triggerSlot(idx) {
-    const input = document.getElementById('slot-input-' + idx);
+    var input = document.getElementById('slot-input-' + idx);
     if (input) input.click();
   }
 
@@ -1674,10 +1618,10 @@ function animatePriceReveal() {
   }
 
   function handleSlotFile(input, idx) {
-    const file = input.files && input.files[0];
+    var file = input.files && input.files[0];
     if (!file) return;
     slotFiles[idx] = file;
-    const slot = document.getElementById('slot-' + idx);
+    var slot = document.getElementById('slot-' + idx);
     if (!slot) return;
     slot.classList.add('has-preview');
     if (idx === 4) {
@@ -1687,7 +1631,7 @@ function animatePriceReveal() {
         '<small style="font-size:10px;color:var(--g500)">' + escHtml((file.name||'').substring(0,18)) + '</small></div>' +
         '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
     } else {
-      const url = URL.createObjectURL(file);
+      var url = URL.createObjectURL(file);
       slot.innerHTML =
         '<img class="slot-preview" src="' + url + '" alt="Preview">' +
         '<button class="slot-clear" data-clear-slot="' + idx + '">×</button>';
@@ -1698,35 +1642,31 @@ function animatePriceReveal() {
 
   function checkUploadReady() {
     checkStepReady(9);
-    const err = document.getElementById('photo-req-error');
+    var err = document.getElementById('photo-req-error');
     if (err && slotFiles[0] !== null) err.style.display = 'none';
   }
 
+  /* ── SUPABASE UPLOAD ── */
   async function uploadImage(file, type) {
     if (!sb || !file) return null;
-    const slug = makeSlug(formData.name);
-    const ts   = Math.floor(Date.now() / 1000);
-    const ext  = ((file.name || 'jpg').split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
-    const path = slug + '-' + ts + '/' + type + '.' + ext;
+    var slug = makeSlug(formData.name);
+    var ts   = Math.floor(Date.now() / 1000);
+    var ext  = ((file.name || 'jpg').split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+    var path = slug + '-' + ts + '/' + type + '.' + ext;
     try {
-      const { error } = await sb.storage
-        .from(STORAGE_BUCKET)
-        .upload(path, file, { cacheControl: '3600', upsert: true });
-      if (error) { console.error('Storage upload error [' + type + ']:', error); return null; }
-      const { data } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-      return data ? data.publicUrl : null;
-    } catch (err) {
-      console.error('uploadImage exception [' + type + ']:', err);
-      return null;
-    }
+      var up = await sb.storage.from(STORAGE_BUCKET).upload(path, file, { cacheControl:'3600', upsert:true });
+      if (up.error) { console.error('Upload error [' + type + ']:', up.error); return null; }
+      var pub = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+      return pub.data ? pub.data.publicUrl : null;
+    } catch(e) { console.error('uploadImage exception:', e); return null; }
   }
 
   async function uploadAllImages() {
-    const types  = ['front','left','right','concern'];
-    const result = { front:null, left:null, right:null, concern:null, urls:[] };
-    for (let i = 0; i < 4; i++) {
+    var types  = ['front','left','right','concern'];
+    var result = { front:null, left:null, right:null, concern:null, urls:[] };
+    for (var i = 0; i < 4; i++) {
       if (slotFiles[i]) {
-        const url = await uploadImage(slotFiles[i], types[i]);
+        var url = await uploadImage(slotFiles[i], types[i]);
         result[types[i]] = url;
         if (url) result.urls.push(url);
       }
@@ -1735,44 +1675,41 @@ function animatePriceReveal() {
   }
 
   async function saveToSupabase(imageData) {
-    if (!sb) { console.error('Supabase client unavailable'); return; }
-    const payload = {
+    if (!sb) { console.error('Supabase unavailable'); return; }
+    var payload = {
       name:          formData.name || '',
       age:           formData.age || '',
       gender:        formData.gender || '',
       city:          formData.city || '',
       skin_type:     formData.skinType || '',
-      concerns:      Array.isArray(formData.concerns) ? formData.concerns.join(',') : '',
+      concerns:      formData.concerns.join(','),
       behavior:      formData.behavior || '',
       sleep:         formData.sleep || '',
       water:         formData.water || '',
       diet:          formData.diet || '',
       stress:        formData.stress || '',
       routine:       formData.routine || '',
-      history:       Array.isArray(formData.history) ? formData.history.join(',') : '',
-      front_image:   imageData.front || null,
-      left_image:    imageData.left || null,
-      right_image:   imageData.right || null,
+      history:       formData.history.join(','),
+      front_image:   imageData.front   || null,
+      left_image:    imageData.left    || null,
+      right_image:   imageData.right   || null,
       concern_image: imageData.concern || null
     };
-    console.log('PAYLOAD:', payload);
     try {
-      const { error } = await sb.from('submissions').insert([payload]);
-      if (error) console.error('❌ SUPABASE ERROR:', error);
-      else       console.log('✅ SUCCESS INSERT');
-    } catch (err) {
-      console.error('🔥 saveToSupabase exception:', err);
-    }
+      var res = await sb.from('submissions').insert([payload]);
+      if (res.error) console.error('Supabase insert error:', res.error);
+      else           console.log('Supabase insert OK');
+    } catch(e) { console.error('saveToSupabase exception:', e); }
   }
 
-  // ── OVERLAY ROTATING TEXT ──
-  const OVERLAY_UPLOAD_TEXTS = [
+  /* ── OVERLAY ROTATION ── */
+  var OVERLAY_UPLOAD_TEXTS = [
     'Encrypting your photos securely…',
     'Preparing your skin profile…',
     'No data is ever shared or sold',
     'Used by 500+ users across India'
   ];
-  const OVERLAY_ANALYSIS_TEXTS = [
+  var OVERLAY_ANALYSIS_TEXTS = [
     'Scanning your skin condition…',
     'Mapping concerns & patterns…',
     'Matching ingredients to your skin…',
@@ -1780,404 +1717,284 @@ function animatePriceReveal() {
   ];
 
   function startOverlayRotation(phase) {
-    clearInterval(overlayRotateInterval);
-    const texts = phase === 'upload' ? OVERLAY_UPLOAD_TEXTS : OVERLAY_ANALYSIS_TEXTS;
-    const el    = document.getElementById('overlay-rotating-text');
-    let idx     = 0;
-    const dots  = [
+    clearInterval(overlayRotateInt);
+    var texts = phase === 'upload' ? OVERLAY_UPLOAD_TEXTS : OVERLAY_ANALYSIS_TEXTS;
+    var el    = document.getElementById('overlay-rotating-text');
+    var dots  = [
       document.getElementById('ov-dot-0'),
       document.getElementById('ov-dot-1'),
       document.getElementById('ov-dot-2')
     ];
-
+    var idx = 0;
     if (el) el.textContent = texts[0];
-    updateOverlayDots(dots, 0);
-
-    overlayRotateInterval = setInterval(function() {
+    updateOvDots(dots, 0);
+    overlayRotateInt = setInterval(function(){
       if (!el) return;
       el.classList.add('fading');
-      setTimeout(function() {
+      setTimeout(function(){
         idx = (idx + 1) % texts.length;
         el.textContent = texts[idx];
         el.classList.remove('fading');
-        updateOverlayDots(dots, idx % 3);
+        updateOvDots(dots, idx % 3);
       }, 360);
     }, 2800);
   }
 
-  function updateOverlayDots(dots, active) {
-    dots.forEach(function(d, i) {
+  function updateOvDots(dots, active) {
+    dots.forEach(function(d, i){
       if (!d) return;
       d.classList.toggle('active', i === active);
     });
   }
 
   function stopOverlayRotation() {
-    clearInterval(overlayRotateInterval);
-    overlayRotateInterval = null;
+    clearInterval(overlayRotateInt);
+    overlayRotateInt = null;
   }
 
+  /* ── ANALYSE & GO ── */
   async function analyseAndGo() {
     if (slotFiles[0] === null) {
-      const err = document.getElementById('photo-req-error');
-      if (err) err.style.display = 'block';
+      var errEl = document.getElementById('photo-req-error');
+      if (errEl) errEl.style.display = 'block';
       return;
     }
-    const errEl = document.getElementById('photo-req-error');
-    if (errEl) errEl.style.display = 'none';
+    var photoErr = document.getElementById('photo-req-error');
+    if (photoErr) photoErr.style.display = 'none';
 
-    const nameInput = document.getElementById('input-name');
-    const cityInput = document.getElementById('input-city');
-    if (nameInput && nameInput.value.trim()) formData.name = nameInput.value.trim();
-    if (cityInput && cityInput.value.trim()) formData.city = cityInput.value.trim();
+    var ni = document.getElementById('input-name');
+    var ci = document.getElementById('input-city');
+    if (ni && ni.value.trim()) formData.name = ni.value.trim();
+    if (ci && ci.value.trim()) formData.city = ci.value.trim();
 
-    const overlay      = document.getElementById('overlay-analysing');
-    const overlayTitle = document.getElementById('overlay-title');
+    var overlay      = document.getElementById('overlay-analysing');
+    var overlayTitle = document.getElementById('overlay-title');
 
     if (overlay) overlay.classList.add('show');
-
-    // Phase 1: Upload
     if (overlayTitle) overlayTitle.textContent = 'Uploading your photos…';
     startOverlayRotation('upload');
 
-    let imageData = { front:null, left:null, right:null, concern:null, urls:[] };
+    var imageData = { front:null, left:null, right:null, concern:null, urls:[] };
     try { imageData = await uploadAllImages(); }
-    catch (err) { console.error('Image upload failed:', err); }
+    catch(e) { console.error('Image upload failed:', e); }
 
-    // Phase 2: Analysis
     if (overlayTitle) overlayTitle.textContent = 'Analysing your skin…';
     startOverlayRotation('analysis');
 
     try { await saveToSupabase(imageData); }
-    catch (err) { console.error('SAVE ERROR:', err); }
+    catch(e) { console.error('Save error:', e); }
 
-    await new Promise(resolve => setTimeout(resolve, 1800));
+    await new Promise(function(res){ setTimeout(res, 1800); });
 
     stopOverlayRotation();
     if (overlay) overlay.classList.remove('show');
     showPaymentPage();
   }
 
+  /* ── MODAL ── */
   function openModal() {
-    const modal = document.getElementById('modal-checkout');
-    if (modal) modal.classList.add('show');
+    var m = document.getElementById('modal-checkout');
+    if (m) m.classList.add('show');
   }
-
   function closeModal() {
-    const modal = document.getElementById('modal-checkout');
-    if (modal) modal.classList.remove('show');
+    var m = document.getElementById('modal-checkout');
+    if (m) m.classList.remove('show');
   }
-
   function clearCheckoutErrors() {
-    ['name','email','phone'].forEach(k => {
-      const err = document.getElementById('err-' + k);
-      if (err) err.textContent = '';
+    ['name','email','phone'].forEach(function(k){
+      var e = document.getElementById('err-' + k);
+      if (e) e.textContent = '';
     });
   }
-
   function processPayment() {
-    const name  = document.getElementById('f-name');
-    const email = document.getElementById('f-email');
-    const phone = document.getElementById('f-phone');
+    var nEl = document.getElementById('f-name');
+    var eEl = document.getElementById('f-email');
+    var pEl = document.getElementById('f-phone');
     clearCheckoutErrors();
-    const nv = name  ? name.value.trim()  : '';
-    const ev = email ? email.value.trim() : '';
-    const pv = phone ? phone.value.trim() : '';
-    let valid = true;
-    if (!nv) { const e = document.getElementById('err-name'); if (e) e.textContent = 'Required'; valid = false; }
-    if (!ev || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ev)) { const e = document.getElementById('err-email'); if (e) e.textContent = 'Valid email required'; valid = false; }
-    if (!pv || pv.replace(/\D/g,'').length < 10) { const e = document.getElementById('err-phone'); if (e) e.textContent = 'Valid phone required'; valid = false; }
+    var nv = nEl ? nEl.value.trim() : '';
+    var ev = eEl ? eEl.value.trim() : '';
+    var pv = pEl ? pEl.value.trim() : '';
+    var valid = true;
+    if (!nv) { var e1 = document.getElementById('err-name'); if(e1) e1.textContent='Required'; valid=false; }
+    if (!ev || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ev)) { var e2 = document.getElementById('err-email'); if(e2) e2.textContent='Valid email required'; valid=false; }
+    if (!pv || pv.replace(/\D/g,'').length < 10) { var e3 = document.getElementById('err-phone'); if(e3) e3.textContent='Valid phone required'; valid=false; }
     if (!valid) return;
     closeModal();
     startQuiz();
   }
 
-  function updateMacProgress() {
-    const el = document.getElementById('mac-scroll');
-    if (!el) return;
-    const max = el.scrollHeight - el.clientHeight;
-    const pct = max > 0 ? (el.scrollTop / max) * 100 : 0;
-    const fill    = document.getElementById('mac-fill');
-    const pctEl   = document.getElementById('mac-pct');
-    const barFill = document.getElementById('mac-bar-fill');
-    if (fill)    fill.style.width    = pct + '%';
-    if (pctEl)   pctEl.textContent   = Math.round(pct) + '%';
-    if (barFill) barFill.style.width = Math.round(pct) + '%';
-  }
-
-  function toggleChip(el) {
-    const parent = el.closest('.chips');
-    if (parent) parent.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-  }
-
-  // ── RAZORPAY HANDLER ──
+  /* ── RAZORPAY ── */
   function openRazorpay() {
     if (typeof Razorpay === 'undefined') {
-      console.error('Razorpay SDK not loaded');
-      confirmPaymentAndShowThankYou(); // fallback in dev
+      console.warn('Razorpay SDK not loaded — using fallback');
+      confirmPaymentAndShowThankYou();
       return;
     }
-
-    const options = {
+    var options = {
       key:         'rzp_test_SjpB8qqA3HfhVF',
-      amount:      69900, // 699 INR in paise
+      amount:      69900,
       currency:    'INR',
       name:        'BeSeen.',
       description: 'Personalised Skincare Plan — Expert Review',
       image:       '/favicon4.ico',
-      prefill: {
-        name:  formData.name || ''
-        // email/phone not collected — omit to avoid empty fields
-      },
+      prefill: { name: formData.name || '' },
       notes: {
         skin_type: formData.skinType || '',
         city:      formData.city     || '',
-        concerns:  Array.isArray(formData.concerns) ? formData.concerns.join(', ') : ''
+        concerns:  formData.concerns.join(', ')
       },
-      theme: {
-        color: '#3d6b5e'
-      },
-      modal: {
-        backdropclose: false,
-        escape:        false,
-        animation:     true
-      },
+      theme:  { color: '#3d6b5e' },
+      modal:  { backdropclose:false, escape:false, animation:true },
       handler: function(response) {
-        // Payment successful
-        console.log('✅ Razorpay success:', response.razorpay_payment_id);
+        console.log('Payment success:', response.razorpay_payment_id);
         confirmPaymentAndShowThankYou();
       }
     };
-
-    const rzp = new Razorpay(options);
-
-    rzp.on('payment.failed', function(response) {
-      console.error('❌ Payment failed:', response.error);
-      const btn = document.getElementById('payment-cta-btn');
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function(response){
+      console.error('Payment failed:', response.error);
+      var btn = document.getElementById('payment-cta-btn');
       if (btn) {
-        const orig = btn.textContent;
+        var orig = btn.textContent;
         btn.textContent = '⚠ Payment failed — please try again';
         btn.classList.add('error-state');
-        setTimeout(function() {
+        setTimeout(function(){
           btn.textContent = orig;
           btn.classList.remove('error-state');
         }, 3500);
       }
     });
-
     rzp.open();
   }
 
+  /* ── BIND EVENTS ── */
   function bindEvents() {
     document.getElementById('hero-start-btn').addEventListener('click', startQuiz);
-    document.getElementById('nav-logo').addEventListener('click', e => { e.preventDefault(); goHome(); });
-    document.getElementById('nav-home').addEventListener('click', e => { e.preventDefault(); goHome(); });
+    document.getElementById('how-start-btn').addEventListener('click', startQuiz);
+    document.getElementById('nav-logo').addEventListener('click', function(e){ e.preventDefault(); goHome(); });
+    document.getElementById('nav-home').addEventListener('click', function(e){ e.preventDefault(); goHome(); });
     document.getElementById('nav-cta-btn').addEventListener('click', startQuiz);
-    document.getElementById('nav-how').addEventListener('click', e => {
+    document.getElementById('nav-how').addEventListener('click', function(e){
       e.preventDefault(); goHome();
-      setTimeout(() => { const s = document.getElementById('how'); if (s) s.scrollIntoView({ behavior:'smooth' }); }, 200);
+      setTimeout(function(){ var s = document.getElementById('how'); if(s) s.scrollIntoView({behavior:'smooth'}); }, 200);
     });
-
-    const ctaStripBtn = document.getElementById('cta-strip-btn');
-    if (ctaStripBtn) ctaStripBtn.addEventListener('click', startQuiz);
 
     document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
     document.getElementById('modal-pay-btn').addEventListener('click', processPayment);
-    document.getElementById('modal-checkout').addEventListener('click', e => { if (e.target.id === 'modal-checkout') closeModal(); });
+    document.getElementById('modal-checkout').addEventListener('click', function(e){
+      if (e.target.id === 'modal-checkout') closeModal();
+    });
 
-    // ── RAZORPAY: Replace direct confirm with Razorpay ──
     document.getElementById('payment-cta-btn').addEventListener('click', openRazorpay);
-
     document.getElementById('ty-back-btn').addEventListener('click', goHome);
 
-    const macScroll = document.getElementById('mac-scroll');
-    if (macScroll) macScroll.addEventListener('scroll', updateMacProgress);
-    document.querySelectorAll('.chips .chip').forEach(c => c.addEventListener('click', () => toggleChip(c)));
-
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const id = (a.getAttribute('href') || '').slice(1);
-        const target = document.getElementById(id);
-        if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var id = (a.getAttribute('href') || '').slice(1);
+        var target = document.getElementById(id);
+        if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
       });
     });
 
-    document.querySelectorAll('[data-group]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const step = Number(btn.closest('.quiz-step').dataset.step);
+    /* Quiz option selectors */
+    document.querySelectorAll('[data-group]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var step = Number(btn.closest('.quiz-step').dataset.step);
         selectOpt(btn, btn.dataset.group, btn.dataset.value, step);
       });
     });
-    document.querySelectorAll('[data-single]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const step = Number(btn.closest('.quiz-step').dataset.step);
+    document.querySelectorAll('[data-single]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var step = Number(btn.closest('.quiz-step').dataset.step);
         selectOpt(btn, btn.dataset.single, btn.dataset.value, step);
       });
     });
-    document.querySelectorAll('[data-concern]').forEach(btn => {
-      btn.addEventListener('click', () => toggleConcern(btn, btn.dataset.concern));
+    document.querySelectorAll('[data-concern]').forEach(function(btn){
+      btn.addEventListener('click', function(){ toggleConcern(btn, btn.dataset.concern); });
     });
-    document.querySelectorAll('[data-history]').forEach(btn => {
-      btn.addEventListener('click', () => toggleHistory(btn, btn.dataset.history));
+    document.querySelectorAll('[data-history]').forEach(function(btn){
+      btn.addEventListener('click', function(){ toggleHistory(btn, btn.dataset.history); });
     });
 
-    document.getElementById('input-name').addEventListener('input', function() {
+    document.getElementById('input-name').addEventListener('input', function(){
       formData.name = this.value.trim(); checkStepReady(1);
     });
-    document.getElementById('input-city').addEventListener('input', function() {
+    document.getElementById('input-city').addEventListener('input', function(){
       formData.city = this.value.trim(); checkStepReady(3);
     });
 
-    document.querySelectorAll('.photo-slot').forEach((slot, idx) => {
-      slot.addEventListener('click', () => triggerSlot(idx));
+    /* Photo slots */
+    document.querySelectorAll('.photo-slot').forEach(function(slot, idx){
+      slot.addEventListener('click', function(){ triggerSlot(idx); });
     });
-    document.querySelectorAll('.slot-file-input').forEach((input, idx) => {
-      input.addEventListener('change', () => handleSlotFile(input, idx));
+    document.querySelectorAll('.slot-file-input').forEach(function(input, idx){
+      input.addEventListener('change', function(){ handleSlotFile(input, idx); });
     });
-    document.getElementById('front-upload-area').addEventListener('click', () => triggerSlot(0));
-
-    document.addEventListener('click', e => {
-      const btn = e.target.closest('[data-clear-slot]');
+    document.getElementById('front-upload-area').addEventListener('click', function(){ triggerSlot(0); });
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-clear-slot]');
       if (btn) clearSlot(e, Number(btn.dataset.clearSlot));
     });
 
-    const backs = {'back-2':1,'back-3':2,'back-4':3,'back-5':4,'back-6':5,'back-7':6,'back-8':7,'back-9':8};
-    Object.keys(backs).forEach(id => {
-      const btn = document.getElementById(id);
-      if (btn) btn.addEventListener('click', () => prevStep(backs[id]));
+    /* Quiz nav */
+    var backs = {'back-2':1,'back-3':2,'back-4':3,'back-5':4,'back-6':5,'back-7':6,'back-8':7,'back-9':8};
+    Object.keys(backs).forEach(function(id){
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function(){ prevStep(backs[id]); });
     });
-
-    const nexts = {'next-1':2,'next-2':3,'next-3':4,'next-4':5,'next-5':6,'next-6':7,'next-7':8,'next-8':9};
-    Object.keys(nexts).forEach(id => {
-      const btn = document.getElementById(id);
-      if (btn) btn.addEventListener('click', () => nextStep(nexts[id]));
+    var nexts = {'next-1':2,'next-2':3,'next-3':4,'next-4':5,'next-5':6,'next-6':7,'next-7':8,'next-8':9};
+    Object.keys(nexts).forEach(function(id){
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function(){ nextStep(nexts[id]); });
     });
-
     document.getElementById('next-9').addEventListener('click', analyseAndGo);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  /* ── INIT ── */
+  document.addEventListener('DOMContentLoaded', function(){
     bindEvents();
     initFAQ();
     initProofStrip();
     updateQuizBar();
-    updateMacProgress();
-
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.fu').forEach(el => io.observe(el));
-
-    const demoSection = document.querySelector('.demo-section');
-    if (demoSection) {
-      const macIo = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-          const fill = document.getElementById('mac-bar-fill');
-          if (fill) fill.style.width = '100%';
-          macIo.disconnect();
-        }
-      }, { threshold: 0.3 });
-      macIo.observe(demoSection);
-    }
-
     checkAllSteps();
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('vis'); });
+    }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.fu').forEach(function(el){ io.observe(el); });
   });
+
 })();
 </script>
 
 
-<!-- ══════════ FEATURE ENHANCEMENTS (PRESERVED + UPGRADED) ══════════ -->
+<!-- ══════════ FEATURE ENHANCEMENTS ══════════ -->
 <script>
 (function() {
   'use strict';
 
-  // ── UPDATED doctor photo map: Riya, Ananya, Meera, Kavya ──
-  const dermPhotoMap = {
-    'Riya':   '/images/doctor-riya.png',
-    'Ananya': '/images/doctor-ananya.png',
-    'Samairaa':  '/images/doctor-samairaa.png',
-    'Sara':  '/images/doctor-sara.png'
-  };
-
-  function syncDermPhoto() {
-    const nameEl   = document.getElementById('payment-derm-name');
-    const photoEl  = document.getElementById('payment-derm-photo');
-    const avatarEl = document.getElementById('payment-derm-avatar');
-    if (!nameEl || !photoEl) return;
-    const name = nameEl.textContent.trim();
-    const src  = dermPhotoMap[name];
-    if (src) {
-      photoEl.src = src;
-      photoEl.alt = 'Dr. ' + name;
-      photoEl.style.display = 'block';
-      if (avatarEl) avatarEl.style.display = 'none';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const nameEl = document.getElementById('payment-derm-name');
-    if (nameEl && window.MutationObserver) {
-      const obs = new MutationObserver(syncDermPhoto);
-      obs.observe(nameEl, { childList: true, subtree: true, characterData: true });
-    }
-  });
-
-  // ── ROTATING MICRO-FACTS (unchanged) ──
-  const facts1 = [
+  /* ── ROTATING MICRO-FACTS ── */
+  var facts1 = [
     'Your first name helps us address your routine personally — it matters.',
     'Over 500 people have started their skin journey right here.',
     'Personalised plans outperform generic ones by 3× in clinical trials.',
-    'A personal touch makes all the difference in skincare adherence.',
-    'We\'ll use your name throughout your full routine plan.'
+    'A personal touch makes all the difference in skincare adherence.'
   ];
-
-  const facts2 = [
+  var facts2 = [
     'Hormone levels peak in your 20s–30s, directly affecting skin oiliness.',
     'Women are 3× more likely to experience hormonal breakouts after 25.',
     'Skin cell turnover naturally slows ~10% per decade after age 20.',
-    'Age is one of the most important factors in calibrating retinol strength.',
-    'Gender-specific hormones significantly influence how actives are absorbed.'
+    'Age is one of the most important factors in calibrating retinol strength.'
+  ];
+  var trustItems = [
+    { icon:'🔒', text:'Trusted by 500+ customers across India' },
+    { icon:'✨', text:'Visible results seen in 21–30 days' },
+    { icon:'🩺', text:'Dermatologist-backed personalised plans' },
+    { icon:'📱', text:'Full routine delivered to your WhatsApp' },
+    { icon:'🔐', text:'Your photos are encrypted end-to-end' }
   ];
 
-  const trustItems = [
-    { icon: '🔒', text: 'Trusted by 500+ customers across India' },
-    { icon: '✨', text: 'Visible results seen in 21–30 days' },
-    { icon: '🩺', text: 'Dermatologist-backed personalised plans' },
-    { icon: '📱', text: 'Full routine delivered to your WhatsApp' },
-    { icon: '🔐', text: 'Your photos are encrypted end-to-end' }
-  ];
-
-  function startRotating(textElId, iconElId, items, intervalMs) {
-    const textEl = document.getElementById(textElId);
-    const iconEl = iconElId ? document.getElementById(iconElId) : null;
-    if (!textEl) return;
-    let idx = 0;
-    if (items[0].text !== undefined) {
-      textEl.textContent = items[0].text;
-      if (iconEl && items[0].icon !== undefined) iconEl.textContent = items[0].icon;
-    } else {
-      textEl.textContent = items[0];
-    }
-    return setInterval(function() {
-      idx = (idx + 1) % items.length;
-      textEl.classList.add('fading');
-      if (iconEl) iconEl.style.opacity = '0';
-      setTimeout(function() {
-        const item = items[idx];
-        if (item.text !== undefined) {
-          textEl.textContent = item.text;
-          if (iconEl && item.icon !== undefined) iconEl.textContent = item.icon;
-        } else {
-          textEl.textContent = item;
-        }
-        textEl.classList.remove('fading');
-        if (iconEl) iconEl.style.opacity = '1';
-      }, 380);
-    }, intervalMs || 4500);
-  }
-
-  const skinTypeHints = {
+  var skinTypeHints = {
     'Oily':        'Oily skin typically feels greasy by midday and shines around the T-zone — excess sebum is the main driver.',
     'Combination': 'Combination skin has an oily T-zone but dry or normal cheeks — the most common skin type in India.',
     'Dry':         'Dry skin often feels tight and may look flaky or dull, especially after cleansing or in cold weather.',
@@ -2185,17 +2002,38 @@ function animatePriceReveal() {
     'Sensitive':   'Sensitive skin reacts easily to products and environmental factors, often presenting as redness or stinging.',
     'Not sure':    'No problem — your uploaded photos will help us identify the most accurate skin type for you.'
   };
-
-  const behaviorHints = {
+  var behaviorHints = {
     'After waking up — dry or tight':    'Transepidermal water loss overnight — your barrier needs morning hydration support.',
-    'Midday — oily or shiny':            'Excess sebum mid-day often signals your skin is overcompensating for dehydration or missing lipids.',
+    'Midday — oily or shiny':            'Excess sebum mid-day often signals your skin is overcompensating for dehydration.',
     'After outdoors — irritated or red': 'UV, pollution, and temperature changes are triggering your skin\'s inflammatory response.',
-    'After using products — reactive':   'Product reactivity points to a compromised barrier or sensitivity to preservatives or actives.',
+    'After using products — reactive':   'Product reactivity points to a compromised barrier or sensitivity to preservatives.',
     'Always inconsistent':               'Unpredictable skin often reflects hormonal shifts, seasonal changes, or microbiome imbalance.'
   };
 
+  function startRotating(textElId, iconElId, items, ms) {
+    var textEl = document.getElementById(textElId);
+    var iconEl = iconElId ? document.getElementById(iconElId) : null;
+    if (!textEl) return;
+    var idx = 0;
+    var first = items[0];
+    textEl.textContent = first.text !== undefined ? first.text : first;
+    if (iconEl && first.icon !== undefined) iconEl.textContent = first.icon;
+    setInterval(function(){
+      idx = (idx + 1) % items.length;
+      textEl.classList.add('fading');
+      if (iconEl) iconEl.style.opacity = '0';
+      setTimeout(function(){
+        var item = items[idx];
+        textEl.textContent = item.text !== undefined ? item.text : item;
+        if (iconEl && item.icon !== undefined) iconEl.textContent = item.icon;
+        textEl.classList.remove('fading');
+        if (iconEl) iconEl.style.opacity = '1';
+      }, 380);
+    }, ms || 4500);
+  }
+
   function showHint(hintElId, text) {
-    const el = document.getElementById(hintElId);
+    var el = document.getElementById(hintElId);
     if (!el) return;
     el.textContent = text;
     el.classList.remove('visible');
@@ -2203,27 +2041,26 @@ function animatePriceReveal() {
     el.classList.add('visible');
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function(){
     startRotating('microfact-1-text', null, facts1, 4500);
     startRotating('microfact-2-text', null, facts2, 4800);
     startRotating('trust-rot-text', 'trust-rot-icon', trustItems, 3800);
 
-    document.querySelectorAll('#opts-skin-type .q-opt').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        const val = btn.getAttribute('data-value');
-        if (val && skinTypeHints[val]) showHint('skin-type-hint', skinTypeHints[val]);
+    document.querySelectorAll('#opts-skin-type .q-opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var v = btn.getAttribute('data-value');
+        if (v && skinTypeHints[v]) showHint('skin-type-hint', skinTypeHints[v]);
+      });
+    });
+    document.querySelectorAll('#opts-behavior .q-opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var v = btn.getAttribute('data-value');
+        if (v && behaviorHints[v]) showHint('behavior-hint', behaviorHints[v]);
       });
     });
 
-    document.querySelectorAll('#opts-behavior .q-opt').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        const val = btn.getAttribute('data-value');
-        if (val && behaviorHints[val]) showHint('behavior-hint', behaviorHints[val]);
-      });
-    });
-
-    const trustRotIcon = document.getElementById('trust-rot-icon');
-    if (trustRotIcon) trustRotIcon.style.transition = 'opacity 0.35s ease';
+    var icon = document.getElementById('trust-rot-icon');
+    if (icon) icon.style.transition = 'opacity 0.35s ease';
   });
 
 })();
