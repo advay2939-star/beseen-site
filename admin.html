@@ -744,7 +744,31 @@ function calculateSkinScore(concerns, sleep, water, stress, skinType) {
     return card;
   }
 
-  function buildPromptText(d) {
+  /* ── Generate Prompt ── */
+function generatePrompt(card, index) {
+  const d = card._data;
+
+  const promptBox  = document.getElementById('prompt-box-' + index);
+  const promptText = document.getElementById('prompt-text-' + index);
+  const genBtn     = card.querySelector('.gen-btn');
+
+  if (!d) {
+    console.error("No data found for this card");
+    return;
+  }
+
+  const text = buildPromptText(d);
+
+  promptText.textContent = text;
+
+  promptBox.classList.add('visible');
+  genBtn.textContent = '✦ Regenerate Prompt';
+
+  promptBox.scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest'
+  });
+} function buildPromptText(d){
   const name      = d.name      || '—';
   const age       = d.age       || '—';
   const gender    = d.gender    || '—';
