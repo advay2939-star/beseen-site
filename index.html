@@ -570,6 +570,17 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 /* ── HIGHLIGHT WORDS ── */
 .highlight-word{color:var(--accent);font-weight:500}
 
+
+/* ── REAL AVATAR IMAGES ── */
+.face-av-img{
+  width:30px;height:30px;border-radius:50%;
+  border:2px solid var(--white);
+  margin-left:-9px;
+  object-fit:cover;display:block;flex-shrink:0;
+  box-shadow:0 2px 6px rgba(0,0,0,.12);
+}
+.face-av-img:first-child{margin-left:0}
+
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .how-inner{grid-template-columns:1fr;gap:40px}
@@ -590,81 +601,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .nav-cta{font-size:11.5px;padding:7px 14px}
   .derm-header{flex-direction:column;text-align:center}
   .hero-trust-pills{font-size:11.5px}
-}
-/* ── HERO SPLIT LAYOUT ── */
-.hero{text-align:left}
-.hero-split{
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:center;
-  max-width:1100px;width:100%;margin:0 auto;
-}
-.hero-left{display:flex;flex-direction:column;align-items:flex-start}
-.hero-left .hero-pill{margin-bottom:28px}
-.hero-left .hero-h1{text-align:left;margin-bottom:18px}
-.hero-left .hero-sub{text-align:left;margin:0 0 36px;max-width:480px}
-.hero-left .hero-btns{justify-content:flex-start}
-.hero-left .hero-social-proof{align-items:flex-start;border-top:1px solid var(--g200);margin-top:24px;padding-top:20px;width:100%}
-.hero-left .hero-trust-pills{justify-content:flex-start}
-
-/* ── TRANSFORMATION CARDS ── */
-.hero-right{display:flex;flex-direction:column;gap:12px}
-.tc{
-  display:flex;align-items:stretch;
-  background:var(--white);border:1px solid var(--g200);
-  border-radius:14px;overflow:hidden;
-  box-shadow:0 2px 12px rgba(0,0,0,.07);
-  transition:box-shadow .25s,transform .25s;
-}
-.tc:hover{box-shadow:0 6px 24px rgba(0,0,0,.11);transform:translateY(-2px)}
-.tc-images{
-  position:relative;display:flex;
-  width:170px;flex-shrink:0;overflow:hidden;
-}
-.tc-img{width:50%;height:110px;object-fit:cover;display:block;flex-shrink:0;background:var(--g100)}
-.tc-divider{position:absolute;left:50%;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.75);transform:translateX(-50%);z-index:2;pointer-events:none}
-.tc-badge{
-  position:absolute;bottom:5px;z-index:3;
-  font-size:8px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;
-  color:#fff;background:rgba(10,10,10,.52);backdrop-filter:blur(4px);
-  padding:2px 6px;border-radius:3px;pointer-events:none;
-}
-.tc-badge.b{left:5px}
-.tc-badge.a{right:5px;background:rgba(61,107,94,.72)}
-.tc-body{
-  padding:14px 16px;
-  display:flex;flex-direction:column;justify-content:center;gap:4px;flex:1;
-}
-.tc-person{font-size:13px;font-weight:500;color:var(--black);line-height:1.35}
-.tc-result{font-size:11.5px;color:var(--g500);font-weight:300;line-height:1.5}
-.tc-tag{display:inline-block;margin-top:5px;font-size:9px;background:var(--accent-l);color:var(--accent);padding:2px 7px;border-radius:4px;font-weight:500}
-
-/* ── REAL AVATAR IMAGES ── */
-.face-av-img{
-  width:30px;height:30px;border-radius:50%;
-  border:2px solid var(--white);
-  margin-left:-9px;
-  object-fit:cover;display:block;flex-shrink:0;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
-}
-.face-av-img:first-child{margin-left:0}
-
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .hero-split{grid-template-columns:1fr;gap:44px}
-  .hero-left{align-items:center;text-align:center}
-  .hero-left .hero-h1{text-align:center}
-  .hero-left .hero-sub{text-align:center;max-width:100%}
-  .hero-left .hero-btns{justify-content:center}
-  .hero-left .hero-social-proof{align-items:center}
-  .hero-left .hero-trust-pills{justify-content:center}
-}
-@media(max-width:600px){
-  .tc-images{width:130px}
-  .tc-img{height:95px}
-  .tc-body{padding:10px 12px}
-  .tc-person{font-size:12px}
-  .tc-result{font-size:11px}
 }
 </style>
 </head>
@@ -688,7 +624,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 <div id="page-home" class="page active">
 
 <!-- ── HERO ── -->
-
+<section class="hero">
   <div class="blob blob-a"></div>
   <div class="blob blob-b"></div>
   <div class="hero-content">
@@ -716,33 +652,13 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <span class="htp-dot"></span>
         <span>✔ Dermatologist guided</span>
         <span class="htp-dot"></span>
-        <span>✔ Results in 21 da<<section class="hero">
-  <div class="blob blob-a"></div>
-  <div class="blob blob-b"></div>
-
-  <div class="hero-split">
-
-    <!-- LEFT: Headline + CTA + Social Proof -->
-    <div class="hero-left">
-
-      <div class="hero-pill fu vis">
-        <span class="pill-dot"></span>Science-backed · Expert-guided · Clinically designed
+        <span>✔ Results in 21 days</span>
       </div>
+    </div>
 
-      <h1 class="hero-h1 fu vis" style="transition-delay:.1s">
-        Real people.<br><em>Real skin.</em> Real results.
-      </h1>
-
-      <p class="hero-sub fu vis" style="transition-delay:.2s">
-        See how personalised routines actually transform skin — built for you, not guessed.
-      </p>
-
-      <div class="hero-btns fu vis" style="transition-delay:.3s">
-        <button class="btn btn-primary" id="hero-start-btn">Start Your Journey →</button>
-        <a href="#how" class="btn btn-secondary">How It Works</a>
-      </div>
-
-      <!-- Social proof — avatars replaced with real images (Task 3 & 4) -->
+  </div>
+</section>
+<!-- Social proof — avatars replaced with real images (Task 3 & 4) -->
       <div class="hero-social-proof fu vis" style="transition-delay:.4s">
         <div class="face-stack">
           <div class="face-avatars">
@@ -777,89 +693,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <span>✔ Results in 21 days</span>
         </div>
       </div>
-
-    </div><!-- /hero-left -->
-
-    <!-- RIGHT: 3 Transformation Cards -->
-    <div class="hero-right fu vis" style="transition-delay:.35s">
-
-      <!-- Card 1: Priya -->
-      <div class="tc">
-        <div class="tc-images">
-          <img class="tc-img"
-            src="/images/hero-priya-before.png"
-            loading="eager" fetchpriority="high" decoding="async"
-            alt="Priya before"
-            onerror="this.style.background='linear-gradient(135deg,#f0ece8,#e8e0da)'">
-          <img class="tc-img"
-            src="/images/hero-priya-after.png"
-            loading="eager" fetchpriority="high" decoding="async"
-            alt="Priya after"
-            onerror="this.style.background='linear-gradient(135deg,#e6efec,#d0e8e0)'">
-          <div class="tc-divider"></div>
-          <span class="tc-badge b">Before</span>
-          <span class="tc-badge a">After</span>
-        </div>
-        <div class="tc-body">
-          <div class="tc-person">Priya, 24</div>
-          <div class="tc-result">Acne reduced in 21 days</div>
-          <span class="tc-tag">Acne · Oily</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Arjun -->
-      <div class="tc">
-        <div class="tc-images">
-          <img class="tc-img"
-            src="/images/hero-arjun-before.png"
-            loading="eager" fetchpriority="high" decoding="async"
-            alt="Arjun before"
-            onerror="this.style.background='linear-gradient(135deg,#f0ece8,#e8e0da)'">
-          <img class="tc-img"
-            src="/images/hero-arjun-after.png"
-            loading="eager" fetchpriority="high" decoding="async"
-            alt="Arjun after"
-            onerror="this.style.background='linear-gradient(135deg,#e6efec,#d0e8e0)'">
-          <div class="tc-divider"></div>
-          <span class="tc-badge b">Before</span>
-          <span class="tc-badge a">After</span>
-        </div>
-        <div class="tc-body">
-          <div class="tc-person">Arjun, 27</div>
-          <div class="tc-result">Pigmentation visibly faded</div>
-          <span class="tc-tag">Pigmentation</span>
-        </div>
-      </div>
-
-      <!-- Card 3: Neha -->
-      <div class="tc">
-        <div class="tc-images">
-          <img class="tc-img"
-            src="/images/hero-neha-before.png"
-            loading="lazy" fetchpriority="low" decoding="async"
-            alt="Neha before"
-            onerror="this.style.background='linear-gradient(135deg,#f0ece8,#e8e0da)'">
-          <img class="tc-img"
-            src="/images/hero-neha-after.png"
-            loading="lazy" fetchpriority="low" decoding="async"
-            alt="Neha after"
-            onerror="this.style.background='linear-gradient(135deg,#e6efec,#d0e8e0)'">
-          <div class="tc-divider"></div>
-          <span class="tc-badge b">Before</span>
-          <span class="tc-badge a">After</span>
-        </div>
-        <div class="tc-body">
-          <div class="tc-person">Neha, 23</div>
-          <div class="tc-result">Oil balance restored</div>
-          <span class="tc-tag">Oily · Combo</span>
-        </div>
-      </div>
-
-    </div><!-- /hero-right -->
-
-  </div><!-- /hero-split -->
-</section>
-
 <!-- PROOF STRIP -->
 <section class="proof-strip-section">
   <div class="proof-strip-header fu">
