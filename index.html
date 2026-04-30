@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<!-- ── RAZORPAY ── -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -81,20 +83,10 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 
 /* ── HERO SOCIAL PROOF ── */
-.hero-social-proof{
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  padding-top:4px;
-}
+.hero-social-proof{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:4px}
 .face-stack{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
 .face-avatars{display:flex;align-items:center}
-.face-av{
-  width:30px;height:30px;border-radius:50%;
-  border:2px solid var(--white);margin-left:-9px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;
-  color:var(--white);flex-shrink:0;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
-}
+.face-av{width:30px;height:30px;border-radius:50%;border:2px solid var(--white);margin-left:-9px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;color:var(--white);flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.12)}
 .face-av:first-child{margin-left:0}
 .face-stack-label{font-size:12px;color:var(--g700)}
 .face-stack-label strong{color:var(--black);font-weight:600}
@@ -103,13 +95,7 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .htp-dot{width:3px;height:3px;border-radius:50%;background:var(--g300);flex-shrink:0}
 
 /* ── REAL AVATAR IMAGES ── */
-.face-av-img{
-  width:30px;height:30px;border-radius:50%;
-  border:2px solid var(--white);
-  margin-left:-9px;
-  object-fit:cover;display:block;flex-shrink:0;
-  box-shadow:0 2px 6px rgba(0,0,0,.12);
-}
+.face-av-img{width:30px;height:30px;border-radius:50%;border:2px solid var(--white);margin-left:-9px;object-fit:cover;display:block;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.12)}
 .face-av-img:first-child{margin-left:0}
 
 /* ── TICKER ── */
@@ -127,28 +113,15 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .stat-divider{width:1px;height:52px;background:var(--g200);flex-shrink:0}
 
 /* ── PROOF STRIP ── */
-.proof-strip-section{
-  padding:52px 0;background:var(--g50);
-  border-bottom:1px solid var(--g200);overflow:hidden;
-}
+.proof-strip-section{padding:52px 0;background:var(--g50);border-bottom:1px solid var(--g200);overflow:hidden}
 .proof-strip-header{text-align:center;margin-bottom:28px;padding:0 32px}
 .proof-strip-header p{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--g500);margin-bottom:6px}
 .proof-strip-header h3{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,34px);font-weight:600;letter-spacing:-.03em;color:var(--black)}
 .proof-strip-header h3 em{font-style:italic;color:var(--accent)}
-.proof-strip-scroll{
-  display:flex;gap:14px;padding:8px 32px 16px;
-  overflow-x:auto;scroll-snap-type:x mandatory;
-  scrollbar-width:none;-ms-overflow-style:none;cursor:grab;
-}
+.proof-strip-scroll{display:flex;gap:14px;padding:8px 32px 16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
 .proof-strip-scroll::-webkit-scrollbar{display:none}
 .proof-strip-scroll:active{cursor:grabbing}
-.pcard{
-  flex-shrink:0;width:220px;background:var(--white);
-  border:1px solid var(--g200);border-radius:12px;
-  overflow:hidden;box-shadow:var(--shadow-s);
-  scroll-snap-align:start;
-  transition:box-shadow .25s,transform .25s;
-}
+.pcard{flex-shrink:0;width:220px;background:var(--white);border:1px solid var(--g200);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-s);scroll-snap-align:start;transition:box-shadow .25s,transform .25s}
 .pcard:hover{box-shadow:var(--shadow-c);transform:translateY(-3px)}
 .pcard-images{display:flex;height:120px;position:relative;overflow:hidden}
 .pcard-img{width:50%;height:100%;object-fit:cover;background:var(--g100);display:block;flex-shrink:0}
@@ -167,71 +140,28 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .pcard-tag{display:inline-block;font-size:9px;background:var(--accent-l);color:var(--accent);padding:2px 6px;border-radius:4px;font-weight:500;margin-top:5px}
 
 /* ── FEATURED TRANSFORMATION ── */
-.featured-transform{
-  padding:88px 0;background:var(--white);
-  border-bottom:1px solid var(--g200);
-}
-.ft-inner{
-  max-width:900px;margin:0 auto;padding:0 32px;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:56px;align-items:center;
-}
+.featured-transform{padding:88px 0;background:var(--white);border-bottom:1px solid var(--g200)}
+.ft-inner{max-width:900px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .ft-images{display:flex;gap:10px}
-.ft-img-wrap{
-  flex:1;border-radius:14px;overflow:hidden;
-  position:relative;box-shadow:var(--shadow-c);height:320px;
-}
+.ft-img-wrap{flex:1;border-radius:14px;overflow:hidden;position:relative;box-shadow:var(--shadow-c);height:320px}
 .ft-img{width:100%;height:100%;object-fit:cover;background:var(--g100);display:block;transition:transform .45s ease}
 .ft-img-wrap:hover .ft-img{transform:scale(1.04)}
-.ft-ph{
-  width:100%;height:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:8px;
-  font-size:11px;font-weight:400;color:var(--g500);
-}
+.ft-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:11px;font-weight:400;color:var(--g500)}
 .ft-ph.bph{background:linear-gradient(135deg,#ede8e3,#e0d8d0)}
 .ft-ph.aph{background:linear-gradient(135deg,var(--accent-l),#c8e4dc)}
-.ft-lbl{
-  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
-  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:#fff;background:rgba(10,10,10,.5);backdrop-filter:blur(5px);
-  padding:3px 9px;border-radius:5px;white-space:nowrap;
-}
+.ft-lbl{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(10,10,10,.5);backdrop-filter:blur(5px);padding:3px 9px;border-radius:5px;white-space:nowrap}
 .ft-lbl.aft{background:rgba(61,107,94,.72)}
-.ft-verified-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--accent-l);border:1px solid #b5d0c9;
-  border-radius:var(--pill);padding:4px 13px;
-  font-size:10.5px;font-weight:500;color:var(--accent);
-  margin-bottom:22px;letter-spacing:.02em;
-}
-.ft-quote{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(20px,2.6vw,27px);font-weight:400;font-style:italic;
-  color:var(--black);line-height:1.5;margin-bottom:24px;
-  letter-spacing:-.01em;
-}
+.ft-verified-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-l);border:1px solid #b5d0c9;border-radius:var(--pill);padding:4px 13px;font-size:10.5px;font-weight:500;color:var(--accent);margin-bottom:22px;letter-spacing:.02em}
+.ft-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.6vw,27px);font-weight:400;font-style:italic;color:var(--black);line-height:1.5;margin-bottom:24px;letter-spacing:-.01em}
 .ft-quote::before{content:'\201C';font-size:1.4em;color:var(--accent);line-height:0;vertical-align:-.18em;margin-right:2px}
 .ft-quote::after{content:'\201D';font-size:1.4em;color:var(--accent);line-height:0;vertical-align:-.18em;margin-left:2px}
 .ft-person{display:flex;align-items:center;gap:12px}
 .ft-avatar-wrap{flex-shrink:0}
-.ft-avatar{
-  width:44px;height:44px;border-radius:50%;
-  border:2px solid var(--accent-l);object-fit:cover;display:block;
-  background:var(--accent-l);
-}
-.ft-avatar-fallback{
-  width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),#5a9e8f);
-  display:none;align-items:center;justify-content:center;
-  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);
-}
+.ft-avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--accent-l);object-fit:cover;display:block;background:var(--accent-l)}
+.ft-avatar-fallback{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#5a9e8f);display:none;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white)}
 .ft-person-name{font-size:13.5px;font-weight:500;color:var(--black)}
 .ft-person-sub{font-size:11.5px;color:var(--g500);margin-top:2px}
-.ft-concern-tag{
-  display:inline-block;background:var(--accent-l);color:var(--accent);
-  font-size:9.5px;font-weight:500;padding:2px 7px;
-  border-radius:4px;margin-top:4px;
-}
+.ft-concern-tag{display:inline-block;background:var(--accent-l);color:var(--accent);font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:4px;margin-top:4px}
 .ft-stars{margin-left:auto;font-size:13px;color:var(--accent)}
 
 /* ── HOW ── */
@@ -239,12 +169,7 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .how-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .steps{display:flex;flex-direction:column;gap:28px}
 .step{display:flex;gap:20px;align-items:flex-start}
-.step-icon-wrap{
-  width:40px;height:40px;border-radius:10px;
-  background:var(--accent-l);border:1px solid #b5d0c9;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
+.step-icon-wrap{width:40px;height:40px;border-radius:10px;background:var(--accent-l);border:1px solid #b5d0c9;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step-icon-wrap svg{width:18px;height:18px;color:var(--accent)}
 .step-body h4{font-size:15px;font-weight:500;margin-bottom:5px;color:var(--black)}
 .step-body p{font-size:13px;color:var(--g500);line-height:1.65;font-weight:300}
@@ -278,25 +203,11 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .faq-item.open .faq-answer{max-height:260px}
 
 /* ── COMBINED TRUST ROW ── */
-.trust-row{
-  background:var(--g50);
-  border-top:1px solid var(--g200);
-  border-bottom:1px solid var(--g200);
-  padding:40px 0;
-}
-.trust-row-inner{
-  max-width:1100px;margin:0 auto;padding:0 32px;
-  display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:28px 40px;
-}
+.trust-row{background:var(--g50);border-top:1px solid var(--g200);border-bottom:1px solid var(--g200);padding:40px 0}
+.trust-row-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:28px 40px}
 .trust-badge{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--g700)}
 .trust-badge svg{color:var(--accent);width:17px;height:17px;flex-shrink:0}
-.trust-badge-check{
-  width:20px;height:20px;border-radius:50%;
-  background:var(--accent-l);border:1px solid #b5d0c9;
-  display:flex;align-items:center;justify-content:center;
-  font-size:9.5px;color:var(--accent);font-weight:700;flex-shrink:0;
-}
+.trust-badge-check{width:20px;height:20px;border-radius:50%;background:var(--accent-l);border:1px solid #b5d0c9;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--accent);font-weight:700;flex-shrink:0}
 
 /* ── FOOTER ── */
 footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
@@ -374,11 +285,29 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .payment-header h2 em{font-style:italic;color:var(--accent)}
 .payment-header p{font-size:14px;font-weight:300;color:var(--g500)}
 .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-bottom:32px}
+
+/* ── DERM CARD ── */
 .payment-derm-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);padding:32px;box-shadow:var(--shadow-c)}
 .derm-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
 .derm-photo-wrap{position:relative;flex-shrink:0}
-.derm-photo{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2.5px solid var(--accent-l);box-shadow:0 4px 16px rgba(61,107,94,.18);display:block;background:var(--accent-l)}
-.derm-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#5a9e8f);display:none;align-items:center;justify-content:center;color:var(--white);font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;flex-shrink:0}
+/* ── UPGRADED DERM PHOTO ── */
+.derm-photo{
+  width:64px;height:64px;border-radius:50%;object-fit:cover;
+  border:2.5px solid var(--accent-l);
+  box-shadow:0 4px 16px rgba(61,107,94,.18),0 2px 6px rgba(0,0,0,.10);
+  display:block;background:var(--accent-l);
+  transition:transform .22s ease,box-shadow .22s ease;
+}
+.derm-photo:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,107,94,.25)}
+.derm-avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#5a9e8f);
+  display:none;align-items:center;justify-content:center;
+  color:var(--white);font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:600;flex-shrink:0;
+  border:2.5px solid var(--accent-l);
+  box-shadow:0 4px 16px rgba(61,107,94,.18);
+}
 .derm-header-info{flex:1;min-width:0}
 .derm-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--black);margin-bottom:2px}
 .derm-name span{color:var(--accent)}
@@ -389,29 +318,97 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .derm-perk-icon{color:var(--accent);font-weight:700;flex-shrink:0;font-size:14px;margin-top:1px}
 .derm-team-note{background:var(--accent-l);border:1px solid #b5d0c9;border-radius:8px;padding:12px 14px;font-size:12px;color:var(--g700);line-height:1.6}
 .derm-team-note strong{color:var(--accent)}
+
+/* ── PRICE CARD ── */
 .payment-price-card{background:var(--white);border:2px solid var(--accent);border-radius:var(--rl);padding:36px 32px;box-shadow:var(--shadow-l);position:relative;overflow:hidden}
 .payment-price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#5a9e8f)}
 .payment-price-badge{background:var(--accent);color:var(--white);font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:var(--pill);display:inline-block;margin-bottom:18px}
-.payment-price-orig{font-size:18px;color:var(--g300);text-decoration:line-through;font-weight:300;margin-bottom:2px}
-.payment-price-main{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:600;line-height:1;letter-spacing:-3px;color:var(--black);margin-bottom:4px}
+
+/* ── PRICE ANIMATION ── */
+.price-anim-wrap{position:relative;margin-bottom:4px;min-height:40px}
+.payment-price-orig{
+  font-size:20px;color:var(--g400,#aaa);font-weight:300;
+  display:inline-block;position:relative;
+  transition:opacity .45s ease-out,transform .45s ease-out,color .3s ease;
+  transform:translateY(0);opacity:1;
+}
+.payment-price-orig::after{
+  content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;
+  background:var(--g500);transform:translateY(-50%);
+  transition:width .4s cubic-bezier(.65,0,.35,1) .1s;
+}
+.payment-price-orig.strike-active{
+  opacity:.38;
+  transform:translateY(-3px);
+  color:var(--g500);
+}
+.payment-price-orig.strike-active::after{width:100%}
+
+.payment-price-main{
+  font-family:'Cormorant Garamond',serif;
+  font-size:72px;font-weight:600;line-height:1;
+  letter-spacing:-3px;color:var(--black);
+  display:block;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s ease-out,transform .5s ease-out;
+  margin-bottom:4px;
+}
+.payment-price-main.price-reveal{opacity:1;transform:translateY(0)}
+
 .payment-price-note{font-size:12px;color:var(--g500);margin-bottom:24px}
 .payment-timer-box{background:#fff8f0;border:1px solid #f0d8b8;border-radius:8px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .payment-timer-label{font-size:12px;color:#8a6840;font-weight:500}
 .payment-timer-digits{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#5c3d0a;letter-spacing:1px}
 .btn-payment{width:100%;padding:17px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;margin-bottom:14px;letter-spacing:.01em}
 .btn-payment:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 12px 32px rgba(10,10,10,.2)}
+.btn-payment:active{transform:translateY(0)}
+.btn-payment.loading{opacity:.7;pointer-events:none;cursor:not-allowed}
+.btn-payment.error-state{background:#c0392b}
 .payment-security-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--g500)}
 .payment-guarantee{text-align:center;margin-top:24px}
 .guarantee-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:8px 20px;font-size:12.5px;color:var(--g700);box-shadow:var(--shadow-s)}
 
-/* ── OVERLAY ── */
-#overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.96);backdrop-filter:blur(10px);flex-direction:column;align-items:center;justify-content:center;gap:20px}
+/* ── OVERLAY — UPGRADED ── */
+#overlay-analysing{
+  display:none;position:fixed;inset:0;z-index:1000;
+  background:rgba(250,250,250,.97);backdrop-filter:blur(14px);
+  flex-direction:column;align-items:center;justify-content:center;gap:0;
+}
 #overlay-analysing.show{display:flex;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.spin-ring{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--g200);border-top-color:var(--accent);animation:spin 1s linear infinite}
+
+.overlay-inner{
+  display:flex;flex-direction:column;align-items:center;
+  gap:16px;max-width:320px;width:100%;padding:0 24px;
+}
+.spin-ring{
+  width:52px;height:52px;border-radius:50%;
+  border:2px solid var(--g200);border-top-color:var(--accent);
+  animation:spin 1s linear infinite;flex-shrink:0;
+  margin-bottom:4px;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
-.overlay-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--black)}
-.overlay-sub{font-size:13px;color:var(--g500)}
+.overlay-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:600;color:var(--black);
+  text-align:center;line-height:1.2;
+}
+.overlay-rotating-text{
+  font-size:13px;color:var(--g500);font-weight:300;
+  text-align:center;line-height:1.6;
+  min-height:20px;
+  transition:opacity .35s ease;
+  letter-spacing:.01em;
+}
+.overlay-rotating-text.fading{opacity:0}
+.overlay-progress-dots{
+  display:flex;gap:6px;align-items:center;margin-top:8px;
+}
+.ov-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--g200);transition:background .3s ease,transform .3s ease;
+}
+.ov-dot.active{background:var(--accent);transform:scale(1.3)}
 
 /* ── CHECKOUT MODAL ── */
 #modal-checkout{display:none;position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);align-items:center;justify-content:center}
@@ -432,7 +429,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-pay{flex:2;padding:13px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s}
 .btn-pay:hover{opacity:.85}
 
-/* ── THANK YOU PAGE ── */
+/* ── THANK YOU PAGE — UPGRADED ── */
 #page-thankyou{display:none;min-height:100vh;align-items:center;justify-content:center;background:radial-gradient(ellipse 80% 60% at 50% 30%,#dceae5 0%,var(--white) 70%);padding:40px 32px}
 #page-thankyou.active{display:flex}
 .ty-outer{text-align:center;max-width:560px;width:100%;animation:tyFadeUp .7s cubic-bezier(.25,.1,.25,1) both}
@@ -445,9 +442,21 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 @keyframes tyTickDraw{to{stroke-dashoffset:0}}
 .ty-eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--g500);margin-bottom:24px;box-shadow:var(--shadow-s);animation:pageFadeIn .5s ease .35s both}
 .ty-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.ty-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,58px);font-weight:600;letter-spacing:-.04em;line-height:1.08;color:var(--black);margin-bottom:20px;animation:pageFadeIn .5s ease .45s both}
+/* UPDATED: BeSeen. styling */
+.ty-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5vw,58px);font-weight:600;
+  letter-spacing:-.04em;line-height:1.08;
+  color:var(--black);margin-bottom:20px;
+  animation:pageFadeIn .5s ease .45s both;
+  font-style:normal;
+}
 .ty-title em{font-style:italic;color:var(--accent)}
-.ty-sub{font-size:15px;font-weight:300;color:var(--g700);line-height:1.8;max-width:420px;margin:0 auto 44px;animation:pageFadeIn .5s ease .55s both}
+.ty-brand{color:var(--black);font-style:normal}
+.ty-brand-dot{color:var(--accent);font-style:normal}
+
+.ty-sub{font-size:16px;font-weight:300;color:var(--g700);line-height:1.85;max-width:420px;margin:0 auto 44px;animation:pageFadeIn .5s ease .55s both}
+.ty-sub strong{font-weight:500;color:var(--black)}
 .ty-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);padding:28px 32px;box-shadow:var(--shadow-c);margin-bottom:36px;animation:pageFadeIn .5s ease .65s both;text-align:left}
 .ty-card-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--g100)}
 .ty-card-row:last-child{border:none;padding-bottom:0}
@@ -534,27 +543,21 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   <section class="hero">
     <div class="blob blob-a"></div>
     <div class="blob blob-b"></div>
-
     <div class="hero-content">
       <div class="hero-pill">
         <span class="pill-dot"></span>
         Science-backed · Expert-guided · Clinically designed
       </div>
-
       <h1 class="hero-h1">
         Get a <em>personalised</em> skincare<br>routine from home in minutes.
       </h1>
-
       <p class="hero-sub">
         Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.
       </p>
-
       <div class="hero-btns">
         <button class="btn btn-primary" id="hero-start-btn">Start Your Journey →</button>
         <a href="#how" class="btn btn-secondary">How It Works</a>
       </div>
-
-      <!-- Social proof directly under buttons -->
       <div class="hero-social-proof">
         <div class="face-stack">
           <div class="face-avatars">
@@ -617,139 +620,96 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <h3>Real skin. <em>Real change.</em></h3>
     </div>
     <div class="proof-strip-scroll" id="proof-strip-scroll">
-
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Acne cleared in three weeks. Couldn't believe it."</p>
           <div class="pcard-meta">
-            <div class="pcard-info">
-              <div class="pcard-person">Priya M.</div>
-              <div class="pcard-city">Mumbai</div>
-              <span class="pcard-tag">Acne · Oily</span>
-            </div>
+            <div class="pcard-info"><div class="pcard-person">Priya M.</div><div class="pcard-city">Mumbai</div><span class="pcard-tag">Acne · Oily</span></div>
             <div class="pcard-stars-small">★★★★★</div>
           </div>
         </div>
       </div>
-
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Dark spots genuinely faded. Expert replied within hours."</p>
           <div class="pcard-meta">
-            <div class="pcard-info">
-              <div class="pcard-person">Arjun S.</div>
-              <div class="pcard-city">Delhi</div>
-              <span class="pcard-tag">Pigmentation</span>
-            </div>
+            <div class="pcard-info"><div class="pcard-person">Arjun S.</div><div class="pcard-city">Delhi</div><span class="pcard-tag">Pigmentation</span></div>
             <div class="pcard-stars-small">★★★★★</div>
           </div>
         </div>
       </div>
-
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Oily T-zone finally balanced — life changing."</p>
           <div class="pcard-meta">
-            <div class="pcard-info">
-              <div class="pcard-person">Neha K.</div>
-              <div class="pcard-city">Bangalore</div>
-              <span class="pcard-tag">Oily · Combo</span>
-            </div>
+            <div class="pcard-info"><div class="pcard-person">Neha K.</div><div class="pcard-city">Bangalore</div><span class="pcard-tag">Oily · Combo</span></div>
             <div class="pcard-stars-small">★★★★</div>
           </div>
         </div>
       </div>
-
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Texture improved remarkably after the 21-day review."</p>
           <div class="pcard-meta">
-            <div class="pcard-info">
-              <div class="pcard-person">Divya K.</div>
-              <div class="pcard-city">Chennai</div>
-              <span class="pcard-tag">Texture · Pores</span>
-            </div>
+            <div class="pcard-info"><div class="pcard-person">Divya K.</div><div class="pcard-city">Chennai</div><span class="pcard-tag">Texture · Pores</span></div>
             <div class="pcard-stars-small">★★★★★</div>
           </div>
         </div>
       </div>
-
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Zero irritants, zero reactions. Calm skin in 14 days."</p>
           <div class="pcard-meta">
-            <div class="pcard-info">
-              <div class="pcard-person">Simran K.</div>
-              <div class="pcard-city">Chandigarh</div>
-              <span class="pcard-tag">Sensitive</span>
-            </div>
+            <div class="pcard-info"><div class="pcard-person">Simran K.</div><div class="pcard-city">Chandigarh</div><span class="pcard-tag">Sensitive</span></div>
             <div class="pcard-stars-small">★★★★★</div>
           </div>
         </div>
       </div>
-
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After"
-            onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
           <p class="pcard-quote">"Used products I already owned. Saved ₹2k and my skin."</p>
           <div class="pcard-meta">
-            <div class="pcard-info">
-              <div class="pcard-person">Rohan P.</div>
-              <div class="pcard-city">Ahmedabad</div>
-              <span class="pcard-tag">Dryness</span>
-            </div>
+            <div class="pcard-info"><div class="pcard-person">Rohan P.</div><div class="pcard-city">Ahmedabad</div><span class="pcard-tag">Dryness</span></div>
             <div class="pcard-stars-small">★★★★</div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -763,13 +723,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="ft-inner fu d2">
         <div class="ft-images">
           <div class="ft-img-wrap">
-            <img class="ft-img" src="/images/priya-before.png" loading="lazy" alt="Priya before"
-              onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph bph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Before'}),this)">
+            <img class="ft-img" src="/images/priya-before.png" loading="lazy" alt="Priya before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph bph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Before'}),this)">
             <span class="ft-lbl">Before</span>
           </div>
           <div class="ft-img-wrap">
-            <img class="ft-img" src="/images/priya-after.png" loading="lazy" alt="Priya after"
-              onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph aph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>After'}),this)">
+            <img class="ft-img" src="/images/priya-after.png" loading="lazy" alt="Priya after" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'ft-ph aph',innerHTML:'<svg width=\'28\' height=\'28\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>After'}),this)">
             <span class="ft-lbl aft">After — 21 days</span>
           </div>
         </div>
@@ -778,8 +736,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <p class="ft-quote">Three weeks in and my acne has reduced dramatically. The routine was simple enough to actually stick to — no 10-step nonsense, just what works.</p>
           <div class="ft-person">
             <div class="ft-avatar-wrap">
-              <img class="ft-avatar" src="/images/testimonial-priya-profile.png" loading="lazy" alt="Priya Mehta"
-                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <img class="ft-avatar" src="/images/testimonial-priya-profile.png" loading="lazy" alt="Priya Mehta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
               <div class="ft-avatar-fallback">P</div>
             </div>
             <div>
@@ -869,7 +826,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         </div>
         <div class="faq-item">
           <button class="faq-question">Will real people guide me, or is it all AI?<span class="faq-icon"></span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Both, working together. Our technology analyses your photos and questionnaire responses to create a highly personalised starting point. But the human element is where BeSeen truly stands apart — you'll be assigned a dedicated skincare expert (Samaira, Aarav, or Riya) who personally reviews your profile, checks in at day 4 and day 21, and is available on WhatsApp to answer your questions. They're not bots. They're real, trained people who genuinely care about your skin journey.</div></div>
+          <div class="faq-answer"><div class="faq-answer-inner">Both, working together. Our technology analyses your photos and questionnaire responses to create a highly personalised starting point. But the human element is where BeSeen truly stands apart — you'll be assigned a dedicated skincare expert (Riya, Ananya, Meera, or Kavya) who personally reviews your profile, checks in at day 4 and day 21, and is available on WhatsApp to answer your questions. They're not bots. They're real, trained people who genuinely care about your skin journey.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-question">What happens after I submit my questionnaire?<span class="faq-icon"></span></button>
@@ -902,14 +859,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
         Human WhatsApp Support
       </div>
-      <div class="trust-badge">
-        <div class="trust-badge-check">✔</div>
-        21-day money-back guarantee
-      </div>
-      <div class="trust-badge">
-        <div class="trust-badge-check">✔</div>
-        No subscriptions, ever
-      </div>
+      <div class="trust-badge"><div class="trust-badge-check">✔</div>21-day money-back guarantee</div>
+      <div class="trust-badge"><div class="trust-badge-check">✔</div>No subscriptions, ever</div>
     </div>
   </div>
 
@@ -1202,15 +1153,24 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <p>Unlock your personalised skin plan and get your expert assigned instantly.</p>
     </div>
     <div class="payment-grid">
+
+      <!-- ── UPGRADED DERM CARD ── -->
       <div class="payment-derm-card">
         <div class="derm-header">
           <div class="derm-photo-wrap">
-            <img class="derm-photo" id="payment-derm-photo" src="/images/doctor-samaira.png" loading="eager" alt="Dr. Samaira"
-              onerror="this.style.display='none';document.getElementById('payment-derm-avatar').style.display='flex'">
-            <div class="derm-avatar" id="payment-derm-avatar">S</div>
+            <!-- REAL DOCTOR IMAGE — updated names: Riya, Ananya, Meera, Kavya -->
+            <img
+              class="derm-photo"
+              id="payment-derm-photo"
+              src="/images/doctor-riya.png"
+              loading="eager"
+              alt="Dr. Riya"
+              onerror="this.style.display='none';document.getElementById('payment-derm-avatar').style.display='flex'"
+            >
+            <div class="derm-avatar" id="payment-derm-avatar">R</div>
           </div>
           <div class="derm-header-info">
-            <div class="derm-name">Dr. <span id="payment-derm-name">Samaira</span></div>
+            <div class="derm-name">Dr. <span id="payment-derm-name">Riya</span></div>
             <div class="derm-title">Certified Dermatologist · BeSeen</div>
             <div class="derm-cert-badge">✓ Certified Dermatologist</div>
           </div>
@@ -1226,14 +1186,21 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           Your expert is a <strong>real person</strong> — trained, caring, and dedicated to your skin journey. They'll introduce themselves within 24 hours.
         </div>
       </div>
+
+      <!-- ── UPGRADED PRICE CARD ── -->
       <div class="payment-price-card">
         <div class="payment-price-badge">Early Access — Limited</div>
-        <div class="payment-price-orig">₹899</div>
-        <div class="payment-price-main">₹699</div>
+
+        <!-- ANIMATED PRICE -->
+        <div class="price-anim-wrap">
+          <span class="payment-price-orig" id="price-orig-anim">₹899</span>
+        </div>
+        <div class="payment-price-main" id="price-main-anim">₹699</div>
+
         <p class="payment-price-note">One-time payment · No subscription · Instant access</p>
         <div class="payment-timer-box">
           <div class="payment-timer-label">⚡ Offer expires in</div>
-          <div class="payment-timer-digits" id="payment-timer">01:00</div>
+          <div class="payment-timer-digits" id="payment-timer">00:59</div>
         </div>
         <button class="btn-payment" id="payment-cta-btn">🔒 Secure My Routine — ₹699</button>
         <div class="payment-security-note">
@@ -1241,6 +1208,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           Encrypted · Secure · Privacy protected
         </div>
       </div>
+
     </div>
     <div class="payment-guarantee">
       <div class="guarantee-pill">
@@ -1252,7 +1220,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </div><!-- /page-payment -->
 
 
-<!-- ══════════ THANK YOU PAGE ══════════ -->
+<!-- ══════════ THANK YOU PAGE — UPGRADED ══════════ -->
 <div id="page-thankyou" class="page">
   <div class="ty-outer">
     <div class="ty-icon-wrap">
@@ -1263,12 +1231,21 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       </div>
     </div>
     <div class="ty-eyebrow"><span class="ty-eyebrow-dot"></span>Payment Confirmed</div>
-    <h1 class="ty-title">Thank you for<br>choosing <em>BeSeen.</em></h1>
-    <p class="ty-sub">Your personalised skin analysis and complete routine is being prepared. You'll receive everything on <strong>WhatsApp and email</strong> within 24 hours.</p>
+
+    <!-- UPDATED: BeSeen black, . green -->
+    <h1 class="ty-title">
+      Thank you for choosing<br><span class="ty-brand">BeSeen</span><span class="ty-brand-dot">.</span>
+    </h1>
+
+    <!-- UPDATED: Simplified, emotional subtext -->
+    <p class="ty-sub">
+      Your dermatologist will reach out within <strong>24 hours</strong>.
+    </p>
+
     <div class="ty-card">
       <div class="ty-card-row"><div class="ty-card-icon">📋</div><div class="ty-card-text"><strong>Profile Received</strong><span>Your skin data has been securely saved</span></div></div>
       <div class="ty-card-row"><div class="ty-card-icon">🔬</div><div class="ty-card-text"><strong>Analysis In Progress</strong><span>Our experts are reviewing your photos</span></div></div>
-      <div class="ty-card-row"><div class="ty-card-icon">👩‍⚕️</div><div class="ty-card-text"><strong>Your Expert: <span id="ty-derm-name">Samaira</span></strong><span>You'll receive a WhatsApp + email introduction shortly</span></div></div>
+      <div class="ty-card-row"><div class="ty-card-icon">👩‍⚕️</div><div class="ty-card-text"><strong>Your Expert: <span id="ty-derm-name">Riya</span></strong><span>You'll receive a WhatsApp + email introduction shortly</span></div></div>
       <div class="ty-card-row"><div class="ty-card-icon">💬</div><div class="ty-card-text"><strong>WhatsApp &amp; Email Delivery</strong><span>Full routine sent to you within 24 hours</span></div></div>
     </div>
     <button class="ty-back" id="ty-back-btn">
@@ -1296,11 +1273,19 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
 </div>
 
-<!-- ══════════ ANALYSING OVERLAY ══════════ -->
+
+<!-- ══════════ ANALYSING OVERLAY — UPGRADED ══════════ -->
 <div id="overlay-analysing">
-  <div class="spin-ring"></div>
-  <div class="overlay-title" id="overlay-title">Uploading your photos…</div>
-  <div class="overlay-sub" id="overlay-sub">Securely storing your images. Just a moment.</div>
+  <div class="overlay-inner">
+    <div class="spin-ring"></div>
+    <div class="overlay-title" id="overlay-title">Uploading your photos…</div>
+    <div class="overlay-rotating-text" id="overlay-rotating-text">Encrypting your photos securely…</div>
+    <div class="overlay-progress-dots">
+      <div class="ov-dot active" id="ov-dot-0"></div>
+      <div class="ov-dot" id="ov-dot-1"></div>
+      <div class="ov-dot" id="ov-dot-2"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════ CHAT FAB ══════════ -->
@@ -1309,7 +1294,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 </button>
 
 
-<!-- ══════════ ORIGINAL JS (UNTOUCHED) ══════════ -->
+<!-- ══════════ ORIGINAL JS (PRESERVED + UPGRADED) ══════════ -->
 <script>
 (function () {
   'use strict';
@@ -1335,7 +1320,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   let timerInterval     = null;
   let timerActive       = false;
   let paymentTimer      = null;
-  let assignedDermName  = 'Samaira';
+  let assignedDermName  = 'Riya';
+  let overlayRotateInterval = null;
 
   function escHtml(str) {
     return String(str || '')
@@ -1424,21 +1410,46 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     }, 16);
   }
 
+  // ── UPDATED: 4 real doctors ──
   function pickDermatologist() {
     const derms = [
-      { name: 'Samaira', initial: 'S' },
-      { name: 'Aarav',   initial: 'A' },
-      { name: 'Riya',    initial: 'R' }
+      { name: 'Riya',   initial: 'R' },
+      { name: 'Ananya', initial: 'A' },
+      { name: 'Meera',  initial: 'M' },
+      { name: 'Kavya',  initial: 'K' }
     ];
     return derms[Math.floor(Math.random() * derms.length)];
   }
 
+  // ── PRICE ANIMATION ──
+  function animatePriceReveal() {
+    const origEl = document.getElementById('price-orig-anim');
+    const mainEl = document.getElementById('price-main-anim');
+    if (!origEl || !mainEl) return;
+
+    // Reset state
+    origEl.classList.remove('strike-active');
+    mainEl.classList.remove('price-reveal');
+    mainEl.style.opacity = '0';
+    mainEl.style.transform = 'translateY(10px)';
+
+    // Step 1: show ₹899 clearly for 800ms
+    // Step 2: animate strikethrough
+    setTimeout(function() {
+      origEl.classList.add('strike-active');
+      // Step 3: after strike begins, reveal ₹699
+      setTimeout(function() {
+        mainEl.classList.add('price-reveal');
+      }, 420);
+    }, 800);
+  }
+
   function startPaymentCountdown() {
     clearInterval(paymentTimer);
-    let secs = 60;
+    let secs = 59; // starts at 59
     const timerEl = document.getElementById('payment-timer');
-    if (timerEl) timerEl.textContent = '01:00';
-    paymentTimer = setInterval(() => {
+    if (timerEl) timerEl.textContent = '00:59';
+    paymentTimer = setInterval(function() {
       secs = Math.max(secs - 1, 0);
       if (timerEl) timerEl.textContent = '00:' + String(secs).padStart(2, '0');
       if (secs <= 0) clearInterval(paymentTimer);
@@ -1446,14 +1457,31 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   }
 
   function showPaymentPage() {
-    const derm = pickDermatologist();
+    const derm    = pickDermatologist();
     assignedDermName = derm.name;
+
     const nameEl   = document.getElementById('payment-derm-name');
+    const photoEl  = document.getElementById('payment-derm-photo');
     const avatarEl = document.getElementById('payment-derm-avatar');
+
     if (nameEl)   nameEl.textContent   = derm.name;
     if (avatarEl) avatarEl.textContent = derm.initial;
+
+    // Update photo src
+    if (photoEl) {
+      photoEl.src = '/images/doctor-' + derm.name.toLowerCase() + '.png';
+      photoEl.alt = 'Dr. ' + derm.name;
+      photoEl.style.display = 'block';
+      if (avatarEl) avatarEl.style.display = 'none';
+    }
+
     showPage('page-payment');
     startPaymentCountdown();
+
+    // Trigger price animation after page paint
+    requestAnimationFrame(function() {
+      setTimeout(animatePriceReveal, 80);
+    });
   }
 
   function confirmPaymentAndShowThankYou() {
@@ -1716,6 +1744,58 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     }
   }
 
+  // ── OVERLAY ROTATING TEXT ──
+  const OVERLAY_UPLOAD_TEXTS = [
+    'Encrypting your photos securely…',
+    'Preparing your skin profile…',
+    'No data is ever shared or sold',
+    'Used by 500+ users across India'
+  ];
+  const OVERLAY_ANALYSIS_TEXTS = [
+    'Scanning your skin condition…',
+    'Mapping concerns & patterns…',
+    'Matching ingredients to your skin…',
+    'Assigning your dermatologist…'
+  ];
+
+  function startOverlayRotation(phase) {
+    clearInterval(overlayRotateInterval);
+    const texts = phase === 'upload' ? OVERLAY_UPLOAD_TEXTS : OVERLAY_ANALYSIS_TEXTS;
+    const el    = document.getElementById('overlay-rotating-text');
+    let idx     = 0;
+    const dots  = [
+      document.getElementById('ov-dot-0'),
+      document.getElementById('ov-dot-1'),
+      document.getElementById('ov-dot-2')
+    ];
+
+    if (el) el.textContent = texts[0];
+    updateOverlayDots(dots, 0);
+
+    overlayRotateInterval = setInterval(function() {
+      if (!el) return;
+      el.classList.add('fading');
+      setTimeout(function() {
+        idx = (idx + 1) % texts.length;
+        el.textContent = texts[idx];
+        el.classList.remove('fading');
+        updateOverlayDots(dots, idx % 3);
+      }, 360);
+    }, 2800);
+  }
+
+  function updateOverlayDots(dots, active) {
+    dots.forEach(function(d, i) {
+      if (!d) return;
+      d.classList.toggle('active', i === active);
+    });
+  }
+
+  function stopOverlayRotation() {
+    clearInterval(overlayRotateInterval);
+    overlayRotateInterval = null;
+  }
+
   async function analyseAndGo() {
     if (slotFiles[0] === null) {
       const err = document.getElementById('photo-req-error');
@@ -1732,24 +1812,27 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
     const overlay      = document.getElementById('overlay-analysing');
     const overlayTitle = document.getElementById('overlay-title');
-    const overlaySub   = document.getElementById('overlay-sub');
 
     if (overlay) overlay.classList.add('show');
+
+    // Phase 1: Upload
     if (overlayTitle) overlayTitle.textContent = 'Uploading your photos…';
-    if (overlaySub)   overlaySub.textContent   = 'Securely storing your images. Just a moment.';
+    startOverlayRotation('upload');
 
     let imageData = { front:null, left:null, right:null, concern:null, urls:[] };
     try { imageData = await uploadAllImages(); }
     catch (err) { console.error('Image upload failed:', err); }
 
+    // Phase 2: Analysis
     if (overlayTitle) overlayTitle.textContent = 'Analysing your skin…';
-    if (overlaySub)   overlaySub.textContent   = 'Building your personalised routine.';
+    startOverlayRotation('analysis');
 
     try { await saveToSupabase(imageData); }
     catch (err) { console.error('SAVE ERROR:', err); }
 
     await new Promise(resolve => setTimeout(resolve, 1800));
 
+    stopOverlayRotation();
     if (overlay) overlay.classList.remove('show');
     showPaymentPage();
   }
@@ -1807,6 +1890,64 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     el.classList.add('on');
   }
 
+  // ── RAZORPAY HANDLER ──
+  function openRazorpay() {
+    if (typeof Razorpay === 'undefined') {
+      console.error('Razorpay SDK not loaded');
+      confirmPaymentAndShowThankYou(); // fallback in dev
+      return;
+    }
+
+    const options = {
+      key:         'rzp_test_SjpB8qqA3HfhVF',
+      amount:      69900, // 699 INR in paise
+      currency:    'INR',
+      name:        'BeSeen.',
+      description: 'Personalised Skincare Plan — Expert Review',
+      image:       '/favicon4.ico',
+      prefill: {
+        name:  formData.name || ''
+        // email/phone not collected — omit to avoid empty fields
+      },
+      notes: {
+        skin_type: formData.skinType || '',
+        city:      formData.city     || '',
+        concerns:  Array.isArray(formData.concerns) ? formData.concerns.join(', ') : ''
+      },
+      theme: {
+        color: '#3d6b5e'
+      },
+      modal: {
+        backdropclose: false,
+        escape:        false,
+        animation:     true
+      },
+      handler: function(response) {
+        // Payment successful
+        console.log('✅ Razorpay success:', response.razorpay_payment_id);
+        confirmPaymentAndShowThankYou();
+      }
+    };
+
+    const rzp = new Razorpay(options);
+
+    rzp.on('payment.failed', function(response) {
+      console.error('❌ Payment failed:', response.error);
+      const btn = document.getElementById('payment-cta-btn');
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = '⚠ Payment failed — please try again';
+        btn.classList.add('error-state');
+        setTimeout(function() {
+          btn.textContent = orig;
+          btn.classList.remove('error-state');
+        }, 3500);
+      }
+    });
+
+    rzp.open();
+  }
+
   function bindEvents() {
     document.getElementById('hero-start-btn').addEventListener('click', startQuiz);
     document.getElementById('nav-logo').addEventListener('click', e => { e.preventDefault(); goHome(); });
@@ -1823,7 +1964,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
     document.getElementById('modal-pay-btn').addEventListener('click', processPayment);
     document.getElementById('modal-checkout').addEventListener('click', e => { if (e.target.id === 'modal-checkout') closeModal(); });
-    document.getElementById('payment-cta-btn').addEventListener('click', confirmPaymentAndShowThankYou);
+
+    // ── RAZORPAY: Replace direct confirm with Razorpay ──
+    document.getElementById('payment-cta-btn').addEventListener('click', openRazorpay);
+
     document.getElementById('ty-back-btn').addEventListener('click', goHome);
 
     const macScroll = document.getElementById('mac-scroll');
@@ -1921,21 +2065,24 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 })();
 </script>
 
-<!-- ══════════ FEATURE ENHANCEMENTS ══════════ -->
+
+<!-- ══════════ FEATURE ENHANCEMENTS (PRESERVED + UPGRADED) ══════════ -->
 <script>
 (function() {
   'use strict';
 
+  // ── UPDATED doctor photo map: Riya, Ananya, Meera, Kavya ──
   const dermPhotoMap = {
-    'Samaira': '/images/doctor-samaira.png',
-    'Aarav':   '/images/doctor-aarav.png',
-    'Riya':    '/images/doctor-riya.png'
+    'Riya':   '/images/doctor-riya.png',
+    'Ananya': '/images/doctor-ananya.png',
+    'Samairaa':  '/images/doctor-samairaa.png',
+    'Sara':  '/images/doctor-sara.png'
   };
 
   function syncDermPhoto() {
-    const nameEl  = document.getElementById('payment-derm-name');
-    const photoEl = document.getElementById('payment-derm-photo');
-    const avatarEl= document.getElementById('payment-derm-avatar');
+    const nameEl   = document.getElementById('payment-derm-name');
+    const photoEl  = document.getElementById('payment-derm-photo');
+    const avatarEl = document.getElementById('payment-derm-avatar');
     if (!nameEl || !photoEl) return;
     const name = nameEl.textContent.trim();
     const src  = dermPhotoMap[name];
@@ -1955,6 +2102,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     }
   });
 
+  // ── ROTATING MICRO-FACTS (unchanged) ──
   const facts1 = [
     'Your first name helps us address your routine personally — it matters.',
     'Over 500 people have started their skin journey right here.',
