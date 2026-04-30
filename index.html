@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,29 +64,32 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 
 /* ── HOME ── */
 #page-home{padding-top:60px}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 32px 60px;position:relative;overflow:hidden;background:radial-gradient(ellipse 75% 55% at 50% 25%,#dceae5 0%,var(--white) 70%)}
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:80px 32px 60px;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 75% 55% at 50% 25%,#dceae5 0%,var(--white) 70%);
+}
 .blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:blobDrift 14s ease-in-out infinite alternate}
 .blob-a{width:500px;height:400px;top:-100px;left:-80px;background:#c4d9d2;opacity:.22}
 .blob-b{width:360px;height:360px;bottom:-80px;right:-60px;background:#c4d9d2;opacity:.18;animation-delay:-7s}
 @keyframes blobDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.05)}}
 .hero-content{position:relative;z-index:1;max-width:720px;width:100%}
-.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 8px;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:36px;box-shadow:var(--shadow-s)}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px 5px 8px;font-size:11.5px;font-weight:500;color:var(--g700);margin-bottom:24px;box-shadow:var(--shadow-s)}
 .pill-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,76px);font-weight:600;letter-spacing:-.045em;line-height:1.06;color:var(--black);margin-bottom:22px}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,76px);font-weight:600;letter-spacing:-.045em;line-height:1.06;color:var(--black);margin-bottom:18px}
 .hero-h1 em{font-style:italic;color:var(--accent)}
-.hero-sub{font-size:16px;font-weight:300;color:var(--g700);max-width:520px;margin:0 auto 40px;line-height:1.75}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-sub{font-size:16px;font-weight:300;color:var(--g700);max-width:520px;margin:0 auto 28px;line-height:1.75}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:0}
 .hero-trust{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:52px}
 .trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g500)}
 .trust-item svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
 
 /* ── HERO SOCIAL PROOF ── */
 .hero-social-proof{
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  margin-top:24px;padding-top:20px;
-  border-top:1px solid var(--g200);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  margin-top:20px;
 }
-.face-stack{display:flex;align-items:center;gap:10px}
+.face-stack{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
 .face-avatars{display:flex;align-items:center}
 .face-av{
   width:30px;height:30px;border-radius:50%;
@@ -98,6 +102,7 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .face-av:first-child{margin-left:0}
 .face-stack-label{font-size:12px;color:var(--g700)}
 .face-stack-label strong{color:var(--black);font-weight:600}
+.face-meta{font-size:12px;color:var(--g700);text-align:center;line-height:1.5}
 .hero-trust-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--g700)}
 .htp-dot{width:3px;height:3px;border-radius:50%;background:var(--g300);flex-shrink:0}
 
@@ -150,7 +155,6 @@ nav.nav-visible{transform:translateY(0);opacity:1}
 .pcard-body{padding:11px 13px}
 .pcard-quote{font-size:11.5px;font-weight:300;color:var(--g700);font-style:italic;line-height:1.6;margin-bottom:9px}
 .pcard-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
-.pcard-info{}
 .pcard-person{font-size:11px;font-weight:500;color:var(--black);line-height:1.3}
 .pcard-city{font-size:10px;color:var(--g500)}
 .pcard-stars-small{font-size:10px;color:var(--accent);flex-shrink:0;margin-top:1px}
@@ -187,7 +191,6 @@ nav.nav-visible{transform:translateY(0);opacity:1}
   padding:3px 9px;border-radius:5px;white-space:nowrap;
 }
 .ft-lbl.aft{background:rgba(61,107,94,.72)}
-.ft-content{}
 .ft-verified-badge{
   display:inline-flex;align-items:center;gap:6px;
   background:var(--accent-l);border:1px solid #b5d0c9;
@@ -570,7 +573,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 /* ── HIGHLIGHT WORDS ── */
 .highlight-word{color:var(--accent);font-weight:500}
 
-
 /* ── REAL AVATAR IMAGES ── */
 .face-av-img{
   width:30px;height:30px;border-radius:50%;
@@ -620,191 +622,179 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   </div>
 </nav>
 
-<!-- ══════════ HOME PAGE ══════════ -->
 <div id="page-home" class="page active">
+  <section class="hero">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="blob blob-a"></div>
-  <div class="blob blob-b"></div>
-  <div class="hero-content">
-    <div class="hero-pill">...</div>
-
-  <h1 class="hero-h1">...</h1>
-
-  <p class="hero-sub">...</p>
-
-  <div class="hero-btns">
-    <button class="btn btn-primary">Start Your Journey →</button>
-    <a href="#how" class="btn btn-secondary">How It Works</a>
-  </div>
-
-  <!-- ✅ MOVE SOCIAL PROOF HERE -->
-  <div class="hero-social-proof fu vis" style="transition-delay:.4s">
-    <div class="face-stack">
-      <div class="face-avatars">
-        <img src="/images/avatar-priya.png" class="face-av-img">
-        <img src="/images/avatar-arjun.png" class="face-av-img">
-        <img src="/images/avatar-neha.png" class="face-av-img">
-        <img src="/images/avatar-rohan.png" class="face-av-img">
+    <div class="hero-content">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        Science-backed · Expert-guided · Clinically designed
       </div>
-      <span>Trusted by 500+ users</span>
+
+      <h1 class="hero-h1">Get a <em>personalised</em> skincare<br>routine from home in minutes.</h1>
+
+      <p class="hero-sub">Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.</p>
+
+      <div class="hero-btns">
+        <button class="btn btn-primary" id="hero-start-btn">Start Your Journey →</button>
+        <a href="#how" class="btn btn-secondary">How It Works</a>
+      </div>
+
+      <div class="hero-social-proof">
+        <div class="face-stack">
+          <div class="face-avatars">
+            <img src="/images/avatar-priya.png" class="face-av-img" alt="Priya">
+            <img src="/images/avatar-arjun.png" class="face-av-img" alt="Arjun">
+            <img src="/images/avatar-neha.png" class="face-av-img" alt="Neha">
+            <img src="/images/avatar-rohan.png" class="face-av-img" alt="Rohan">
+          </div>
+          <span class="face-stack-label"><strong>Trusted by 500+</strong> users</span>
+        </div>
+
+        <div class="face-meta">
+          ⭐ 4.8/5 from 120+ real users • Dermatologist guided • Results in 21 days
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip-section">
+    <div class="proof-strip-header fu">
+      <p>What our customers say</p>
+      <h3>Real skin. <em>Real change.</em></h3>
     </div>
 
-    <div class="face-meta">
-      ⭐ 4.8/5 from 120+ real users • Dermatologist guided • Results in 21 days
-    </div>
-  </div>
+    <div class="proof-strip-scroll" id="proof-strip-scroll">
+      <div class="pcard">
+        <div class="pcard-images">
+          <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span>
+          <span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Acne cleared in three weeks. Couldn't believe it."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info">
+              <div class="pcard-person">Priya M.</div>
+              <div class="pcard-city">Mumbai</div>
+              <span class="pcard-tag">Acne · Oily</span>
+            </div>
+            <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
 
+      <div class="pcard">
+        <div class="pcard-images">
+          <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span>
+          <span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Dark spots genuinely faded. Expert replied within hours."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info">
+              <div class="pcard-person">Arjun S.</div>
+              <div class="pcard-city">Delhi</div>
+              <span class="pcard-tag">Pigmentation</span>
+            </div>
+            <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-images">
+          <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span>
+          <span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Oily T-zone finally balanced — life changing."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info">
+              <div class="pcard-person">Neha K.</div>
+              <div class="pcard-city">Bangalore</div>
+              <span class="pcard-tag">Oily · Combo</span>
+            </div>
+            <div class="pcard-stars-small">★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-images">
+          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span>
+          <span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Texture improved remarkably after the 21-day review."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info">
+              <div class="pcard-person">Divya K.</div>
+              <div class="pcard-city">Chennai</div>
+              <span class="pcard-tag">Texture · Pores</span>
+            </div>
+            <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-images">
+          <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span>
+          <span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Zero irritants, zero reactions. Calm skin in 14 days."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info">
+              <div class="pcard-person">Simran K.</div>
+              <div class="pcard-city">Chandigarh</div>
+              <span class="pcard-tag">Sensitive</span>
+            </div>
+            <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-images">
+          <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
+          <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span>
+          <span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Used products I already owned. Saved ₹2k and my skin."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info">
+              <div class="pcard-person">Rohan P.</div>
+              <div class="pcard-city">Ahmedabad</div>
+              <span class="pcard-tag">Dryness</span>
+            </div>
+            <div class="pcard-stars-small">★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
-</section>
-    <div class="hero-pill fu vis"><span class="pill-dot"></span>Science-backed · Expert-guided · Clinically designed</div>
-    <h1 class="hero-h1 fu vis" style="transition-delay:.1s">Get a <em>personalised</em> skincare<br>routine from home in minutes.</h1>
-    <p class="hero-sub fu vis" style="transition-delay:.2s">Upload your skin photos, answer a few questions, and receive your tailored routine — expert-guided, ingredient-matched, and ready instantly.</p>
-    <div class="hero-btns fu vis" style="transition-delay:.3s">
-      <button class="btn btn-primary" id="hero-start-btn">Start Your Journey →</button>
-      <a href="#how" class="btn btn-secondary">How It Works</a>
-    </div> 
-
-  </div>
-</section>
-
-<!-- PROOF STRIP -->
-<section class="proof-strip-section">
-  <div class="proof-strip-header fu">
-    <p>What our customers say</p>
-    <h3>Real skin. <em>Real change.</em></h3>
-  </div>
-  <div class="proof-strip-scroll" id="proof-strip-scroll">
-
-    <div class="pcard">
-      <div class="pcard-images">
-        <img class="pcard-img" src="/images/testimonial-priya-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-        <img class="pcard-img" src="/images/testimonial-priya-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
-        <div class="pcard-divider"></div>
-        <span class="pcard-lbl b">Before</span>
-        <span class="pcard-lbl a">After</span>
-      </div>
-      <div class="pcard-body">
-        <p class="pcard-quote">"Acne cleared in three weeks. Couldn't believe it."</p>
-        <div class="pcard-meta">
-          <div class="pcard-info">
-            <div class="pcard-person">Priya M.</div>
-            <div class="pcard-city">Mumbai</div>
-            <span class="pcard-tag">Acne · Oily</span>
-          </div>
-          <div class="pcard-stars-small">★★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-images">
-        <img class="pcard-img" src="/images/testimonial-arjun-before.png" loading="eager" fetchpriority="high" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-        <img class="pcard-img" src="/images/testimonial-arjun-after.png" loading="eager" fetchpriority="high" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
-        <div class="pcard-divider"></div>
-        <span class="pcard-lbl b">Before</span>
-        <span class="pcard-lbl a">After</span>
-      </div>
-      <div class="pcard-body">
-        <p class="pcard-quote">"Dark spots genuinely faded. Expert replied within hours."</p>
-        <div class="pcard-meta">
-          <div class="pcard-info">
-            <div class="pcard-person">Arjun S.</div>
-            <div class="pcard-city">Delhi</div>
-            <span class="pcard-tag">Pigmentation</span>
-          </div>
-          <div class="pcard-stars-small">★★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-images">
-        <img class="pcard-img" src="/images/testimonial-neha-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-        <img class="pcard-img" src="/images/testimonial-neha-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
-        <div class="pcard-divider"></div>
-        <span class="pcard-lbl b">Before</span>
-        <span class="pcard-lbl a">After</span>
-      </div>
-      <div class="pcard-body">
-        <p class="pcard-quote">"Oily T-zone finally balanced — life changing."</p>
-        <div class="pcard-meta">
-          <div class="pcard-info">
-            <div class="pcard-person">Neha K.</div>
-            <div class="pcard-city">Bangalore</div>
-            <span class="pcard-tag">Oily · Combo</span>
-          </div>
-          <div class="pcard-stars-small">★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-images">
-        <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-        <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
-        <div class="pcard-divider"></div>
-        <span class="pcard-lbl b">Before</span>
-        <span class="pcard-lbl a">After</span>
-      </div>
-      <div class="pcard-body">
-        <p class="pcard-quote">"Texture improved remarkably after the 21-day review."</p>
-        <div class="pcard-meta">
-          <div class="pcard-info">
-            <div class="pcard-person">Divya K.</div>
-            <div class="pcard-city">Chennai</div>
-            <span class="pcard-tag">Texture · Pores</span>
-          </div>
-          <div class="pcard-stars-small">★★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-images">
-        <img class="pcard-img" src="/images/testimonial-simran-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-        <img class="pcard-img" src="/images/testimonial-simran-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
-        <div class="pcard-divider"></div>
-        <span class="pcard-lbl b">Before</span>
-        <span class="pcard-lbl a">After</span>
-      </div>
-      <div class="pcard-body">
-        <p class="pcard-quote">"Zero irritants, zero reactions. Calm skin in 14 days."</p>
-        <div class="pcard-meta">
-          <div class="pcard-info">
-            <div class="pcard-person">Simran K.</div>
-            <div class="pcard-city">Chandigarh</div>
-            <span class="pcard-tag">Sensitive</span>
-          </div>
-          <div class="pcard-stars-small">★★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pcard">
-      <div class="pcard-images">
-        <img class="pcard-img" src="/images/testimonial-rohan-before.png" loading="lazy" fetchpriority="low" decoding="async" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-        <img class="pcard-img" src="/images/testimonial-rohan-after.png" loading="lazy" fetchpriority="low" decoding="async" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
-        <div class="pcard-divider"></div>
-        <span class="pcard-lbl b">Before</span>
-        <span class="pcard-lbl a">After</span>
-      </div>
-      <div class="pcard-body">
-        <p class="pcard-quote">"Used products I already owned. Saved ₹2k and my skin."</p>
-        <div class="pcard-meta">
-          <div class="pcard-info">
-            <div class="pcard-person">Rohan P.</div>
-            <div class="pcard-city">Ahmedabad</div>
-            <span class="pcard-tag">Dryness</span>
-          </div>
-          <div class="pcard-stars-small">★★★★</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <!-- TICKER -->
 <div class="ticker">
