@@ -557,29 +557,44 @@
     contentArea.appendChild(grid);
   }
 
-  /* ── Skin Score ── */
-  function calculateSkinScore(concerns, sleep, water, stress, skinType) {
-    let score = 100;
-    const cStr = (Array.isArray(concerns) ? concerns.join(' ') : String(concerns || '')).toLowerCase();
+  /* ── Skin Score (Optimized for Better UX + Conversion) ── */
+function calculateSkinScore(concerns, sleep, water, stress, skinType) {
+  let score = 85; // Start lower → feels more realistic but less punishing
 
-    if (cStr.includes('acne'))            score -= 15;
-    if (cStr.includes('breakout'))        score -= 10;
-    if (cStr.includes('pigment'))         score -= 12;
-    if (cStr.includes('pore'))            score -= 8;
-    if (cStr.includes('sensitiv') || cStr.includes('redness')) score -= 7;
-    if (cStr.includes('fine line'))       score -= 6;
-    if (cStr.includes('oilin'))           score -= 5;
-    if (cStr.includes('dryness') || cStr.includes('dehydrat')) score -= 5;
+  const cStr = (Array.isArray(concerns) ? concerns.join(' ') : String(concerns || '')).toLowerCase();
 
-    if (String(sleep || '').toLowerCase().includes('poor'))    score -= 10;
-    if (String(water || '').toLowerCase().includes('low'))     score -= 8;
-    if (String(stress || '').toLowerCase().includes('high'))   score -= 10;
-    if (String(skinType || '').toLowerCase() === 'oily')       score -= 5;
-    if (String(skinType || '').toLowerCase() === 'sensitive')  score -= 7;
+  let penalty = 0;
 
-    return Math.min(100, Math.max(40, score));
-  }
+  // Concerns (reduced impact)
+  if (cStr.includes('acne'))            penalty += 10;
+  if (cStr.includes('breakout'))        penalty += 7;
+  if (cStr.includes('pigment'))         penalty += 8;
+  if (cStr.includes('pore'))            penalty += 5;
+  if (cStr.includes('sensitiv') || cStr.includes('redness')) penalty += 5;
+  if (cStr.includes('fine line'))       penalty += 4;
+  if (cStr.includes('oilin'))           penalty += 3;
+  if (cStr.includes('dryness') || cStr.includes('dehydrat')) penalty += 3;
 
+  // Lifestyle penalties (lighter)
+  if (String(sleep || '').toLowerCase().includes('poor'))    penalty += 6;
+  if (String(water || '').toLowerCase().includes('low'))     penalty += 5;
+  if (String(stress || '').toLowerCase().includes('high'))   penalty += 6;
+
+  // Skin type (very light influence)
+  if (String(skinType || '').toLowerCase() === 'oily')       penalty += 3;
+  if (String(skinType || '').toLowerCase() === 'sensitive')  penalty += 4;
+
+  // Apply penalty with soft scaling (prevents stacking from killing score)
+  score -= penalty * 0.85;
+
+  // Positive boosts (THIS is what improves perception)
+  if (String(sleep || '').toLowerCase().includes('good'))    score += 5;
+  if (String(water || '').toLowerCase().includes('high'))    score += 4;
+  if (String(stress || '').toLowerCase().includes('low'))    score += 4;
+
+  // Clamp range (better UX band)
+  return Math.min(95, Math.max(55, Math.round(score)));
+}
   function scoreClass(score) {
     if (score >= 75) return 'score-high';
     if (score >= 55) return 'score-mid';
@@ -729,108 +744,184 @@
     return card;
   }
 
-  /* ── Prompt Generation ── */
-  function generatePrompt(card, index) {
-    const d = card._data;
-    const promptBox  = document.getElementById('prompt-box-' + index);
-    const promptText = document.getElementById('prompt-text-' + index);
-    const genBtn     = card.querySelector('.gen-btn');
-
-    const text = buildPromptText(d);
-
-    promptText.textContent = text;
-    promptBox.classList.add('visible');
-    genBtn.textContent = '✦ Regenerate Prompt';
-    promptBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
   function buildPromptText(d) {
-    const name      = d.name      || '—';
-    const age       = d.age       || '—';
-    const gender    = d.gender    || '—';
-    const city      = d.city      || '—';
-    const skinType  = d.skinType  || '—';
-    const concerns  = Array.isArray(d.concerns) && d.concerns.length > 0 ? d.concerns.join(', ') : '—';
-    const sleep     = d.sleep     || '—';
-    const water     = d.water     || '—';
-    const stress    = d.stress    || '—';
-    const diet      = d.diet      || '—';
-    const routine   = d.routine   || '—';
-    const history   = d.history   || '—';
-    const skinScore = d.skinScore || '—';
+  const name      = d.name      || '—';
+  const age       = d.age       || '—';
+  const gender    = d.gender    || '—';
+  const city      = d.city      || '—';
+  const skinType  = d.skinType  || '—';
+  const concerns  = Array.isArray(d.concerns) && d.concerns.length > 0 ? d.concerns.join(', ') : '—';
+  const sleep     = d.sleep     || '—';
+  const water     = d.water     || '—';
+  const stress    = d.stress    || '—';
+  const diet      = d.diet      || '—';
+  const routine   = d.routine   || '—';
+  const history   = d.history   || '—';
+  const weight    = d.weight    || '—';
+  const skinScore = d.skinScore || '—';
 
-    // Build image section
-    const s = d.structured || {};
-    const imageLines = [];
-    if (s.front)   imageLines.push('Front:    ' + s.front);
-    if (s.left)    imageLines.push('Left:     ' + s.left);
-    if (s.right)   imageLines.push('Right:    ' + s.right);
-    if (s.concern) imageLines.push('Close-up: ' + s.concern);
+  const s = d.structured || {};
+  const imageLines = [];
+  if (s.front)   imageLines.push('Front:    ' + s.front);
+  if (s.left)    imageLines.push('Left:     ' + s.left);
+  if (s.right)   imageLines.push('Right:    ' + s.right);
+  if (s.concern) imageLines.push('Close-up: ' + s.concern);
 
-    let imageSection;
-    if (imageLines.length > 0) {
-      imageSection = 'CLIENT IMAGES:\n' + imageLines.join('\n');
-    } else if (d.legacyImages && d.legacyImages.length > 0) {
-      imageSection = 'CLIENT IMAGES:\n' + d.legacyImages.join('\n');
-    } else {
-      imageSection = 'CLIENT IMAGES:\nNo images uploaded';
-    }
-
-    return 'You are a top-tier dermatologist creating a PAID skincare plan.\n\n' +
-      'IMPORTANT:\n' +
-      'Your output will be sent DIRECTLY to the client.\n' +
-      'It must be concise, structured, actionable, premium — NO fluff.\n\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'CLIENT PROFILE\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'Name:      ' + name     + '\n' +
-      'Age:       ' + age      + '\n' +
-      'Gender:    ' + gender   + '\n' +
-      'City:      ' + city     + '\n' +
-      'Skin Type: ' + skinType + '\n' +
-      'Concerns:  ' + concerns + '\n' +
-      'Sleep:     ' + sleep    + '\n' +
-      'Water:     ' + water    + '\n' +
-      'Stress:    ' + stress   + '\n' +
-      'Diet:      ' + diet     + '\n' +
-      'Routine:   ' + routine  + '\n' +
-      'History:   ' + history  + '\n\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'OUTPUT FORMAT (STRICT)\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
-      'SKIN SCORE: ' + skinScore + '/100\n\n' +
-      'MAIN ISSUES:\n(List top 3 problems only)\n\n' +
-      '---\n\n' +
-      'MORNING ROUTINE (MAX 4 STEPS):\n' +
-      'Step 1:\nStep 2:\nStep 3:\nStep 4 (optional):\n\n' +
-      '---\n\n' +
-      'AFTERNOON ROUTINE (2–3 STEPS):\n' +
-      'Step 1:\nStep 2:\n\n' +
-      '---\n\n' +
-      'NIGHT ROUTINE:\n' +
-      'Step 1:\nStep 2:\nStep 3:\n\n' +
-      '---\n\n' +
-      'PRE-SLEEP:\n' +
-      'Step 1:\nStep 2:\n\n' +
-      '---\n\n' +
-      'KEY INGREDIENTS:\n(List 4–6, with short reason each)\n\n' +
-      '---\n\n' +
-      'WHAT TO AVOID:\n(List 4–6 things specific to this profile)\n\n' +
-      '---\n\n' +
-      'WHY YOUR SKIN IS LIKE THIS:\n(2–3 lines MAX, simple explanation)\n\n' +
-      '---\n\n' +
-      'EXPECTED RESULTS:\n(Acne timeline, pigmentation timeline, realistic expectations)\n\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
-      imageSection + '\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
-      'RULES\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━━\n' +
-      '- NO long paragraphs\n' +
-      '- Keep it sharp and premium\n' +
-      '- Every line must add value\n' +
-      '- This should feel like a paid expert prescription\n' +
-      '- Greet the client by first name';
+  let imageSection;
+  if (imageLines.length > 0) {
+    imageSection = 'CLIENT IMAGES:\n' + imageLines.join('\n');
+  } else if (d.legacyImages && d.legacyImages.length > 0) {
+    imageSection = 'CLIENT IMAGES:\n' + d.legacyImages.join('\n');
+  } else {
+    imageSection = 'CLIENT IMAGES:\nNo images uploaded';
   }
+
+  return `
+You are a highly experienced dermatologist (15+ years clinical experience).
+You specialize in acne, pigmentation, sensitivity, and lifestyle-driven skin conditions.
+
+You are NOT giving generic advice.
+You are diagnosing THIS specific person.
+
+Your tone should feel:
+- precise
+- calm
+- intelligent
+- slightly human (like a real doctor)
+- never robotic or generic
+
+━━━━━━━━━━━━━━━━━━━━━━━
+CRITICAL THINKING RULES
+━━━━━━━━━━━━━━━━━━━━━━━
+
+1. FIRST analyze the face images carefully
+   - identify visible acne, pigmentation, redness, texture, oiliness, barrier damage
+   - do NOT ignore visual cues
+
+2. THEN combine with:
+   - lifestyle (sleep, stress, water, diet)
+   - internal signals (weight, habits)
+   - environment (city)
+
+3. LOCATION INTELLIGENCE (MANDATORY):
+   Based on the client's city (${city}), internally infer:
+   - pollution level
+   - humidity vs dryness
+   - temperature patterns
+
+   Then ADAPT the routine:
+   - pollution → focus on cleansing + antioxidants
+   - humid → lighter textures
+   - dry → barrier repair + hydration
+   - hot climate → sweat/acne control
+
+   DO NOT explicitly explain climate science — just reflect it in recommendations.
+
+4. PRIORITIZE:
+   - Fix root causes first
+   - Then optimize skin
+
+━━━━━━━━━━━━━━━━━━━━━━━
+CLIENT PROFILE
+━━━━━━━━━━━━━━━━━━━━━━━
+
+Name:      ${name}
+Age:       ${age}
+Gender:    ${gender}
+City:      ${city}
+
+Skin Type: ${skinType}
+Concerns:  ${concerns}
+
+Sleep:     ${sleep}
+Water:     ${water}
+Stress:    ${stress}
+Diet:      ${diet}
+Body Type: ${weight}
+
+Current Routine: ${routine}
+History:         ${history}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+OUTPUT FORMAT (STRICT)
+━━━━━━━━━━━━━━━━━━━━━━━
+
+SKIN SCORE: ${skinScore}/100
+
+SKIN SUMMARY:
+(1–2 sharp lines describing what's ACTUALLY happening)
+
+---
+
+MAIN ISSUES:
+- (Top 3 only, prioritized)
+
+---
+
+MORNING ROUTINE (MAX 4 STEPS):
+Step 1:
+Step 2:
+Step 3:
+Step 4 (optional):
+
+---
+
+AFTERNOON (IF NEEDED):
+Step 1:
+Step 2:
+
+---
+
+NIGHT ROUTINE:
+Step 1:
+Step 2:
+Step 3:
+
+---
+
+WEEKLY ADD-ONS:
+(2–3 max: masks, exfoliation, etc.)
+
+---
+
+INTERNAL CORRECTIONS:
+(very important — connect sleep, stress, water, diet to skin)
+
+---
+
+KEY INGREDIENTS:
+(4–6, each with short reason)
+
+---
+
+WHAT TO AVOID:
+(very specific to this person)
+
+---
+
+WHY YOUR SKIN IS LIKE THIS:
+(2–3 lines, simple but insightful)
+
+---
+
+EXPECTED RESULTS:
+Week 1:
+Week 3:
+Week 6:
+
+━━━━━━━━━━━━━━━━━━━━━━━
+${imageSection}
+━━━━━━━━━━━━━━━━━━━━━━━
+
+FINAL RULES:
+
+- Greet the client by first name
+- No fluff
+- No long paragraphs
+- Every line must feel premium and intentional
+- This should feel like a paid dermatologist consultation
+`;
+}
 
   /* ── Copy to Clipboard ── */
   function copyPrompt(index, btn) {
