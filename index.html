@@ -398,6 +398,64 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   color: #2d8a50;
   white-space: nowrap;
 }
+.scarcity-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 14px 18px;
+  border-radius: 999px;
+
+  background: rgba(80,120,100,0.12);
+  border: 1px solid rgba(80,120,100,0.25);
+
+  font-size: 14px;
+  color: #2f4f45;
+}
+
+/* LEFT */
+.pill-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #406c5c;
+  border-radius: 50%;
+}
+
+/* CENTER */
+.pill-center {
+  flex: 1;
+  text-align: center;
+  color: #4a5c55;
+}
+
+/* RIGHT */
+.pill-right {
+  font-weight: 600;
+  color: #2d6a4f;
+  white-space: nowrap;
+}
+.scarcity-pill {
+  animation: fadeSlide 0.6s ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* ── PRICE CARD ── */
 .payment-price-card{background:var(--white);border:2px solid var(--accent);border-radius:var(--rl);padding:36px 32px;box-shadow:var(--shadow-l);position:relative;overflow:hidden}
 .payment-price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#5a9e8f)}
@@ -1316,9 +1374,19 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
         <!-- SCARCITY PILL -->
         <div class="scarcity-pill">
-          <span class="scarcity-dot"></span>
-          Dr. <span id="scarcity-derm-name">Riya</span> is accepting 12 new clients this week — <strong>4 spots remaining</strong>
-        </div>
+  <div class="pill-left">
+    <span class="dot"></span>
+    <span class="doctor-name">Dr. Sara</span>
+  </div>
+
+  <div class="pill-center">
+    is accepting 12 new clients this week —
+  </div>
+
+  <div class="pill-right">
+    4 spots remaining
+  </div>
+</div>
 
         <div class="payment-price-main">₹599</div>
         <p class="payment-price-note">One-time payment · No subscription · Instant access</p>
