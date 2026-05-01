@@ -362,6 +362,42 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .scarcity-pill strong{color:var(--accent);font-weight:600}
 .scarcity-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:mfPulse 2.2s ease-in-out infinite}
 
+.derm-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.derm-photo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.derm-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.derm-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--bark);
+}
+
+.derm-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(60,160,90,0.12);
+  border: 1px solid rgba(60,160,90,0.25);
+  color: #2d8a50;
+  white-space: nowrap;
+}
 /* ── PRICE CARD ── */
 .payment-price-card{background:var(--white);border:2px solid var(--accent);border-radius:var(--rl);padding:36px 32px;box-shadow:var(--shadow-l);position:relative;overflow:hidden}
 .payment-price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#5a9e8f)}
