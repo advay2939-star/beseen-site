@@ -270,15 +270,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .quiz-trust-badge{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1.5px solid var(--accent);border-radius:var(--pill);padding:7px 16px;font-size:12px;font-weight:500;color:var(--accent);margin-bottom:14px;box-shadow:var(--shadow-s)}
 .quiz-trust-badge svg{width:15px;height:15px;flex-shrink:0}
 .photo-req-error{display:none;font-size:12px;color:#c0392b;background:#fdf0ef;border:1px solid #e9c4c2;border-radius:8px;padding:10px 14px;margin:8px 0 16px}
-
-/* ── UPLOAD TRUST MESSAGE ── */
-.upload-trust{
-  display:flex;align-items:center;gap:8px;
-  font-size:12.5px;font-weight:400;color:var(--g500);
-  background:var(--g50);border:1px solid var(--g200);
-  border-radius:8px;padding:10px 14px;margin-bottom:16px;
-  line-height:1.5;
-}
+.upload-trust{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:400;color:var(--g500);background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:10px 14px;margin-bottom:16px;line-height:1.5}
 
 /* ── PAYMENT PAGE ── */
 #page-payment{display:none;min-height:100vh;background:var(--g50);padding:80px 0 60px}
@@ -293,169 +285,215 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-bottom:32px}
 
 /* ── MINIMAL DERM HEADER ── */
-.derm-minimal-header{
-  display:flex;align-items:center;gap:14px;
-  background:var(--white);border:1px solid var(--g200);
-  border-radius:12px;padding:16px 20px;margin-bottom:24px;
-  box-shadow:var(--shadow-s);
-}
-.derm-mini-photo-wrap{
-  width:44px;height:44px;border-radius:50%;flex-shrink:0;
-  box-shadow:0 0 0 2px var(--accent-l),0 0 0 3.5px #b5d0c9;
-}
-.derm-mini-photo{
-  width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top center;
-  border:2px solid var(--white);display:block;background:var(--accent-l);
-}
-.derm-mini-avatar{
-  width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),#5a9e8f);
-  display:none;align-items:center;justify-content:center;
-  color:var(--white);font-family:'Cormorant Garamond',serif;
-  font-size:20px;font-weight:600;border:2px solid var(--white);
-}
+.derm-minimal-header{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--g200);border-radius:12px;padding:16px 20px;margin-bottom:24px;box-shadow:var(--shadow-s)}
+.derm-mini-photo-wrap{width:44px;height:44px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px var(--accent-l),0 0 0 3.5px #b5d0c9}
+.derm-mini-photo{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top center;border:2px solid var(--white);display:block;background:var(--accent-l)}
+.derm-mini-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#5a9e8f);display:none;align-items:center;justify-content:center;color:var(--white);font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;border:2px solid var(--white)}
 .derm-mini-info{flex:1;min-width:0}
 .derm-mini-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--black);line-height:1.2}
 .derm-mini-badge{display:inline-flex;align-items:center;gap:4px;background:var(--accent-l);color:var(--accent);font-size:10px;font-weight:500;padding:2px 8px;border-radius:var(--pill);border:1px solid #b5d0c9;margin-top:4px}
 
-/* ── TRANSFORMATION SECTION ── */
-.transform-section{margin-bottom:0}
-.transform-section-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--black);margin-bottom:6px}
-.transform-section-sub{font-size:12px;color:var(--g500);font-weight:300;margin-bottom:20px}
-.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tcard{
-  background:var(--white);border:1px solid var(--g200);
-  border-radius:12px;overflow:hidden;box-shadow:var(--shadow-s);
-  opacity:0;transform:translateY(20px);
-  transition:opacity .55s cubic-bezier(.25,.1,.25,1),transform .55s cubic-bezier(.25,.1,.25,1),box-shadow .25s;
-}
-.tcard.tvis{opacity:1;transform:none}
-.tcard:nth-child(2){transition-delay:.1s}
-.tcard:nth-child(3){transition-delay:.2s}
-.tcard:nth-child(4){transition-delay:.3s}
-.tcard:hover{box-shadow:var(--shadow-c)}
-.tcard-images{display:flex;height:110px;position:relative;overflow:hidden}
-.tcard-img{width:50%;height:100%;object-fit:cover;flex-shrink:0;display:block}
-.tcard-ph{width:50%;height:100%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--g500);font-weight:500;letter-spacing:.06em}
-.tcard-ph.bph{background:linear-gradient(135deg,#ede8e3,#e0d8d0)}
-.tcard-ph.aph{background:linear-gradient(135deg,var(--accent-l),#c8e4dc)}
-.tcard-divider{position:absolute;left:50%;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.8);transform:translateX(-50%);z-index:2}
-.tcard-lbl{position:absolute;bottom:4px;z-index:3;font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(10,10,10,.5);backdrop-filter:blur(4px);padding:2px 5px;border-radius:3px}
-.tcard-lbl.b{left:4px}.tcard-lbl.a{right:4px;background:rgba(61,107,94,.7)}
-.tcard-body{padding:10px 12px}
-.tcard-day-badge{display:inline-block;font-size:8.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-l);padding:2px 7px;border-radius:4px;margin-bottom:5px}
-.tcard-verified{font-size:9.5px;color:var(--g500);display:flex;align-items:center;gap:4px}
-.tcard-verified-dot{color:var(--accent);font-size:10px}
-.tcard-name{font-size:11px;font-weight:500;color:var(--black)}
-.tcard-concern{font-size:10px;color:var(--g500)}
-
-/* ── SCARCITY PILL ── */
-@keyframes scarcityFadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.scarcity-pill{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--accent-l);border:1px solid #b5d0c9;
-  border-radius:var(--pill);padding:9px 20px;margin-bottom:20px;
-  font-size:12.5px;color:var(--g700);text-align:center;
-  animation:scarcityFadeIn .5s cubic-bezier(.25,.1,.25,1) .2s both;
-  line-height:1.4;
-}
-.scarcity-pill strong{color:var(--accent);font-weight:600}
-.scarcity-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:mfPulse 2.2s ease-in-out infinite}
-
-.derm-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.derm-photo {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.derm-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.derm-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--bark);
-}
-
-.derm-badge {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  background: rgba(60,160,90,0.12);
-  border: 1px solid rgba(60,160,90,0.25);
-  color: #2d8a50;
-  white-space: nowrap;
-}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   OBJECTIVE 2 — SCARCITY PILL (FIXED, SINGLE RULE)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .scarcity-pill {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-
-  padding: 14px 18px;
-  border-radius: 999px;
-
-  background: rgba(80,120,100,0.12);
-  border: 1px solid rgba(80,120,100,0.25);
-
-  font-size: 14px;
+  gap: 0;
+  background: rgba(80, 120, 100, 0.10);
+  border: 1px solid rgba(61, 107, 94, 0.22);
+  border-radius: var(--pill);
+  padding: 10px 18px;
+  margin-bottom: 20px;
+  font-size: 12.5px;
   color: #2f4f45;
+  line-height: 1.3;
+  animation: scarcityFadeIn .5s cubic-bezier(.25,.1,.25,1) .2s both;
+  overflow: hidden;
 }
-
-/* LEFT */
+@keyframes scarcityFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
 .pill-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  flex-shrink: 0;
   white-space: nowrap;
+  font-weight: 600;
+  color: var(--accent);
 }
-
-.dot {
+.pill-left .dot {
   width: 6px;
   height: 6px;
-  background: #406c5c;
   border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: mfPulse 2.2s ease-in-out infinite;
 }
-
-/* CENTER */
 .pill-center {
   flex: 1;
   text-align: center;
   color: #4a5c55;
+  font-weight: 400;
+  padding: 0 8px;
+  min-width: 0;
+}
+.pill-right {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--accent);
+}
+@media (max-width: 480px) {
+  .scarcity-pill {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: var(--rl);
+    padding: 12px 16px;
+    gap: 4px;
+    font-size: 12px;
+  }
+  .pill-center { text-align: center; width: 100%; }
 }
 
-/* RIGHT */
-.pill-right {
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   OBJECTIVE 1 — TRANSFORMATION CARDS (REAL IMAGES)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.transform-section { margin-bottom: 0; }
+.transform-section-title { font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--black);margin-bottom:6px }
+.transform-section-sub { font-size:12px;color:var(--g500);font-weight:300;margin-bottom:20px }
+
+.transform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 560px) {
+  .transform-grid { grid-template-columns: 1fr; }
+}
+
+/* Card shell */
+.tcard {
+  background: var(--white);
+  border: 1px solid var(--g200);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-s);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity   .55s cubic-bezier(.25,.1,.25,1),
+    transform .55s cubic-bezier(.25,.1,.25,1),
+    box-shadow .25s ease;
+}
+.tcard.tvis { opacity: 1; transform: none; }
+.tcard:nth-child(2) { transition-delay: .10s; }
+.tcard:nth-child(3) { transition-delay: .20s; }
+.tcard:nth-child(4) { transition-delay: .30s; }
+.tcard:hover { box-shadow: var(--shadow-c); transform: translateY(-3px); }
+.tcard.tvis:hover { transform: translateY(-3px); }
+
+/* Image row */
+.tcard-images {
+  display: flex;
+  height: 130px;
+  position: relative;
+  overflow: hidden;
+}
+/* Real before/after images */
+.tcard-img-before,
+.tcard-img-after {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  flex-shrink: 0;
+  transition: transform .4s ease;
+}
+.tcard:hover .tcard-img-before,
+.tcard:hover .tcard-img-after { transform: scale(1.04); }
+/* Placeholder fallbacks (used when images 404) */
+.tcard-ph {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
   font-weight: 600;
-  color: #2d6a4f;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--g500);
+}
+.tcard-ph.bph { background: linear-gradient(135deg,#ede8e3,#e0d8d0); }
+.tcard-ph.aph { background: linear-gradient(135deg,var(--accent-l),#c8e4dc); }
+
+/* Divider between images */
+.tcard-divider {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: rgba(255,255,255,.85);
+  transform: translateX(-50%);
+  z-index: 3;
+  pointer-events: none;
+}
+/* BEFORE / AFTER overlay labels */
+.tcard-lbl {
+  position: absolute;
+  bottom: 6px;
+  z-index: 4;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  padding: 2px 6px;
+  border-radius: 3px;
   white-space: nowrap;
 }
-.scarcity-pill {
-  animation: fadeSlide 0.6s ease;
+.tcard-lbl.b {
+  left: 6px;
+  background: rgba(10,10,10,.54);
+}
+.tcard-lbl.a {
+  right: 6px;
+  background: rgba(61,107,94,.78);
 }
 
-@keyframes fadeSlide {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Card body */
+.tcard-body { padding: 11px 13px; }
+.tcard-day-badge {
+  display: inline-block;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-l);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
 }
+.tcard-name    { font-size: 11px; font-weight: 500; color: var(--black); }
+.tcard-concern { font-size: 10px; color: var(--g500); margin-top: 1px; }
+.tcard-verified {
+  font-size: 9.5px;
+  color: var(--g500);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+}
+.tcard-verified-dot { color: var(--accent); font-size: 10px; }
+
 /* ── PRICE CARD ── */
 .payment-price-card{background:var(--white);border:2px solid var(--accent);border-radius:var(--rl);padding:36px 32px;box-shadow:var(--shadow-l);position:relative;overflow:hidden}
 .payment-price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#5a9e8f)}
@@ -579,7 +617,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .form-row{grid-template-columns:1fr}
   .photo-slots{grid-template-columns:repeat(2,1fr)}
   .payment-grid{grid-template-columns:1fr}
-  .transform-grid{grid-template-columns:1fr}
   .stat-item{padding:20px 28px}
   .stat-divider{width:80%;height:1px}
   .stats-inner{flex-direction:column}
@@ -732,7 +769,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           </div>
         </div>
       </div>
-      <!-- Tier 2 city testimonials -->
       <div class="pcard">
         <div class="pcard-images">
           <div class="pcard-ph bp">Before</div>
@@ -1203,7 +1239,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <li>Neutral expression and relaxed face</li>
         </ul>
       </div>
-      <!-- UPLOAD TRUST MESSAGE -->
       <div class="quiz-trust-badge">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         Your photos are encrypted and never shared
@@ -1275,11 +1310,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
               src=""
               loading="eager"
               alt="Your assigned dermatologist"
-              onerror="
-                this.style.display='none';
-                var av=document.getElementById('payment-derm-avatar');
-                if(av){av.style.display='flex';}
-              "
+              onerror="this.style.display='none';var av=document.getElementById('payment-derm-avatar');if(av){av.style.display='flex';}"
             >
             <div class="derm-mini-avatar" id="payment-derm-avatar">R</div>
           </div>
@@ -1289,21 +1320,32 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           </div>
         </div>
 
-        <!-- TRANSFORMATION SECTION -->
+        <!-- TRANSFORMATION SECTION — OBJECTIVE 1 -->
         <div class="transform-section">
           <div class="transform-section-title">Real Results in 21 Days</div>
           <div class="transform-section-sub">Verified by our dermatologists · Unretouched photos</div>
           <div class="transform-grid" id="transform-grid">
 
+            <!-- Card 1 — Priya, Mumbai -->
             <div class="tcard" id="tcard-0">
               <div class="tcard-images">
-                <img class="tcard-img" src="/images/testimonial-priya-before.png" alt="Before"
-                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this)">
-                <img class="tcard-img" src="/images/testimonial-priya-after.png" alt="After"
-                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this)">
+                <img
+                  class="tcard-img-before"
+                  src="/images/transformations/priya-before.png"
+                  alt="Priya before treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this);"
+                >
+                <img
+                  class="tcard-img-after"
+                  src="/images/transformations/priya-after.png"
+                  alt="Priya after treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this);"
+                >
                 <div class="tcard-divider"></div>
-                <span class="tcard-lbl b">Before</span>
-                <span class="tcard-lbl a">After</span>
+                <span class="tcard-lbl b">BEFORE</span>
+                <span class="tcard-lbl a">AFTER</span>
               </div>
               <div class="tcard-body">
                 <div class="tcard-day-badge">21 Days Result</div>
@@ -1313,15 +1355,26 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
               </div>
             </div>
 
+            <!-- Card 2 — Arjun, Delhi -->
             <div class="tcard" id="tcard-1">
               <div class="tcard-images">
-                <img class="tcard-img" src="/images/testimonial-arjun-before.png" alt="Before"
-                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this)">
-                <img class="tcard-img" src="/images/testimonial-arjun-after.png" alt="After"
-                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this)">
+                <img
+                  class="tcard-img-before"
+                  src="/images/transformations/arjun-before.png"
+                  alt="Arjun before treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this);"
+                >
+                <img
+                  class="tcard-img-after"
+                  src="/images/transformations/arjun-after.png"
+                  alt="Arjun after treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this);"
+                >
                 <div class="tcard-divider"></div>
-                <span class="tcard-lbl b">Before</span>
-                <span class="tcard-lbl a">After</span>
+                <span class="tcard-lbl b">BEFORE</span>
+                <span class="tcard-lbl a">AFTER</span>
               </div>
               <div class="tcard-body">
                 <div class="tcard-day-badge">21 Days Result</div>
@@ -1331,13 +1384,26 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
               </div>
             </div>
 
+            <!-- Card 3 — Aanya, Jaipur -->
             <div class="tcard" id="tcard-2">
               <div class="tcard-images">
-                <div class="tcard-ph bph">Before</div>
-                <div class="tcard-ph aph">After</div>
+                <img
+                  class="tcard-img-before"
+                  src="/images/transformations/aanya-before.png"
+                  alt="Aanya before treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this);"
+                >
+                <img
+                  class="tcard-img-after"
+                  src="/images/transformations/aanya-after.png"
+                  alt="Aanya after treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this);"
+                >
                 <div class="tcard-divider"></div>
-                <span class="tcard-lbl b">Before</span>
-                <span class="tcard-lbl a">After</span>
+                <span class="tcard-lbl b">BEFORE</span>
+                <span class="tcard-lbl a">AFTER</span>
               </div>
               <div class="tcard-body">
                 <div class="tcard-day-badge">21 Days Result</div>
@@ -1347,13 +1413,26 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
               </div>
             </div>
 
+            <!-- Card 4 — Kavitha, Coimbatore -->
             <div class="tcard" id="tcard-3">
               <div class="tcard-images">
-                <div class="tcard-ph bph">Before</div>
-                <div class="tcard-ph aph">After</div>
+                <img
+                  class="tcard-img-before"
+                  src="/images/transformations/kavitha-before.png"
+                  alt="Kavitha before treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this);"
+                >
+                <img
+                  class="tcard-img-after"
+                  src="/images/transformations/kavitha-after.png"
+                  alt="Kavitha after treatment"
+                  loading="lazy"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this);"
+                >
                 <div class="tcard-divider"></div>
-                <span class="tcard-lbl b">Before</span>
-                <span class="tcard-lbl a">After</span>
+                <span class="tcard-lbl b">BEFORE</span>
+                <span class="tcard-lbl a">AFTER</span>
               </div>
               <div class="tcard-body">
                 <div class="tcard-day-badge">21 Days Result</div>
@@ -1368,25 +1447,23 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
       </div><!-- /payment-left-col -->
 
-      <!-- RIGHT COLUMN: Price card -->
+      <!-- RIGHT COLUMN: Price card (UNTOUCHED — Objective 3) -->
       <div class="payment-price-card">
         <div class="payment-price-badge">Early Access — Limited</div>
 
-        <!-- SCARCITY PILL -->
-        <div class="scarcity-pill">
-  <div class="pill-left">
-    <span class="dot"></span>
-    <span class="doctor-name">Dr. Sara</span>
-  </div>
-
-  <div class="pill-center">
-    is accepting 12 new clients this week —
-  </div>
-
-  <div class="pill-right">
-    4 spots remaining
-  </div>
-</div>
+        <!-- SCARCITY PILL — OBJECTIVE 2: Fixed flex layout -->
+        <div class="scarcity-pill" id="scarcity-pill">
+          <div class="pill-left">
+            <span class="dot"></span>
+            <span id="scarcity-derm-name">Dr. Riya</span>
+          </div>
+          <div class="pill-center">
+            is accepting new clients this week —
+          </div>
+          <div class="pill-right">
+            4 spots left
+          </div>
+        </div>
 
         <div class="payment-price-main">₹599</div>
         <p class="payment-price-note">One-time payment · No subscription · Instant access</p>
@@ -1624,14 +1701,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     var derm     = pickDermatologist();
     assignedDermName = derm.name;
 
-    var nameEl     = document.getElementById('payment-derm-name');
-    var photoEl    = document.getElementById('payment-derm-photo');
-    var avatarEl   = document.getElementById('payment-derm-avatar');
-    var scarcityEl = document.getElementById('scarcity-derm-name');
-
-    if (nameEl)     nameEl.textContent     = derm.name;
-    if (scarcityEl) scarcityEl.textContent = derm.name;
-    if (avatarEl)   avatarEl.textContent   = derm.initial;
+    /* Update derm header */
+    var nameEl   = document.getElementById('payment-derm-name');
+    var photoEl  = document.getElementById('payment-derm-photo');
+    var avatarEl = document.getElementById('payment-derm-avatar');
+    if (nameEl)   nameEl.textContent   = derm.name;
+    if (avatarEl) avatarEl.textContent = derm.initial;
 
     var photoSrc = DERM_PHOTO_MAP[derm.name] || null;
     if (photoEl && photoSrc) {
@@ -1643,6 +1718,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       if (photoEl)  photoEl.style.display  = 'none';
       if (avatarEl) avatarEl.style.display = 'flex';
     }
+
+    /* ── OBJECTIVE 2: Update scarcity pill doctor name dynamically ── */
+    var scarcityNameEl = document.getElementById('scarcity-derm-name');
+    if (scarcityNameEl) scarcityNameEl.textContent = 'Dr. ' + derm.name;
 
     showPage('page-payment');
 
@@ -2178,7 +2257,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 (function() {
   'use strict';
 
-  /* ── ROTATING MICRO-FACTS ── */
   var facts1 = [
     'Your first name helps us address your routine personally — it matters.',
     'Over 500 people have started their skin journey right here.',
