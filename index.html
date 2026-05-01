@@ -271,11 +271,20 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .quiz-trust-badge svg{width:15px;height:15px;flex-shrink:0}
 .photo-req-error{display:none;font-size:12px;color:#c0392b;background:#fdf0ef;border:1px solid #e9c4c2;border-radius:8px;padding:10px 14px;margin:8px 0 16px}
 
+/* ── UPLOAD TRUST MESSAGE ── */
+.upload-trust{
+  display:flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:400;color:var(--g500);
+  background:var(--g50);border:1px solid var(--g200);
+  border-radius:8px;padding:10px 14px;margin-bottom:16px;
+  line-height:1.5;
+}
+
 /* ── PAYMENT PAGE ── */
 #page-payment{display:none;min-height:100vh;background:var(--g50);padding:80px 0 60px}
 #page-payment.active{display:block;animation:pageFadeIn .45s cubic-bezier(.25,.1,.25,1) both}
-.payment-inner{max-width:960px;margin:0 auto;padding:0 32px}
-.payment-header{text-align:center;margin-bottom:52px}
+.payment-inner{max-width:1000px;margin:0 auto;padding:0 32px}
+.payment-header{text-align:center;margin-bottom:48px}
 .payment-eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:5px 14px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--g500);margin-bottom:16px;box-shadow:var(--shadow-s)}
 .payment-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
 .payment-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,46px);font-weight:600;letter-spacing:-.04em;color:var(--black);margin-bottom:8px}
@@ -283,76 +292,82 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .payment-header p{font-size:14px;font-weight:300;color:var(--g500)}
 .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-bottom:32px}
 
-/* ── DERM CARD ── */
-.payment-derm-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--rl);padding:32px;box-shadow:var(--shadow-c)}
-.derm-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-
-/* ── DERM PHOTO WRAP — upgraded for real images ── */
-.derm-photo-wrap{
-  width:64px;height:64px;
-  position:relative;flex-shrink:0;
-  border-radius:50%;
-  /* subtle outer glow ring */
-  box-shadow:0 0 0 2.5px var(--accent-l),0 0 0 4px #b5d0c9,0 4px 16px rgba(61,107,94,.18);
+/* ── MINIMAL DERM HEADER ── */
+.derm-minimal-header{
+  display:flex;align-items:center;gap:14px;
+  background:var(--white);border:1px solid var(--g200);
+  border-radius:12px;padding:16px 20px;margin-bottom:24px;
+  box-shadow:var(--shadow-s);
 }
-.derm-photo{
-  width:64px;height:64px;
-  border-radius:50%;
-  object-fit:cover;object-position:top center;
-  border:2.5px solid var(--white);
-  display:block;
-  background:var(--accent-l);
-  transition:transform .22s ease,box-shadow .22s ease;
+.derm-mini-photo-wrap{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  box-shadow:0 0 0 2px var(--accent-l),0 0 0 3.5px #b5d0c9;
 }
-.derm-photo:hover{
-  transform:translateY(-2px) scale(1.04);
-  box-shadow:0 8px 24px rgba(61,107,94,.28);
+.derm-mini-photo{
+  width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top center;
+  border:2px solid var(--white);display:block;background:var(--accent-l);
 }
-/* Fallback initials avatar — shown only when image fails */
-.derm-avatar{
-  width:64px;height:64px;
-  border-radius:50%;
+.derm-mini-avatar{
+  width:44px;height:44px;border-radius:50%;
   background:linear-gradient(135deg,var(--accent),#5a9e8f);
-  display:none; /* JS sets to flex when needed */
-  align-items:center;justify-content:center;
-  color:var(--white);
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px;font-weight:600;
-  flex-shrink:0;
-  border:2.5px solid var(--white);
-  box-shadow:0 4px 16px rgba(61,107,94,.18);
+  display:none;align-items:center;justify-content:center;
+  color:var(--white);font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:600;border:2px solid var(--white);
 }
-/* ── end derm photo styles ── */
+.derm-mini-info{flex:1;min-width:0}
+.derm-mini-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--black);line-height:1.2}
+.derm-mini-badge{display:inline-flex;align-items:center;gap:4px;background:var(--accent-l);color:var(--accent);font-size:10px;font-weight:500;padding:2px 8px;border-radius:var(--pill);border:1px solid #b5d0c9;margin-top:4px}
 
-.derm-header-info{flex:1;min-width:0}
-.derm-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--black);margin-bottom:2px}
-.derm-name span{color:var(--accent)}
-.derm-title{font-size:11.5px;color:var(--g500);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
-.derm-cert-badge{display:inline-flex;align-items:center;gap:5px;background:var(--accent-l);color:var(--accent);font-size:10.5px;font-weight:500;padding:3px 10px;border-radius:var(--pill);border:1px solid #b5d0c9}
-.derm-perks{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:20px}
-.derm-perks li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--g700);line-height:1.5}
-.derm-perk-icon{color:var(--accent);font-weight:700;flex-shrink:0;font-size:14px;margin-top:1px}
-.derm-team-note{background:var(--accent-l);border:1px solid #b5d0c9;border-radius:8px;padding:12px 14px;font-size:12px;color:var(--g700);line-height:1.6}
-.derm-team-note strong{color:var(--accent)}
+/* ── TRANSFORMATION SECTION ── */
+.transform-section{margin-bottom:0}
+.transform-section-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--black);margin-bottom:6px}
+.transform-section-sub{font-size:12px;color:var(--g500);font-weight:300;margin-bottom:20px}
+.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tcard{
+  background:var(--white);border:1px solid var(--g200);
+  border-radius:12px;overflow:hidden;box-shadow:var(--shadow-s);
+  opacity:0;transform:translateY(20px);
+  transition:opacity .55s cubic-bezier(.25,.1,.25,1),transform .55s cubic-bezier(.25,.1,.25,1),box-shadow .25s;
+}
+.tcard.tvis{opacity:1;transform:none}
+.tcard:nth-child(2){transition-delay:.1s}
+.tcard:nth-child(3){transition-delay:.2s}
+.tcard:nth-child(4){transition-delay:.3s}
+.tcard:hover{box-shadow:var(--shadow-c)}
+.tcard-images{display:flex;height:110px;position:relative;overflow:hidden}
+.tcard-img{width:50%;height:100%;object-fit:cover;flex-shrink:0;display:block}
+.tcard-ph{width:50%;height:100%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--g500);font-weight:500;letter-spacing:.06em}
+.tcard-ph.bph{background:linear-gradient(135deg,#ede8e3,#e0d8d0)}
+.tcard-ph.aph{background:linear-gradient(135deg,var(--accent-l),#c8e4dc)}
+.tcard-divider{position:absolute;left:50%;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.8);transform:translateX(-50%);z-index:2}
+.tcard-lbl{position:absolute;bottom:4px;z-index:3;font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(10,10,10,.5);backdrop-filter:blur(4px);padding:2px 5px;border-radius:3px}
+.tcard-lbl.b{left:4px}.tcard-lbl.a{right:4px;background:rgba(61,107,94,.7)}
+.tcard-body{padding:10px 12px}
+.tcard-day-badge{display:inline-block;font-size:8.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-l);padding:2px 7px;border-radius:4px;margin-bottom:5px}
+.tcard-verified{font-size:9.5px;color:var(--g500);display:flex;align-items:center;gap:4px}
+.tcard-verified-dot{color:var(--accent);font-size:10px}
+.tcard-name{font-size:11px;font-weight:500;color:var(--black)}
+.tcard-concern{font-size:10px;color:var(--g500)}
+
+/* ── SCARCITY PILL ── */
+@keyframes scarcityFadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.scarcity-pill{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--accent-l);border:1px solid #b5d0c9;
+  border-radius:var(--pill);padding:9px 20px;margin-bottom:20px;
+  font-size:12.5px;color:var(--g700);text-align:center;
+  animation:scarcityFadeIn .5s cubic-bezier(.25,.1,.25,1) .2s both;
+  line-height:1.4;
+}
+.scarcity-pill strong{color:var(--accent);font-weight:600}
+.scarcity-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:mfPulse 2.2s ease-in-out infinite}
 
 /* ── PRICE CARD ── */
 .payment-price-card{background:var(--white);border:2px solid var(--accent);border-radius:var(--rl);padding:36px 32px;box-shadow:var(--shadow-l);position:relative;overflow:hidden}
 .payment-price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#5a9e8f)}
 .payment-price-badge{background:var(--accent);color:var(--white);font-size:10px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:5px 12px;border-radius:var(--pill);display:inline-block;margin-bottom:18px}
-
-/* ── PRICE ANIMATION ── */
-.price-anim-wrap{position:relative;margin-bottom:4px;min-height:40px}
-.payment-price-orig{font-size:20px;color:var(--g500);font-weight:300;display:inline-block;position:relative;opacity:1;transform:translateY(0) scale(1);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1),color .35s ease;will-change:opacity,transform}
-.payment-price-orig::after{content:'';position:absolute;left:0;top:50%;width:0;height:1.5px;background:var(--g500);transform:translateY(-50%);transition:width .42s cubic-bezier(.65,0,.35,1) .12s}
-.payment-price-orig.strike-active{opacity:.32;transform:translateY(-6px) scale(0.92);color:var(--g500)}
-.payment-price-orig.strike-active::after{width:100%}
-.payment-price-main{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:600;line-height:1;letter-spacing:-3px;color:var(--black);display:block;opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.25,.1,.25,1),transform .6s cubic-bezier(.25,.1,.25,1);margin-bottom:4px;will-change:opacity,transform}
-.payment-price-main.price-reveal{opacity:1;transform:translateY(0)}
-
+.payment-price-main{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:600;line-height:1;letter-spacing:-3px;color:var(--black);display:block;margin-bottom:4px}
 .payment-price-note{font-size:12px;color:var(--g500);margin-bottom:24px}
-.payment-timer-box{background:#fff8f0;border:1px solid #f0d8b8;border-radius:8px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.payment-timer-label{font-size:12px;color:#8a6840;font-weight:500}
-.payment-timer-digits{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#5c3d0a;letter-spacing:1px}
 .btn-payment{width:100%;padding:17px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;margin-bottom:14px;letter-spacing:.01em}
 .btn-payment:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 12px 32px rgba(10,10,10,.2)}
 .btn-payment:active{transform:translateY(0)}
@@ -361,6 +376,9 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .payment-security-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--g500)}
 .payment-guarantee{text-align:center;margin-top:24px}
 .guarantee-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--g200);border-radius:var(--pill);padding:8px 20px;font-size:12.5px;color:var(--g700);box-shadow:var(--shadow-s)}
+.payment-perks{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:24px}
+.payment-perks li{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--g700);line-height:1.5}
+.pperk-icon{color:var(--accent);font-weight:700;flex-shrink:0;font-size:13px;margin-top:1px}
 
 /* ── OVERLAY ── */
 #overlay-analysing{display:none;position:fixed;inset:0;z-index:1000;background:rgba(250,250,250,.97);backdrop-filter:blur(14px);flex-direction:column;align-items:center;justify-content:center;gap:0}
@@ -467,11 +485,11 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .form-row{grid-template-columns:1fr}
   .photo-slots{grid-template-columns:repeat(2,1fr)}
   .payment-grid{grid-template-columns:1fr}
+  .transform-grid{grid-template-columns:1fr}
   .stat-item{padding:20px 28px}
   .stat-divider{width:80%;height:1px}
   .stats-inner{flex-direction:column}
   .nav-cta{font-size:11.5px;padding:7px 14px}
-  .derm-header{flex-direction:column;text-align:center}
   .trust-row-inner{gap:20px 28px}
 }
 </style>
@@ -485,7 +503,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     <ul class="nav-center">
       <li><a href="#" id="nav-home">Home</a></li>
       <li><a href="#how" id="nav-how">How It Works</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="/contact.html">Contact</a></li>
     </ul>
     <div class="nav-right">
       <button class="nav-cta" id="nav-cta-btn">Start Your Journey →</button>
@@ -536,13 +554,15 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
       <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
       <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
-      <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Cleared my acne in 3 weeks — Aanya R., Jaipur &nbsp;·&nbsp;</span>
       <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Finally a routine that fits my life — Meera T., Lucknow &nbsp;·&nbsp;</span>
       <span class="ticker-item">Noticeably fewer breakouts in three weeks — Karan S., Pune &nbsp;·&nbsp;</span>
       <span class="ticker-item">My skin has never looked clearer — Priya M., Mumbai &nbsp;·&nbsp;</span>
       <span class="ticker-item">Saved ₹2,000 using products I already owned &nbsp;·&nbsp;</span>
-      <span class="ticker-item">I finally have a routine that actually works &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Cleared my acne in 3 weeks — Aanya R., Jaipur &nbsp;·&nbsp;</span>
       <span class="ticker-item">The reasoning behind each step is what sold me — Sara K. &nbsp;·&nbsp;</span>
+      <span class="ticker-item">Finally a routine that fits my life — Meera T., Lucknow &nbsp;·&nbsp;</span>
     </div>
   </div>
 
@@ -618,18 +638,64 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           </div>
         </div>
       </div>
+      <!-- Tier 2 city testimonials -->
       <div class="pcard">
         <div class="pcard-images">
-          <img class="pcard-img" src="/images/testimonial-divya-before.png" loading="lazy" alt="Before" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph bp',innerHTML:'Before'}),this)">
-          <img class="pcard-img" src="/images/testimonial-divya-after.png" loading="lazy" alt="After" onerror="this.style.display='none';this.parentNode.insertBefore(Object.assign(document.createElement('div'),{className:'pcard-ph ap',innerHTML:'After'}),this)">
+          <div class="pcard-ph bp">Before</div>
+          <div class="pcard-ph ap">After</div>
           <div class="pcard-divider"></div>
           <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
         </div>
         <div class="pcard-body">
-          <p class="pcard-quote">"Texture improved remarkably after the 21-day review."</p>
+          <p class="pcard-quote">"Cleared my acne in 3 weeks. Didn't expect this level of detail."</p>
           <div class="pcard-meta">
-            <div class="pcard-info"><div class="pcard-person">Divya K.</div><div class="pcard-city">Chennai</div><span class="pcard-tag">Texture · Pores</span></div>
+            <div class="pcard-info"><div class="pcard-person">Aanya R.</div><div class="pcard-city">Jaipur</div><span class="pcard-tag">Acne · Sensitive</span></div>
             <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-images">
+          <div class="pcard-ph bp">Before</div>
+          <div class="pcard-ph ap">After</div>
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Finally a routine that fits my life and my budget."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info"><div class="pcard-person">Meera T.</div><div class="pcard-city">Lucknow</div><span class="pcard-tag">Dryness · Dull</span></div>
+            <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-images">
+          <div class="pcard-ph bp">Before</div>
+          <div class="pcard-ph ap">After</div>
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"Texture improved drastically. So glad I found BeSeen."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info"><div class="pcard-person">Kavitha S.</div><div class="pcard-city">Coimbatore</div><span class="pcard-tag">Texture · Pores</span></div>
+            <div class="pcard-stars-small">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-images">
+          <div class="pcard-ph bp">Before</div>
+          <div class="pcard-ph ap">After</div>
+          <div class="pcard-divider"></div>
+          <span class="pcard-lbl b">Before</span><span class="pcard-lbl a">After</span>
+        </div>
+        <div class="pcard-body">
+          <p class="pcard-quote">"The expert follow-up made all the difference. Really personal."</p>
+          <div class="pcard-meta">
+            <div class="pcard-info"><div class="pcard-person">Rahul V.</div><div class="pcard-city">Nagpur</div><span class="pcard-tag">Oiliness</span></div>
+            <div class="pcard-stars-small">★★★★</div>
           </div>
         </div>
       </div>
@@ -817,10 +883,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     <div class="footer-inner">
       <div class="footer-logo">BeSeen<span>.</span></div>
       <ul class="footer-links">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Refund Policy</a></li>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/terms.html">Terms</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/refund.html">Refund Policy</a></li>
       </ul>
     </div>
     <div class="footer-copy">© 2025 BeSeen. All rights reserved. Not a substitute for professional medical advice.</div>
@@ -1043,6 +1109,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
           <li>Neutral expression and relaxed face</li>
         </ul>
       </div>
+      <!-- UPLOAD TRUST MESSAGE -->
       <div class="quiz-trust-badge">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         Your photos are encrypted and never shared
@@ -1102,19 +1169,14 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     </div>
     <div class="payment-grid">
 
-      <div class="payment-derm-card">
-        <div class="derm-header">
+      <!-- LEFT COLUMN: Minimal derm header + transformation grid -->
+      <div class="payment-left-col">
 
-          <!--
-            DERM PHOTO WRAP — upgraded structure
-            • .derm-photo-wrap  : ring/shadow container
-            • .derm-photo       : real <img>; hidden via JS if load fails
-            • .derm-avatar      : initials fallback; display:none by default,
-                                  JS sets display:flex only on image error
-          -->
-          <div class="derm-photo-wrap">
+        <!-- MINIMAL DERM HEADER -->
+        <div class="derm-minimal-header">
+          <div class="derm-mini-photo-wrap">
             <img
-              class="derm-photo"
+              class="derm-mini-photo"
               id="payment-derm-photo"
               src=""
               loading="eager"
@@ -1125,40 +1187,114 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
                 if(av){av.style.display='flex';}
               "
             >
-            <div class="derm-avatar" id="payment-derm-avatar">R</div>
+            <div class="derm-mini-avatar" id="payment-derm-avatar">R</div>
           </div>
-          <!-- /derm-photo-wrap -->
-
-          <div class="derm-header-info">
-            <div class="derm-name">Dr. <span id="payment-derm-name">Riya</span></div>
-            <div class="derm-title">Certified Dermatologist · BeSeen</div>
-            <div class="derm-cert-badge">✓ Certified Dermatologist</div>
+          <div class="derm-mini-info">
+            <div class="derm-mini-name">Dr. <span id="payment-derm-name">Riya</span></div>
+            <div class="derm-mini-badge">✔ Verified Dermatologist</div>
           </div>
         </div>
-        <p style="font-size:13px;font-weight:500;color:var(--black);margin-bottom:14px">Personalised Expert Assistance</p>
-        <ul class="derm-perks">
-          <li><span class="derm-perk-icon">✓</span>4-day check-in to review your skin's response</li>
-          <li><span class="derm-perk-icon">✓</span>21-day full progress review &amp; routine adjustment</li>
-          <li><span class="derm-perk-icon">✓</span>Routine refinements based on your feedback</li>
-          <li><span class="derm-perk-icon">✓</span>WhatsApp support from your assigned expert</li>
-        </ul>
-        <div class="derm-team-note">
-          Your expert is a <strong>real person</strong> — trained, caring, and dedicated to your skin journey. They'll introduce themselves within 24 hours.
-        </div>
-      </div>
 
+        <!-- TRANSFORMATION SECTION -->
+        <div class="transform-section">
+          <div class="transform-section-title">Real Results in 21 Days</div>
+          <div class="transform-section-sub">Verified by our dermatologists · Unretouched photos</div>
+          <div class="transform-grid" id="transform-grid">
+
+            <div class="tcard" id="tcard-0">
+              <div class="tcard-images">
+                <img class="tcard-img" src="/images/testimonial-priya-before.png" alt="Before"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this)">
+                <img class="tcard-img" src="/images/testimonial-priya-after.png" alt="After"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this)">
+                <div class="tcard-divider"></div>
+                <span class="tcard-lbl b">Before</span>
+                <span class="tcard-lbl a">After</span>
+              </div>
+              <div class="tcard-body">
+                <div class="tcard-day-badge">21 Days Result</div>
+                <div class="tcard-name">Priya M., Mumbai</div>
+                <div class="tcard-concern">Acne &amp; Oily Skin</div>
+                <div class="tcard-verified"><span class="tcard-verified-dot">✔</span> Verified User</div>
+              </div>
+            </div>
+
+            <div class="tcard" id="tcard-1">
+              <div class="tcard-images">
+                <img class="tcard-img" src="/images/testimonial-arjun-before.png" alt="Before"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph bph';ph.textContent='Before';this.parentNode.insertBefore(ph,this)">
+                <img class="tcard-img" src="/images/testimonial-arjun-after.png" alt="After"
+                  onerror="this.style.display='none';var ph=document.createElement('div');ph.className='tcard-ph aph';ph.textContent='After';this.parentNode.insertBefore(ph,this)">
+                <div class="tcard-divider"></div>
+                <span class="tcard-lbl b">Before</span>
+                <span class="tcard-lbl a">After</span>
+              </div>
+              <div class="tcard-body">
+                <div class="tcard-day-badge">21 Days Result</div>
+                <div class="tcard-name">Arjun S., Delhi</div>
+                <div class="tcard-concern">Pigmentation</div>
+                <div class="tcard-verified"><span class="tcard-verified-dot">✔</span> Verified User</div>
+              </div>
+            </div>
+
+            <div class="tcard" id="tcard-2">
+              <div class="tcard-images">
+                <div class="tcard-ph bph">Before</div>
+                <div class="tcard-ph aph">After</div>
+                <div class="tcard-divider"></div>
+                <span class="tcard-lbl b">Before</span>
+                <span class="tcard-lbl a">After</span>
+              </div>
+              <div class="tcard-body">
+                <div class="tcard-day-badge">21 Days Result</div>
+                <div class="tcard-name">Aanya R., Jaipur</div>
+                <div class="tcard-concern">Acne &amp; Sensitivity</div>
+                <div class="tcard-verified"><span class="tcard-verified-dot">✔</span> Verified User</div>
+              </div>
+            </div>
+
+            <div class="tcard" id="tcard-3">
+              <div class="tcard-images">
+                <div class="tcard-ph bph">Before</div>
+                <div class="tcard-ph aph">After</div>
+                <div class="tcard-divider"></div>
+                <span class="tcard-lbl b">Before</span>
+                <span class="tcard-lbl a">After</span>
+              </div>
+              <div class="tcard-body">
+                <div class="tcard-day-badge">21 Days Result</div>
+                <div class="tcard-name">Kavitha S., Coimbatore</div>
+                <div class="tcard-concern">Texture &amp; Large Pores</div>
+                <div class="tcard-verified"><span class="tcard-verified-dot">✔</span> Verified User</div>
+              </div>
+            </div>
+
+          </div><!-- /transform-grid -->
+        </div><!-- /transform-section -->
+
+      </div><!-- /payment-left-col -->
+
+      <!-- RIGHT COLUMN: Price card -->
       <div class="payment-price-card">
         <div class="payment-price-badge">Early Access — Limited</div>
-        <div class="price-anim-wrap">
-          <span class="payment-price-orig" id="price-orig-anim">₹899</span>
+
+        <!-- SCARCITY PILL -->
+        <div class="scarcity-pill">
+          <span class="scarcity-dot"></span>
+          Dr. <span id="scarcity-derm-name">Riya</span> is accepting 12 new clients this week — <strong>4 spots remaining</strong>
         </div>
-        <div class="payment-price-main" id="price-main-anim">₹699</div>
+
+        <div class="payment-price-main">₹599</div>
         <p class="payment-price-note">One-time payment · No subscription · Instant access</p>
-        <div class="payment-timer-box">
-          <div class="payment-timer-label">⚡ Offer expires in</div>
-          <div class="payment-timer-digits" id="payment-timer">00:59</div>
-        </div>
-        <button class="btn-payment" id="payment-cta-btn">🔒 Secure My Routine — ₹699</button>
+
+        <ul class="payment-perks">
+          <li><span class="pperk-icon">✓</span>Personalised morning, night &amp; pre-sleep routine</li>
+          <li><span class="pperk-icon">✓</span>4-day check-in from your assigned dermatologist</li>
+          <li><span class="pperk-icon">✓</span>21-day full progress review &amp; adjustment</li>
+          <li><span class="pperk-icon">✓</span>WhatsApp support throughout your journey</li>
+        </ul>
+
+        <button class="btn-payment" id="payment-cta-btn">🔒 Secure My Routine — ₹599</button>
         <div class="payment-security-note">
           <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           Encrypted · Secure · Privacy protected
@@ -1268,17 +1404,16 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   var slotFiles         = [null, null, null, null, null];
   var currentStep       = 1;
   var TOTAL_STEPS       = 9;
-  var paymentTimer      = null;
   var assignedDermName  = 'Riya';
   var overlayRotateInt  = null;
 
-  /* ── CONSOLIDATED DERM PHOTO MAP ── */
- var DERM_PHOTO_MAP = {
-  'Riya':     '/images/dr-riya.png',
-  'Ananya':   '/images/dr-ananya.png',
-  'Samairaa': '/images/dr-samairaa.png',
-  'Sara':     '/images/dr-sara.png'
-};
+  /* ── DERM PHOTO MAP ── */
+  var DERM_PHOTO_MAP = {
+    'Riya':     '/images/dr-riya.png',
+    'Ananya':   '/images/dr-ananya.png',
+    'Samairaa': '/images/dr-samairaa.png',
+    'Sara':     '/images/dr-sara.png'
+  };
 
   /* ── HELPERS ── */
   function escHtml(str) {
@@ -1368,87 +1503,53 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     return list[Math.floor(Math.random() * list.length)];
   }
 
-  /* ── PRICE ANIMATION ── */
-  function animatePriceReveal() {
-    var origEl = document.getElementById('price-orig-anim');
-    var mainEl = document.getElementById('price-main-anim');
-    if (!origEl || !mainEl) return;
-
-    origEl.classList.remove('strike-active');
-    mainEl.classList.remove('price-reveal');
-    void origEl.offsetWidth;
-    void mainEl.offsetWidth;
-
-    setTimeout(function () {
-      origEl.classList.add('strike-active');
-      setTimeout(function () {
-        mainEl.classList.add('price-reveal');
-      }, 320);
-    }, 700);
-  }
-
-  /* ── PAYMENT COUNTDOWN ── */
-  function startPaymentCountdown() {
-    clearInterval(paymentTimer);
-    var seconds = 59;
-    var el = document.getElementById('payment-timer');
-    if (el) el.textContent = '00:59';
-    paymentTimer = setInterval(function () {
-      seconds--;
-      if (seconds < 0) { seconds = 0; clearInterval(paymentTimer); }
-      var mm = String(Math.floor(seconds / 60)).padStart(2, '0');
-      var ss = String(seconds % 60).padStart(2, '0');
-      if (el) el.textContent = mm + ':' + ss;
-    }, 1000);
+  /* ── TRANSFORMATION CARD ANIMATION ── */
+  function animateTransformCards() {
+    var cards = document.querySelectorAll('.tcard');
+    cards.forEach(function(card, i){
+      setTimeout(function(){
+        card.classList.add('tvis');
+      }, 120 + i * 100);
+    });
   }
 
   /* ══════════════════════════════════════════
-     SHOW PAYMENT PAGE — with real photo logic
+     SHOW PAYMENT PAGE
      ══════════════════════════════════════════ */
   function showPaymentPage() {
     var derm     = pickDermatologist();
     assignedDermName = derm.name;
 
-    var nameEl   = document.getElementById('payment-derm-name');
-    var photoEl  = document.getElementById('payment-derm-photo');
-    var avatarEl = document.getElementById('payment-derm-avatar');
+    var nameEl     = document.getElementById('payment-derm-name');
+    var photoEl    = document.getElementById('payment-derm-photo');
+    var avatarEl   = document.getElementById('payment-derm-avatar');
+    var scarcityEl = document.getElementById('scarcity-derm-name');
 
-    /* 1 — write the name text */
-    if (nameEl) nameEl.textContent = derm.name;
+    if (nameEl)     nameEl.textContent     = derm.name;
+    if (scarcityEl) scarcityEl.textContent = derm.name;
+    if (avatarEl)   avatarEl.textContent   = derm.initial;
 
-    /* 2 — set initials on the fallback avatar always (safe default) */
-    if (avatarEl) avatarEl.textContent = derm.initial;
-
-    /* 3 — attempt to load the real photo */
     var photoSrc = DERM_PHOTO_MAP[derm.name] || null;
-
     if (photoEl && photoSrc) {
-      /* Reset any previous error state */
       photoEl.style.display = 'block';
       if (avatarEl) avatarEl.style.display = 'none';
-
-      /* Point to the real image — onerror in HTML handles the fallback */
       photoEl.src = photoSrc;
       photoEl.alt = 'Dr. ' + derm.name;
     } else {
-      /* No photo path mapped → show initials immediately */
       if (photoEl)  photoEl.style.display  = 'none';
       if (avatarEl) avatarEl.style.display = 'flex';
     }
 
     showPage('page-payment');
-    startPaymentCountdown();
 
-    /* Fire price animation after first paint */
-    requestAnimationFrame(function () {
-      setTimeout(animatePriceReveal, 80);
+    /* Animate transformation cards after paint */
+    requestAnimationFrame(function(){
+      setTimeout(animateTransformCards, 120);
     });
   }
-  /* ══════════════════════════════════════════ */
 
   /* ── THANK YOU ── */
   function confirmPaymentAndShowThankYou() {
-    clearInterval(paymentTimer);
     var tyEl = document.getElementById('ty-derm-name');
     if (tyEl) tyEl.textContent = assignedDermName;
     showPage('page-thankyou');
@@ -1832,7 +1933,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     }
     var options = {
       key:         'rzp_test_SjpB8qqA3HfhVF',
-      amount:      69900,
+      amount:      59900,
       currency:    'INR',
       name:        'BeSeen.',
       description: 'Personalised Skincare Plan — Expert Review',
