@@ -1,7 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.re_EJuAR9Ns_GJumm46ZhASTXd8GQQboyEKK);
-
+console.log("re_EJuAR9Ns_GJumm46ZhASTXd8GQQboyEKK", process.env.RESEND_API_KEY);
 export default async function handler(req, res) {
   try {
     const { type, name, email, dermatologist } = req.body;
