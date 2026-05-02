@@ -1925,100 +1925,130 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
      4. On verified → triggerEmail + show thank-you
   ══════════════════════════════════════════ */
   async function openRazorpay() {
-    if (typeof Razorpay === 'undefined') {
-      console.error('Razorpay SDK not loaded');
-      setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
-      return;
-    }
-
-    setPaymentBtnState('loading', 'Creating order…');
-
-    var orderData = null;
-    try {
-      var orderRes = await fetch('/api/create-order', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ amount: 59900, currency: 'INR' })
-      });
-      if (!orderRes.ok) throw new Error('HTTP ' + orderRes.status);
-      orderData = await orderRes.json();
-      if (!orderData || !orderData.id || !orderData.key) throw new Error('Invalid order response');
-    } catch(e) {
-      console.error('create-order failed:', e);
-      setPaymentBtnState('error', '⚠ Could not create order — please try again');
-      return;
-    }
-
-    setPaymentBtnState('default');
-
-    var options = {
-      key:         orderData.key,
-      amount:      orderData.amount,
-      currency:    orderData.currency,
-      order_id:    orderData.id,
-      name:        'BeSeen.',
-      description: 'Personalised Skincare Plan — Expert Review',
-      image:       '/favicon4.ico',
-      prefill: {
-        name:  formData.name  || '',
-        email: formData.email || ''
-      },
-      notes: {
-        skin_type: formData.skinType || '',
-        city:      formData.city     || '',
-        concerns:  formData.concerns.join(', ')
-      },
-      theme:  { color: '#3d6b5e' },
-      modal:  { backdropclose: false, escape: false, animation: true },
-
-      handler: function(response) {
-        /* Razorpay calls this on successful charge — now verify server-side */
-        setPaymentBtnState('loading', 'Verifying payment…');
-
-        fetch('/api/verify-payment', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            razorpay_order_id:   response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature:  response.razorpay_signature
-          })
-        })
-        .then(function(r) {
-          if (!r.ok) throw new Error('Verify HTTP ' + r.status);
-          return r.json();
-        })
-        .then(function(data) {
-          if (data && data.success === true) {
-            /* ✅ Verification passed — trigger email THEN show thank-you */
-            triggerEmail('payment', {
-              name:          formData.name  || '',
-              email:         formData.email || '',
-              dermatologist: assignedDermName || 'your dermatologist'
-            });
-            confirmPaymentAndShowThankYou();
-          } else {
-            console.error('Signature verification failed');
-            setPaymentBtnState('error', '⚠ Verification failed — contact support');
-          }
-        })
-        .catch(function(err) {
-          console.error('verify-payment error:', err);
-          setPaymentBtnState('error', '⚠ Verification error — contact support');
-        });
-      }
-    };
-
-    var rzp = new Razorpay(options);
-
-    rzp.on('payment.failed', function(response) {
-      console.error('Razorpay payment.failed:', response.error);
-      setPaymentBtnState('error', '⚠ Payment failed — please try again');
-    });
-
-    rzp.open();
+  // 🛑 Check SDK
+  if (typeof Razorpay === 'undefined') {
+    console.error('Razorpay SDK not loaded');
+    setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
+    return;
   }
 
+  setPaymentBtnState('loading', 'Creating order…');
+
+  let orderData = null;
+
+  try {
+    const orderRes = await fetch('/api/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.name || '',
+        email: formData.email || ''
+      })
+    });
+
+    if (!orderRes.ok) {
+      throw new Error('HTTP ' + orderRes.status);
+    }
+
+    orderData = await orderRes.json();
+
+    // ✅ FIXED VALIDATION
+    if (!orderData || !orderData.id) {
+      throw new Error('Invalid order response');
+    }
+
+  } catch (e) {
+    console.error('create-order failed:', e);
+    setPaymentBtnState('error', '⚠ Could not create order — please try again');
+    return;
+  }
+
+  setPaymentBtnState('default');
+
+  // ✅ Razorpay config
+  const options = {
+    key: "rzp_live_SkXtlkfDZueYwN", // ✅ PUBLIC KEY ONLY
+    amount: orderData.amount,
+    currency: orderData.currency,
+    order_id: orderData.id,
+
+    name: 'BeSeen.',
+    description: 'Personalised Skincare Plan — Expert Review',
+    image: '/favicon4.ico',
+
+    prefill: {
+      name: formData.name || '',
+      email: formData.email || ''
+    },
+
+    notes: {
+      skin_type: formData.skinType || '',
+      city: formData.city || '',
+      concerns: (formData.concerns || []).join(', ')
+    },
+
+    theme: { color: '#3d6b5e' },
+
+    modal: {
+      backdropclose: false,
+      escape: false,
+      animation: true
+    },
+
+    // ✅ PAYMENT SUCCESS HANDLER
+    handler: async function (response) {
+      try {
+        setPaymentBtnState('loading', 'Verifying payment…');
+
+        const verifyRes = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            name: formData.name || '',
+            email: formData.email || ''
+          })
+        });
+
+        if (!verifyRes.ok) {
+          throw new Error('Verify HTTP ' + verifyRes.status);
+        }
+
+        const data = await verifyRes.json();
+
+        if (data.success === true) {
+          // ✅ Trigger email AFTER verification
+          triggerEmail('payment', {
+            name: formData.name || '',
+            email: formData.email || '',
+            dermatologist: assignedDermName || 'your dermatologist'
+          });
+
+          confirmPaymentAndShowThankYou();
+        } else {
+          throw new Error('Verification failed');
+        }
+
+      } catch (err) {
+        console.error('verify-payment error:', err);
+        setPaymentBtnState('error', '⚠ Verification failed — contact support');
+      }
+    }
+  };
+
+  const rzp = new Razorpay(options);
+
+  // ❌ PAYMENT FAILURE
+  rzp.on('payment.failed', function (response) {
+    console.error('Razorpay payment.failed:', response.error);
+    setPaymentBtnState('error', '⚠ Payment failed — please try again');
+  });
+
+  // 🚀 OPEN CHECKOUT
+  rzp.open();
+}
   /* ── BIND EVENTS ── */
   function bindEvents() {
     var heroBtn   = document.getElementById('hero-start-btn');
