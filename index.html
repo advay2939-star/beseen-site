@@ -2044,7 +2044,18 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
     document.querySelectorAll('.fu').forEach(function(el){ io.observe(el); });
   });
-
+// ── EMAIL TRIGGER (SAFE, NON-BREAKING) ──
+function triggerEmail(type, payload = {}) {
+  try {
+    fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, ...payload })
+    }).catch(() => {});
+  } catch (e) {
+    console.warn('Email trigger failed:', e);
+  }
+}
 })();
 </script>
 
