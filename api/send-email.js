@@ -4,38 +4,61 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   try {
-    if (req.method !== 'POST') {
-      return res.status(405).json({ error: 'Method not allowed' });
+    const { type, name, email, dermatologist } = req.body;
+
+    if (!email) {
+      return res.status(200).json({ success: true });
     }
 
-    const { email, name } = req.body;
+    if (type === 'questionnaire') {
+      await resend.emails.send({
+        from: 'BeSeen <onboarding@resend.dev>',
+        to: email,
+        subject: "You're one step away 🌿",
+        html: `
+          <p>Hi ${name || 'there'},</p>
 
-    if (!email || !name) {
-      return res.status(400).json({ error: 'Missing email or name' });
+          <p>We’ve received your skin profile.</p>
+
+          <p>You’re just <strong>₹599 away</strong> from unlocking:</p>
+
+          <ul>
+            <li>Personalised skincare routine</li>
+            <li>Dermatologist-backed plan</li>
+            <li>4-day check-ins</li>
+            <li>21-day results guarantee</li>
+          </ul>
+
+          <p>Complete your journey now.</p>
+
+          <p>— BeSeen</p>
+        `
+      });
     }
-const data = await resend.emails.send({
-  from: 'BeSeen <hello@beseen.skin>',
-  to: email,
-  subject: 'You’re on the waitlist 🚀',
-  html: `
-    <div style="font-family: Arial; padding: 20px;">
-      <h2>You're in 🚀</h2>
-      <p>Hey ${name},</p>
-      <p>You’re officially on the <strong>BeSeen</strong> waitlist.</p>
-      <p>We’re building something that will genuinely upgrade your skin game.</p>
-      <br/>
-      <p>Stay tuned.</p>
-      <p><strong>– Team BeSeen</strong></p>
-    </div>
-  `
-});
-return res.status(200).json(data);
 
-  } catch (error) {
-    console.error('EMAIL ERROR:', error);
+    if (type === 'payment') {
+      await resend.emails.send({
+        from: 'BeSeen <onboarding@resend.dev>',
+        to: email,
+        subject: "Your dermatologist is reviewing your skin 🩺",
+        html: `
+          <p>Hi ${name || 'there'},</p>
 
-    return res.status(500).json({
-      error: error.message || 'Email failed',
-    });
+          <p>Your assigned expert <strong>${dermatologist || 'Dermatologist'}</strong> is now reviewing your profile.</p>
+
+          <p>Your personalised skincare routine is being prepared.</p>
+
+          <p>We’ll reach out shortly.</p>
+
+          <p>— BeSeen</p>
+        `
+      });
+    }
+
+    return res.status(200).json({ success: true });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(200).json({ success: true });
   }
 }
