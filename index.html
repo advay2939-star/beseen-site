@@ -344,7 +344,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .btn-payment{width:100%;padding:17px;border-radius:var(--r);background:var(--black);color:var(--white);border:none;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;margin-bottom:14px;letter-spacing:.01em}
 .btn-payment:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 12px 32px rgba(10,10,10,.2)}
 .btn-payment:active{transform:translateY(0)}
-.btn-payment.loading{opacity:.7;pointer-events:none;cursor:not-allowed}
+.btn-payment.loading{opacity:.6;pointer-events:none;cursor:not-allowed}
 .btn-payment.error-state{background:#c0392b}
 .payment-security-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--g500)}
 .payment-guarantee{text-align:center;margin-top:24px}
@@ -1365,15 +1365,19 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     'Sara':     '/images/dr-sara.png'
   };
 
-  /* ── EMAIL TRIGGER (fire-and-forget, never blocks UI) ── */
+  /* ── EMAIL TRIGGER (fire-and-forget, non-blocking) ── */
   function triggerEmail(type, payload) {
     try {
+      var body = { type: type };
+      if (payload && typeof payload === 'object') {
+        Object.keys(payload).forEach(function(k){ body[k] = payload[k]; });
+      }
       fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: type, ...payload })
-      }).catch(function(){});
-    } catch(e) {}
+        body: JSON.stringify(body)
+      }).catch(function(e){ console.warn('triggerEmail fetch error:', e); });
+    } catch(e) { console.warn('triggerEmail error:', e); }
   }
 
   /* ── HELPERS ── */
@@ -1393,6 +1397,26 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     window.scrollTo(0, 0);
   }
   function goHome() { showPage('page-home'); }
+
+  function setPaymentBtnState(state, text) {
+    var btn = document.getElementById('payment-cta-btn');
+    if (!btn) return;
+    var DEFAULT_TEXT = '🔒 Secure My Routine — ₹599';
+    btn.classList.remove('loading', 'error-state');
+    if (state === 'loading') {
+      btn.classList.add('loading');
+      btn.textContent = text || 'Please wait…';
+    } else if (state === 'error') {
+      btn.classList.add('error-state');
+      btn.textContent = text || '⚠ Something went wrong — try again';
+      setTimeout(function() {
+        btn.classList.remove('error-state');
+        btn.textContent = DEFAULT_TEXT;
+      }, 3500);
+    } else {
+      btn.textContent = DEFAULT_TEXT;
+    }
+  }
 
   /* ── NAVBAR ── */
   (function initNavbar() {
@@ -1468,9 +1492,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   function animateTransformCards() {
     var cards = document.querySelectorAll('.tcard');
     cards.forEach(function(card, i){
-      setTimeout(function(){
-        card.classList.add('tvis');
-      }, 120 + i * 100);
+      setTimeout(function(){ card.classList.add('tvis'); }, 120 + i * 100);
     });
   }
 
@@ -1500,7 +1522,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     if (scarcityNameEl) scarcityNameEl.textContent = 'Dr. ' + derm.name;
 
     showPage('page-payment');
-
     requestAnimationFrame(function(){
       setTimeout(animateTransformCards, 120);
     });
@@ -1511,13 +1532,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     var tyEl = document.getElementById('ty-derm-name');
     if (tyEl) tyEl.textContent = assignedDermName;
     showPage('page-thankyou');
-
-    /* EMAIL TRIGGER 2: payment success */
-    triggerEmail('payment', {
-      name:         formData.name         || '',
-      email:        formData.email        || '',
-      dermatologist: assignedDermName     || 'your dermatologist'
-    });
+    // NOTE: email is triggered ONLY from openRazorpay after successful verification
   }
 
   /* ── QUIZ ── */
@@ -1851,11 +1866,13 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     try { await saveToSupabase(imageData); }
     catch(e) { console.error('Save error:', e); }
 
-    /* EMAIL TRIGGER 1: questionnaire submitted */
-    triggerEmail('questionnaire', {
-      name:  formData.name  || '',
-      email: formData.email || ''
-    });
+    /* Questionnaire email — fire-and-forget, non-blocking, only if email known */
+    if (formData.email) {
+      triggerEmail('questionnaire', {
+        name:  formData.name  || '',
+        email: formData.email || ''
+      });
+    }
 
     await new Promise(function(res){ setTimeout(res, 1800); });
 
@@ -1893,7 +1910,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     if (!pv || pv.replace(/\D/g,'').length < 10) { var e3 = document.getElementById('err-phone'); if(e3) e3.textContent='Valid phone required'; valid=false; }
     if (!valid) return;
 
-    /* Capture email and name from modal into formData */
     formData.email = ev;
     if (nv) formData.name = nv;
 
@@ -1901,17 +1917,45 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     startQuiz();
   }
 
-  /* ── RAZORPAY ── */
-  function openRazorpay() {
+  /* ══════════════════════════════════════════
+     ── RAZORPAY LIVE PAYMENT FLOW ──
+     1. POST /api/create-order  → get order_id + key
+     2. Open Razorpay checkout
+     3. On success → POST /api/verify-payment
+     4. On verified → triggerEmail + show thank-you
+  ══════════════════════════════════════════ */
+  async function openRazorpay() {
     if (typeof Razorpay === 'undefined') {
-      console.warn('Razorpay SDK not loaded — using fallback');
-      confirmPaymentAndShowThankYou();
+      console.error('Razorpay SDK not loaded');
+      setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
       return;
     }
+
+    setPaymentBtnState('loading', 'Creating order…');
+
+    var orderData = null;
+    try {
+      var orderRes = await fetch('/api/create-order', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ amount: 59900, currency: 'INR' })
+      });
+      if (!orderRes.ok) throw new Error('HTTP ' + orderRes.status);
+      orderData = await orderRes.json();
+      if (!orderData || !orderData.id || !orderData.key) throw new Error('Invalid order response');
+    } catch(e) {
+      console.error('create-order failed:', e);
+      setPaymentBtnState('error', '⚠ Could not create order — please try again');
+      return;
+    }
+
+    setPaymentBtnState('default');
+
     var options = {
-      key:         'rzp_test_SjpB8qqA3HfhVF',
-      amount:      59900,
-      currency:    'INR',
+      key:         orderData.key,
+      amount:      orderData.amount,
+      currency:    orderData.currency,
+      order_id:    orderData.id,
       name:        'BeSeen.',
       description: 'Personalised Skincare Plan — Expert Review',
       image:       '/favicon4.ico',
@@ -1925,49 +1969,84 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
         concerns:  formData.concerns.join(', ')
       },
       theme:  { color: '#3d6b5e' },
-      modal:  { backdropclose:false, escape:false, animation:true },
+      modal:  { backdropclose: false, escape: false, animation: true },
+
       handler: function(response) {
-        console.log('Payment success:', response.razorpay_payment_id);
-        confirmPaymentAndShowThankYou();
+        /* Razorpay calls this on successful charge — now verify server-side */
+        setPaymentBtnState('loading', 'Verifying payment…');
+
+        fetch('/api/verify-payment', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id:   response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature:  response.razorpay_signature
+          })
+        })
+        .then(function(r) {
+          if (!r.ok) throw new Error('Verify HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function(data) {
+          if (data && data.success === true) {
+            /* ✅ Verification passed — trigger email THEN show thank-you */
+            triggerEmail('payment', {
+              name:          formData.name  || '',
+              email:         formData.email || '',
+              dermatologist: assignedDermName || 'your dermatologist'
+            });
+            confirmPaymentAndShowThankYou();
+          } else {
+            console.error('Signature verification failed');
+            setPaymentBtnState('error', '⚠ Verification failed — contact support');
+          }
+        })
+        .catch(function(err) {
+          console.error('verify-payment error:', err);
+          setPaymentBtnState('error', '⚠ Verification error — contact support');
+        });
       }
     };
+
     var rzp = new Razorpay(options);
-    rzp.on('payment.failed', function(response){
-      console.error('Payment failed:', response.error);
-      var btn = document.getElementById('payment-cta-btn');
-      if (btn) {
-        var orig = btn.textContent;
-        btn.textContent = '⚠ Payment failed — please try again';
-        btn.classList.add('error-state');
-        setTimeout(function(){
-          btn.textContent = orig;
-          btn.classList.remove('error-state');
-        }, 3500);
-      }
+
+    rzp.on('payment.failed', function(response) {
+      console.error('Razorpay payment.failed:', response.error);
+      setPaymentBtnState('error', '⚠ Payment failed — please try again');
     });
+
     rzp.open();
   }
 
   /* ── BIND EVENTS ── */
   function bindEvents() {
-    document.getElementById('hero-start-btn').addEventListener('click', startQuiz);
-    document.getElementById('how-start-btn').addEventListener('click', startQuiz);
-    document.getElementById('nav-logo').addEventListener('click', function(e){ e.preventDefault(); goHome(); });
-    document.getElementById('nav-home').addEventListener('click', function(e){ e.preventDefault(); goHome(); });
-    document.getElementById('nav-cta-btn').addEventListener('click', startQuiz);
-    document.getElementById('nav-how').addEventListener('click', function(e){
+    var heroBtn   = document.getElementById('hero-start-btn');
+    var howBtn    = document.getElementById('how-start-btn');
+    var navLogo   = document.getElementById('nav-logo');
+    var navHome   = document.getElementById('nav-home');
+    var navCta    = document.getElementById('nav-cta-btn');
+    var navHow    = document.getElementById('nav-how');
+    var modalCancelBtn = document.getElementById('modal-cancel-btn');
+    var modalPayBtn    = document.getElementById('modal-pay-btn');
+    var modalEl        = document.getElementById('modal-checkout');
+    var paymentCtaBtn  = document.getElementById('payment-cta-btn');
+    var tyBackBtn      = document.getElementById('ty-back-btn');
+
+    if (heroBtn)        heroBtn.addEventListener('click', startQuiz);
+    if (howBtn)         howBtn.addEventListener('click', startQuiz);
+    if (navLogo)        navLogo.addEventListener('click', function(e){ e.preventDefault(); goHome(); });
+    if (navHome)        navHome.addEventListener('click', function(e){ e.preventDefault(); goHome(); });
+    if (navCta)         navCta.addEventListener('click', startQuiz);
+    if (navHow)         navHow.addEventListener('click', function(e){
       e.preventDefault(); goHome();
       setTimeout(function(){ var s = document.getElementById('how'); if(s) s.scrollIntoView({behavior:'smooth'}); }, 200);
     });
-
-    document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
-    document.getElementById('modal-pay-btn').addEventListener('click', processPayment);
-    document.getElementById('modal-checkout').addEventListener('click', function(e){
-      if (e.target.id === 'modal-checkout') closeModal();
-    });
-
-    document.getElementById('payment-cta-btn').addEventListener('click', openRazorpay);
-    document.getElementById('ty-back-btn').addEventListener('click', goHome);
+    if (modalCancelBtn) modalCancelBtn.addEventListener('click', closeModal);
+    if (modalPayBtn)    modalPayBtn.addEventListener('click', processPayment);
+    if (modalEl)        modalEl.addEventListener('click', function(e){ if (e.target.id === 'modal-checkout') closeModal(); });
+    if (paymentCtaBtn)  paymentCtaBtn.addEventListener('click', openRazorpay);
+    if (tyBackBtn)      tyBackBtn.addEventListener('click', goHome);
 
     document.querySelectorAll('a[href^="#"]').forEach(function(a){
       a.addEventListener('click', function(e){
@@ -1997,12 +2076,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       btn.addEventListener('click', function(){ toggleHistory(btn, btn.dataset.history); });
     });
 
-    document.getElementById('input-name').addEventListener('input', function(){
-      formData.name = this.value.trim(); checkStepReady(1);
-    });
-    document.getElementById('input-city').addEventListener('input', function(){
-      formData.city = this.value.trim(); checkStepReady(3);
-    });
+    var inputName = document.getElementById('input-name');
+    var inputCity = document.getElementById('input-city');
+    if (inputName) inputName.addEventListener('input', function(){ formData.name = this.value.trim(); checkStepReady(1); });
+    if (inputCity) inputCity.addEventListener('input', function(){ formData.city = this.value.trim(); checkStepReady(3); });
 
     /* Photo slots */
     document.querySelectorAll('.photo-slot').forEach(function(slot, idx){
@@ -2011,7 +2088,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     document.querySelectorAll('.slot-file-input').forEach(function(input, idx){
       input.addEventListener('change', function(){ handleSlotFile(input, idx); });
     });
-    document.getElementById('front-upload-area').addEventListener('click', function(){ triggerSlot(0); });
+    var frontArea = document.getElementById('front-upload-area');
+    if (frontArea) frontArea.addEventListener('click', function(){ triggerSlot(0); });
     document.addEventListener('click', function(e){
       var btn = e.target.closest('[data-clear-slot]');
       if (btn) clearSlot(e, Number(btn.dataset.clearSlot));
@@ -2028,7 +2106,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       var btn = document.getElementById(id);
       if (btn) btn.addEventListener('click', function(){ nextStep(nexts[id]); });
     });
-    document.getElementById('next-9').addEventListener('click', analyseAndGo);
+    var next9 = document.getElementById('next-9');
+    if (next9) next9.addEventListener('click', analyseAndGo);
   }
 
   /* ── INIT ── */
@@ -2044,18 +2123,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
     document.querySelectorAll('.fu').forEach(function(el){ io.observe(el); });
   });
-// ── EMAIL TRIGGER (SAFE, NON-BREAKING) ──
-function triggerEmail(type, payload = {}) {
-  try {
-    fetch('/api/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, ...payload })
-    }).catch(() => {});
-  } catch (e) {
-    console.warn('Email trigger failed:', e);
-  }
-}
+
 })();
 </script>
 
