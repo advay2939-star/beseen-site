@@ -1928,7 +1928,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     // Step 1: Create order on backend
     let orderData;
     try {
-      const res = await fetch('/api/create-order', {
+      const res = await fetch('/api/create-order.js', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
