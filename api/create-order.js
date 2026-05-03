@@ -9,17 +9,15 @@ export default async function handler(req, res) {
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
   if (!keyId || !keySecret) {
-    return res.status(500).json({ error: "Missing Razorpay keys" });
+    console.error("Missing Razorpay env vars");
+    return res.status(500).json({ error: "Payment system not configured" });
   }
 
   try {
-    const razorpay = new Razorpay({
-      key_id: keyId,
-      key_secret: keySecret,
-    });
+    const razorpay = new Razorpay({ key_id: keyId, key_secret: keySecret });
 
     const order = await razorpay.orders.create({
-      amount: 59900, // ₹599
+      amount: 59900, // ₹599 in paise
       currency: "INR",
       receipt: "rcpt_" + Date.now(),
     });
@@ -28,6 +26,7 @@ export default async function handler(req, res) {
       id: order.id,
       amount: order.amount,
       currency: order.currency,
+      key_id: keyId,  // ← return this so HTML doesn't hardcode it
     });
 
   } catch (err) {

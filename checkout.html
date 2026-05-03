@@ -1,51 +1,95 @@
-<button id="rzp-button1">Pay ₹599</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment</title>
+</head>
+<body>
+  <button id="rzp-button1">Pay ₹599</button>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<script>
-document.getElementById("rzp-button1").onclick = async function (e) {
-  e.preventDefault();
+  <script>
+    document.getElementById("rzp-button1").onclick = async function (e) {
+      e.preventDefault();
+      this.disabled = true;
+      this.textContent = "Processing...";
 
-  // Step 1: create order
-  const res = await fetch("/api/create-order", {
-    method: "POST"
-  });
+      try {
+        // Step 1: Create order on server
+        const res = await fetch("/api/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
 
-  const data = await res.json();
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || "Order creation failed");
+        }
 
-  var options = {
-    key: "rzp_live_SkXtlkfDZueYwN",
-    amount: data.amount,
-    currency: "INR",
-    name: "BCN",
-    description: "Skin Analysis Report",
-    order_id: data.id,
+        const data = await res.json();
 
-    handler: async function (response) {
-      // Step 2: verify payment
-      const verifyRes = await fetch("/api/verify-payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(response)
-      });
+        // Step 2: Open Razorpay checkout
+        const options = {
+          // key_id is public-safe — but use test key in dev, live key in prod
+          // Ideally return this from your /api/create-order response
+          key: data.key_id,
+          amount: data.amount,
+          currency: data.currency,
+          name: "BCN",
+          description: "Skin Analysis Report",
+          order_id: data.id,
 
-      const result = await verifyRes.json();
+          handler: async function (response) {
+            try {
+              const verifyRes = await fetch("/api/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(response)
+              });
 
-      if (result.success) {
-        alert("Payment successful ✅");
-      } else {
-        alert("Payment verification failed ❌");
+              const result = await verifyRes.json();
+
+              if (result.success) {
+                alert("Payment successful ✅");
+                // redirect to success page here
+              } else {
+                alert("Payment verification failed ❌");
+              }
+            } catch (verifyErr) {
+              console.error("Verification error:", verifyErr);
+              alert("Could not verify payment. Contact support.");
+            }
+          },
+
+          modal: {
+            ondismiss: function () {
+              document.getElementById("rzp-button1").disabled = false;
+              document.getElementById("rzp-button1").textContent = "Pay ₹599";
+            }
+          },
+
+          theme: { color: "#000000" }
+        };
+
+        const rzp = new Razorpay(options);
+
+        rzp.on("payment.failed", function (response) {
+          console.error("Payment failed:", response.error);
+          alert("Payment failed: " + response.error.description);
+          document.getElementById("rzp-button1").disabled = false;
+          document.getElementById("rzp-button1").textContent = "Pay ₹599";
+        });
+
+        rzp.open();
+
+      } catch (err) {
+        console.error("Could not create order:", err);
+        alert("Could not create order: " + err.message);
+        this.disabled = false;
+        this.textContent = "Pay ₹599";
       }
-    },
-
-    theme: {
-      color: "#000000"
-    }
-  };
-
-  const rzp = new Razorpay(options);
-  rzp.open();
-};
-</script>
+    };
+  </script>
+</body>
+</html>
