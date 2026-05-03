@@ -1,3 +1,4 @@
+// /api/create-order.js
 import Razorpay from "razorpay";
 
 export default async function handler(req, res) {
@@ -5,29 +6,36 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  try {
- console.log("ENV CHECK:");
- console.log("KEY:", process.env.RAZORPAY_KEY_ID);
- console.log("SECRET:", process.env.RAZORPAY_KEY_SECRET);
+  const keyId     = process.env.RAZORPAY_KEY_ID;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
+  // Fail fast if env vars are missing — clear error in Vercel logs
+  if (!keyId || !keySecret) {
+    console.error("❌ Missing Razorpay env vars");
+    return res.status(500).json({ error: "Payment service not configured" });
+  }
+
+  try {
     const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET,
+      key_id:     keyId,
+      key_secret: keySecret,
     });
 
     const order = await razorpay.orders.create({
-      amount: 59900,
+      amount:   59900,              // ₹599 in paise — change if needed
       currency: "INR",
-      receipt: "receipt_" + Date.now(),
+      receipt:  "rcpt_" + Date.now(),
     });
 
-    return res.status(200).json(order);
+    // Return only what the frontend needs
+    return res.status(200).json({
+      id:       order.id,
+      amount:   order.amount,
+      currency: order.currency,
+    });
 
   } catch (err) {
-    console.error("FULL ERROR:", err);
-
-    return res.status(500).json({
-      error: err.message,
-    });
+    console.error("❌ Razorpay order creation failed:", err);
+    return res.status(500).json({ error: "Failed to create payment order" });
   }
 }
