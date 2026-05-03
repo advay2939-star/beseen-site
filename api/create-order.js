@@ -6,8 +6,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log("KEY ID:", process.env.RAZORPAY_KEY_ID);
-    console.log("KEY SECRET EXISTS:", !!process.env.RAZORPAY_KEY_SECRET);
+ console.log("ENV CHECK:");
+ console.log("KEY:", process.env.RAZORPAY_KEY_ID);
+ console.log("SECRET:", process.env.RAZORPAY_KEY_SECRET);
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
