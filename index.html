@@ -1925,10 +1925,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
     setPaymentBtnState('loading', 'Creating order…');
 
-    // Step 1: Create order on backend
+   // Step 1: Create order on backend
     let orderData;
     try {
-      const res = await fetch('beskeen-backend/beseen-site/api/create-order', {
+      const res = await fetch('/api/create-order', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
@@ -1953,7 +1953,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
     // Step 2: Open Razorpay checkout
     const options = {
-      key:         'rzp_live_SkXtlkfDZueYwN', // Public key — safe on frontend
+      key:         orderData.key_id,
       amount:      orderData.amount,
       currency:    orderData.currency,
       order_id:    orderData.id,
@@ -2013,12 +2013,12 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 
     // Step 4: Handle payment failure from Razorpay modal
     const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function () {
+    rzp.on('payment.failed', function (response) {
+      console.error('Razorpay payment failed:', response.error);
       setPaymentBtnState('error', '⚠ Payment failed — please try again');
     });
     rzp.open();
   }
-
   /* ── BIND EVENTS ── */
   function bindEvents() {
     var heroBtn   = document.getElementById('hero-start-btn');
