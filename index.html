@@ -874,20 +874,26 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="quiz-step-label" id="quiz-step-label">Step 1 of 9</div>
     </div>
 
-    <!-- STEP 1: Name -->
-    <div class="quiz-step active" data-step="1">
-      <h2 class="quiz-q-title">Before we begin, what's your name?</h2>
-      <p class="quiz-q-sub">We use this to personalise your plan and address you properly.</p>
-      <input class="name-input" type="text" id="input-name" placeholder="Your first name…" autocomplete="given-name">
-      <div class="quiz-microfact" id="microfact-1">
-        <span class="quiz-microfact-dot"></span>
-        <span class="quiz-microfact-text" id="microfact-1-text">Your first name helps us address your routine personally — it matters.</span>
-      </div>
-      <div class="quiz-nav">
-        <span style="opacity:0">← Back</span>
-        <button class="btn-quiz-next" id="next-1">Continue →</button>
-      </div>
-    </div>
+    <!-- STEP 1: Name + Email + Phone -->
+<div class="quiz-step" data-step="1">
+  <h2 class="quiz-q-title">Let's get started — tell us about yourself</h2>
+  <p class="quiz-q-sub">Your personalised plan and dermatologist introduction will be delivered to you within 24 hours.</p>
+
+  <div style="background:var(--accent-l);border:1px solid #b5d0c9;border-radius:10px;padding:14px 18px;margin-bottom:28px;display:flex;align-items:flex-start;gap:10px;">
+    <span style="font-size:16px;flex-shrink:0;">📬</span>
+    <p style="font-size:13px;color:#2f4f45;margin:0;line-height:1.65;">
+      We need your details to send your <strong>personalised routine</strong> and connect you with your dermatologist on WhatsApp. We never share your information.
+    </p>
+  </div>
+
+  <input class="name-input" type="text"  id="input-name"  placeholder="Your name…"         autocomplete="name"  style="font-size:22px;margin-bottom:8px;">
+  <input class="name-input" type="email" id="input-email" placeholder="Your email address…" autocomplete="email" style="font-size:22px;margin-bottom:8px;">
+  <input class="name-input" type="tel"   id="input-phone" placeholder="Your phone number…"  autocomplete="tel"   style="font-size:22px;">
+
+  <div class="quiz-nav">
+    <button class="btn-quiz-next" id="next-1">Continue →</button>
+  </div>
+</div>
 
     <!-- STEP 2: Age + Gender -->
     <div class="quiz-step" data-step="2">
@@ -1348,9 +1354,8 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     skinType:'', concerns:[], behavior:'',
     sleep:'', water:'', diet:'', stress:'',
     routine:'', history:[],
-    email:''
+    email:'', phone:''
   };
-
   var slotFiles         = [null, null, null, null, null];
   var currentStep       = 1;
   var TOTAL_STEPS       = 9;
@@ -1552,10 +1557,14 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     });
     for (var i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
 
-    var ni = document.getElementById('input-name');
+     var ni = document.getElementById('input-name');
     var ci = document.getElementById('input-city');
+    var ei = document.getElementById('input-email');
+    var pi = document.getElementById('input-phone');
     if (ni) ni.value = '';
     if (ci) ci.value = '';
+    if (ei) ei.value = '';
+    if (pi) pi.value = '';
 
     document.querySelectorAll('.q-opt').forEach(function(o){ o.classList.remove('sel'); });
     document.querySelectorAll('.slot-file-input').forEach(function(inp){ inp.value = ''; });
@@ -1596,7 +1605,9 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   function checkStepReady(step) {
     var ready = false;
     switch (step) {
-      case 1: ready = formData.name.trim().length >= 2; break;
+      case 1: ready = formData.name.trim().length >= 2
+      && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+      && formData.phone.replace(/\D/g,'').length >= 10; break;     
       case 2: ready = formData.age !== '' && formData.gender !== ''; break;
       case 3: ready = formData.city.trim().length >= 2; break;
       case 4: ready = formData.skinType !== ''; break;
@@ -1758,8 +1769,10 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   async function saveToSupabase(imageData) {
     if (!sb) { console.error('Supabase unavailable'); return; }
     var payload = {
-      name:          formData.name || '',
-      age:           formData.age || '',
+      name:          formData.name  || '',
+      email:         formData.email || '',
+      phone:         formData.phone || '',
+      age:           formData.age   || '',
       gender:        formData.gender || '',
       city:          formData.city || '',
       skin_type:     formData.skinType || '',
@@ -2097,10 +2110,14 @@ async function openRazorpay() {
       btn.addEventListener('click', function(){ toggleHistory(btn, btn.dataset.history); });
     });
 
-    var inputName = document.getElementById('input-name');
-    var inputCity = document.getElementById('input-city');
-    if (inputName) inputName.addEventListener('input', function(){ formData.name = this.value.trim(); checkStepReady(1); });
-    if (inputCity) inputCity.addEventListener('input', function(){ formData.city = this.value.trim(); checkStepReady(3); });
+     var inputName  = document.getElementById('input-name');
+    var inputCity  = document.getElementById('input-city');
+    var inputEmail = document.getElementById('input-email');
+    var inputPhone = document.getElementById('input-phone');
+    if (inputName)  inputName.addEventListener('input',  function(){ formData.name  = this.value.trim(); checkStepReady(1); });
+    if (inputEmail) inputEmail.addEventListener('input', function(){ formData.email = this.value.trim(); checkStepReady(1); });
+    if (inputPhone) inputPhone.addEventListener('input', function(){ formData.phone = this.value.trim(); checkStepReady(1); });
+    if (inputCity)  inputCity.addEventListener('input',  function(){ formData.city  = this.value.trim(); checkStepReady(4); });
 
     /* Photo slots */
     document.querySelectorAll('.photo-slot').forEach(function(slot, idx){
