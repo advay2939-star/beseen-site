@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     const razorpay = new Razorpay({ key_id: keyId, key_secret: keySecret });
 
     const order = await razorpay.orders.create({
-      amount:   1000,
+      amount:   59900,
       currency: "INR",
       receipt:  "rcpt_" + Date.now(),
     });
