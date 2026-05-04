@@ -272,6 +272,128 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
 .photo-req-error{display:none;font-size:12px;color:#c0392b;background:#fdf0ef;border:1px solid #e9c4c2;border-radius:8px;padding:10px 14px;margin:8px 0 16px}
 .upload-trust{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:400;color:var(--g500);background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:10px 14px;margin-bottom:16px;line-height:1.5}
 
+/* ─────────────────────────────────────────────
+   STEP 1 — REDESIGNED AESTHETIC FORM
+   ───────────────────────────────────────────── */
+
+/* Decorative intro area above the form */
+.s1-intro{
+  position:relative;
+  margin-bottom:36px;
+}
+.s1-eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--accent-l);border:1px solid #b5d0c9;
+  border-radius:var(--pill);padding:5px 14px 5px 9px;
+  font-size:11px;font-weight:500;letter-spacing:.10em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;
+}
+.s1-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:mfPulse 2.2s ease-in-out infinite}
+
+/* The form card itself */
+.s1-card{
+  background:linear-gradient(160deg,var(--white) 0%,#f4f8f6 100%);
+  border:1px solid var(--g200);
+  border-radius:18px;
+  padding:32px 28px 28px;
+  box-shadow:0 2px 24px rgba(61,107,94,.07),0 1px 4px rgba(0,0,0,.04);
+  position:relative;
+  overflow:hidden;
+}
+.s1-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),#5a9e8f,#87c1b5);
+  border-radius:3px 3px 0 0;
+}
+
+/* Privacy notice inside the card */
+.s1-privacy{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--white);border:1px solid var(--g200);
+  border-radius:10px;padding:12px 14px;
+  margin-bottom:24px;
+}
+.s1-privacy-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.s1-privacy-text{font-size:12.5px;color:var(--g700);line-height:1.65;margin:0}
+.s1-privacy-text strong{color:var(--black);font-weight:500}
+
+/* Floating-label field wrapper */
+.s1-field{
+  position:relative;
+  margin-bottom:14px;
+}
+.s1-field:last-of-type{margin-bottom:0}
+
+/* The icon column */
+.s1-field-icon{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:18px;height:18px;color:var(--g500);pointer-events:none;
+  transition:color .2s;flex-shrink:0;
+}
+
+/* The actual input */
+.s1-input{
+  width:100%;
+  border:1.5px solid var(--g200);
+  border-radius:11px;
+  padding:14px 16px 14px 42px;
+  font-size:15px;
+  font-family:'DM Sans',sans-serif;
+  font-weight:400;
+  color:var(--black);
+  background:var(--white);
+  transition:border-color .2s, box-shadow .2s, background .2s;
+  outline:none;
+  caret-color:var(--accent);
+}
+.s1-input::placeholder{
+  color:var(--g300);
+  font-weight:300;
+}
+.s1-input:focus{
+  border-color:var(--accent);
+  background:var(--white);
+  box-shadow:0 0 0 3px rgba(61,107,94,.10);
+}
+.s1-input:focus ~ .s1-field-icon,
+.s1-field:focus-within .s1-field-icon{
+  color:var(--accent);
+}
+/* Valid state — subtle green tint */
+.s1-input.valid{
+  border-color:#87c1b5;
+  background:#fafefe;
+}
+
+/* Validation tick that appears inside the field on valid */
+.s1-field-tick{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  font-size:13px;color:var(--accent);opacity:0;
+  transition:opacity .25s ease;pointer-events:none;
+}
+.s1-input.valid ~ .s1-field-tick{opacity:1}
+
+/* Divider between fields */
+.s1-divider{
+  height:1px;background:var(--g100);margin:4px 0 14px;border-radius:1px;
+}
+
+/* Trust strip at the bottom of the card */
+.s1-trust-strip{
+  display:flex;align-items:center;justify-content:center;
+  gap:18px;margin-top:20px;flex-wrap:wrap;
+}
+.s1-trust-item{
+  display:flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--g500);font-weight:400;
+}
+.s1-trust-item svg{width:12px;height:12px;color:var(--accent);flex-shrink:0}
+.s1-trust-sep{width:3px;height:3px;border-radius:50%;background:var(--g300);flex-shrink:0}
+
+/* ─────────────────────────────────────────────
+   END STEP 1 REDESIGN
+   ───────────────────────────────────────────── */
+
 /* ── PAYMENT PAGE ── */
 #page-payment{display:none;min-height:100vh;background:var(--g50);padding:80px 0 60px}
 #page-payment.active{display:block;animation:pageFadeIn .45s cubic-bezier(.25,.1,.25,1) both}
@@ -463,6 +585,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   .stats-inner{flex-direction:column}
   .nav-cta{font-size:11.5px;padding:7px 14px}
   .trust-row-inner{gap:20px 28px}
+  .s1-card{padding:24px 18px 20px}
 }
 </style>
 </head>
@@ -777,9 +900,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
             </div>
           </div>
           <div style="margin-top:36px">
-            <button class="btn btn-primary fu d4" id="how-start-btn">
-              Start Your Journey →
-            </button>
+            <button class="btn btn-primary fu d4" id="how-start-btn">Start Your Journey →</button>
           </div>
         </div>
         <div class="fu d2">
@@ -874,26 +995,87 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
       <div class="quiz-step-label" id="quiz-step-label">Step 1 of 9</div>
     </div>
 
-    <!-- STEP 1: Name + Email + Phone -->
-<div class="quiz-step" data-step="1">
-  <h2 class="quiz-q-title">Let's get started — tell us about yourself</h2>
-  <p class="quiz-q-sub">Your personalised plan and dermatologist introduction will be delivered to you within 24 hours.</p>
+    <!-- ═══ STEP 1: Name + Email + Phone — REDESIGNED ═══ -->
+    <div class="quiz-step" data-step="1">
 
-  <div style="background:var(--accent-l);border:1px solid #b5d0c9;border-radius:10px;padding:14px 18px;margin-bottom:28px;display:flex;align-items:flex-start;gap:10px;">
-    <span style="font-size:16px;flex-shrink:0;">📬</span>
-    <p style="font-size:13px;color:#2f4f45;margin:0;line-height:1.65;">
-      We need your details to send your <strong>personalised routine</strong> and connect you with your dermatologist on WhatsApp. We never share your information.
-    </p>
-  </div>
+      <!-- Headline -->
+      <div class="s1-intro">
+        <div class="s1-eyebrow">
+          <span class="s1-eyebrow-dot"></span>
+          Step 1 of 9 &nbsp;·&nbsp; Quick start
+        </div>
+        <h2 class="quiz-q-title" style="margin-bottom:6px">Let's get started —<br>tell us about yourself.</h2>
+        <p class="quiz-q-sub" style="margin-bottom:0">Your personalised plan and dermatologist introduction will be delivered to you within 24 hours.</p>
+      </div>
 
-  <input class="name-input" type="text"  id="input-name"  placeholder="Your name…"         autocomplete="name"  style="font-size:22px;margin-bottom:8px;">
-  <input class="name-input" type="email" id="input-email" placeholder="Your email address…" autocomplete="email" style="font-size:22px;margin-bottom:8px;">
-  <input class="name-input" type="tel"   id="input-phone" placeholder="Your phone number…"  autocomplete="tel"   style="font-size:22px;">
+      <!-- The card -->
+      <div class="s1-card">
 
-  <div class="quiz-nav">
-    <button class="btn-quiz-next" id="next-1">Continue →</button>
-  </div>
-</div>
+        <!-- Privacy note -->
+        <div class="s1-privacy">
+          <span class="s1-privacy-icon">📬</span>
+          <p class="s1-privacy-text">
+            We need your details to send your <strong>personalised routine</strong> and connect you with your dermatologist on WhatsApp. We never share your information.
+          </p>
+        </div>
+
+        <!-- Name field -->
+        <div class="s1-field">
+          <svg class="s1-field-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-7 8a7 7 0 0114 0"/>
+          </svg>
+          <input class="s1-input" type="text" id="input-name" placeholder="Your full name" autocomplete="name">
+          <span class="s1-field-tick">✓</span>
+        </div>
+
+        <div class="s1-divider"></div>
+
+        <!-- Email field -->
+        <div class="s1-field">
+          <svg class="s1-field-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          <input class="s1-input" type="email" id="input-email" placeholder="Your email address" autocomplete="email">
+          <span class="s1-field-tick">✓</span>
+        </div>
+
+        <div class="s1-divider"></div>
+
+        <!-- Phone field -->
+        <div class="s1-field" style="margin-bottom:0">
+          <svg class="s1-field-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          <input class="s1-input" type="tel" id="input-phone" placeholder="Your phone number (WhatsApp)" autocomplete="tel">
+          <span class="s1-field-tick">✓</span>
+        </div>
+
+        <!-- Trust strip -->
+        <div class="s1-trust-strip">
+          <div class="s1-trust-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Data encrypted
+          </div>
+          <div class="s1-trust-sep"></div>
+          <div class="s1-trust-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"/></svg>
+            Never shared
+          </div>
+          <div class="s1-trust-sep"></div>
+          <div class="s1-trust-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"/></svg>
+            500+ customers
+          </div>
+        </div>
+
+      </div><!-- /s1-card -->
+
+      <div class="quiz-nav" style="margin-top:24px">
+        <span></span><!-- spacer -->
+        <button class="btn-quiz-next" id="next-1">Continue →</button>
+      </div>
+    </div><!-- /step 1 -->
 
     <!-- STEP 2: Age + Gender -->
     <div class="quiz-step" data-step="2">
@@ -1370,7 +1552,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     'Sara':     '/images/dr-sara.png'
   };
 
-  /* ── EMAIL TRIGGER (fire-and-forget, non-blocking) ── */
+  /* ── EMAIL TRIGGER ── */
   function triggerEmail(type, payload) {
     try {
       var body = { type: type };
@@ -1557,7 +1739,7 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     });
     for (var i = 0; i < slotFiles.length; i++) slotFiles[i] = null;
 
-     var ni = document.getElementById('input-name');
+    var ni = document.getElementById('input-name');
     var ci = document.getElementById('input-city');
     var ei = document.getElementById('input-email');
     var pi = document.getElementById('input-phone');
@@ -1565,6 +1747,9 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     if (ci) ci.value = '';
     if (ei) ei.value = '';
     if (pi) pi.value = '';
+
+    /* reset valid state on step 1 inputs */
+    [ni, ei, pi].forEach(function(el){ if(el) el.classList.remove('valid'); });
 
     document.querySelectorAll('.q-opt').forEach(function(o){ o.classList.remove('sel'); });
     document.querySelectorAll('.slot-file-input').forEach(function(inp){ inp.value = ''; });
@@ -1605,11 +1790,13 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   function checkStepReady(step) {
     var ready = false;
     switch (step) {
-      case 1: ready = formData.name.trim().length >= 2
-      && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
-      && formData.phone.replace(/\D/g,'').length >= 10; break;     
+      case 1:
+        ready = formData.name.trim().length >= 2
+          && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+          && formData.phone.replace(/\D/g,'').length >= 10;
+        break;
       case 2: ready = formData.age !== '' && formData.gender !== ''; break;
-      case 3: ready = formData.city.trim().length >= 2; break;
+      case 3: ready = formData.city.trim().length >= 2; break;   /* ✅ FIXED: was checkStepReady(4) */
       case 4: ready = formData.skinType !== ''; break;
       case 5: ready = formData.concerns.length >= 1; break;
       case 6: ready = formData.behavior !== ''; break;
@@ -1878,7 +2065,6 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     try { await saveToSupabase(imageData); }
     catch(e) { console.error('Save error:', e); }
 
-    /* Questionnaire email — fire-and-forget, non-blocking, only if email known */
     if (formData.email) {
       triggerEmail('questionnaire', {
         name:  formData.name  || '',
@@ -1929,130 +2115,119 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
     startQuiz();
   }
 
-  // ── RAZORPAY PAYMENT FLOW ──
-async function openRazorpay() {
-  if (typeof Razorpay === 'undefined') {
-    setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
-    return;
-  }
+  /* ── RAZORPAY ── */
+  async function openRazorpay() {
+    if (typeof Razorpay === 'undefined') {
+      setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
+      return;
+    }
 
-  setPaymentBtnState('loading', 'Creating order…');
+    setPaymentBtnState('loading', 'Creating order…');
 
-  // Step 1: Create order on backend
-  let orderData;
-  try {
-    const res = await fetch('/api/create-order', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
+    let orderData;
+    try {
+      const res = await fetch('/api/create-order', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          name:  formData.name  || '',
+          email: formData.email || ''
+        })
+      });
+
+      if (!res.ok) throw new Error('create-order HTTP ' + res.status);
+      orderData = await res.json();
+
+      if (!orderData || !orderData.id || !orderData.amount || !orderData.currency || !orderData.key_id) {
+        throw new Error('Incomplete order response from server');
+      }
+    } catch (err) {
+      console.error('create-order error:', err);
+      setPaymentBtnState('error', '⚠ Could not create order — please try again');
+      return;
+    }
+
+    setPaymentBtnState('default');
+
+    const options = {
+      key:         orderData.key_id,
+      amount:      orderData.amount,
+      currency:    orderData.currency,
+      order_id:    orderData.id,
+      name:        'BeSeen.',
+      description: 'Personalised Skincare Plan — Expert Review',
+      image:       '/favicon4.ico',
+      prefill: {
         name:  formData.name  || '',
         email: formData.email || ''
-      })
-    });
+      },
+      notes: {
+        skin_type:     formData.skinType || '',
+        city:          formData.city     || '',
+        concerns:      (Array.isArray(formData.concerns) ? formData.concerns : []).join(', '),
+        dermatologist: assignedDermName  || ''
+      },
+      theme: { color: '#3d6b5e' },
+      modal: {
+        backdropclose: false,
+        escape:        false,
+        animation:     true,
+        ondismiss:     function () { setPaymentBtnState('default'); }
+      },
+      handler: async function (response) {
+        try {
+          setPaymentBtnState('loading', 'Verifying payment…');
 
-    if (!res.ok) throw new Error('create-order HTTP ' + res.status);
+          const verifyRes = await fetch('/api/verify-payment', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({
+              razorpay_order_id:   response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature:  response.razorpay_signature,
+              name:                formData.name    || '',
+              email:               formData.email   || '',
+              dermatologist:       assignedDermName || ''
+            })
+          });
 
-    orderData = await res.json();
+          if (!verifyRes.ok) throw new Error('verify-payment HTTP ' + verifyRes.status);
 
-    if (!orderData || !orderData.id || !orderData.amount || !orderData.currency || !orderData.key_id) {
-      throw new Error('Incomplete order response from server');
-    }
-  } catch (err) {
-    console.error('create-order error:', err);
-    setPaymentBtnState('error', '⚠ Could not create order — please try again');
-    return;
-  }
+          const verifyData = await verifyRes.json();
 
-  setPaymentBtnState('default');
-
-  // Step 2: Open Razorpay checkout
-  const options = {
-    key:         orderData.key_id,
-    amount:      orderData.amount,
-    currency:    orderData.currency,
-    order_id:    orderData.id,
-    name:        'BeSeen.',
-    description: 'Personalised Skincare Plan — Expert Review',
-    image:       '/favicon4.ico',
-    prefill: {
-      name:  formData.name  || '',
-      email: formData.email || ''
-    },
-    notes: {
-      skin_type:     formData.skinType || '',
-      city:          formData.city     || '',
-      concerns:      (Array.isArray(formData.concerns) ? formData.concerns : []).join(', '),
-      dermatologist: assignedDermName  || ''
-    },
-    theme: { color: '#3d6b5e' },
-    modal: {
-      backdropclose: false,
-      escape:        false,
-      animation:     true,
-      ondismiss:     function () {
-        // ✅ FIX: reset button if user closes the modal
-        setPaymentBtnState('default');
-      }
-    },
-
-    // Step 3: On payment success — verify on backend
-    handler: async function (response) {
-      try {
-        setPaymentBtnState('loading', 'Verifying payment…');
-
-        const verifyRes = await fetch('/api/verify-payment', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({
-            razorpay_order_id:   response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature:  response.razorpay_signature,
-            name:                formData.name    || '',
-            email:               formData.email   || '',
-            dermatologist:       assignedDermName || ''
-          })
-        });
-
-        if (!verifyRes.ok) throw new Error('verify-payment HTTP ' + verifyRes.status);
-
-        const verifyData = await verifyRes.json();
-
-        if (verifyData && verifyData.success === true) {
-  setPaymentBtnState('default');
-
-  // Fire payment confirmation email — non-blocking
-  if (formData.email) {
-    triggerEmail('payment', {
-      name:          formData.name         || '',
-      email:         formData.email        || '',
-      dermatologist: assignedDermName      || 'Riya'
-    });
-  }
-
-  confirmPaymentAndShowThankYou();
-} else {
-          throw new Error('Server returned success=false');
+          if (verifyData && verifyData.success === true) {
+            setPaymentBtnState('default');
+            if (formData.email) {
+              triggerEmail('payment', {
+                name:          formData.name         || '',
+                email:         formData.email        || '',
+                dermatologist: assignedDermName      || 'Riya'
+              });
+            }
+            confirmPaymentAndShowThankYou();
+          } else {
+            throw new Error('Server returned success=false');
+          }
+        } catch (err) {
+          console.error('verify-payment error:', err);
+          setPaymentBtnState('error', '⚠ Verification failed — contact support');
         }
-      } catch (err) {
-        console.error('verify-payment error:', err);
-        setPaymentBtnState('error', '⚠ Verification failed — contact support');
       }
-    }
-  };
+    };
 
-  // Step 4: Handle payment failure from Razorpay modal
-  try {
-    const rzp = new Razorpay(options);
-    rzp.on('payment.failed', function (response) {
-      console.error('Razorpay payment failed:', response.error);
-      setPaymentBtnState('error', '⚠ Payment failed — please try again');
-    });
-    rzp.open();
-  } catch (err) {
-    console.error('Razorpay init error:', err);
-    setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
+    try {
+      const rzp = new Razorpay(options);
+      rzp.on('payment.failed', function (response) {
+        console.error('Razorpay payment failed:', response.error);
+        setPaymentBtnState('error', '⚠ Payment failed — please try again');
+      });
+      rzp.open();
+    } catch (err) {
+      console.error('Razorpay init error:', err);
+      setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
+    }
   }
-}
+
   /* ── BIND EVENTS ── */
   function bindEvents() {
     var heroBtn   = document.getElementById('hero-start-btn');
@@ -2110,14 +2285,32 @@ async function openRazorpay() {
       btn.addEventListener('click', function(){ toggleHistory(btn, btn.dataset.history); });
     });
 
-     var inputName  = document.getElementById('input-name');
-    var inputCity  = document.getElementById('input-city');
+    /* Step 1 inputs — with live valid-state indicator */
+    var inputName  = document.getElementById('input-name');
     var inputEmail = document.getElementById('input-email');
     var inputPhone = document.getElementById('input-phone');
-    if (inputName)  inputName.addEventListener('input',  function(){ formData.name  = this.value.trim(); checkStepReady(1); });
-    if (inputEmail) inputEmail.addEventListener('input', function(){ formData.email = this.value.trim(); checkStepReady(1); });
-    if (inputPhone) inputPhone.addEventListener('input', function(){ formData.phone = this.value.trim(); checkStepReady(1); });
-    if (inputCity)  inputCity.addEventListener('input',  function(){ formData.city  = this.value.trim(); checkStepReady(4); });
+    var inputCity  = document.getElementById('input-city');
+
+    if (inputName) inputName.addEventListener('input', function(){
+      formData.name = this.value.trim();
+      this.classList.toggle('valid', formData.name.length >= 2);
+      checkStepReady(1);
+    });
+    if (inputEmail) inputEmail.addEventListener('input', function(){
+      formData.email = this.value.trim();
+      this.classList.toggle('valid', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email));
+      checkStepReady(1);
+    });
+    if (inputPhone) inputPhone.addEventListener('input', function(){
+      formData.phone = this.value.trim();
+      this.classList.toggle('valid', formData.phone.replace(/\D/g,'').length >= 10);
+      checkStepReady(1);
+    });
+    /* ✅ FIXED: was checkStepReady(4) — now correctly calls checkStepReady(3) */
+    if (inputCity) inputCity.addEventListener('input', function(){
+      formData.city = this.value.trim();
+      checkStepReady(3);
+    });
 
     /* Photo slots */
     document.querySelectorAll('.photo-slot').forEach(function(slot, idx){
@@ -2171,12 +2364,6 @@ async function openRazorpay() {
 (function() {
   'use strict';
 
-  var facts1 = [
-    'Your first name helps us address your routine personally — it matters.',
-    'Over 500 people have started their skin journey right here.',
-    'Personalised plans outperform generic ones by 3× in clinical trials.',
-    'A personal touch makes all the difference in skincare adherence.'
-  ];
   var facts2 = [
     'Hormone levels peak in your 20s–30s, directly affecting skin oiliness.',
     'Women are 3× more likely to experience hormonal breakouts after 25.',
@@ -2239,7 +2426,6 @@ async function openRazorpay() {
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    startRotating('microfact-1-text', null, facts1, 4500);
     startRotating('microfact-2-text', null, facts2, 4800);
     startRotating('trust-rot-text', 'trust-rot-icon', trustItems, 3800);
 
