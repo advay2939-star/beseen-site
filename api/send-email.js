@@ -19,65 +19,106 @@ export default async function handler(req, res) {
     // EMAIL 1 — Quiz done, didn't pay (abandonment/callback)
     // ─────────────────────────────────────────────────────
     if (type === "questionnaire") {
-      await resend.emails.send({
-        from: "BeSeen <hello@beseen.skin>",
-        to:   email,
-        subject: `${name ? name + ", your" : "Your"} personalised skin routine is waiting 🌿`,
-        html: `
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:520px;margin:auto;padding:32px 24px;color:#111;background:#fff;">
+  await resend.emails.send({
+    from: "BeSeen <hello@beseen.skin>",
+    to:   email,
+    subject: `${name ? name + ", we" : "We"} received your skin profile 🌿`,
+    html: `
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:540px;margin:auto;padding:40px 28px;color:#111;background:#ffffff;">
 
-  <div style="font-size:20px;font-weight:700;margin-bottom:28px;letter-spacing:-0.5px;">
+  <!-- Logo -->
+  <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:36px;">
     BeSeen<span style="color:#3d6b5e;">.</span>
   </div>
 
-  <h2 style="font-size:24px;font-weight:600;margin-bottom:10px;line-height:1.3;">
-    ${name ? `Hey ${name} —` : "Hey —"} your routine is built and ready.
+  <!-- Headline -->
+  <h2 style="font-size:26px;font-weight:600;line-height:1.3;margin:0 0 14px 0;">
+    ${name ? `${name}, we see you.` : "We see you."}
   </h2>
 
-  <p style="color:#555;line-height:1.7;margin-bottom:20px;">
-    You took the time to answer every question about your skin. We took that seriously — 
-    your personalised routine is already put together and waiting for you.
+  <p style="font-size:15px;color:#444;line-height:1.75;margin:0 0 20px 0;">
+    You just completed your full skin questionnaire — and we want you to know 
+    that every single answer you gave is being taken seriously.
   </p>
 
-  <div style="background:#f0f7f5;border-left:3px solid #3d6b5e;border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:24px;">
-    <p style="margin:0;font-size:14px;color:#2f4f45;line-height:1.7;">
-      <strong>Your plan includes:</strong><br>
-      ✓ A morning and night routine built for your skin type<br>
-      ✓ Ingredient-matched recommendations (no guesswork)<br>
-      ✓ A dermatologist who will personally check in at day 4 and day 21<br>
-      ✓ WhatsApp support throughout your journey
+  <p style="font-size:15px;color:#444;line-height:1.75;margin:0 0 28px 0;">
+    This wasn't a generic quiz. Every question was designed by dermatologists 
+    to map the exact state of your skin — your type, your concerns, your lifestyle, 
+    your environment. That's the level of detail that makes BeSeen different 
+    from anything else you've tried.
+  </p>
+
+  <!-- Value block -->
+  <div style="background:#f0f7f5;border-radius:14px;padding:24px 26px;margin-bottom:28px;">
+    <p style="margin:0 0 16px 0;font-size:15px;font-weight:600;color:#1a1a1a;">
+      Here's what we've built for you:
     </p>
+    <table style="width:100%;border-collapse:collapse;">
+      <tr>
+        <td style="padding:9px 0;vertical-align:top;width:26px;font-size:17px;">🧴</td>
+        <td style="padding:9px 0;font-size:13.5px;color:#333;line-height:1.65;">
+          <strong>A full morning + night routine</strong> — ingredient-matched to your 
+          exact skin type and concerns. No guessing, no generic advice.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:9px 0;vertical-align:top;font-size:17px;">👩‍⚕️</td>
+        <td style="padding:9px 0;font-size:13.5px;color:#333;line-height:1.65;">
+          <strong>A real dermatologist assigned to you</strong> — who personally reviews 
+          your photos and profile before crafting your plan.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:9px 0;vertical-align:top;font-size:17px;">📅</td>
+        <td style="padding:9px 0;font-size:13.5px;color:#333;line-height:1.65;">
+          <strong>Check-ins at day 4 and day 21</strong> — your expert doesn't disappear 
+          after the routine is sent. They follow up and adjust based on how your skin responds.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:9px 0;vertical-align:top;font-size:17px;">💬</td>
+        <td style="padding:9px 0;font-size:13.5px;color:#333;line-height:1.65;">
+          <strong>WhatsApp support throughout</strong> — real answers from your expert, 
+          not a chatbot.
+        </td>
+      </tr>
+    </table>
   </div>
 
-  <p style="color:#555;line-height:1.7;margin-bottom:8px;">
-    All of that — for a one-time ₹599. No subscription. No hidden charges.
+  <!-- Reassurance -->
+  <p style="font-size:15px;color:#444;line-height:1.75;margin:0 0 10px 0;">
+    All of this — for a one-time ₹599. No subscription. No recurring charges. 
+    Just results.
   </p>
 
-  <p style="color:#555;line-height:1.7;margin-bottom:28px;">
-    And if you don't see visible improvement in 21 days, we'll refund you completely. 
-    No questions, no forms, no hassle.
+  <p style="font-size:15px;color:#444;line-height:1.75;margin:0 0 28px 0;">
+    And if you don't see visible improvement in 21 days, we refund you. 
+    Completely. No forms, no follow-up, no questions asked.
   </p>
 
-  <a href="https://beseen.skin" 
-     style="display:inline-block;padding:15px 28px;background:#3d6b5e;color:#fff;text-decoration:none;border-radius:10px;font-weight:600;font-size:15px;letter-spacing:0.2px;">
+  <!-- CTA -->
+  <a href="https://beseen.skin"
+     style="display:inline-block;padding:16px 30px;background:#3d6b5e;color:#ffffff;
+            text-decoration:none;border-radius:11px;font-weight:600;font-size:15px;
+            letter-spacing:0.2px;margin-bottom:28px;">
     Unlock My Routine — ₹599 →
   </a>
 
-  <p style="margin-top:28px;font-size:13px;color:#888;line-height:1.6;">
-    Your skin data is saved. You won't need to redo the quiz — just click the button above 
-    and you'll pick up right where you left off.
+  <!-- Trust line -->
+  <p style="font-size:13px;color:#888;line-height:1.65;margin:0 0 8px 0;">
+    Your skin profile is saved. You won't need to redo the questionnaire — 
+    just click above and you'll pick up exactly where you left off.
   </p>
 
-  <hr style="border:none;border-top:1px solid #eee;margin:32px 0;">
+  <hr style="border:none;border-top:1px solid #eeeeee;margin:32px 0 20px 0;">
 
-  <p style="font-size:12px;color:#aaa;margin:0;">
-    — Team BeSeen &nbsp;·&nbsp; Not a substitute for medical advice.
+  <p style="font-size:12px;color:#bbb;margin:0;line-height:1.6;">
+    With care — Team BeSeen &nbsp;·&nbsp; 
+    Not a substitute for professional medical advice.
   </p>
 
 </div>`,
-      });
-    }
-
+  });
     // ─────────────────────────────────────────────────────
     // EMAIL 2 — Payment confirmed
     // ─────────────────────────────────────────────────────
