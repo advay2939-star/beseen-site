@@ -1917,108 +1917,119 @@ footer{background:var(--black);color:var(--g300);padding:44px 0 28px}
   }
 
   // ── RAZORPAY PAYMENT FLOW ──
-  async function openRazorpay() {
-    if (typeof Razorpay === 'undefined') {
-      setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
-      return;
-    }
+async function openRazorpay() {
+  if (typeof Razorpay === 'undefined') {
+    setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
+    return;
+  }
 
-    setPaymentBtnState('loading', 'Creating order…');
+  setPaymentBtnState('loading', 'Creating order…');
 
-   // Step 1: Create order on backend
-    let orderData;
-    try {
-      const res = await fetch('/api/create-order', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({
-          name:  formData.name  || '',
-          email: formData.email || ''
-        })
-      });
-
-      if (!res.ok) throw new Error('create-order HTTP ' + res.status);
-
-      orderData = await res.json();
-
-      if (!orderData || !orderData.id || !orderData.amount || !orderData.currency) {
-        throw new Error('Incomplete order response from server');
-      }
-    } catch (err) {
-      setPaymentBtnState('error', '⚠ Could not create order — please try again');
-      return;
-    }
-
-    setPaymentBtnState('default');
-
-    // Step 2: Open Razorpay checkout
-    const options = {
-      key:         orderData.key_id,
-      amount:      orderData.amount,
-      currency:    orderData.currency,
-      order_id:    orderData.id,
-      name:        'BeSeen.',
-      description: 'Personalised Skincare Plan — Expert Review',
-      image:       '/favicon4.ico',
-      prefill: {
+  // Step 1: Create order on backend
+  let orderData;
+  try {
+    const res = await fetch('/api/create-order', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
         name:  formData.name  || '',
         email: formData.email || ''
-      },
-      notes: {
-        skin_type:     formData.skinType || '',
-        city:          formData.city     || '',
-        concerns:      (Array.isArray(formData.concerns) ? formData.concerns : []).join(', '),
-        dermatologist: assignedDermName  || ''
-      },
-      theme: { color: '#3d6b5e' },
-      modal: {
-        backdropclose: false,
-        escape:        false,
-        animation:     true
-      },
+      })
+    });
 
-      // Step 3: On payment success — verify on backend
-      handler: async function (response) {
-        try {
-          setPaymentBtnState('loading', 'Verifying payment…');
+    if (!res.ok) throw new Error('create-order HTTP ' + res.status);
 
-          const verifyRes = await fetch('/api/verify-payment', {
-            method:  'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({
-              razorpay_order_id:   response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature:  response.razorpay_signature,
-              name:                formData.name    || '',
-              email:               formData.email   || '',
-              dermatologist:       assignedDermName || ''
-            })
-          });
+    orderData = await res.json();
 
-          if (!verifyRes.ok) throw new Error('verify-payment HTTP ' + verifyRes.status);
+    if (!orderData || !orderData.id || !orderData.amount || !orderData.currency || !orderData.key_id) {
+      throw new Error('Incomplete order response from server');
+    }
+  } catch (err) {
+    console.error('create-order error:', err);
+    setPaymentBtnState('error', '⚠ Could not create order — please try again');
+    return;
+  }
 
-          const verifyData = await verifyRes.json();
+  setPaymentBtnState('default');
 
-          if (verifyData && verifyData.success === true) {
-            setPaymentBtnState('default');
-            confirmPaymentAndShowThankYou();
-          } else {
-            throw new Error('Server returned success=false');
-          }
-        } catch (err) {
-          setPaymentBtnState('error', '⚠ Verification failed — contact support');
-        }
+  // Step 2: Open Razorpay checkout
+  const options = {
+    key:         orderData.key_id,
+    amount:      orderData.amount,
+    currency:    orderData.currency,
+    order_id:    orderData.id,
+    name:        'BeSeen.',
+    description: 'Personalised Skincare Plan — Expert Review',
+    image:       '/favicon4.ico',
+    prefill: {
+      name:  formData.name  || '',
+      email: formData.email || ''
+    },
+    notes: {
+      skin_type:     formData.skinType || '',
+      city:          formData.city     || '',
+      concerns:      (Array.isArray(formData.concerns) ? formData.concerns : []).join(', '),
+      dermatologist: assignedDermName  || ''
+    },
+    theme: { color: '#3d6b5e' },
+    modal: {
+      backdropclose: false,
+      escape:        false,
+      animation:     true,
+      ondismiss:     function () {
+        // ✅ FIX: reset button if user closes the modal
+        setPaymentBtnState('default');
       }
-    };
+    },
 
-    // Step 4: Handle payment failure from Razorpay modal
+    // Step 3: On payment success — verify on backend
+    handler: async function (response) {
+      try {
+        setPaymentBtnState('loading', 'Verifying payment…');
+
+        const verifyRes = await fetch('/api/verify-payment', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({
+            razorpay_order_id:   response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature:  response.razorpay_signature,
+            name:                formData.name    || '',
+            email:               formData.email   || '',
+            dermatologist:       assignedDermName || ''
+          })
+        });
+
+        if (!verifyRes.ok) throw new Error('verify-payment HTTP ' + verifyRes.status);
+
+        const verifyData = await verifyRes.json();
+
+        if (verifyData && verifyData.success === true) {
+          setPaymentBtnState('default');
+          confirmPaymentAndShowThankYou();
+        } else {
+          throw new Error('Server returned success=false');
+        }
+      } catch (err) {
+        console.error('verify-payment error:', err);
+        setPaymentBtnState('error', '⚠ Verification failed — contact support');
+      }
+    }
+  };
+
+  // Step 4: Handle payment failure from Razorpay modal
+  try {
     const rzp = new Razorpay(options);
     rzp.on('payment.failed', function (response) {
       console.error('Razorpay payment failed:', response.error);
       setPaymentBtnState('error', '⚠ Payment failed — please try again');
     });
     rzp.open();
+  } catch (err) {
+    console.error('Razorpay init error:', err);
+    setPaymentBtnState('error', '⚠ Payment unavailable — please refresh');
   }
+}
   /* ── BIND EVENTS ── */
   function bindEvents() {
     var heroBtn   = document.getElementById('hero-start-btn');
