@@ -1,24 +1,9 @@
 {
-  "name": "api",
+  "name": "beseen-site",
   "version": "1.0.0",
-  "description": "",
-  "main": "send-email.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/YOUR-USERNAME/beseen-site.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/YOUR-USERNAME/beseen-site/issues"
-  },
-  "homepage": "https://github.com/YOUR-USERNAME/beseen-site#readme",
+  "type": "module",
   "dependencies": {
+    "razorpay": "^2.9.2",
     "resend": "^6.9.4"
   }
 }
