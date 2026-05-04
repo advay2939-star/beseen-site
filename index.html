@@ -2005,9 +2005,19 @@ async function openRazorpay() {
         const verifyData = await verifyRes.json();
 
         if (verifyData && verifyData.success === true) {
-          setPaymentBtnState('default');
-          confirmPaymentAndShowThankYou();
-        } else {
+  setPaymentBtnState('default');
+
+  // Fire payment confirmation email — non-blocking
+  if (formData.email) {
+    triggerEmail('payment', {
+      name:          formData.name         || '',
+      email:         formData.email        || '',
+      dermatologist: assignedDermName      || 'Riya'
+    });
+  }
+
+  confirmPaymentAndShowThankYou();
+} else {
           throw new Error('Server returned success=false');
         }
       } catch (err) {
